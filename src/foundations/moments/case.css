@@ -14,15 +14,35 @@
 .m-case-legendary {
   --tint: var(--c-glow);
 }
+
+.m-case-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Backdrop dim + near-black drop layer for legendary reveal */
 .m-case-dim {
   position: absolute;
   inset: 0;
   background: radial-gradient(
     80% 60% at 50% 45%,
-    color-mix(in srgb, var(--c-hud-bg) 55%, transparent),
+    color-mix(in srgb, var(--c-hud-bg) 58%, transparent),
     color-mix(in srgb, var(--c-hud-bg) 92%, transparent)
   );
   animation: m-case-in 260ms ease both;
+}
+.m-case-blackout {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    75% 65% at 50% 50%,
+    color-mix(in srgb, var(--c-hud-bg) 94%, transparent),
+    var(--c-hud-bg)
+  );
+  opacity: 0;
+  pointer-events: none;
 }
 @keyframes m-case-in {
   from {
@@ -30,21 +50,52 @@
   }
 }
 
-/* The window the strip races through, with a lacquer frame and soft edge fades. */
+/* Impact burst flash */
+.m-case-flash {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 110vmax;
+  height: 110vmax;
+  margin: -55vmax 0 0 -55vmax;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--c-coin-shine) 0%,
+    color-mix(in srgb, var(--tint) 75%, transparent) 34%,
+    transparent 68%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- the reel window: lavish lacquer-and-gold frame ---------- */
 .m-case-window {
   position: relative;
   width: 100%;
-  height: calc(var(--card) * 1.42);
+  height: calc(var(--card) * 1.62);
   overflow: hidden;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--c-lacquer) 80%, black),
-    var(--c-lacquer) 45%,
-    color-mix(in srgb, var(--c-lacquer) 70%, black)
+  background: radial-gradient(
+    65% 90% at 50% 50%,
+    color-mix(in srgb, var(--c-lacquer) 88%, var(--c-accent)),
+    color-mix(in srgb, var(--c-lacquer) 72%, var(--c-hud-bg)) 62%,
+    color-mix(in srgb, var(--c-lacquer) 45%, var(--c-hud-bg)) 100%
   );
-  border-block: 4px solid var(--c-gold);
-  -webkit-mask: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
-  mask: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
+  border-block: 5px solid var(--c-gold);
+  box-shadow:
+    inset 0 3px 0 var(--c-glow),
+    inset 0 6px 0 color-mix(in srgb, var(--c-lacquer) 52%, var(--c-hud-bg)),
+    inset 0 -3px 0 var(--c-glow),
+    inset 0 -7px 0 color-mix(in srgb, var(--c-lacquer) 45%, var(--c-hud-bg)),
+    0 10px 0 color-mix(in srgb, var(--c-hud-bg) 65%, transparent);
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    var(--c-hud-bg) 12%,
+    var(--c-hud-bg) 88%,
+    transparent
+  );
+  mask: linear-gradient(90deg, transparent, var(--c-hud-bg) 12%, var(--c-hud-bg) 88%, transparent);
   animation: m-case-window 420ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
 }
 @keyframes m-case-window {
@@ -53,6 +104,65 @@
     opacity: 0;
   }
 }
+
+/* Ornamental gold maki-e rails along the inner top & bottom of the lacquer frame */
+.m-case-rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 22px,
+      var(--c-coin-shine) 22px 26px,
+      transparent 26px 48px
+    ),
+    linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--c-gold) 78%, var(--c-glow)) 20%,
+      var(--c-glow) 50%,
+      color-mix(in srgb, var(--c-gold) 78%, var(--c-glow)) 80%,
+      transparent
+    );
+  opacity: 0.72;
+}
+.m-case-rail-top {
+  top: 5px;
+}
+.m-case-rail-bot {
+  bottom: 5px;
+}
+
+/* Golden frame aura: pre-glows during a legendary crawl before the player knows why */
+.m-case-frame-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-glow) 72%, var(--c-coin-shine)) 0%,
+      transparent 24%,
+      transparent 76%,
+      color-mix(in srgb, var(--c-glow) 72%, var(--c-coin-shine)) 100%
+    ),
+    radial-gradient(
+      45% 85% at 50% 50%,
+      color-mix(in srgb, var(--c-glow) 42%, transparent),
+      transparent 75%
+    );
+  box-shadow:
+    inset 0 4px 0 var(--c-coin-shine),
+    inset 0 -4px 0 var(--c-coin-shine);
+  opacity: 0;
+}
+
+/* ---------- prize strip & rarity-colored patterned cards ---------- */
 .m-case-strip {
   position: absolute;
   left: 0;
@@ -61,56 +171,231 @@
   gap: var(--gap);
   margin-top: calc(var(--card) * -0.6);
   will-change: transform;
+  z-index: 1;
 }
+
 .m-case-card {
   position: relative;
   flex: none;
+  box-sizing: border-box;
   width: var(--card);
   height: calc(var(--card) * 1.2);
   display: grid;
   place-items: center;
-  border-radius: 14px 18px 12px 16px;
+  border-radius: 16px 20px 14px 18px;
+  overflow: hidden;
+  --r: var(--c-panel-edge);
+  --r-lip: color-mix(in srgb, var(--c-panel-edge) 68%, var(--c-hud-bg));
+  --r-pat: color-mix(in srgb, var(--c-panel-edge) 38%, transparent);
   background: radial-gradient(
-    80% 70% at 40% 30%,
-    color-mix(in srgb, var(--c-panel) 92%, white),
-    var(--c-panel)
+    82% 74% at 36% 26%,
+    color-mix(in srgb, var(--c-panel) 88%, var(--c-coin-shine)),
+    var(--c-panel) 62%,
+    var(--c-surface-alt) 100%
   );
-  box-shadow: inset 0 -6px 0 color-mix(in srgb, var(--c-panel) 70%, var(--c-ink));
-  --r: var(--c-ink-muted);
+  box-shadow:
+    inset 0 0 0 3px var(--r),
+    inset 0 -8px 0 var(--r-lip);
 }
+
+/* Rare card back: rich indigo & sky tint with seigaiha waves */
 .m-r-rare {
   --r: var(--c-secondary);
+  --r-lip: color-mix(in srgb, var(--c-secondary) 64%, var(--c-hud-bg));
+  --r-pat: color-mix(in srgb, var(--c-secondary) 32%, transparent);
+  background: radial-gradient(
+    82% 76% at 35% 25%,
+    color-mix(in srgb, var(--c-secondary-soft) 78%, var(--c-coin-shine)),
+    color-mix(in srgb, var(--c-secondary-soft) 68%, var(--c-panel)) 58%,
+    color-mix(in srgb, var(--c-secondary) 36%, var(--c-panel)) 100%
+  );
+  box-shadow:
+    inset 0 0 0 3.5px var(--c-secondary),
+    inset 0 -8px 0 var(--r-lip);
 }
+
+/* Legendary card back: imperial gold & vermilion lacquer with asanoha star lattice */
 .m-r-legendary {
   --r: var(--c-glow);
+  --r-lip: color-mix(in srgb, var(--c-lacquer) 72%, var(--c-hud-bg));
+  --r-pat: color-mix(in srgb, var(--c-gold) 42%, transparent);
+  background: radial-gradient(
+    84% 78% at 35% 24%,
+    var(--c-coin-shine),
+    color-mix(in srgb, var(--c-glow) 64%, var(--c-gold-soft)) 48%,
+    color-mix(in srgb, var(--c-gold) 68%, var(--c-lacquer)) 100%
+  );
+  box-shadow:
+    inset 0 0 0 4px var(--c-glow),
+    inset 0 0 0 6px color-mix(in srgb, var(--c-lacquer) 75%, var(--c-gold)),
+    inset 0 -9px 0 var(--r-lip);
+}
+
+/* Subtle Japanese card-back pattern (seigaiha / asanoha) */
+.m-case-card-pat {
+  position: absolute;
+  inset: 3px 3px 9px 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 12px);
+  color: var(--r-pat);
+  pointer-events: none;
+}
+
+/* Inner decorative corner rim */
+.m-case-card-rim {
+  position: absolute;
+  inset: 7px 7px 15px 7px;
+  border-radius: 10px 13px 9px 11px;
+  border: 1.5px solid color-mix(in srgb, var(--r) 45%, transparent);
+  pointer-events: none;
+}
+.m-r-legendary .m-case-card-rim {
+  border-color: color-mix(in srgb, var(--c-coin-shine) 72%, var(--c-gold));
+}
+
+/* Soft top-left house-style gloss highlight on every card */
+.m-case-card-shine {
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  width: 30px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--c-coin-shine);
+  opacity: 0.68;
+  transform: rotate(-22deg);
+  pointer-events: none;
+}
+
+/* Glowing aura behind the winning prize art on reveal */
+.m-case-win-halo {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--c-coin-shine) 0%,
+    color-mix(in srgb, var(--r) 65%, transparent) 52%,
+    transparent 76%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.m-case-art {
+  position: relative;
+  z-index: 1;
 }
 .m-case-art svg {
   display: block;
   width: calc(var(--card) * 0.68);
   height: auto;
 }
+
 .m-case-bar {
   position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 6px;
+  left: 10px;
+  right: 10px;
+  bottom: 8px;
   height: 6px;
   border-radius: 6px;
   background: var(--r);
+  z-index: 2;
+}
+.m-r-rare .m-case-bar {
+  height: 7px;
+  background: linear-gradient(
+    90deg,
+    var(--c-secondary),
+    color-mix(in srgb, var(--c-secondary) 55%, var(--c-coin-shine)),
+    var(--c-secondary)
+  );
 }
 .m-r-legendary .m-case-bar {
   height: 8px;
-  background: linear-gradient(90deg, var(--c-glow), var(--c-coin-shine), var(--c-glow));
+  background: linear-gradient(90deg, var(--c-gold), var(--c-coin-shine), var(--c-glow));
 }
+
+/* Lingering diagonal shimmer band across the prize card */
+.m-case-shimmer {
+  position: absolute;
+  inset: -30% -60%;
+  background: linear-gradient(
+    108deg,
+    transparent 36%,
+    color-mix(in srgb, var(--c-coin-shine) 42%, transparent) 45%,
+    color-mix(in srgb, var(--c-coin-shine) 92%, transparent) 50%,
+    color-mix(in srgb, var(--c-glow) 55%, transparent) 55%,
+    transparent 64%
+  );
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ---------- glossy gold marker needle & molded caps ---------- */
 .m-case-marker {
   position: absolute;
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 4px;
-  margin-left: -2px;
+  width: 6px;
+  margin-left: -3px;
+  z-index: 4;
+  pointer-events: none;
+}
+.m-case-marker-core {
+  position: absolute;
+  inset: 0;
   border-radius: 4px;
-  background: var(--c-gold);
+  background: linear-gradient(
+    90deg,
+    var(--c-gold),
+    var(--c-coin-shine) 45%,
+    var(--c-glow) 75%,
+    var(--c-gold)
+  );
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--c-hud-bg) 55%, var(--c-gold));
+}
+.m-case-marker-glow {
+  position: absolute;
+  left: -18px;
+  right: -18px;
+  top: 0;
+  bottom: 0;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--c-coin-shine) 0%,
+    color-mix(in srgb, var(--c-glow) 72%, transparent) 45%,
+    transparent 100%
+  );
+  opacity: 0;
+}
+.m-case-marker-gem {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  height: 16px;
+  margin-left: -12px;
+  border-radius: 6px;
+  background: radial-gradient(
+    75% 75% at 35% 28%,
+    var(--c-coin-shine),
+    var(--c-glow) 55%,
+    var(--c-gold) 100%
+  );
+  box-shadow:
+    inset 0 -3px 0 color-mix(in srgb, var(--c-gold) 65%, var(--c-hud-bg)),
+    0 2px 0 color-mix(in srgb, var(--c-hud-bg) 70%, transparent);
+}
+.m-case-marker-gem-top {
+  top: -4px;
+  clip-path: polygon(0 0, 100% 0, 82% 55%, 50% 100%, 18% 55%);
+}
+.m-case-marker-gem-bot {
+  bottom: -4px;
+  clip-path: polygon(18% 45%, 50% 0, 82% 45%, 100% 100%, 0 100%);
 }
 .m-case-marker::before,
 .m-case-marker::after {
@@ -124,13 +409,14 @@
 }
 .m-case-marker::before {
   top: -2px;
-  border-top-color: var(--c-gold);
+  border-top-color: var(--c-glow);
 }
 .m-case-marker::after {
   bottom: -2px;
-  border-bottom-color: var(--c-gold);
+  border-bottom-color: var(--c-glow);
 }
 
+/* ---------- titles, brushed "伝説" stamp, and collect prompt ---------- */
 .m-case-title,
 .m-case-collect {
   position: absolute;
@@ -141,21 +427,72 @@
   color: var(--c-hud-ink);
   font-family: var(--font-display);
   font-weight: 900;
+  z-index: 6;
 }
 .m-case-title {
-  top: calc(50% - var(--card) * 1.3);
+  top: calc(50% - var(--card) * 1.38);
   font-size: var(--fs-lg);
-  opacity: 0.7;
+  opacity: 0.72;
+  text-shadow: 0 3px 0 color-mix(in srgb, var(--c-hud-bg) 82%, transparent);
 }
 .m-case-collect {
-  top: calc(50% + var(--card) * 1.05);
+  top: calc(50% + var(--card) * 1.12);
   font-size: var(--fs-md);
+  text-shadow: 0 2px 0 color-mix(in srgb, var(--c-hud-bg) 82%, transparent);
   animation:
     m-case-in 300ms ease both,
     m-hint-bob 1.4s ease-in-out infinite;
 }
 
-/* ---------- the reveal ---------- */
+/* Brushed calligraphy seal ("伝説") behind/above the Legendary title slam */
+.m-case-stamp {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - var(--card) * 1.62);
+  width: 86px;
+  height: 86px;
+  margin: -43px 0 0 -43px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    68% 68% at 35% 28%,
+    color-mix(in srgb, var(--c-accent) 76%, var(--c-coin-shine)),
+    var(--c-accent) 58%,
+    var(--c-lacquer) 100%
+  );
+  box-shadow:
+    inset 0 0 0 4px var(--c-glow),
+    inset 0 -6px 0 var(--c-lacquer),
+    0 5px 0 color-mix(in srgb, var(--c-hud-bg) 78%, transparent);
+  opacity: 0;
+  transform: scale(0.4);
+  pointer-events: none;
+  z-index: 5;
+}
+.m-case-stamp::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 9px;
+  width: 24px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-coin-shine);
+  opacity: 0.58;
+  transform: rotate(-24deg);
+}
+.m-case-stamp-ja {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--fs-xl);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--c-coin-shine);
+  text-shadow: 0 3px 0 var(--c-lacquer);
+}
+
+/* ---------- reveal layers: rays, light pillar, shockwaves, sparkles, shower ---------- */
 .m-case-rays,
 .m-case-shock {
   position: absolute;
@@ -170,36 +507,133 @@
   height: 170vmax;
   margin: -85vmax 0 0 -85vmax;
   background: repeating-conic-gradient(
-    color-mix(in srgb, var(--tint) 70%, transparent) 0deg 5deg,
-    transparent 5deg 18deg
+    color-mix(in srgb, var(--tint) 76%, transparent) 0deg 6deg,
+    transparent 6deg 18deg
   );
-  -webkit-mask: radial-gradient(closest-side, black 6%, transparent 62%);
-  mask: radial-gradient(closest-side, black 6%, transparent 62%);
+  -webkit-mask: radial-gradient(closest-side, var(--c-hud-bg) 6%, transparent 64%);
+  mask: radial-gradient(closest-side, var(--c-hud-bg) 6%, transparent 64%);
 }
+.m-case-rays-2 {
+  background: repeating-conic-gradient(
+    color-mix(in srgb, var(--c-coin-shine) 72%, transparent) 0deg 4deg,
+    transparent 4deg 20deg
+  );
+}
+
+/* Vertical light pillar for Rare (blue) and Legendary (gold) */
+.m-case-pillar {
+  position: absolute;
+  left: 50%;
+  top: -10vh;
+  width: calc(var(--card) * 1.48);
+  height: 120vh;
+  margin-left: calc(var(--card) * -0.74);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--tint) 58%, transparent) 24%,
+    color-mix(in srgb, var(--tint) 82%, var(--c-coin-shine)) 50%,
+    color-mix(in srgb, var(--tint) 58%, transparent) 76%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: scaleX(0.15);
+  pointer-events: none;
+}
+.m-case-pillar-core {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 32%;
+  right: 32%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--c-coin-shine) 88%, var(--tint)),
+    transparent
+  );
+}
+
 .m-case-shock {
-  width: 60px;
-  height: 60px;
-  margin: -30px 0 0 -30px;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
   border: 6px solid var(--tint);
+  box-shadow: inset 0 0 0 2px var(--c-coin-shine);
+  z-index: 4;
 }
+
+/* Sparkles around the prize card */
+.m-case-sparkles {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.m-case-sparkle {
+  position: absolute;
+  left: -13px;
+  top: -13px;
+  width: 26px;
+  height: 26px;
+  opacity: 0;
+  will-change: transform, opacity;
+  --sp-fill: var(--c-glow);
+  --sp-lip: var(--c-gold);
+}
+.m-case-rare .m-case-sparkle {
+  --sp-fill: color-mix(in srgb, var(--c-secondary) 68%, var(--c-coin-shine));
+  --sp-lip: color-mix(in srgb, var(--c-secondary) 72%, var(--c-hud-bg));
+}
+.m-case-legendary .m-case-sparkle {
+  --sp-fill: var(--c-glow);
+  --sp-lip: var(--c-gold);
+}
+.m-sparkle-lip {
+  fill: var(--sp-lip);
+}
+.m-sparkle-body {
+  fill: var(--sp-fill);
+}
+.m-sparkle-hi {
+  fill: var(--c-coin-shine);
+  opacity: 0.88;
+}
+
+/* Shower of gold petals and koban coins */
+.m-case-shower {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+.m-case-drop {
+  position: absolute;
+  top: -36px;
+  margin-left: -13px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ---------- shared reveal states ---------- */
 .m-case-reveal .m-case-win {
-  z-index: 2;
+  z-index: 3;
   animation: m-win-pop 620ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
 }
-@keyframes m-win-pop {
-  0% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(1.32) rotate(-4deg);
-  }
-  100% {
-    transform: scale(1.18) rotate(0deg);
-  }
+.m-case-reveal .m-case-win .m-case-win-halo {
+  opacity: 0.9;
 }
 .m-case-reveal .m-case-card:not(.m-case-win) {
-  opacity: 0.35;
+  opacity: 0.28;
   transition: opacity 300ms ease;
+}
+.m-case-reveal .m-case-marker {
+  opacity: 0;
+  transition: opacity 220ms ease;
 }
 .m-case-reveal .m-case-title {
   opacity: 1;
@@ -207,67 +641,254 @@
   color: var(--tint);
   animation: m-title-slam 520ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
 }
-@keyframes m-title-slam {
-  from {
-    transform: scale(2.4);
+
+/* ---------- COMMON reveal: satisfying pop, soft ring, sprinkle of sparkles ---------- */
+.m-case-common.m-case-reveal .m-case-shock-1 {
+  border-color: var(--c-gold-soft);
+  animation: m-shock 620ms ease-out both;
+}
+.m-case-common.m-case-reveal .m-sparkle-common {
+  animation: m-sparkle-sprinkle 740ms var(--s-delay) cubic-bezier(0.2, 1.3, 0.3, 1) both;
+}
+.m-case-common.m-case-reveal .m-case-flash {
+  animation: m-flash-soft 460ms ease-out both;
+}
+
+/* ---------- RARE reveal: blue light pillar, rotating rays, 2 rings, floating blue sparkles, card flip-bounce ---------- */
+.m-case-rare.m-case-reveal .m-case-flash {
+  animation: m-flash-burst 640ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-pillar,
+.m-case-rare.m-case-reveal .m-case-window::after {
+  animation: m-pillar 1400ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-rays {
+  animation: m-case-rays 2000ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-rays-2 {
+  animation: m-case-rays-rev 2200ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-shock-1 {
+  animation: m-shock 720ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-shock-2 {
+  border-color: var(--c-coin-shine);
+  animation: m-shock 860ms 150ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-win {
+  animation: m-win-flip 760ms cubic-bezier(0.22, 1.5, 0.36, 1) both;
+}
+.m-case-rare.m-case-reveal .m-case-win .m-case-shimmer {
+  animation: m-shimmer-once 900ms 260ms ease-in-out both;
+}
+.m-case-rare.m-case-reveal .m-case-sparkle {
+  animation: m-sparkle-float 1350ms var(--s-delay) cubic-bezier(0.18, 0.9, 0.32, 1) both;
+}
+
+/* ---------- LEGENDARY spin anticipation: frame & marker glow gold during the crawl ---------- */
+.m-case-legendary.m-case-spin .m-case-marker {
+  animation: m-marker-pulse 640ms 3800ms ease-in-out infinite both;
+}
+.m-case-legendary.m-case-spin .m-case-marker-glow {
+  animation: m-pre-glow 640ms 3800ms ease-in-out infinite both;
+}
+.m-case-legendary.m-case-spin .m-case-frame-glow {
+  animation: m-pre-glow 640ms 3800ms ease-in-out infinite both;
+}
+.m-case-legendary.m-case-spin .m-case-blackout {
+  animation: m-crawl-darken 3000ms 3800ms ease-in forwards;
+}
+
+/* ---------- LEGENDARY reveal: near-black drop, gold rays, double shockwave, petals & coins, shake, "伝説" slam, lingering shimmer ---------- */
+.m-case-legendary.m-case-reveal .m-case-dim {
+  animation: m-legend-dim 1800ms ease both;
+}
+.m-case-legendary.m-case-reveal .m-case-blackout {
+  animation: m-legend-blackout 2400ms ease both;
+}
+.m-case-legendary.m-case-reveal .m-case-flash {
+  animation: m-flash-legend 880ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-pillar {
+  animation: m-pillar-legend 2200ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-rays {
+  animation: m-case-rays 2800ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-rays-2 {
+  animation: m-case-rays-rev 3000ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-shock-1 {
+  border-width: 8px;
+  animation: m-shock-big 920ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-shock-2 {
+  border-color: var(--c-coin-shine);
+  border-width: 6px;
+  animation: m-shock-big 1140ms 200ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-window {
+  animation: m-legend-shake 560ms ease both;
+}
+.m-case-legendary.m-case-reveal .m-case-frame-glow {
+  opacity: 0.92;
+}
+.m-case-legendary.m-case-reveal .m-case-win {
+  animation: m-win-legend 840ms cubic-bezier(0.2, 1.55, 0.35, 1) both;
+}
+.m-case-legendary.m-case-reveal .m-case-win .m-case-shimmer {
+  animation: m-shimmer-loop 1450ms 280ms ease-in-out infinite both;
+}
+.m-case-legendary.m-case-reveal .m-case-win .m-case-win-halo {
+  animation: m-halo-pulse 1200ms ease-in-out infinite alternate both;
+}
+.m-case-legendary.m-case-reveal .m-case-sparkle {
+  animation: m-sparkle-burst 1600ms var(--s-delay) cubic-bezier(0.16, 0.95, 0.3, 1) both;
+}
+.m-case-legendary.m-case-reveal .m-case-drop {
+  animation: m-shower-fall var(--dur) var(--delay) cubic-bezier(0.32, 0, 0.68, 1) infinite both;
+}
+.m-case-legendary.m-case-reveal .m-case-stamp {
+  animation: m-stamp-slam 640ms cubic-bezier(0.2, 1.6, 0.38, 1) both;
+}
+.m-case-legendary.m-case-reveal .m-case-title {
+  top: calc(50% - var(--card) * 1.18);
+  font-size: calc(var(--fs-xl) * 1.42);
+  letter-spacing: 0.08em;
+  color: var(--c-coin-shine);
+  text-shadow:
+    0 3px 0 var(--c-lacquer),
+    0 6px 0 var(--c-hud-bg);
+  animation: m-title-slam 580ms 80ms cubic-bezier(0.2, 1.65, 0.36, 1) both;
+}
+
+/* ---------- keyframes (strictly transform + opacity only) ---------- */
+@keyframes m-win-pop {
+  0% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.26) translateY(-5px) rotate(-3deg);
+  }
+  72% {
+    transform: scale(1.12) translateY(-1px) rotate(1.5deg);
+  }
+  100% {
+    transform: scale(1.16) translateY(-2px) rotate(0deg);
+  }
+}
+
+@keyframes m-win-flip {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scaleX(0.08) scaleY(1.2) translateY(-12px) rotate(-5deg);
+  }
+  52% {
+    transform: scaleX(1.3) scaleY(1.28) translateY(-8px) rotate(4deg);
+  }
+  78% {
+    transform: scale(1.16) translateY(-2px) rotate(-1.5deg);
+  }
+  100% {
+    transform: scale(1.22) translateY(-4px) rotate(0deg);
+  }
+}
+
+@keyframes m-win-legend {
+  0% {
+    transform: scale(0.92);
+  }
+  18% {
+    transform: scaleX(0.06) scaleY(1.26) translateY(-14px) rotate(-6deg);
+  }
+  50% {
+    transform: scale(1.34) translateY(-9px) rotate(4deg);
+  }
+  76% {
+    transform: scale(1.22) translateY(-3px) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1.26) translateY(-5px) rotate(0deg);
+  }
+}
+
+@keyframes m-shimmer-once {
+  0% {
+    transform: translateX(-115%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateX(115%);
     opacity: 0;
   }
 }
 
-/* Common: a clean pop and one ring. */
-.m-case-common.m-case-reveal .m-case-shock-1 {
-  animation: m-shock 600ms ease-out both;
+@keyframes m-shimmer-loop {
+  0% {
+    transform: translateX(-115%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.98;
+  }
+  65% {
+    transform: translateX(115%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(115%);
+    opacity: 0;
+  }
 }
-/* Rare: a blue light pillar, rays and two rings. */
-.m-case-rare.m-case-reveal .m-case-rays {
-  animation: m-case-rays 1800ms ease-out both;
+
+@keyframes m-halo-pulse {
+  from {
+    transform: scale(0.92);
+    opacity: 0.65;
+  }
+  to {
+    transform: scale(1.16);
+    opacity: 1;
+  }
 }
-.m-case-rare.m-case-reveal .m-case-shock-1 {
-  animation: m-shock 700ms ease-out both;
+
+@keyframes m-title-slam {
+  0% {
+    transform: scale(2.5) translateY(-12px) rotate(-4deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.94) translateY(2px) rotate(1deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0) rotate(0deg);
+    opacity: 1;
+  }
 }
-.m-case-rare.m-case-reveal .m-case-shock-2 {
-  animation: m-shock 800ms 160ms ease-out both;
-}
-.m-case-rare.m-case-reveal .m-case-window::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: -40vh;
-  width: calc(var(--card) * 1.2);
-  height: 120vh;
-  margin-left: calc(var(--card) * -0.6);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--c-secondary) 60%, white),
-    transparent
-  );
-  opacity: 0;
-  animation: m-pillar 1200ms ease-out both;
-}
-/* Legendary: the screen drops to black, gold rays spin up, two big shockwaves, a shake. */
-.m-case-legendary.m-case-reveal .m-case-dim {
-  animation: m-legend-dim 1600ms ease both;
-}
-.m-case-legendary.m-case-reveal .m-case-rays {
-  animation: m-case-rays 2600ms ease-out both;
-}
-.m-case-legendary.m-case-reveal .m-case-shock-1 {
-  animation: m-shock-big 900ms ease-out both;
-}
-.m-case-legendary.m-case-reveal .m-case-shock-2 {
-  animation: m-shock-big 1100ms 220ms ease-out both;
-}
-.m-case-legendary.m-case-reveal .m-case-window {
-  animation: m-legend-shake 520ms ease both;
-}
-.m-case-legendary.m-case-reveal .m-case-title {
-  font-size: calc(var(--fs-xl) * 1.4);
-  letter-spacing: 0.06em;
-}
-/* While a legendary crawls to its stop the frame glows gold, before anyone knows why. */
-.m-case-legendary.m-case-spin .m-case-marker {
-  animation: m-marker-pulse 700ms 4200ms ease-in-out infinite both;
+
+@keyframes m-stamp-slam {
+  0% {
+    transform: scale(2.8) rotate(-18deg);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(0.92) rotate(-6deg);
+    opacity: 0.96;
+  }
+  80% {
+    transform: scale(1.06) rotate(-9deg);
+    opacity: 0.96;
+  }
+  100% {
+    transform: scale(1) rotate(-8deg);
+    opacity: 0.94;
+  }
 }
 
 @keyframes m-shock {
@@ -276,86 +897,294 @@
     opacity: 0.95;
   }
   to {
-    transform: scale(6);
+    transform: scale(6.4);
     opacity: 0;
   }
 }
+
 @keyframes m-shock-big {
   from {
-    transform: scale(0.4);
+    transform: scale(0.35);
     opacity: 1;
   }
   to {
-    transform: scale(14);
+    transform: scale(15);
     opacity: 0;
   }
 }
+
 @keyframes m-case-rays {
   0% {
     opacity: 0;
-    transform: scale(0.3) rotate(0deg);
+    transform: scale(0.28) rotate(0deg);
   }
-  20% {
+  18% {
     opacity: 1;
   }
   100% {
-    opacity: 0.55;
-    transform: scale(1) rotate(70deg);
+    opacity: 0.62;
+    transform: scale(1.06) rotate(78deg);
   }
 }
+
+@keyframes m-case-rays-rev {
+  0% {
+    opacity: 0;
+    transform: scale(0.24) rotate(15deg);
+  }
+  22% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0.45;
+    transform: scale(1.02) rotate(-64deg);
+  }
+}
+
 @keyframes m-pillar {
   0% {
     opacity: 0;
-    transform: scaleX(0.2);
+    transform: scaleX(0.15) scaleY(0.6);
   }
-  25% {
-    opacity: 0.9;
-    transform: scaleX(1);
+  22% {
+    opacity: 0.95;
+    transform: scaleX(1.08) scaleY(1);
   }
   100% {
     opacity: 0;
-    transform: scaleX(1.6);
+    transform: scaleX(1.65) scaleY(1);
   }
 }
+
+@keyframes m-pillar-legend {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.18) scaleY(0.5);
+  }
+  18% {
+    opacity: 1;
+    transform: scaleX(1.35) scaleY(1);
+  }
+  65% {
+    opacity: 0.72;
+    transform: scaleX(1.1) scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1.8) scaleY(1);
+  }
+}
+
+@keyframes m-flash-soft {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  30% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes m-flash-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.25);
+  }
+  22% {
+    opacity: 0.78;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes m-flash-legend {
+  0% {
+    opacity: 0;
+    transform: scale(0.18);
+  }
+  12% {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+}
+
+@keyframes m-crawl-darken {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.52;
+  }
+}
+
 @keyframes m-legend-dim {
   0% {
     opacity: 1;
   }
   15% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1.02);
   }
   100% {
     opacity: 1;
+    transform: scale(1);
   }
 }
+
+@keyframes m-legend-blackout {
+  0% {
+    opacity: 0.96;
+  }
+  18% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 0.88;
+  }
+}
+
 @keyframes m-legend-shake {
   0%,
   100% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) rotate(0deg);
   }
-  20% {
-    transform: translate(-6px, 3px);
+  14% {
+    transform: translate(-9px, 5px) rotate(-0.8deg);
   }
-  40% {
-    transform: translate(5px, -4px);
+  28% {
+    transform: translate(8px, -6px) rotate(0.8deg);
+  }
+  44% {
+    transform: translate(-6px, -4px) rotate(-0.5deg);
   }
   60% {
-    transform: translate(-3px, 2px);
+    transform: translate(6px, 4px) rotate(0.4deg);
   }
-  80% {
-    transform: translate(2px, -1px);
+  76% {
+    transform: translate(-3px, 2px) rotate(-0.2deg);
   }
 }
+
 @keyframes m-marker-pulse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
   50% {
-    transform: scaleX(2.2);
-    opacity: 0.8;
+    transform: scaleX(2.4);
+    opacity: 0.92;
+  }
+}
+
+@keyframes m-pre-glow {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scaleY(0.98);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scaleY(1.03);
+  }
+}
+
+@keyframes m-sparkle-sprinkle {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(calc(var(--sx) * 0.72), calc(var(--sy) * 0.72)) scale(var(--s-scale, 1))
+      rotate(var(--s-rot, 15deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--sx), var(--sy)) scale(0.25) rotate(calc(var(--s-rot, 15deg) * 1.8));
+  }
+}
+
+@keyframes m-sparkle-float {
+  0% {
+    opacity: 0;
+    transform: translate(0, 12px) scale(0.2) rotate(0deg);
+  }
+  28% {
+    opacity: 1;
+    transform: translate(calc(var(--sx) * 0.85), calc(var(--sy) * 0.8))
+      scale(calc(var(--s-scale, 1) * 1.15)) rotate(var(--s-rot, 18deg));
+  }
+  68% {
+    opacity: 0.92;
+    transform: translate(var(--sx), calc(var(--sy) - 22px)) scale(var(--s-scale, 1))
+      rotate(calc(var(--s-rot, 18deg) * -0.8));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--sx) * 1.08), calc(var(--sy) - 46px)) scale(0.3)
+      rotate(calc(var(--s-rot, 18deg) * 1.6));
+  }
+}
+
+@keyframes m-sparkle-burst {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+  }
+  22% {
+    opacity: 1;
+    transform: translate(var(--sx), var(--sy)) scale(calc(var(--s-scale, 1) * 1.32))
+      rotate(var(--s-rot, 20deg));
+  }
+  65% {
+    opacity: 0.95;
+    transform: translate(calc(var(--sx) * 1.22), calc(var(--sy) * 1.18 - 14px))
+      scale(var(--s-scale, 1)) rotate(calc(var(--s-rot, 20deg) * -1.2));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--sx) * 1.38), calc(var(--sy) * 1.28 - 28px)) scale(0.35)
+      rotate(calc(var(--s-rot, 20deg) * 2));
+  }
+}
+
+@keyframes m-shower-fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, -4vh) scale(var(--sc, 1)) rotate(0deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    transform: translate(var(--dx), 52vh) scale(var(--sc, 1)) rotate(calc(var(--rot) * 0.5));
+  }
+  88% {
+    opacity: 0.92;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--dx) * -0.6), 108vh) scale(var(--sc, 1)) rotate(var(--rot));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .m-case * {
+  .m-case *,
+  .m-case *::before,
+  .m-case *::after {
     animation: none !important;
+    transition: none !important;
   }
 }
