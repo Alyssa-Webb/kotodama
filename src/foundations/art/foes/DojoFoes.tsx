@@ -115,7 +115,12 @@ export function TraineeBokkenArt({ state }: { state: EnemyState }) {
             {/* Hakama himo waist sash & knot */}
             <rect x="31" y="64" width="38" height="5" rx="2.5" fill={INK} />
             <rect x="31" y="62.2" width="38" height="4.6" rx="2.3" fill={hakamaShade} />
-            <path d="M46 62 L54 67 M54 62 L46 67" stroke={CREAM} strokeWidth="2" strokeLinecap="round" />
+            <path
+              d="M46 62 L54 67 M54 62 L46 67"
+              stroke={CREAM}
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
 
             {/* Neck & ears */}
             <rect x="44" y="42" width="12" height="9" rx="4.5" fill={SKIN_SHADE} />
@@ -315,10 +320,7 @@ export function TraineeBokkenArt({ state }: { state: EnemyState }) {
 
           {/* Overhead men-strike slash arc toward lower-left player */}
           <g className="trainee-bokken-slash-arc">
-            <path
-              d="M28 20 C6 36 5 66 26 84 C14 64 15 40 28 20 Z"
-              fill="var(--c-glow)"
-            />
+            <path d="M28 20 C6 36 5 66 26 84 C14 64 15 40 28 20 Z" fill="var(--c-glow)" />
             <path
               d="M24 26 C9 40 9 62 23 78"
               stroke={SHINE}
@@ -488,10 +490,7 @@ export function TraineeSenpaiArt({ state }: { state: EnemyState }) {
               <rect x="45.5" y="9" width="9" height="5.5" rx="2.5" fill={GI_SHADE} />
               <rect x="45.5" y="7.8" width="9" height="4.8" rx="2.4" fill={CREAM} />
               {/* Forward-folded chonmage topknot fan */}
-              <path
-                d="M43 9.5 C43 3.5 57 3.5 57 9.5 C55 12 45 12 43 9.5 Z"
-                fill={HAIR_BACK}
-              />
+              <path d="M43 9.5 C43 3.5 57 3.5 57 9.5 C55 12 45 12 43 9.5 Z" fill={HAIR_BACK} />
               <path
                 d="M42.5 7.5 C42.5 1.8 57.5 1.8 57.5 7.5 C55.5 10.2 44.5 10.2 42.5 7.5 Z"
                 fill={HAIR_FRONT}
@@ -508,8 +507,14 @@ export function TraineeSenpaiArt({ state }: { state: EnemyState }) {
 
             {/* Senior hachimaki headband & fluttering ties */}
             <g className="trainee-senpai-ties">
-              <path d="M72 21.5 L86 15.5 L84 22.5 Z M72 24 L87 26.5 L82 31.5 Z" fill="var(--c-lacquer)" />
-              <path d="M72 19.5 L85 14 L83 21 Z M72 22.2 L86 24.5 L81 29.5 Z" fill="var(--c-accent)" />
+              <path
+                d="M72 21.5 L86 15.5 L84 22.5 Z M72 24 L87 26.5 L82 31.5 Z"
+                fill="var(--c-lacquer)"
+              />
+              <path
+                d="M72 19.5 L85 14 L83 21 Z M72 22.2 L86 24.5 L81 29.5 Z"
+                fill="var(--c-accent)"
+              />
             </g>
             <rect x="26" y="20" width="48" height="6.4" rx="3.2" fill="var(--c-lacquer)" />
             <rect x="26" y="18.2" width="48" height="6" rx="3" fill="var(--c-accent)" />
@@ -626,12 +631,7 @@ export function TraineeSenpaiArt({ state }: { state: EnemyState }) {
                     opacity="0.78"
                   />
                   {/* Wrapped dark tsuka handle & gold-rimmed tsuba */}
-                  <path
-                    d="M62 61 L69 50.5"
-                    stroke={INK}
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                  />
+                  <path d="M62 61 L69 50.5" stroke={INK} strokeWidth="6" strokeLinecap="round" />
                   <ellipse
                     cx="70"
                     cy="49"
@@ -658,10 +658,7 @@ export function TraineeSenpaiArt({ state }: { state: EnemyState }) {
 
           {/* Fast double strike (nidan-waza) twin slash arcs toward lower-left */}
           <g className="trainee-senpai-slash-1">
-            <path
-              d="M32 24 C10 38 8 64 26 82 C16 62 18 42 32 24 Z"
-              fill="var(--c-glow)"
-            />
+            <path d="M32 24 C10 38 8 64 26 82 C16 62 18 42 32 24 Z" fill="var(--c-glow)" />
             <path
               d="M27 30 C13 42 12 60 24 75"
               stroke={SHINE}
@@ -671,10 +668,7 @@ export function TraineeSenpaiArt({ state }: { state: EnemyState }) {
             />
           </g>
           <g className="trainee-senpai-slash-2">
-            <path
-              d="M10 42 C24 30 48 38 56 62 C42 46 24 42 10 42 Z"
-              fill="var(--c-accent)"
-            />
+            <path d="M10 42 C24 30 48 38 56 62 C42 46 24 42 10 42 Z" fill="var(--c-accent)" />
             <path
               d="M15 43 C27 35 44 41 51 57"
               stroke={SHINE}
@@ -689,10 +683,7 @@ export function TraineeSenpaiArt({ state }: { state: EnemyState }) {
           renderSilhouette={(fill) => (
             <g className="trainee-senpai-body">
               <path d="M30 63.5 L70 63.5 L75 88 Q50 91 25 88 Z" fill={fill} />
-              <path
-                d="M23 61 C23 50 33 46 50 46 C67 46 77 50 77 61 L69 69 L31 69 Z"
-                fill={fill}
-              />
+              <path d="M23 61 C23 50 33 46 50 46 C67 46 77 50 77 61 L69 69 L31 69 Z" fill={fill} />
               <rect x="24" y="8" width="52" height="42" rx="18" fill={fill} />
               <ellipse cx="50" cy="6" rx="8" ry="5" fill={fill} />
               <path

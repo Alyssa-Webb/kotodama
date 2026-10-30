@@ -29,8 +29,8 @@
 }
 .trainee-bokken-idle .trainee-bokken-ties {
   transform-origin: 73px 23px;
-  animation: trainee-bokken-ties-flutter calc(var(--dur-celebrate, 900ms) * 1.6) ease-in-out infinite
-    alternate;
+  animation: trainee-bokken-ties-flutter calc(var(--dur-celebrate, 900ms) * 1.6) ease-in-out
+    infinite alternate;
 }
 .trainee-bokken-shadow-idle {
   animation: trainee-bokken-shadow-pulse calc(var(--dur-celebrate, 900ms) * 1.9) ease-in-out
