@@ -198,6 +198,9 @@ export function Avatar({
             : undefined);
         const part = avatarParts.find((p) => p.id === id);
         if (!part) return null;
+        // Seen from behind, a part without a back view would show its front over your back:
+        // leave it out (the base's own back view covers the body) until it gets one.
+        if (facing === 'back' && !part.back && slot !== 'base' && slot !== 'companion') return null;
         return (
           <g key={slot}>
             <g
