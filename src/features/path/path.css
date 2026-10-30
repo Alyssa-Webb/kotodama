@@ -178,11 +178,7 @@
 }
 
 .region-market .noren-flap {
-  background: linear-gradient(
-    180deg,
-    var(--c-lacquer),
-    var(--c-accent)
-  );
+  background: linear-gradient(180deg, var(--c-lacquer), var(--c-accent));
 }
 
 .region-castle .noren-flap {

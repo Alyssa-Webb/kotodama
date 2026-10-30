@@ -299,15 +299,7 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
         {region.id === 'dojo' && (
           <g>
             {/* Polished wooden dojo floor deck across the upper training hall */}
-            <rect
-              x="16"
-              y="46"
-              width="368"
-              height="276"
-              rx="26"
-              fill={woodDark}
-              opacity="0.45"
-            />
+            <rect x="16" y="46" width="368" height="276" rx="26" fill={woodDark} opacity="0.45" />
             <rect
               x="16"
               y="40"
@@ -639,11 +631,7 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
                 rx="3"
                 fill={lit ? 'var(--c-glow)' : stoneLight}
               />
-              <path
-                d="M-15 -6 V16 M15 -6 V16 M-28 5 H28"
-                stroke={woodMid}
-                strokeWidth="2.2"
-              />
+              <path d="M-15 -6 V16 M15 -6 V16 M-28 5 H28" stroke={woodMid} strokeWidth="2.2" />
               {/* Noren with a crest hanging under the dojo eaves */}
               <g transform="translate(0 -7)">
                 <rect x="-24" y="0" width="14" height="13" rx="2.5" fill="var(--c-hud-bg)" />
@@ -1061,11 +1049,7 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
                 rx="3"
                 fill={lit ? 'var(--c-glow)' : stoneLight}
               />
-              <path
-                d="M13 0 V18 M20 0 V18 M27 0 V18 M6 9 H34"
-                stroke={woodDark}
-                strokeWidth="2"
-              />
+              <path d="M13 0 V18 M20 0 V18 M27 0 V18 M6 9 H34" stroke={woodDark} strokeWidth="2" />
               {/* Indigo sake shop noren over doorway */}
               <g transform="translate(-18 2)">
                 <rect x="-18" y="2" width="11" height="18" rx="2.5" fill="var(--c-hud-bg)" />
@@ -1221,10 +1205,7 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
               />
               {/* Giant 3-color Hanami Dango skewers on the counter */}
               {[-8, 12].map((dx, i) => (
-                <g
-                  key={dx}
-                  transform={`translate(${dx} 2) rotate(${i === 0 ? -12 : 10})`}
-                >
+                <g key={dx} transform={`translate(${dx} 2) rotate(${i === 0 ? -12 : 10})`}>
                   <rect x="-1.4" y="-22" width="2.8" height="26" rx="1.2" fill={woodLight} />
                   {/* Green dango */}
                   <circle
