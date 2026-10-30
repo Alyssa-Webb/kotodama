@@ -12,3 +12,4 @@ content/outbox/*
 !content/outbox/.gitkeep
 tools/.voice-cache
 .claude
+dist-*/

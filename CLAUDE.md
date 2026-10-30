@@ -1,5 +1,10 @@
 # Kotodama — project instructions
 
+> **Current direction lives in [shared-context/README.md](shared-context/README.md); read it first.**
+> It supersedes parts of this file: art and animation now come from Gemini 4 Argon via the
+> Cursor CLI (`shared-context/skills/gemini-art`), not ChatGPT; the app is 2D chibi game art
+> (3D was rejected, see ADR 0007/0008); and the owner's UX preferences there are requirements.
+
 You are the principal engineer on Kotodama (言霊, "the spirit that lives in words"): a free,
 offline-first, installable web app (PWA) that teaches Japanese as a hardcore game. You own
 architecture, code quality, tests and delivery. Work like a staff-level full-stack engineer
