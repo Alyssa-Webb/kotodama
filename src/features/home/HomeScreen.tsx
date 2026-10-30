@@ -1,3 +1,4 @@
+import { TourButton } from '../tour/Tour';
 import { Link } from 'react-router';
 import { useGame } from '../../foundations/store/gameStore';
 import { daysAway, isUnlocked } from '../../engine/game';
@@ -9,7 +10,7 @@ import { Slot } from '../../foundations/slots/Slot';
 import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
 import { Scene } from '../../foundations/art/Scene';
 import { Guide } from '../../foundations/art/Guide';
-import { CapsuleIcon, FlameIcon, KobanIcon } from '../../foundations/art/icons';
+import { CapsuleIcon, FlameIcon, YenIcon } from '../../foundations/art/icons';
 import './home.css';
 
 function greeting(hour: number): { ja: string; en: string } {
@@ -52,6 +53,7 @@ export function HomeScreen() {
         {/* The guide stands on the scene's ground with the greeting beside her, instead of
             floating over an empty sky. */}
         <div className="home-stage">
+          <TourButton />
           <Scene
             className="home-scene"
             height={196}
@@ -85,7 +87,7 @@ export function HomeScreen() {
                 <FlameIcon size={16} lit={s.streak > 0} /> {s.streak} day streak
               </span>
               <span className="pill pill-gold">
-                <KobanIcon size={16} /> {s.koban}
+                <YenIcon size={16} /> {s.yen}
               </span>
               {s.tokens > 0 && (
                 <span className="pill">
@@ -148,7 +150,7 @@ export function HomeScreen() {
           <h2>{s.due ? `${s.due} spirits fading` : 'No spirits fading'}</h2>
           <p className="muted small">
             {s.due
-              ? 'Clear the fog to rescue them. Until then lessons pay half koban.'
+              ? 'Clear the fog to rescue them. Until then lessons pay half yen.'
               : 'Reviews appear here as your memory needs them.'}
           </p>
         </Link>

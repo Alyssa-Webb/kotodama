@@ -217,7 +217,7 @@ ruby rt {
     inset 0 -2px 0 color-mix(in srgb, var(--c-panel-edge) 35%, transparent),
     0 4px 0 color-mix(in srgb, var(--c-hud-bg) 75%, var(--c-ink));
 }
-.stat-koban {
+.stat-yen {
   border-radius: 20px 16px 18px 22px;
 }
 .stat-hearts {
@@ -746,11 +746,7 @@ ruby rt {
       color-mix(in srgb, var(--c-coin-shine) 38%, transparent),
       transparent 70%
     ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--c-gold) 78%, var(--c-glow)),
-      var(--c-gold) 58%
-    );
+    linear-gradient(180deg, color-mix(in srgb, var(--c-gold) 78%, var(--c-glow)), var(--c-gold) 58%);
   color: var(--c-panel);
   border-color: color-mix(in srgb, var(--c-gold) 52%, var(--c-ink));
   text-shadow: 0 1px 0 color-mix(in srgb, var(--c-ink) 40%, transparent);

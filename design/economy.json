@@ -30,47 +30,47 @@
     "twoStarMaxMistakes": 2
   },
   "earn": {
-    "lessonComplete": 10,
-    "lessonThreeStarBonus": 5,
-    "clearAllReviews": 15,
+    "lessonComplete": 100,
+    "lessonThreeStarBonus": 50,
+    "clearAllReviews": 150,
     "dailyQuest": {
-      "min": 10,
-      "max": 20
+      "min": 100,
+      "max": 200
     },
     "omikuji": {
-      "daikichi": 50,
-      "kichi": 25,
-      "chukichi": 15,
-      "shokichi": 10,
-      "suekichi": 5
+      "daikichi": 500,
+      "kichi": 250,
+      "chukichi": 150,
+      "shokichi": 100,
+      "suekichi": 50
     },
-    "rushPersonalBest": 10,
-    "bossDefeat": 100,
+    "rushPersonalBest": 100,
+    "bossDefeat": 1000,
     "bossDefeatTokens": 1,
     "perfectLessonTokens": 1,
     "clearReviewDebtTokens": 1,
     "streakMilestones": [
       {
         "days": 7,
-        "koban": 50
+        "yen": 500
       },
       {
         "days": 30,
-        "koban": 150
+        "yen": 1500
       },
       {
         "days": 100,
-        "koban": 500
+        "yen": 5000
       },
       {
         "days": 365,
-        "koban": 1500
+        "yen": 15000
       }
     ],
-    "guardianDailyKoban": 1
+    "guardianDailyYen": 10
   },
   "penalties": {
-    "reviewDebtKobanFactor": 0.5,
+    "reviewDebtYenFactor": 0.5,
     "hardcoreSpoilPerMissedDay": 0.1,
     "kintsugiWindowHours": 48
   },
@@ -124,10 +124,12 @@
     "taikoMinutes": 15,
     "taikoXpMultiplier": 2,
     "manekiLessons": 3,
-    "manekiKobanBonus": 0.25
+    "manekiYenBonus": 0.25
   },
   "streakFreezeMax": 2,
-  "testing": { "grantTokens": 5 },
+  "testing": {
+    "grantTokens": 5
+  },
   "gachapon": {
     "cost": 1,
     "pityAfter": 10,
@@ -159,6 +161,6 @@
   },
   "charms": {
     "gakugyoReviewXp": 1.1,
-    "mimiListeningKoban": 0.15
+    "mimiListeningYen": 0.15
   }
 }

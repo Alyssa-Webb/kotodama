@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router';
 import { UpdatePrompt } from './UpdatePrompt';
+import { Tour } from '../features/tour/Tour';
 import { InstallGuide } from './InstallGuide';
 import { Notices } from './Notices';
 import { useStats } from '../features/hooks';
 import {
   FlameIcon,
   HeartIcon,
-  KobanIcon,
+  YenIcon,
   TabDojo,
   TabHome,
   TabMore,
@@ -89,8 +90,8 @@ export function TopStats() {
           <HeartIcon size={20} empty={s.hearts === 0} />
         </Stat>
       )}
-      <Stat value={s.koban} className="stat-koban" label={`${s.koban} koban`} title="Koban">
-        <KobanIcon size={20} />
+      <Stat value={s.yen} className="stat-yen" label={`${s.yen} yen`} title="Yen">
+        <YenIcon size={20} />
       </Stat>
     </div>
   );
@@ -129,6 +130,7 @@ export function Shell() {
         ))}
       </nav>
       <UpdatePrompt />
+      <Tour />
     </div>
   );
 }

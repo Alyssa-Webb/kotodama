@@ -4,7 +4,7 @@ const TEXT: Record<string, (n?: number) => string> = {
   'streak-frozen': (n) =>
     `Your kotatsu kept your streak warm through ${n} missed day${n === 1 ? '' : 's'}.`,
   'streak-lost': () => 'Your streak went cold. Kintsugi can mend it within 48 hours (Shop).',
-  'koban-spoiled': (n) => `Hardcore: ${n} koban spoiled while you were away.`,
+  'yen-spoiled': (n) => `Hardcore: ${n} yen spoiled while you were away.`,
   'hearts-refilled': () => 'A new day: your hearts are full again.',
 };
 

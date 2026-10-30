@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { DifficultySchema } from './economy';
 import { AvatarSlotSchema } from './world';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
 
 export const ScriptLevelSchema = z.enum(['romaji', 'kana', 'furigana', 'kanji']);
 export type ScriptLevel = z.infer<typeof ScriptLevelSchema>;
@@ -55,7 +55,7 @@ export const LedgerEventSchema = z.object({
   id: z.number().int(),
   at: z.number(),
   day: z.string(),
-  /** koban | token | heart | xp | item:<consumable id> */
+  /** yen | token | heart | xp | item:<consumable id> */
   asset: z.string(),
   amount: z.number(),
   reason: z.string(),

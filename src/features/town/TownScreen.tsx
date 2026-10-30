@@ -2,7 +2,8 @@ import { Link } from 'react-router';
 import { bonsai, districtStates } from '../../engine/world';
 import { daysAway } from '../../engine/game';
 import { useGame } from '../../foundations/store/gameStore';
-import { districts } from '../../foundations/world';
+import { districts, koto } from '../../foundations/world';
+import { KotoSays } from '../tour/KotoSays';
 import { JaText } from '../../foundations/japanese/Ja';
 import { useSave, useStats } from '../hooks';
 import { Scene } from '../../foundations/art/Scene';
@@ -119,6 +120,7 @@ export function TownScreen() {
       <h1>
         <JaText text="{言霊町|ことだまちょう}" /> Kotodama Town
       </h1>
+      <KotoSays lines={koto.town} outfit="mayor" />
       {away > 0 && (
         <p className="banner">
           You were away {away} day(s): the lanterns went dark. Meet today's goal to light them

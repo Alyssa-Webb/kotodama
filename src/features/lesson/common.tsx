@@ -7,7 +7,7 @@ import { JaText } from '../../foundations/japanese/Ja';
 import { Slot } from '../../foundations/slots/Slot';
 import { Scene } from '../../foundations/art/Scene';
 import { Guide } from '../../foundations/art/Guide';
-import { CapsuleIcon, HeartIcon, KobanIcon, StarIcon } from '../../foundations/art/icons';
+import { CapsuleIcon, HeartIcon, YenIcon, StarIcon } from '../../foundations/art/icons';
 import { fx } from '../../foundations/fx/fx';
 import { moments } from '../../foundations/moments/moments';
 import { AvatarActor } from '../avatar/AvatarActor';
@@ -175,7 +175,7 @@ export function ResultCard({
 
 const ICON = {
   xp: null,
-  koban: <KobanIcon size={22} />,
+  yen: <YenIcon size={22} />,
   token: <CapsuleIcon size={22} />,
   heart: <HeartIcon size={22} />,
 } as const;

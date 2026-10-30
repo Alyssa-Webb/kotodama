@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "shop": [
+    { "ja": "いらっしゃいませ！", "en": "Welcome, welcome! Step right in!" },
+    { "ja": "{今日|きょう}もがんばったね！", "en": "You studied hard today! Treat yourself." },
+    {
+      "ja": "{安|やす}いよ、{安|やす}いよ！",
+      "en": "Cheap, cheap! Best prices on the whole street!"
+    },
+    {
+      "ja": "おっ、お{客|きゃく}さん！",
+      "en": "Oh, a customer! My mustache is totally real, by the way."
+    },
+    { "ja": "ありがとうございます！", "en": "Thank you kindly! Come again!" }
+  ],
+  "town": [
+    {
+      "ja": "ようこそ、{言霊町|ことだまちょう}へ！",
+      "en": "Welcome to Kotodama Town! I'm the mayor, you know."
+    },
+    {
+      "ja": "{町|まち}が{元気|げんき}になってきた！",
+      "en": "Every word you learn wakes another part of town."
+    },
+    {
+      "ja": "{復習|ふくしゅう}をわすれないでね。",
+      "en": "Don't forget your reviews: fading words make the lanterns dim."
+    }
+  ],
+  "tour": [
+    {
+      "target": ".home-hero",
+      "outfit": "guide",
+      "pose": "wave",
+      "ja": "はじめまして！",
+      "en": "Nice to meet you! I'm Koto, the spirit of words. Let me show you around!"
+    },
+    {
+      "target": ".next-card",
+      "outfit": "sensei",
+      "pose": "point",
+      "ja": "{修行|しゅぎょう}だ！",
+      "en": "Your next lesson starts here. Swipe through the bushes, then beat the yokai with right answers!"
+    },
+    {
+      "target": ".tab[href='#/town']",
+      "outfit": "mayor",
+      "pose": "point",
+      "ja": "{町|まち}",
+      "en": "The Town is yours to grow. Every word you learn wakes it up a little more."
+    },
+    {
+      "target": ".tab[href='#/path']",
+      "outfit": "guide",
+      "pose": "point",
+      "ja": "{道|みち}",
+      "en": "The Path is your journey: from the Dojo, through the bamboo forest, all the way to fluency."
+    },
+    {
+      "target": ".tab[href='#/reviews']",
+      "outfit": "sensei",
+      "pose": "point",
+      "ja": "{道場|どうじょう}",
+      "en": "In the Dojo you review words before they fade. Strong memories make a strong town!"
+    },
+    {
+      "target": ".tab[href='#/shop']",
+      "outfit": "shopkeeper",
+      "pose": "talk",
+      "ja": "いらっしゃいませ！",
+      "en": "My shop! Spend the yen you earn, and try the gachapon with your capsule tokens."
+    },
+    {
+      "target": ".tab[href='#/avatar']",
+      "outfit": "guide",
+      "pose": "cheer",
+      "ja": "がんばって！",
+      "en": "And this is you! Dress up your traveller. Now go, I'll be cheering for you!"
+    }
+  ]
+}

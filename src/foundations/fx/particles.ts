@@ -215,7 +215,7 @@ export function step(ctx: CanvasRenderingContext2D, ps: Particle[]): Particle[] 
         ctx.fill();
         break;
       case 'coins': {
-        // A spinning koban: an oval whose width follows the spin.
+        // A spinning yen: an oval whose width follows the spin.
         const w = Math.abs(Math.cos(p.life / 4)) * p.size + 1.5;
         ctx.beginPath();
         ctx.ellipse(0, 0, w, p.size * 1.25, 0, 0, Math.PI * 2);

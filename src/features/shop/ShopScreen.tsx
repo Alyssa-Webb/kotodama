@@ -12,8 +12,8 @@ import {
 import { publishedOdds, pull } from '../../engine/gacha';
 import { buyCharm, cardIdsFor } from '../../engine/game';
 import { shopWordItem, useGame } from '../../foundations/store/gameStore';
-import { avatarParts, economy, shop } from '../../foundations/world';
-import { KobanIcon } from '../../foundations/art/icons';
+import { avatarParts, economy, koto, shop } from '../../foundations/world';
+import { YenIcon } from '../../foundations/art/icons';
 import { ItemArt } from '../../foundations/art/ItemArt';
 import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
@@ -23,11 +23,12 @@ import { moments } from '../../foundations/moments/moments';
 import { buildReel } from '../../engine/gachaReel';
 import { toSurface } from '../../engine/text/furigana';
 import { AvatarActor } from '../avatar/AvatarActor';
+import { KotoSays } from '../tour/KotoSays';
 import type { AvatarPart } from '../../schema/world';
 import type { ConsumableId } from '../../schema/world';
 
 const ERR: Record<PurchaseError, string> = {
-  'not-enough-koban': 'Not enough koban. Learn more to earn more.',
+  'not-enough-yen': 'Not enough yen. Learn more to earn more.',
   'max-held': 'You already hold the maximum.',
   'unknown-item': 'Unknown item.',
   'not-allowed': 'Not allowed in this difficulty.',
@@ -54,7 +55,7 @@ export function ShopScreen() {
 
   const [opening, setOpening] = useState(false);
 
-  /** Every purchase is a moment: koban leave your purse, the item's badge flies to your avatar. */
+  /** Every purchase is a moment: yen leave your purse, the item's badge flies to your avatar. */
   const celebrate = (name: string, from: Element | null) => {
     fx.slot('purchase', from);
     void moments.purchase(toSurface(name), centerOf(from)).then(() => {
@@ -101,7 +102,7 @@ export function ShopScreen() {
     const s = useGame.getState().save!;
     if (balanceOf(s.ledger, 'token') < economy.gachapon.cost)
       return setMsg(
-        'Capsule tokens come from boss wins, perfect lessons and clearing review debt.',
+        'Koban, the gold gacha coins, come from boss wins, perfect lessons and clearing review debt.',
       );
     const r = pull(economy, avatarParts, s.gacha.owned, s.gacha.rngState, s.gacha.pity);
     commit({
@@ -146,12 +147,13 @@ export function ShopScreen() {
         <span className="shop-avatar" aria-hidden="true">
           <AvatarActor mood={avatarMood} reaction={reaction} size={54} />
         </span>
-        <span className="stat stat-koban">
-          <KobanIcon size={18} /> {stats.koban}
+        <span className="stat stat-yen">
+          <YenIcon size={18} /> {stats.yen}
         </span>
       </div>
+      <KotoSays lines={koto.shop} outfit="shopkeeper" />
       <p className="muted small">
-        Everything is bought with koban earned by learning. Each item's name joins your reviews.
+        Everything is bought with yen earned by learning. Each item's name joins your reviews.
       </p>
       {msg && (
         <p className="banner" role="status">
@@ -188,11 +190,11 @@ export function ShopScreen() {
                 <span className="small muted">{c.effect}</span>
                 <button
                   className="btn btn-small btn-gold"
-                  disabled={disabled || stats.koban < price}
+                  disabled={disabled || stats.yen < price}
                   onClick={(e) => purchase(c.id, e.currentTarget.closest('.card'))}
-                  aria-label={`Buy ${c.en} for ${price} koban`}
+                  aria-label={`Buy ${c.en} for ${price} yen`}
                 >
-                  <KobanIcon size={18} /> {price}
+                  <YenIcon size={18} /> {price}
                 </button>
               </div>
             );
@@ -215,10 +217,10 @@ export function ShopScreen() {
               ) : c.price !== undefined ? (
                 <button
                   className="btn btn-small btn-gold"
-                  disabled={stats.koban < c.price}
+                  disabled={stats.yen < c.price}
                   onClick={(e) => charm(c.id, e.currentTarget.closest('.card'))}
                 >
-                  <KobanIcon size={18} /> {c.price}
+                  <YenIcon size={18} /> {c.price}
                 </button>
               ) : (
                 <span className="muted tiny">{c.unlock}</span>
@@ -232,7 +234,7 @@ export function ShopScreen() {
           <h2>
             <JaText text="ガチャポン" /> Gachapon
           </h2>
-          <span className="pill pill-gold">{stats.tokens} token(s)</span>
+          <span className="pill pill-gold">{stats.tokens} koban</span>
         </div>
         <p className="small muted">
           Odds:{' '}
@@ -240,14 +242,14 @@ export function ShopScreen() {
             .map((o) => `${o.rarity} ${o.percent}%`)
             .join(' · ')}
           . Never a duplicate while new prizes remain; a rare is guaranteed within{' '}
-          {economy.gachapon.pityAfter} spins. Never costs koban or money.
+          {economy.gachapon.pityAfter} spins. Never costs yen or money.
         </p>
         <button
           className="btn btn-indigo"
           disabled={stats.tokens < economy.gachapon.cost || opening}
           onClick={spin}
         >
-          Spin ({economy.gachapon.cost} token)
+          Spin ({economy.gachapon.cost} koban)
         </button>
         {opening && (
           <p className="center small muted" role="status">

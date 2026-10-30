@@ -31,7 +31,7 @@ export function useStats() {
     const ctx = { now, timeZone: clock.timeZone(), economy };
     const b = balances(save.ledger);
     return {
-      koban: b.koban ?? 0,
+      yen: b.yen ?? 0,
       tokens: b.token ?? 0,
       xp: b.xp ?? 0,
       hearts: heartsNow(save, ctx),

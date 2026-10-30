@@ -47,11 +47,11 @@ export const EconomySchema = z.object({
     bossDefeatTokens: nonneg,
     perfectLessonTokens: nonneg,
     clearReviewDebtTokens: nonneg,
-    streakMilestones: z.array(z.object({ days: z.number().int().positive(), koban: nonneg })),
-    guardianDailyKoban: nonneg,
+    streakMilestones: z.array(z.object({ days: z.number().int().positive(), yen: nonneg })),
+    guardianDailyYen: nonneg,
   }),
   penalties: z.object({
-    reviewDebtKobanFactor: z.number().min(0).max(1),
+    reviewDebtYenFactor: z.number().min(0).max(1),
     hardcoreSpoilPerMissedDay: z.number().min(0).max(1),
     kintsugiWindowHours: nonneg,
   }),
@@ -68,7 +68,7 @@ export const EconomySchema = z.object({
     taikoMinutes: nonneg,
     taikoXpMultiplier: nonneg,
     manekiLessons: z.number().int().nonnegative(),
-    manekiKobanBonus: nonneg,
+    manekiYenBonus: nonneg,
   }),
   streakFreezeMax: z.number().int().nonnegative(),
   rush: z.object({
@@ -82,7 +82,7 @@ export const EconomySchema = z.object({
     doubleHitDamage: z.number().int().positive(),
     hitDamage: z.number().int().positive(),
   }),
-  charms: z.object({ gakugyoReviewXp: z.number().positive(), mimiListeningKoban: nonneg }),
+  charms: z.object({ gakugyoReviewXp: z.number().positive(), mimiListeningYen: nonneg }),
   /**
    * Testing only: a one-time grant added to every save (new or existing) on load. Set to 0
    * before launch.

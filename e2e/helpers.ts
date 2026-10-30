@@ -24,7 +24,13 @@ export async function answerKanaQuestion(page: Page): Promise<boolean> {
   const card = page.locator('.question');
   if (!(await card.isVisible().catch(() => false))) return false;
   // Feedback for the last answer is still up: nothing to answer until it is dismissed.
-  if (await page.locator('.feedback').isVisible().catch(() => false)) return false;
+  if (
+    await page
+      .locator('.feedback')
+      .isVisible()
+      .catch(() => false)
+  )
+    return false;
   // Listening questions can't be read off the page any more (that gave the answer away), so
   // the e2e learner takes the ungraded "can't listen now" skip, like a player on a train.
   const skip = page.getByRole('button', { name: "Can't listen now? Skip" });

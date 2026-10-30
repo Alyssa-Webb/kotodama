@@ -285,7 +285,7 @@ export function CaseReel({
         ))}
       </div>
 
-      {/* Falling shower of gold petals and koban coins for Legendary reveal */}
+      {/* Falling shower of gold petals and yen coins for Legendary reveal */}
       <div className="m-case-shower" aria-hidden="true">
         {SHOWER.map((item, i) => (
           <span

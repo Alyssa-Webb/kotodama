@@ -6,7 +6,7 @@
       "name": "こたつ",
       "en": "Kotatsu",
       "effect": "Streak freeze: stays warm through one missed day. Hold up to 2.",
-      "price": 60,
+      "price": 600,
       "max": 2,
       "meaning": "heated table"
     },
@@ -15,8 +15,8 @@
       "name": "{金継|きんつ}ぎ",
       "en": "Kintsugi",
       "effect": "Mends a broken streak with gold within 48 hours. Hardcore also requires a Redemption Trial.",
-      "price": 150,
-      "pricePerStreakDay": 5,
+      "price": 1500,
+      "pricePerStreakDay": 50,
       "meaning": "golden repair"
     },
     {
@@ -24,7 +24,7 @@
       "name": "{提灯|ちょうちん}",
       "en": "Chōchin lantern",
       "effect": "Hint: lights up one tile, letter or option.",
-      "price": 8,
+      "price": 80,
       "meaning": "paper lantern"
     },
     {
@@ -32,7 +32,7 @@
       "name": "おにぎり",
       "en": "Onigiri",
       "effect": "Restores 1 heart.",
-      "price": 15,
+      "price": 150,
       "meaning": "rice ball"
     },
     {
@@ -40,15 +40,15 @@
       "name": "{太鼓|たいこ}",
       "en": "Taiko drum",
       "effect": "Double XP for 15 minutes.",
-      "price": 50,
+      "price": 500,
       "meaning": "drum"
     },
     {
       "id": "maneki",
       "name": "{招|まね}き{猫|ねこ}",
       "en": "Maneki-neko",
-      "effect": "+25% koban for your next 3 lessons.",
-      "price": 70,
+      "effect": "+25% yen for your next 3 lessons.",
+      "price": 700,
       "meaning": "beckoning cat"
     },
     {
@@ -56,7 +56,7 @@
       "name": "だるま",
       "en": "Daruma",
       "effect": "Extra life in a Rush round.",
-      "price": 20,
+      "price": 200,
       "meaning": "daruma doll"
     },
     {
@@ -64,7 +64,7 @@
       "name": "{砂時計|すなどけい}",
       "en": "Hourglass",
       "effect": "+10 seconds in a Rush round.",
-      "price": 25,
+      "price": 250,
       "meaning": "hourglass"
     },
     {
@@ -72,7 +72,7 @@
       "name": "お{守|まも}り",
       "en": "Omamori shield",
       "effect": "Keeps one spirit from fading for 3 days.",
-      "price": 30,
+      "price": 300,
       "meaning": "protective charm"
     },
     {
@@ -80,7 +80,7 @@
       "name": "{絵馬|えま}",
       "en": "Ema plaque",
       "effect": "Write a wish to reroll one daily quest.",
-      "price": 20,
+      "price": 200,
       "meaning": "votive plaque"
     }
   ],
@@ -90,7 +90,7 @@
       "name": "{学業守|がくぎょうまも}り",
       "en": "Study charm",
       "perk": "+10% XP on reviews.",
-      "price": 200
+      "price": 2000
     },
     {
       "id": "goukaku",
@@ -103,8 +103,8 @@
       "id": "mimi",
       "name": "{耳守|みみまも}り",
       "en": "Ear charm",
-      "perk": "+15% koban in listening exercises.",
-      "price": 250
+      "perk": "+15% yen in listening exercises.",
+      "price": 2500
     },
     {
       "id": "fude",

@@ -156,13 +156,13 @@ function gainHearts(s: SaveState, c: Ctx, n: number, reason: string): SaveState 
 // ---------------------------------------------------------------- day rollover
 
 export interface SettleNotice {
-  kind: 'streak-frozen' | 'streak-lost' | 'koban-spoiled' | 'hearts-refilled' | 'new-day';
+  kind: 'streak-frozen' | 'streak-lost' | 'yen-spoiled' | 'hearts-refilled' | 'new-day';
   amount?: number;
 }
 
 /**
  * Processes every game day between the last visit and today: kotatsu freezes, streak loss,
- * Hardcore koban spoil, daily heart refills and the daily counters. Idempotent within a day;
+ * Hardcore yen spoil, daily heart refills and the daily counters. Idempotent within a day;
  * a clock that moves backwards (time-zone change westward) is ignored.
  */
 /** Testing only: grants `economy.testing.grantTokens` capsule tokens once per save. */
@@ -222,16 +222,16 @@ export function settleDay(s: SaveState, c: Ctx): { save: SaveState; notices: Set
     }
     streak.missedDays = s.streak.missedDays + uncovered;
     if (rules.spoil) {
-      let koban = balanceOf(ledger, 'koban');
+      let yen = balanceOf(ledger, 'yen');
       let spoiled = 0;
       for (let i = 0; i < uncovered; i++) {
-        const lose = Math.floor(koban * c.economy.penalties.hardcoreSpoilPerMissedDay);
-        koban -= lose;
+        const lose = Math.floor(yen * c.economy.penalties.hardcoreSpoilPerMissedDay);
+        yen -= lose;
         spoiled += lose;
       }
       if (spoiled) {
-        events.push({ asset: 'koban', amount: -spoiled, reason: 'spoil' });
-        notices.push({ kind: 'koban-spoiled', amount: spoiled });
+        events.push({ asset: 'yen', amount: -spoiled, reason: 'spoil' });
+        notices.push({ kind: 'yen-spoiled', amount: spoiled });
       }
     }
   }
@@ -287,7 +287,7 @@ function addXp(
     if (m) {
       milestone = m.days;
       ledger = append(ledger, c.now, day, [
-        { asset: 'koban', amount: m.koban, reason: 'streak-milestone', ref: String(m.days) },
+        { asset: 'yen', amount: m.yen, reason: 'streak-milestone', ref: String(m.days) },
       ]);
     }
   }
@@ -378,7 +378,7 @@ export interface LessonResult {
 }
 
 /**
- * Applies a finished (or failed) lesson: hearts, XP, koban, stars, new cards for introduced items,
+ * Applies a finished (or failed) lesson: hearts, XP, yen, stars, new cards for introduced items,
  * FSRS reviews for every practiced card, and the mistake log.
  */
 export function completeLesson(
@@ -472,7 +472,7 @@ export function completeLesson(
 export interface ReviewResult {
   save: SaveState;
   xp: number;
-  koban: number;
+  yen: number;
   tokens: number;
   heartsEarned: number;
   clearedAll: boolean;
@@ -505,7 +505,7 @@ export function completeReviews(
   const events: NewEvent[] = [{ asset: 'xp', amount: input.summary.xp, reason: 'reviews' }];
   if (clearedAll) {
     events.push({
-      asset: 'koban',
+      asset: 'yen',
       amount: c.economy.earn.clearAllReviews,
       reason: 'reviews-cleared',
     });
@@ -524,7 +524,7 @@ export function completeReviews(
   return {
     save: x.save,
     xp: input.summary.xp,
-    koban: clearedAll ? c.economy.earn.clearAllReviews : 0,
+    yen: clearedAll ? c.economy.earn.clearAllReviews : 0,
     tokens: clearedAll ? c.economy.earn.clearReviewDebtTokens : 0,
     heartsEarned: gained,
     clearedAll,
@@ -544,7 +544,7 @@ export function isUnlocked(s: SaveState, orderedKeys: readonly string[], key: st
 // ---------------------------------------------------------------- shop
 
 export type PurchaseError =
-  | 'not-enough-koban'
+  | 'not-enough-yen'
   | 'max-held'
   | 'unknown-item'
   | 'not-allowed'
@@ -569,7 +569,7 @@ export function kintsugiAvailable(s: SaveState, c: Ctx): boolean {
   return c.now - b.at <= c.economy.penalties.kintsugiWindowHours * 3_600_000;
 }
 
-/** Buys a consumable with koban; its Japanese name joins the collection as a word to learn. */
+/** Buys a consumable with yen; its Japanese name joins the collection as a word to learn. */
 export function buy(
   s: SaveState,
   c: Ctx,
@@ -588,14 +588,14 @@ export function buy(
     return { error: s.streak.broken ? 'window-closed' : 'no-broken-streak' };
   const price = priceOf(s, shop, id) ?? item.price;
   const bal = balances(s.ledger);
-  if ((bal.koban ?? 0) < price) return { error: 'not-enough-koban' };
+  if ((bal.yen ?? 0) < price) return { error: 'not-enough-yen' };
   const max = id === 'kotatsu' ? c.economy.streakFreezeMax : item.max;
   if (max !== undefined && (bal[`item:${id}`] ?? 0) >= max) return { error: 'max-held' };
   const day = today(s, c);
   let save: SaveState = {
     ...s,
     ledger: append(s.ledger, c.now, day, [
-      { asset: 'koban', amount: -price, reason: 'purchase', ref: id },
+      { asset: 'yen', amount: -price, reason: 'purchase', ref: id },
       { asset: `item:${id}`, amount: 1, reason: 'purchase' },
     ]),
     collection: s.collection.shopWords.includes(id)
@@ -728,7 +728,7 @@ export function changeDifficulty(
   };
 }
 
-/** Buys a charm with koban (charms with an unlock condition can't be bought). */
+/** Buys a charm with yen (charms with an unlock condition can't be bought). */
 export function buyCharm(
   s: SaveState,
   c: Ctx,
@@ -738,12 +738,12 @@ export function buyCharm(
   const charm = shop.charms.find((x) => x.id === id);
   if (!charm || charm.price === undefined) return { error: charm ? 'not-allowed' : 'unknown-item' };
   if (s.charms.owned.includes(id)) return { error: 'already-owned' };
-  if (balanceOf(s.ledger, 'koban') < charm.price) return { error: 'not-enough-koban' };
+  if (balanceOf(s.ledger, 'yen') < charm.price) return { error: 'not-enough-yen' };
   return {
     save: {
       ...s,
       ledger: append(s.ledger, c.now, today(s, c), [
-        { asset: 'koban', amount: -charm.price, reason: 'purchase', ref: `charm:${id}` },
+        { asset: 'yen', amount: -charm.price, reason: 'purchase', ref: `charm:${id}` },
       ]),
       charms: { ...s.charms, owned: [...s.charms.owned, id] },
     },

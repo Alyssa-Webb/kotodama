@@ -44,9 +44,10 @@ beforeAll(async () => {
   scheduler = await createScheduler();
 });
 
-const giveKoban = (s: SaveState, n: number, now = T0): SaveState => ({
+/** Gives `n` old-koban units of money, i.e. ¥(n × 10), matching the ×10 yen economy. */
+const giveYen = (s: SaveState, n: number, now = T0): SaveState => ({
   ...s,
-  ledger: append(s.ledger, now, '2026-03-02', [{ asset: 'koban', amount: n, reason: 'test' }]),
+  ledger: append(s.ledger, now, '2026-03-02', [{ asset: 'yen', amount: n * 10, reason: 'test' }]),
 });
 
 /** Meets the daily goal on the given instant by finishing a lesson worth enough XP. */
@@ -115,11 +116,11 @@ describe('new save', () => {
 });
 
 describe('lesson completion', () => {
-  it('awards XP and koban, creates cards for introduced items, extends the streak', () => {
+  it('awards XP and yen, creates cards for introduced items, extends the streak', () => {
     let s = newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 });
     s = playLesson(s, T0);
     expect(balanceOf(s.ledger, 'xp')).toBeGreaterThanOrEqual(130);
-    expect(balanceOf(s.ledger, 'koban')).toBeGreaterThanOrEqual(15); // 10 + 5 for three stars (+ Kiai)
+    expect(balanceOf(s.ledger, 'yen')).toBeGreaterThanOrEqual(15); // 10 + 5 for three stars (+ Kiai)
     expect(Object.keys(s.cards)).toEqual(expect.arrayContaining(['k.a#main', 'k.o#main']));
     expect(s.streak.current).toBe(1);
     expect(s.nodes['kotodama-starter/u01.n01']!.stars).toBe(3);
@@ -209,40 +210,40 @@ describe('streak, freezes and spoil', () => {
     expect(s.streak.lastGoalDay).toBe('2026-03-04');
   });
 
-  it('a missed day breaks the streak and spoils 10% koban in Hardcore', () => {
-    let s = giveKoban(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 200);
+  it('a missed day breaks the streak and spoils 10% yen in Hardcore', () => {
+    let s = giveYen(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 200);
     s = playLesson(s, day(0));
-    const before = balanceOf(s.ledger, 'koban');
+    const before = balanceOf(s.ledger, 'yen');
     const r = settleDay(s, ctx(day(2))); // day 1 missed
     expect(r.save.streak.current).toBe(0);
     expect(r.save.streak.broken?.length).toBe(1);
-    expect(balanceOf(r.save.ledger, 'koban')).toBe(before - Math.floor(before * 0.1));
+    expect(balanceOf(r.save.ledger, 'yen')).toBe(before - Math.floor(before * 0.1));
     expect(r.notices.map((n) => n.kind)).toEqual(
-      expect.arrayContaining(['streak-lost', 'koban-spoiled']),
+      expect.arrayContaining(['streak-lost', 'yen-spoiled']),
     );
     // idempotent within the day
     expect(settleDay(r.save, ctx(day(2) + H)).save.ledger).toHaveLength(r.save.ledger.length);
   });
 
   it('a kotatsu is used automatically and prevents both streak loss and spoil', () => {
-    let s = giveKoban(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 200);
+    let s = giveYen(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 200);
     s = playLesson(s, day(0));
     const bought = buy(s, ctx(day(0)), shop, 'kotatsu');
     if ('error' in bought) throw new Error(bought.error);
     s = bought.save;
-    const koban = balanceOf(s.ledger, 'koban');
+    const yen = balanceOf(s.ledger, 'yen');
     const r = settleDay(s, ctx(day(2)));
     expect(r.save.streak.current).toBe(1);
     expect(balanceOf(r.save.ledger, 'item:kotatsu')).toBe(0);
-    expect(balanceOf(r.save.ledger, 'koban')).toBe(koban);
+    expect(balanceOf(r.save.ledger, 'yen')).toBe(yen);
     s = playLesson(r.save, day(2));
     expect(s.streak.current).toBe(2);
   });
 
-  it('Standard mode never spoils koban', () => {
-    const s = giveKoban(newSave(T0, 'UTC', 1, economy, { difficulty: 'standard' }), 200);
+  it('Standard mode never spoils yen', () => {
+    const s = giveYen(newSave(T0, 'UTC', 1, economy, { difficulty: 'standard' }), 200);
     const r = settleDay(s, ctx(day(3)));
-    expect(balanceOf(r.save.ledger, 'koban')).toBe(200);
+    expect(balanceOf(r.save.ledger, 'yen')).toBe(2000);
   });
 
   it('changing time zone mid-streak never double-counts or goes backwards', () => {
@@ -262,31 +263,31 @@ describe('streak, freezes and spoil', () => {
 });
 
 describe('shop', () => {
-  it('rejects purchases without enough koban and respects max held', () => {
+  it('rejects purchases without enough yen and respects max held', () => {
     let s = newSave(T0, 'UTC', 1, economy);
-    expect(buy(s, ctx(T0), shop, 'kotatsu')).toEqual({ error: 'not-enough-koban' });
-    s = giveKoban(s, 1000);
+    expect(buy(s, ctx(T0), shop, 'kotatsu')).toEqual({ error: 'not-enough-yen' });
+    s = giveYen(s, 1000);
     for (let i = 0; i < 2; i++) {
       const r = buy(s, ctx(T0), shop, 'kotatsu');
       if ('error' in r) throw new Error(r.error);
       s = r.save;
     }
     expect(buy(s, ctx(T0), shop, 'kotatsu')).toEqual({ error: 'max-held' });
-    expect(balanceOf(s.ledger, 'koban')).toBe(1000 - 120);
+    expect(balanceOf(s.ledger, 'yen')).toBe(10000 - 1200);
     expect(s.collection.shopWords).toContain('kotatsu');
   });
 
   it('onigiri restores a heart; Ironman forbids it', () => {
-    const s = giveKoban(playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false), 100);
+    const s = giveYen(playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false), 100);
     const r = buy(s, ctx(T0), shop, 'onigiri');
     if ('error' in r) throw new Error(r.error);
     expect(heartsNow(r.save, ctx(T0))).toBe(1);
-    const iron = giveKoban(newSave(T0, 'UTC', 1, economy, { difficulty: 'ironman' }), 100);
+    const iron = giveYen(newSave(T0, 'UTC', 1, economy, { difficulty: 'ironman' }), 100);
     expect(buy(iron, ctx(T0), shop, 'onigiri')).toEqual({ error: 'not-allowed' });
   });
 
   it('kintsugi mends a broken streak within 48h, only after the trial in Hardcore', () => {
-    let s = giveKoban(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 1000);
+    let s = giveYen(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 1000);
     s = playLesson(s, T0);
     s = settleDay(s, ctx(T0 + 48 * H)).save;
     expect(s.streak.current).toBe(0);
@@ -331,7 +332,7 @@ describe('reviews', () => {
       scheduler,
     );
     expect(r.clearedAll).toBe(true);
-    expect(r.koban).toBe(economy.earn.clearAllReviews);
+    expect(r.yen).toBe(economy.earn.clearAllReviews);
     expect(dueCards(r.save, later)).toEqual([]);
   });
 });
@@ -358,7 +359,7 @@ describe('review fixes (regressions)', () => {
   });
 
   it('kotatsu are kept when they cannot save the streak, or when there is no streak', () => {
-    let s = giveKoban(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 500);
+    let s = giveYen(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 500);
     const r1 = buy(s, ctx(T0), shop, 'kotatsu');
     if ('error' in r1) throw new Error(r1.error);
     expect(balanceOf(settleDay(r1.save, ctx(day(3))).save.ledger, 'item:kotatsu')).toBe(1); // no streak
@@ -369,7 +370,7 @@ describe('review fixes (regressions)', () => {
   });
 
   it('kintsugi cannot be applied after its window, even if held', () => {
-    let s = giveKoban(
+    let s = giveYen(
       newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50, difficulty: 'standard' }),
       1000,
     );
@@ -381,7 +382,7 @@ describe('review fixes (regressions)', () => {
   });
 
   it('a streak broken under Hardcore still needs the trial after switching to Standard', () => {
-    let s = giveKoban(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 1000);
+    let s = giveYen(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 1000);
     s = playLesson(s, T0);
     s = settleDay(s, ctx(day(2))).save;
     const r = buy(s, ctx(day(2)), shop, 'kintsugi');
@@ -415,14 +416,14 @@ describe('review fixes (regressions)', () => {
   });
 
   it('onigiri cannot be bought at full hearts or without hearts', () => {
-    const s = giveKoban(newSave(T0, 'UTC', 1, economy), 100);
+    const s = giveYen(newSave(T0, 'UTC', 1, economy), 100);
     expect(buy(s, ctx(T0), shop, 'onigiri')).toEqual({ error: 'hearts-full' });
-    const casual = giveKoban(newSave(T0, 'UTC', 1, economy, { difficulty: 'casual' }), 100);
+    const casual = giveYen(newSave(T0, 'UTC', 1, economy, { difficulty: 'casual' }), 100);
     expect(buy(casual, ctx(T0), shop, 'onigiri')).toEqual({ error: 'not-allowed' });
   });
 
   it('charms are bought once, only when buyable', () => {
-    let s = giveKoban(newSave(T0, 'UTC', 1, economy), 1000);
+    let s = giveYen(newSave(T0, 'UTC', 1, economy), 1000);
     const r = buyCharm(s, ctx(T0), shop, 'gakugyo');
     if ('error' in r) throw new Error(r.error);
     s = r.save;
@@ -449,5 +450,27 @@ describe('testing token grant', () => {
     const c = { ...ctx(T0), economy: { ...economy, testing: { grantTokens: 0 } } };
     const s0 = newSave(T0, 'UTC', 1, economy);
     expect(applyTestGrant(s0, c)).toBe(s0);
+  });
+});
+
+describe('save migration v1 → v2 (koban → yen)', () => {
+  it('converts every koban ledger event to yen at ¥10 each and leaves other assets alone', async () => {
+    const { migrateSave } = await import('./save/migrate');
+    const v2 = newSave(T0, 'UTC', 1, economy);
+    const v1 = {
+      ...v2,
+      saveVersion: 1,
+      ledger: [
+        ...v2.ledger,
+        { id: 90, at: T0, day: '2026-03-02', asset: 'koban', amount: 42, reason: 'lesson' },
+        { id: 91, at: T0, day: '2026-03-02', asset: 'token', amount: 2, reason: 'boss' },
+      ],
+    };
+    const r = migrateSave(v1);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.save.saveVersion).toBe(2);
+    expect(balanceOf(r.save.ledger, 'yen')).toBe(420);
+    expect(balanceOf(r.save.ledger, 'token')).toBe(2);
   });
 });

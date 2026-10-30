@@ -77,7 +77,7 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
           </div>
           <p className="muted small">
             Every 10 reviews earn back a heart. Clearing every due review pays{' '}
-            {economy.earn.clearAllReviews} koban and a capsule token.
+            {economy.earn.clearAllReviews} yen and a capsule token.
           </p>
           {items.length ? (
             <Link className="btn btn-indigo btn-block" to="/dojo">
@@ -118,8 +118,8 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
         >
           <div className="stack" style={{ gap: 'var(--sp-2)', textAlign: 'left' }}>
             <RewardRow label="XP" value={`+${done.r.xp}`} count={done.r.xp} tone="accent" />
-            {done.r.koban > 0 && (
-              <RewardRow label="All reviews cleared" value={`+${done.r.koban} koban`} tone="gold" />
+            {done.r.yen > 0 && (
+              <RewardRow label="All reviews cleared" value={`+${done.r.yen} yen`} tone="gold" />
             )}
             {done.r.tokens > 0 && (
               <RewardRow label="Capsule token" value={`+${done.r.tokens}`} tone="gold" />

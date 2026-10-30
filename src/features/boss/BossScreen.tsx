@@ -118,7 +118,7 @@ export function BossScreen() {
       s = {
         ...s,
         ledger: append(s.ledger, c.now, day, [
-          { asset: 'koban', amount: economy.earn.bossDefeat, reason: 'boss', ref: boss.id },
+          { asset: 'yen', amount: economy.earn.bossDefeat, reason: 'boss', ref: boss.id },
           { asset: 'token', amount: economy.earn.bossDefeatTokens, reason: 'boss', ref: boss.id },
         ]),
         avatar: { ...s.avatar, owned: [...new Set([...s.avatar.owned, ...loot])] },
@@ -195,9 +195,9 @@ export function BossScreen() {
         >
           {phase === 'won' ? (
             <>
-              <RewardRow label="Koban" value={`+${economy.earn.bossDefeat}`} tone="gold" />
+              <RewardRow label="Yen" value={`+${economy.earn.bossDefeat}`} tone="gold" />
               <RewardRow
-                label="Capsule token"
+                label="Koban (gacha coin)"
                 value={`+${economy.earn.bossDefeatTokens}`}
                 tone="gold"
               />

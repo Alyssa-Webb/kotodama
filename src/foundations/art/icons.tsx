@@ -33,7 +33,7 @@ export function HeartIcon({ size, empty, ...rest }: P & { empty?: boolean }) {
   );
 }
 
-export function KobanIcon({ size, ...rest }: P) {
+export function YenIcon({ size, ...rest }: P) {
   return (
     <svg viewBox="0 0 24 24" {...base(size, rest)}>
       <ellipse

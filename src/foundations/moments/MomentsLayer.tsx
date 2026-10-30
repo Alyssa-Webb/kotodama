@@ -96,7 +96,7 @@ function SlotMoment({ name, at, onEnd }: { name: string; at: Point; onEnd: () =>
     case 'sunburst':
       return <Sunburst at={at} onEnd={onEnd} />;
     case 'coins':
-      return <Coins from={at} to={targetOf('.stat-koban')} onEnd={onEnd} />;
+      return <Coins from={at} to={targetOf('.stat-yen')} onEnd={onEnd} />;
     case 'slash':
       return <Slash at={at} onEnd={onEnd} />;
     default:
@@ -208,7 +208,7 @@ function targetOf(selector: string): Point | null {
   return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
 }
 
-/** Koban fly in arcs from `from` to `to` (the koban counter), each landing with a tick. */
+/** Yen fly in arcs from `from` to `to` (the yen counter), each landing with a tick. */
 function Coins({
   from,
   to,
@@ -477,10 +477,10 @@ function serratedCrown(
     const vx1 = cx + Math.cos(a1) * rx * valR;
     const vy1 = cy + Math.sin(a1) * ry * valR;
 
-    const c1x = cx + Math.cos(a0 + 0.22 / lobes * Math.PI * 2) * rx * (tipR * 0.98);
-    const c1y = cy + Math.sin(a0 + 0.22 / lobes * Math.PI * 2) * ry * (tipR * 0.98) - 2;
-    const c2x = cx + Math.cos(aMid + 0.28 / lobes * Math.PI * 2) * rx * (tipR * 0.96);
-    const c2y = cy + Math.sin(aMid + 0.28 / lobes * Math.PI * 2) * ry * (tipR * 0.96) - 2;
+    const c1x = cx + Math.cos(a0 + (0.22 / lobes) * Math.PI * 2) * rx * (tipR * 0.98);
+    const c1y = cy + Math.sin(a0 + (0.22 / lobes) * Math.PI * 2) * ry * (tipR * 0.98) - 2;
+    const c2x = cx + Math.cos(aMid + (0.28 / lobes) * Math.PI * 2) * rx * (tipR * 0.96);
+    const c2y = cy + Math.sin(aMid + (0.28 / lobes) * Math.PI * 2) * ry * (tipR * 0.96) - 2;
 
     if (i === 0) pts.push(`M${vx0.toFixed(1)} ${vy0.toFixed(1)}`);
     pts.push(
@@ -512,10 +512,7 @@ function PointedLeaf({
     <g transform={`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${angle.toFixed(1)})`}>
       <path d={blade} transform="translate(0 3.5)" className="leaf-lip" />
       <path d={blade} className={tone} />
-      <path
-        d={`M0 -3 L0 ${(-len * 0.82).toFixed(1)}`}
-        className="leaf-vein"
-      />
+      <path d={`M0 -3 L0 ${(-len * 0.82).toFixed(1)}`} className="leaf-vein" />
       <ellipse
         cx={(-w * 0.24).toFixed(1)}
         cy={(-len * 0.52).toFixed(1)}
@@ -587,9 +584,7 @@ function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
   const mx = (x: number) => (side === 'l' ? x : 260 - x);
   const dir = side === 'l' ? 1 : -1;
   const fanTones: readonly [string, string, string] =
-    depth === 'near'
-      ? ['leaf-b', 'leaf-a', 'leaf-fresh']
-      : ['leaf-deep', 'leaf-mid', 'leaf-b'];
+    depth === 'near' ? ['leaf-b', 'leaf-a', 'leaf-fresh'] : ['leaf-deep', 'leaf-mid', 'leaf-b'];
 
   return (
     <svg
@@ -771,18 +766,8 @@ function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
                   [-2, 6, 4.6],
                 ].map(([bx, by, br], j) => (
                   <g key={j}>
-                    <circle
-                      cx={cx + bx!}
-                      cy={cy + by! + 2}
-                      r={br}
-                      fill="var(--c-lacquer)"
-                    />
-                    <circle
-                      cx={cx + bx!}
-                      cy={cy + by!}
-                      r={br}
-                      fill="var(--c-accent)"
-                    />
+                    <circle cx={cx + bx!} cy={cy + by! + 2} r={br} fill="var(--c-lacquer)" />
+                    <circle cx={cx + bx!} cy={cy + by!} r={br} fill="var(--c-accent)" />
                     <circle
                       cx={cx + bx! - 1.5}
                       cy={cy + by! - 1.5}
@@ -1525,7 +1510,7 @@ function Purchase({
       {!coinsDone && (
         <Coins
           from={from}
-          to={targetOf('.stat-koban')}
+          to={targetOf('.stat-yen')}
           count={6}
           reverse
           onEnd={() => setCoinsDone(true)}

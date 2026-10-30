@@ -75,7 +75,7 @@ export function SettingsScreen() {
           {rules.hearts === null
             ? 'No hearts: mistakes cost combo and stars.'
             : `${rules.hearts} hearts, ${rules.refill === 'daily' ? 'refilled each day' : 'refill 1 per hour or 10 Dojo reviews'}.`}{' '}
-          {rules.spoil ? 'Missed days spoil 10% of your koban.' : 'No koban spoil.'}{' '}
+          {rules.spoil ? 'Missed days spoil 10% of your yen.' : 'No yen spoil.'}{' '}
           {rules.kintsugi
             ? rules.kintsugiTrial
               ? 'Streak repair needs a Redemption Trial.'

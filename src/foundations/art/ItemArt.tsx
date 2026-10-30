@@ -314,7 +314,7 @@ export function ItemArt({ id, size = 72 }: { id: string; size?: number }) {
           <rect x="13" y="24" width="11" height="17" rx="5.5" fill="var(--c-border)" />
           <rect x="13" y="22" width="11" height="16" rx="5.5" fill="var(--c-hud-ink)" />
           <circle cx="18.5" cy="27" r="2.5" fill="var(--c-petal)" />
-          {/* Golden koban coin on belly */}
+          {/* Golden yen coin on belly */}
           <ellipse cx="43" cy="55" rx="8" ry="10.5" fill="var(--c-gold)" />
           <ellipse cx="43" cy="54" rx="7.5" ry="9.5" fill="var(--c-glow)" />
           <rect x="40.5" y="50" width="5" height="8" rx="1" fill="var(--c-gold)" />

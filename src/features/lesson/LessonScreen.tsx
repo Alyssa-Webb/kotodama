@@ -224,15 +224,15 @@ export function LessonScreen() {
             tone="accent"
           />
           <RewardRow
-            label="Koban"
-            value={`+${result.reward.koban}`}
-            count={result.reward.koban}
-            icon="koban"
+            label="Yen"
+            value={`+${result.reward.yen}`}
+            count={result.reward.yen}
+            icon="yen"
             tone="gold"
           />
           {result.reward.tokens > 0 && (
             <RewardRow
-              label="Capsule token"
+              label="Koban (gacha coin)"
               value={`+${result.reward.tokens}`}
               icon="token"
               tone="gold"
@@ -248,11 +248,7 @@ export function LessonScreen() {
             />
           )}
           {result.milestone && (
-            <RewardRow
-              label={`${result.milestone}-day milestone!`}
-              value="bonus koban"
-              tone="gold"
-            />
+            <RewardRow label={`${result.milestone}-day milestone!`} value="bonus yen" tone="gold" />
           )}
           {result.newItems.length > 0 && (
             <RewardRow label="New spirits woken" value={result.newItems.length} tone="success" />

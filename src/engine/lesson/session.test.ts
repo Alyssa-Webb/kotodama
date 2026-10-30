@@ -116,19 +116,19 @@ describe('lessonReward', () => {
     manekiActive: false,
     nodeKey: 'p/n',
   };
-  it('pays 10, +5 for three stars', () => {
-    expect(lessonReward(base).koban).toBe(10);
-    expect(lessonReward({ ...base, stars: 3 }).koban).toBe(15);
+  it('pays ¥100, +¥50 for three stars', () => {
+    expect(lessonReward(base).yen).toBe(100);
+    expect(lessonReward({ ...base, stars: 3 }).yen).toBe(150);
   });
   it('Kiai doubles the share answered during Kiai; review debt halves; maneki adds 25%', () => {
-    expect(lessonReward({ ...base, kiaiCorrect: 5 }).koban).toBe(15);
-    expect(lessonReward({ ...base, reviewDebt: true }).koban).toBe(5);
-    expect(lessonReward({ ...base, manekiActive: true }).koban).toBe(13);
+    expect(lessonReward({ ...base, kiaiCorrect: 5 }).yen).toBe(150);
+    expect(lessonReward({ ...base, reviewDebt: true }).yen).toBe(50);
+    expect(lessonReward({ ...base, manekiActive: true }).yen).toBe(125);
   });
   it('a failed lesson earns nothing', () => {
     expect(lessonReward({ ...base, completed: false })).toMatchObject({
       xp: 0,
-      koban: 0,
+      yen: 0,
       events: [],
     });
   });

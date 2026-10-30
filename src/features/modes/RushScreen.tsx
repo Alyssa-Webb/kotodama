@@ -122,7 +122,7 @@ export function RushScreen() {
         isPb && final > 0
           ? append(s.ledger, c.now, today(s, c), [
               {
-                asset: 'koban',
+                asset: 'yen',
                 amount: economy.earn.rushPersonalBest,
                 reason: 'rush-best',
                 ref: mode,
@@ -220,7 +220,7 @@ export function RushScreen() {
           <RewardRow label="Score" value={score} tone="accent" />
           {ghost && <RewardRow label="Ghost (previous best)" value={ghost.score} />}
           {pb && score > 0 && (
-            <RewardRow label="Koban" value={`+${economy.earn.rushPersonalBest}`} tone="gold" />
+            <RewardRow label="Yen" value={`+${economy.earn.rushPersonalBest}`} tone="gold" />
           )}
         </ResultCard>
         <div className="row">

@@ -1,10 +1,10 @@
 /**
- * Event-sourced ledger: every koban, token, heart, XP and inventory change is an event, and
+ * Event-sourced ledger: every yen, token, heart, XP and inventory change is an event, and
  * balances are a pure reduction of the event list, so they are always explainable.
  */
 import type { LedgerEvent } from '../../schema/save';
 
-export type Asset = 'koban' | 'token' | 'heart' | 'xp' | `item:${string}`;
+export type Asset = 'yen' | 'token' | 'heart' | 'xp' | `item:${string}`;
 
 export type Balances = Record<string, number>;
 

@@ -4,7 +4,7 @@ import { today } from '../../engine/game';
 import { AVATAR_SLOTS, type AvatarSlot } from '../../schema/world';
 import { useGame } from '../../foundations/store/gameStore';
 import { avatarParts, shop } from '../../foundations/world';
-import { KobanIcon } from '../../foundations/art/icons';
+import { YenIcon } from '../../foundations/art/icons';
 import { JaText } from '../../foundations/japanese/Ja';
 import { AvatarActor } from './AvatarActor';
 import { useSave } from '../hooks';
@@ -26,7 +26,7 @@ export function AvatarScreen() {
   const gctx = useGame((s) => s.ctx);
   const [slot, setSlot] = useState<AvatarSlot>('outfit');
   const [poke, setPoke] = useState(0);
-  const koban = balanceOf(save.ledger, 'koban');
+  const yen = balanceOf(save.ledger, 'yen');
   const parts = avatarParts.filter((p) => p.slot === slot);
   const title = avatarParts.find((p) => p.id === save.avatar.equipped.title);
 
@@ -35,7 +35,7 @@ export function AvatarScreen() {
     commit({
       ...save,
       ledger: append(save.ledger, c.now, today(save, c), [
-        { asset: 'koban', amount: -price, reason: 'purchase', ref: id },
+        { asset: 'yen', amount: -price, reason: 'purchase', ref: id },
       ]),
       avatar: { ...save.avatar, owned: [...save.avatar.owned, id] },
     });
@@ -148,10 +148,10 @@ export function AvatarScreen() {
                 ) : p.price !== undefined ? (
                   <button
                     className="btn btn-small btn-gold"
-                    disabled={koban < p.price}
+                    disabled={yen < p.price}
                     onClick={() => buyPart(p.id, p.price!)}
                   >
-                    <KobanIcon size={18} /> {p.price}
+                    <YenIcon size={18} /> {p.price}
                   </button>
                 ) : (
                   <span className="muted tiny">{p.gacha ? 'Gachapon' : p.unlock}</span>
