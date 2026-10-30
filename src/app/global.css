@@ -1049,3 +1049,10 @@ label.field {
   min-height: 44px;
   min-width: 44px;
 }
+
+/* Narrow phones: the seal alone carries the brand so the stats and More always fit. */
+@media (max-width: 430px) {
+  .brand span {
+    display: none;
+  }
+}
