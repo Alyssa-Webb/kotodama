@@ -11,6 +11,7 @@ import { Enemy, ENEMY_KINDS, type EnemyState } from '../../foundations/art/Enemy
 import { momentsConfig } from '../../foundations/world';
 import { haptic } from '../../foundations/haptics/haptics';
 import { AvatarActor, type ActorMood } from '../avatar/AvatarActor';
+import { BattleFx } from './BattleFx';
 import './battle.css';
 
 export function BattleStage({ state }: { state: SessionState }) {
@@ -119,23 +120,7 @@ export function BattleStage({ state }: { state: SessionState }) {
           />
         </div>
       )}
-      {fx && (
-        <span
-          key={fx.id}
-          className={`battle-fx battle-fx-${fx.kind}`}
-          onAnimationEnd={() => setFx(null)}
-        >
-          {fx.kind !== 'impact' && (
-            <svg viewBox="0 0 100 100" className="battle-arc">
-              <path d="M18 80 Q 30 18 86 22" pathLength={1} />
-              {fx.kind === 'finisher' && <path d="M14 30 Q 70 34 84 86" pathLength={1} />}
-            </svg>
-          )}
-          <span className="battle-dmg">
-            {fx.kind === 'impact' ? '−1 ♥' : fx.kind === 'finisher' ? 'KO!' : '−1'}
-          </span>
-        </span>
-      )}
+      {fx && <BattleFx fx={fx} onDone={() => setFx(null)} />}
       <div className="battle-hero">
         <AvatarActor mood={hero} facing="back" size={70} reaction={state.attempts.length} />
       </div>
