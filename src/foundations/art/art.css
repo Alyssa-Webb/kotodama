@@ -306,24 +306,97 @@
   }
 }
 
-/* ---- road enemies (placeholder motion; Gemini restyles) */
+/* ---- road enemies (chibi yokai states & secondary motion; transform + opacity only) */
 .enemy {
   position: relative;
   transform-origin: 50% 90%;
   line-height: 0;
+  will-change: transform, opacity;
 }
 .enemy svg {
   display: block;
   overflow: visible;
 }
-.enemy-idle {
-  animation: enemy-bob 1.6s ease-in-out infinite;
+.enemy-body {
+  transform-origin: 50px 88px;
+  will-change: transform;
 }
+.enemy-shadow {
+  transform-origin: 50px 92px;
+  will-change: transform, opacity;
+}
+
+/* Idle states: grounded yokai breathe/hop on the path; ghostly yokai hover above their shadow */
+.enemy-idle .enemy-body {
+  animation: enemy-bob 1.8s ease-in-out infinite;
+}
+.enemy-idle .enemy-shadow {
+  animation: enemy-shadow-pulse 1.8s ease-in-out infinite;
+}
+.enemy-inkling.enemy-idle .enemy-body,
+.enemy-glitchling.enemy-idle .enemy-body {
+  animation: enemy-hover 2.1s ease-in-out infinite;
+}
+.enemy-inkling.enemy-idle .enemy-shadow-float,
+.enemy-glitchling.enemy-idle .enemy-shadow-float {
+  animation: enemy-shadow-hover 2.1s ease-in-out infinite;
+}
+.enemy-kasa-obake.enemy-idle .enemy-body {
+  animation: enemy-kasa-hop 1.35s cubic-bezier(0.32, 0, 0.24, 1) infinite;
+}
+.enemy-kasa-obake.enemy-idle .enemy-shadow-hop {
+  animation: enemy-kasa-shadow 1.35s cubic-bezier(0.32, 0, 0.24, 1) infinite;
+}
+
+/* Secondary motion on yokai parts (tails, tongues, arms, orbs, glitch echoes, drips) */
+.enemy-blink {
+  animation: art-blink 4.2s infinite;
+}
+.enemy-part-tail {
+  animation: enemy-tail-wag 1.9s ease-in-out infinite alternate;
+}
+.enemy-part-tongue {
+  animation: enemy-tongue-wag 1.35s ease-in-out infinite alternate;
+}
+.enemy-part-arm-l {
+  animation: enemy-arm-bob 1.6s ease-in-out infinite alternate;
+}
+.enemy-part-arm-r {
+  animation: enemy-arm-bob 1.6s -0.8s ease-in-out infinite alternate;
+}
+.enemy-part-horns {
+  transform-origin: 50px 18px;
+  animation: enemy-horn-jitter 2.4s steps(2) infinite;
+}
+.enemy-orb-1 {
+  transform-origin: 14px 38px;
+  animation: enemy-orb-float 1.8s ease-in-out infinite alternate;
+}
+.enemy-orb-2 {
+  transform-origin: 86px 32px;
+  animation: enemy-orb-float 2.2s -0.9s ease-in-out infinite alternate;
+}
+.enemy-drip {
+  animation: art-drip 1.7s ease-in infinite;
+}
+.enemy-glitch-r {
+  transform-origin: 50px 47px;
+  animation: enemy-glitch-r 1.8s steps(1) infinite;
+}
+.enemy-glitch-c {
+  transform-origin: 50px 47px;
+  animation: enemy-glitch-c 1.8s -0.6s steps(1) infinite;
+}
+
+/* Core combat state transitions */
 .enemy-enter {
-  animation: enemy-enter 900ms ease-out both;
+  animation: enemy-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.enemy-enter .enemy-shadow {
+  animation: enemy-enter-shadow 900ms ease-out both;
 }
 .enemy-hit {
-  animation: enemy-hit 420ms ease both;
+  animation: enemy-hit 420ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
 }
 .enemy-attack {
   animation: enemy-attack 520ms cubic-bezier(0.5, 0, 0.2, 1) both;
@@ -331,54 +404,256 @@
 .enemy-defeat {
   animation: enemy-defeat 620ms ease-in both;
 }
+
 @keyframes enemy-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.02, 0.98);
+  }
   50% {
-    transform: translateY(-5%) scale(1.02, 0.98);
+    transform: translateY(-4px) scale(0.98, 1.03);
   }
 }
-/* Yokai are spirits: they fade in out of the air with a slow float, not a pop. */
+@keyframes enemy-shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1.03);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleX(0.92);
+    opacity: 0.75;
+  }
+}
+@keyframes enemy-hover {
+  0%,
+  100% {
+    transform: translateY(-2px) rotate(-1.5deg) scale(1.02, 0.98);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg) scale(0.98, 1.03);
+  }
+}
+@keyframes enemy-shadow-hover {
+  0%,
+  100% {
+    transform: scale(0.96, 0.95);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(0.76, 0.78);
+    opacity: 0.48;
+  }
+}
+@keyframes enemy-kasa-hop {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.08, 0.91) rotate(-2deg);
+  }
+  18% {
+    transform: translateY(1.5px) scale(1.12, 0.87) rotate(-4deg);
+  }
+  48% {
+    transform: translateY(-11px) scale(0.94, 1.07) rotate(4deg);
+  }
+  62% {
+    transform: translateY(-12px) scale(0.97, 1.04) rotate(2deg);
+  }
+  86% {
+    transform: translateY(1px) scale(1.1, 0.89) rotate(-3deg);
+  }
+}
+@keyframes enemy-kasa-shadow {
+  0%,
+  18%,
+  86%,
+  100% {
+    transform: scale(1.08, 1);
+    opacity: 0.95;
+  }
+  52% {
+    transform: scale(0.68, 0.72);
+    opacity: 0.48;
+  }
+}
+@keyframes enemy-tail-wag {
+  from {
+    transform: rotate(-7deg) scale(0.98, 1.02);
+  }
+  to {
+    transform: rotate(9deg) scale(1.02, 0.98);
+  }
+}
+@keyframes enemy-tongue-wag {
+  from {
+    transform: rotate(-8deg) scaleY(0.95);
+  }
+  to {
+    transform: rotate(10deg) scaleY(1.06);
+  }
+}
+@keyframes enemy-arm-bob {
+  from {
+    transform: translateY(1px) rotate(-6deg);
+  }
+  to {
+    transform: translateY(-3px) rotate(8deg);
+  }
+}
+@keyframes enemy-horn-jitter {
+  0%,
+  85%,
+  100% {
+    transform: none;
+  }
+  90% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+  95% {
+    transform: translateX(2px) rotate(2deg);
+  }
+}
+@keyframes enemy-orb-float {
+  from {
+    transform: translateY(3px) scale(0.92);
+    opacity: 0.78;
+  }
+  to {
+    transform: translateY(-6px) scale(1.08);
+    opacity: 1;
+  }
+}
+@keyframes enemy-glitch-r {
+  0%,
+  82%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  85% {
+    transform: translate(-5px, -2px) skewX(-6deg);
+    opacity: 0.75;
+  }
+  90% {
+    transform: translate(4px, 2px);
+    opacity: 0.45;
+  }
+}
+@keyframes enemy-glitch-c {
+  0%,
+  80%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  84% {
+    transform: translate(5px, 2px) skewX(6deg);
+    opacity: 0.75;
+  }
+  89% {
+    transform: translate(-4px, -1px);
+    opacity: 0.45;
+  }
+}
+
+/* Yokai are spirits: they materialize out of thin air with a ghostly float and shimmer. */
 @keyframes enemy-enter {
   0% {
-    transform: translateY(8%) scale(0.92);
+    transform: translateY(-14%) scale(0.84, 1.12);
+    opacity: 0;
+  }
+  35% {
+    transform: translateY(4%) scale(1.03, 0.97) rotate(-2deg);
+    opacity: 0.55;
+  }
+  68% {
+    transform: translateY(-3%) scale(0.98, 1.02) rotate(1.5deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes enemy-enter-shadow {
+  0% {
+    transform: scale(0.3);
     opacity: 0;
   }
   60% {
-    opacity: 0.85;
+    transform: scale(0.85);
+    opacity: 0.6;
   }
   100% {
-    transform: translateY(0) scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
 @keyframes enemy-hit {
-  20% {
-    transform: translateX(10%) rotate(8deg) scale(0.92, 1.06);
-    opacity: 0.6;
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
-  45% {
-    transform: translateX(-4%) rotate(-3deg);
+  16% {
+    transform: translate(12%, -8%) rotate(11deg) scale(1.16, 0.84);
+    opacity: 0.55;
+  }
+  34% {
+    transform: translate(14%, -9%) rotate(13deg) scale(0.9, 1.1);
+    opacity: 0.85;
+  }
+  58% {
+    transform: translate(-6%, 2%) rotate(-5deg) scale(1.05, 0.96);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(3%, -1%) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
     opacity: 1;
   }
 }
 @keyframes enemy-attack {
-  30% {
-    transform: translateY(-6%) scale(1.06, 0.94);
+  0% {
+    transform: none;
   }
-  55% {
-    transform: translateY(26%) scale(1.25);
+  24% {
+    /* Wind-up coil up the road */
+    transform: translate(8%, -10%) scale(1.12, 0.86) rotate(7deg);
+  }
+  52% {
+    /* Lunge down the path toward the hero */
+    transform: translate(-18%, 28%) scale(1.26, 1.18) rotate(-8deg);
+  }
+  64% {
+    transform: translate(-16%, 25%) scale(1.2, 1.14) rotate(-6deg);
+  }
+  84% {
+    transform: translate(4%, -4%) scale(0.95, 1.05) rotate(2deg);
+  }
+  100% {
+    transform: none;
   }
 }
 @keyframes enemy-defeat {
-  30% {
-    transform: scale(1.15, 0.85);
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  24% {
+    transform: translate(6%, -4%) scale(1.22, 0.78) rotate(-8deg);
+    opacity: 0.95;
   }
   100% {
-    transform: translateY(-40%) scale(0.2) rotate(40deg);
+    transform: translateY(-46%) scale(0.16) rotate(42deg);
     opacity: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .enemy {
+  .enemy,
+  .enemy * {
     animation: none !important;
   }
 }
