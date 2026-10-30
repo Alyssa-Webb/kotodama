@@ -14,4 +14,9 @@ describe('region foes', () => {
     expect(dojo).toBeDefined();
     expect(foesOf(dojo?.foes ?? [])).toEqual(['trainee-bokken', 'trainee-senpai']);
   });
+
+  it('the City Market fights its city yokai', () => {
+    const market = regions.find((r) => r.id === 'market');
+    expect(foesOf(market?.foes ?? [])).toEqual(['chochin-obake', 'kasa-obake', 'nopperabo']);
+  });
 });

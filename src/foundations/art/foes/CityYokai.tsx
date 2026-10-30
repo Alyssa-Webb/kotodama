@@ -41,11 +41,17 @@ export function ChochinObakeArt({ state }: { state: EnemyState }): ReactNode {
         {/* Eerie floating lantern-fire wisps */}
         <g className="chochin-obake-wisp-1">
           <path d="M14 27 C19 33 19 40 14 42 C9 40 9 33 14 27 Z" fill={paperShade} />
-          <path d="M14 25 C18.5 31 18.5 37.5 14 39.5 C9.5 37.5 9.5 31 14 25 Z" fill="var(--c-glow)" />
+          <path
+            d="M14 25 C18.5 31 18.5 37.5 14 39.5 C9.5 37.5 9.5 31 14 25 Z"
+            fill="var(--c-glow)"
+          />
           <circle cx="14" cy="34.5" r="2" fill={SHINE} />
         </g>
         <g className="chochin-obake-wisp-2">
-          <path d="M86 21 C90.5 26.5 90.5 32.5 86 34.5 C81.5 32.5 81.5 26.5 86 21 Z" fill={paperShade} />
+          <path
+            d="M86 21 C90.5 26.5 90.5 32.5 86 34.5 C81.5 32.5 81.5 26.5 86 21 Z"
+            fill={paperShade}
+          />
           <path d="M86 19 C90 24.5 90 30.5 86 32 C82 30.5 82 24.5 86 19 Z" fill="var(--c-glow)" />
           <circle cx="86" cy="27.5" r="1.8" fill={SHINE} />
         </g>
@@ -60,7 +66,15 @@ export function ChochinObakeArt({ state }: { state: EnemyState }): ReactNode {
         />
         <rect x="31" y="15" width="38" height="8" rx="4" fill={rimShade} />
         <rect x="31" y="13" width="38" height="7" rx="3.5" fill={rimMain} />
-        <rect x="36" y="14.5" width="28" height="2" rx="1" fill="var(--c-panel-edge)" opacity="0.75" />
+        <rect
+          x="36"
+          y="14.5"
+          width="28"
+          height="2"
+          rx="1"
+          fill="var(--c-panel-edge)"
+          opacity="0.75"
+        />
 
         {/* Upper lantern paper dome (+3 shade lip + main vermilion wash + inner candle glow) */}
         <path
@@ -239,12 +253,18 @@ export function NopperaboArt({ state }: { state: EnemyState }): ReactNode {
         {/* Ghostly twilight spirit wisps */}
         <g className="nopperabo-wisp-1">
           <path d="M15 32 C19 37 19 42 15 44 C11 42 11 37 15 32 Z" fill={kimonoShade} />
-          <path d="M15 30 C18.5 34.5 18.5 39.5 15 41 C11.5 39.5 11.5 34.5 15 30 Z" fill="var(--c-secondary-soft)" />
+          <path
+            d="M15 30 C18.5 34.5 18.5 39.5 15 41 C11.5 39.5 11.5 34.5 15 30 Z"
+            fill="var(--c-secondary-soft)"
+          />
           <circle cx="15" cy="37" r="1.6" fill={SHINE} />
         </g>
         <g className="nopperabo-wisp-2">
           <path d="M85 24 C89 29 89 34 85 36 C81 34 81 29 85 24 Z" fill={kimonoShade} />
-          <path d="M85 22 C88.5 26.5 88.5 31.5 85 33 C81.5 31.5 81.5 26.5 85 22 Z" fill="var(--c-secondary-soft)" />
+          <path
+            d="M85 22 C88.5 26.5 88.5 31.5 85 33 C81.5 31.5 81.5 26.5 85 22 Z"
+            fill="var(--c-secondary-soft)"
+          />
           <circle cx="85" cy="29" r="1.5" fill={SHINE} />
         </g>
 
@@ -252,12 +272,24 @@ export function NopperaboArt({ state }: { state: EnemyState }): ReactNode {
         <rect x="35" y="82" width="11" height="9" rx="4.5" fill="var(--c-gold)" />
         <rect x="35" y="80" width="11" height="8" rx="4" fill="var(--c-panel-edge)" />
         <rect x="36" y="78" width="9" height="8" rx="4" fill={CREAM} />
-        <path d="M37 85 L40.5 82 L44 85" stroke="var(--c-accent)" strokeWidth="2" strokeLinecap="round" fill="none" />
+        <path
+          d="M37 85 L40.5 82 L44 85"
+          stroke="var(--c-accent)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill="none"
+        />
 
         <rect x="54" y="82" width="11" height="9" rx="4.5" fill="var(--c-gold)" />
         <rect x="54" y="80" width="11" height="8" rx="4" fill="var(--c-panel-edge)" />
         <rect x="55" y="78" width="9" height="8" rx="4" fill={CREAM} />
-        <path d="M56 85 L59.5 82 L63 85" stroke="var(--c-accent)" strokeWidth="2" strokeLinecap="round" fill="none" />
+        <path
+          d="M56 85 L59.5 82 L63 85"
+          stroke="var(--c-accent)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill="none"
+        />
 
         {/* Plain Edo townsperson kimono torso (+3 shade lip + main fill) */}
         <path
@@ -270,7 +302,12 @@ export function NopperaboArt({ state }: { state: EnemyState }): ReactNode {
         />
         {/* Crisp white juban under-collar & overlapping kimono lapels */}
         <path d="M41 47 L50 62 L59 47 Z" fill={CREAM} />
-        <path d="M40 47 L52 65 M60 47 L49 60" stroke={kimonoShade} strokeWidth="2.6" strokeLinecap="round" />
+        <path
+          d="M40 47 L52 65 M60 47 L49 60"
+          stroke={kimonoShade}
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
         {/* Woven obi sash & obijime cord */}
         <rect x="31" y="67" width="38" height="8.5" rx="3.8" fill="var(--c-gold)" />
         <rect x="31" y="65" width="38" height="7.5" rx="3.5" fill="var(--c-panel-edge)" />
