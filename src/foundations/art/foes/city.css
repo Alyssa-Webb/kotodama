@@ -59,6 +59,12 @@
 .chochin-obake-hit .chochin-obake-body.enemy-body {
   animation: chochin-obake-hit 220ms ease-out both;
 }
+.chochin-obake-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+.chochin-obake-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
+}
 .chochin-obake-attack .chochin-obake-body.enemy-body {
   animation: chochin-obake-attack 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
@@ -286,6 +292,12 @@
 }
 .nopperabo-hit .nopperabo-head {
   animation: nopperabo-head-squash 220ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.nopperabo-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+.nopperabo-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
 }
 .nopperabo-attack .nopperabo-body.enemy-body {
   animation: nopperabo-attack 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
