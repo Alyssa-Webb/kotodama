@@ -28,13 +28,12 @@
 .avatar-motion::before {
   inset: 14% 16% 10% 16%;
   border-radius: 50% 50% 42% 42%;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--c-coin-shine) 85%, transparent) 0%,
-      color-mix(in srgb, var(--c-glow) 65%, transparent) 48%,
-      transparent 100%
-    );
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-coin-shine) 85%, transparent) 0%,
+    color-mix(in srgb, var(--c-glow) 65%, transparent) 48%,
+    transparent 100%
+  );
   transform-origin: 50% 80%;
   z-index: -1;
 }
@@ -173,14 +172,13 @@
 }
 .avatar-actor[data-mood='strike'][data-facing='back'] .avatar-motion::before {
   inset: 10% 18% -18% 18%;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--c-coin-shine) 92%, transparent) 0%,
-      color-mix(in srgb, var(--c-glow) 75%, transparent) 42%,
-      color-mix(in srgb, var(--c-accent) 45%, transparent) 78%,
-      transparent 100%
-    );
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-coin-shine) 92%, transparent) 0%,
+    color-mix(in srgb, var(--c-glow) 75%, transparent) 42%,
+    color-mix(in srgb, var(--c-accent) 45%, transparent) 78%,
+    transparent 100%
+  );
   animation: av-strike-smear-back 580ms linear;
 }
 .avatar-actor[data-mood='strike'] .avatar-motion::after {

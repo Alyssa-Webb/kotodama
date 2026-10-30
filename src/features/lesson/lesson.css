@@ -954,16 +954,7 @@
   width: 8px;
   height: 8px;
   background: var(--c-glow);
-  clip-path: polygon(
-    50% 0%,
-    64% 36%,
-    100% 50%,
-    64% 64%,
-    50% 100%,
-    36% 64%,
-    0% 50%,
-    36% 36%
-  );
+  clip-path: polygon(50% 0%, 64% 36%, 100% 50%, 64% 64%, 50% 100%, 36% 64%, 0% 50%, 36% 36%);
   opacity: 0;
   transform: translateY(4px) scale(0);
 }

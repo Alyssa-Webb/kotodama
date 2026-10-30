@@ -246,9 +246,7 @@ export function Player({
               ))
             ) : (
               <span
-                className={`hp-bar${
-                  (hpMax ? state.hearts! / hpMax : 1) < 0.25 ? ' hp-low' : ''
-                }${
+                className={`hp-bar${(hpMax ? state.hearts! / hpMax : 1) < 0.25 ? ' hp-low' : ''}${
                   state.hearts! < (config.hearts ?? state.hearts!) &&
                   (!feedback || !feedback.result.correct)
                     ? ` hp-drop ${state.hearts! % 2 ? 'hp-odd' : 'hp-even'}`
