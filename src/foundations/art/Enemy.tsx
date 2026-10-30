@@ -726,11 +726,7 @@ function KasaObakeArt({ state }: { state: EnemyState }) {
 
         {/* Giant Cyclops Eye */}
         <path
-          d={
-            state === 'hit' || state === 'defeat'
-              ? 'M36 26 L50 32 L64 26'
-              : 'M36 28 Q50 34 64 28'
-          }
+          d={state === 'hit' || state === 'defeat' ? 'M36 26 L50 32 L64 26' : 'M36 28 Q50 34 64 28'}
           stroke={INK}
           strokeWidth="4"
           strokeLinecap="round"
@@ -1116,15 +1112,7 @@ function KappaArt({ state }: { state: EnemyState }) {
           strokeWidth="3.4"
           strokeLinecap="round"
         />
-        <YokaiEyes
-          state={state}
-          x1={36}
-          x2={64}
-          y={43}
-          iris={CREAM}
-          pupil={INK}
-          hurtStroke={INK}
-        />
+        <YokaiEyes state={state} x1={36} x2={64} y={43} iris={CREAM} pupil={INK} hurtStroke={INK} />
 
         {/* Chibi duck beak */}
         <ellipse cx="50" cy="53" rx="11" ry="6.5" fill="var(--c-gold)" />
