@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router';
+import { haptic } from '../foundations/haptics/haptics';
 import { UpdatePrompt } from './UpdatePrompt';
 import { Tour } from '../features/tour/Tour';
 import { InstallGuide } from './InstallGuide';
@@ -97,8 +98,43 @@ export function TopStats() {
   );
 }
 
+/**
+ * Swipe left or right on the main tabs to move between them (like a pager). Only clear,
+ * mostly-horizontal swipes count, never ones that start on inputs, sliders or scrollable rows.
+ */
+function useTabSwipe() {
+  const loc = useLocation();
+  const navigate = useNavigate();
+  const start = useRef<{ x: number; y: number; t: number } | null>(null);
+  const [dir, setDir] = useState<'left' | 'right' | null>(null);
+  const index = TABS.findIndex((t) => t.to === loc.pathname);
+  const onTouchStart = (e: React.TouchEvent) => {
+    const el = e.target as HTMLElement;
+    if (el.closest('input, textarea, select, canvas, [data-no-swipe], .pay, .tour')) return;
+    const t = e.touches[0]!;
+    start.current = { x: t.clientX, y: t.clientY, t: performance.now() };
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const s0 = start.current;
+    start.current = null;
+    if (!s0 || index < 0) return;
+    const t = e.changedTouches[0]!;
+    const dx = t.clientX - s0.x;
+    const dy = t.clientY - s0.y;
+    if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.6 || performance.now() - s0.t > 700)
+      return;
+    const next = index + (dx < 0 ? 1 : -1);
+    if (next < 0 || next >= TABS.length) return;
+    setDir(dx < 0 ? 'left' : 'right');
+    haptic('tick');
+    navigate(TABS[next]!.to);
+  };
+  return { onTouchStart, onTouchEnd, dir };
+}
+
 export function Shell() {
   const loc = useLocation();
+  const swipe = useTabSwipe();
   return (
     <div className="app">
       <header className="topbar">
@@ -111,7 +147,12 @@ export function Shell() {
           <TabMore />
         </NavLink>
       </header>
-      <main className="main" key={loc.pathname}>
+      <main
+        className={`main ${swipe.dir ? `main-from-${swipe.dir}` : ''}`}
+        key={loc.pathname}
+        onTouchStart={swipe.onTouchStart}
+        onTouchEnd={swipe.onTouchEnd}
+      >
         <InstallGuide />
         <Notices />
         <Outlet />
