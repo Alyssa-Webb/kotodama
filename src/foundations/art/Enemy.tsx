@@ -4,10 +4,22 @@
  */
 import type { ReactNode } from 'react';
 import './art.css';
+import { BakeDanukiArt, KarasuTenguArt, KodamaArt } from './foes/ForestYokai';
 
-export const ENEMY_KINDS = ['inkling', 'glitchling', 'kasa-obake', 'kitsune', 'kappa'] as const;
+export const ENEMY_KINDS = [
+  'inkling',
+  'glitchling',
+  'kasa-obake',
+  'kitsune',
+  'kappa',
+  'kodama',
+  'bake-danuki',
+  'karasu-tengu',
+] as const;
 export type EnemyKind = (typeof ENEMY_KINDS)[number];
 export type EnemyState = 'idle' | 'hit' | 'attack' | 'defeat' | 'enter';
+export const isEnemyKind = (k: string): k is EnemyKind =>
+  (ENEMY_KINDS as readonly string[]).includes(k);
 
 export const INK = 'var(--c-hud-bg)';
 export const CREAM = 'var(--c-hud-ink)';
@@ -1180,6 +1192,15 @@ export function Enemy({
     case 'kappa':
       content = <KappaArt state={state} />;
       break;
+    case 'kodama':
+      content = <KodamaArt state={state} />;
+      break;
+    case 'bake-danuki':
+      content = <BakeDanukiArt state={state} />;
+      break;
+    case 'karasu-tengu':
+      content = <KarasuTenguArt state={state} />;
+      break;
   }
 
   return (
@@ -1193,4 +1214,10 @@ export function Enemy({
       </svg>
     </div>
   );
+}
+
+/** A region's enemy roster: the kinds that have art yet (falls back to the original road foes). */
+export function foesOf(kinds: readonly string[]): EnemyKind[] {
+  const ok = kinds.filter(isEnemyKind);
+  return ok.length ? ok : ['inkling', 'glitchling'];
 }

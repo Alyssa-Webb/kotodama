@@ -22,6 +22,7 @@ import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
 import { Guide, type Mood } from '../../foundations/art/Guide';
 import { AvatarActor } from '../avatar/AvatarActor';
+import type { EnemyKind } from '../../foundations/art/Enemy';
 import { BattleStage } from './BattleStage';
 import { FlameIcon, HeartIcon, LanternIcon } from '../../foundations/art/icons';
 import { useGame } from '../../foundations/store/gameStore';
@@ -55,6 +56,8 @@ export interface PlayerProps {
   fighter?: boolean;
   /** Show the battle road (lessons and Dojo reviews; off for bosses and rushes). */
   battle?: boolean;
+  /** Enemies met on the battle road (the lesson's story region). */
+  foes?: readonly EnemyKind[];
 }
 
 const PRAISE = ['Nice!', 'Correct!', 'Great!', 'Sharp!', 'Excellent!'];
@@ -77,6 +80,7 @@ export function Player({
   hideGuide,
   fighter,
   battle = !hideGuide && !header,
+  foes,
 }: PlayerProps) {
   const { speak } = useJa();
   const voiceMode = useGame((s) => s.save?.settings.voiceMode ?? 'alternate-lesson');
@@ -324,7 +328,7 @@ export function Player({
         )}
       </div>
       {header}
-      {battle && <BattleStage state={state} />}
+      {battle && <BattleStage state={state} {...(foes?.length ? { foes } : {})} />}
 
       <div className="stage">
         {!hideGuide && (

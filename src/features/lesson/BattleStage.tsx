@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { battleView } from '../../engine/battle';
 import type { SessionState } from '../../engine/lesson/session';
-import { Enemy, ENEMY_KINDS, type EnemyState } from '../../foundations/art/Enemy';
+import { Enemy, ENEMY_KINDS, type EnemyKind, type EnemyState } from '../../foundations/art/Enemy';
 import { momentsConfig } from '../../foundations/world';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx, startAmbient } from '../../foundations/audio/sfx';
@@ -174,7 +174,14 @@ function VergeScrollTile({ yOffset }: { yOffset: number }) {
   );
 }
 
-export function BattleStage({ state }: { state: SessionState }) {
+export function BattleStage({
+  state,
+  foes = ENEMY_KINDS,
+}: {
+  state: SessionState;
+  /** The region's enemy roster, met in order. */
+  foes?: readonly EnemyKind[];
+}) {
   const view = battleView(state, momentsConfig.battle.hitsPerEnemy);
   const [hero, setHero] = useState<ActorMood>('walk');
   const [foe, setFoe] = useState<EnemyState>('enter');
@@ -599,12 +606,7 @@ export function BattleStage({ state }: { state: SessionState }) {
               <span key={i} className={i < hp ? 'on' : ''} />
             ))}
           </div>
-          <Enemy
-            key={shown}
-            kind={ENEMY_KINDS[shown % ENEMY_KINDS.length]!}
-            state={foe}
-            size={64}
-          />
+          <Enemy key={shown} kind={foes[shown % foes.length]!} state={foe} size={64} />
         </div>
       )}
       {fx && <BattleFx fx={fx} onDone={() => setFx(null)} />}

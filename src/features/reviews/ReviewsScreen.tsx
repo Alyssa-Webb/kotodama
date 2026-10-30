@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
+import { foesOf } from '../../foundations/art/Enemy';
 import { Link, useNavigate } from 'react-router';
 import {
   completeReviews,
@@ -13,7 +14,7 @@ import { reviewQuestions } from '../../engine/review';
 import { summarize, type SessionConfig, type SessionSummary } from '../../engine/lesson/session';
 import { Rng } from '../../engine/rng';
 import { useGame } from '../../foundations/store/gameStore';
-import { economy } from '../../foundations/world';
+import { economy, regions } from '../../foundations/world';
 import { playSfx } from '../../foundations/audio/sfx';
 import { commitHeartLoss, freshSeed, useSave, useStats } from '../hooks';
 import { Player } from '../lesson/Player';
@@ -147,6 +148,7 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
     <Player
       questions={questions}
       config={config}
+      foes={foesOf(regions[0]!.foes)}
       lanterns={stats.inventory('chochin')}
       onUseLantern={() => commit(consumeItem(useGame.getState().save!, gctx(), 'chochin'))}
       onAnswered={(st) => {

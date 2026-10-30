@@ -148,3 +148,20 @@ export const AvatarSchema = z.object({
   parts: z.array(AvatarPartSchema),
 });
 export type AvatarPart = z.infer<typeof AvatarPartSchema>;
+
+/** Story regions in path order: unit i belongs to region i (the last repeats). */
+export const RegionsSchema = z.object({
+  version: z.number().int(),
+  regions: z
+    .array(
+      z.object({
+        id: z.string(),
+        en: z.string(),
+        ja: FuriganaSchema,
+        /** Enemy kinds met in this region's battles (see foundations/art/Enemy). */
+        foes: z.array(z.string()).min(1),
+      }),
+    )
+    .min(1),
+});
+export type Region = z.infer<typeof RegionsSchema>['regions'][number];

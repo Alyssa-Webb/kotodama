@@ -13,6 +13,7 @@ import kotoJson from '../../world/koto.json';
 import { KotoSchema } from '../schema/koto';
 import mealsJson from '../../world/meals.json';
 import buildingsJson from '../../world/buildings.json';
+import regionsJson from '../../world/regions.json';
 import { BuildingsSchema } from '../schema/town';
 import { MealsSchema } from '../schema/meals';
 import { EconomySchema } from '../schema/economy';
@@ -21,6 +22,7 @@ import {
   AvatarSchema,
   BossesSchema,
   DistrictsSchema,
+  RegionsSchema,
   ShopSchema,
   SpiritsSchema,
 } from '../schema/world';
@@ -38,3 +40,7 @@ export const momentsConfig = MomentsSchema.parse(momentsJson);
 export const koto = KotoSchema.parse(kotoJson);
 export const meals = MealsSchema.parse(mealsJson).meals;
 export const townData = BuildingsSchema.parse(buildingsJson);
+export const regions = RegionsSchema.parse(regionsJson).regions;
+/** The story region a unit belongs to (units past the last region stay in it). */
+export const regionForUnit = (unitIndex: number) =>
+  regions[Math.min(Math.max(0, unitIndex), regions.length - 1)]!;

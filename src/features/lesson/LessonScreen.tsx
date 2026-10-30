@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
+import { foesOf } from '../../foundations/art/Enemy';
 import { useNavigate, useParams } from 'react-router';
 import {
   completeLesson,
@@ -20,7 +21,7 @@ import { itemJapanese, itemMeaning, nodeKey } from '../../engine/pack/index';
 import { Rng } from '../../engine/rng';
 import type { Question } from '../../engine/exercises/types';
 import { useGame } from '../../foundations/store/gameStore';
-import { economy } from '../../foundations/world';
+import { economy, regionForUnit } from '../../foundations/world';
 import { SpeakableJa, RichText } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { commitHeartLoss, freshSeed, useSave, useStats } from '../hooks';
@@ -170,6 +171,7 @@ export function LessonScreen() {
       <Player
         questions={questions}
         config={config}
+        foes={foesOf(regionForUnit(ref?.unitIndex ?? 0).foes)}
         lanterns={stats.inventory('chochin')}
         onUseLantern={() => commit(consumeItem(useGame.getState().save!, gctx(), 'chochin'))}
         onAnswered={(st) => {

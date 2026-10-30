@@ -451,7 +451,8 @@ const pack: LessonPack = {
   pack: {
     id: 'kotodama-starter',
     title: 'First Steps',
-    version: 1,
+    // Bump on every content change: installed copies only update when this goes up.
+    version: 3,
     level: 'N5',
     description:
       'From the dojo to the city market: hiragana and katakana, greetings on the road, and ordering tea.',

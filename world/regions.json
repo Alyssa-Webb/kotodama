@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "regions": [
+    {
+      "id": "dojo",
+      "en": "The Dojo",
+      "ja": "{道場|どうじょう}",
+      "foes": ["trainee-bokken", "trainee-naginata", "trainee-senpai"]
+    },
+    {
+      "id": "bamboo",
+      "en": "Bamboo Thicket",
+      "ja": "{竹藪|たけやぶ}",
+      "foes": ["kodama", "bake-danuki", "kitsune", "karasu-tengu", "kappa"]
+    },
+    {
+      "id": "market",
+      "en": "City Market",
+      "ja": "{市場|いちば}",
+      "foes": ["chochin-obake", "kasa-obake", "nopperabo", "rokurokubi", "bakeneko"]
+    }
+  ]
+}
