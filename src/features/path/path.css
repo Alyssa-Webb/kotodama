@@ -1,107 +1,150 @@
-/* Illustrated Chibi Journey Map (Dojo -> Bamboo Forest Road -> Rice Fields -> Castle Town -> Mountain Shrines -> Capital). */
+/* Illustrated Chibi Journey Map: one continuous full-bleed saga trail (Dojo -> Bamboo Forest -> Rice Fields -> Castle Town -> Mountain Shrines -> Capital). */
 
 .journey-map {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
-}
-
-/* Continuous pilgrimage road spine connecting every region down the scroll */
-.journey-map::before {
-  content: '';
-  position: absolute;
-  top: 24px;
-  bottom: 24px;
-  left: 50%;
-  width: 44px;
-  transform: translateX(-50%);
-  border-radius: var(--r-pill);
-  background: repeating-linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-surface-alt)) 0 12px,
-    color-mix(in srgb, var(--c-panel) 85%, var(--c-gold-soft)) 12px 26px
-  );
-  border-left: 5px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
-  border-right: 5px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
-  box-shadow: 0 6px 14px var(--c-shadow);
-  pointer-events: none;
-  z-index: 0;
+  gap: 0;
+  margin-inline: calc(-1 * var(--sp-4));
+  width: calc(100% + 2 * var(--sp-4));
+  overflow: hidden;
 }
 
 .pack-eyebrow {
   text-align: center;
 }
 
-/* Each unit is an illustrated region scene along the continuous pilgrimage trail */
+/* Each unit is a frameless, full-bleed biome stretch that blends seamlessly into the next region */
 .unit {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  margin: 0;
   padding: 0;
-  gap: 0;
-  border-radius: 28px 28px 34px 34px / 24px 24px 30px 30px;
-  border: 3px solid color-mix(in srgb, var(--c-panel-edge) 80%, var(--c-hud-bg));
-  background: linear-gradient(
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: var(--c-bg);
+  background-image: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--c-sky-bottom) 38%, var(--c-panel)) 0%,
-    color-mix(in srgb, var(--c-success-soft) 52%, var(--c-panel)) 38%,
-    color-mix(in srgb, var(--c-surface-alt) 82%, var(--c-panel)) 100%
+    color-mix(in srgb, var(--c-gold-soft) 52%, var(--c-surface-alt)) 0%,
+    color-mix(in srgb, var(--c-success-soft) 55%, var(--c-panel)) 52%,
+    color-mix(in srgb, var(--c-success-soft) 68%, var(--c-surface-alt)) 100%
   );
-  box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
-    inset 0 -6px 0 color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg)),
-    0 8px 0 color-mix(in srgb, var(--c-panel-edge) 62%, var(--c-hud-bg)),
-    0 18px 32px -12px var(--c-shadow);
 }
 
-.unit::before {
-  display: none;
+/* Consecutive region gradients share exact boundary stops so biomes fade into one another */
+.unit.region-dojo {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-gold-soft) 52%, var(--c-surface-alt)) 0%,
+    color-mix(in srgb, var(--c-success-soft) 55%, var(--c-panel)) 52%,
+    color-mix(in srgb, var(--c-success-soft) 68%, var(--c-surface-alt)) 100%
+  );
 }
 
-/* ---------------- REGION BANNER: HANGING WOODEN SIGN & NOREN ---------------- */
+.unit.region-bamboo {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-success-soft) 68%, var(--c-surface-alt)) 0%,
+    color-mix(in srgb, var(--c-success-soft) 76%, var(--c-panel)) 50%,
+    color-mix(in srgb, var(--c-success-soft) 54%, var(--c-gold-soft)) 100%
+  );
+}
+
+.unit.region-village {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-success-soft) 54%, var(--c-gold-soft)) 0%,
+    color-mix(in srgb, var(--c-gold-soft) 58%, var(--c-panel)) 50%,
+    color-mix(in srgb, var(--c-secondary-soft) 58%, var(--c-surface-alt)) 100%
+  );
+}
+
+.unit.region-castle {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-secondary-soft) 58%, var(--c-surface-alt)) 0%,
+    color-mix(in srgb, var(--c-secondary-soft) 48%, var(--c-panel)) 50%,
+    color-mix(in srgb, var(--c-mountain-far) 28%, var(--c-surface-alt)) 100%
+  );
+}
+
+.unit.region-shrine {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-mountain-far) 28%, var(--c-surface-alt)) 0%,
+    color-mix(in srgb, var(--c-mountain-far) 22%, var(--c-panel)) 50%,
+    color-mix(in srgb, var(--c-accent-soft) 48%, var(--c-gold-soft)) 100%
+  );
+}
+
+.unit.region-capital {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-accent-soft) 48%, var(--c-gold-soft)) 0%,
+    color-mix(in srgb, var(--c-gold-soft) 56%, var(--c-panel)) 50%,
+    color-mix(in srgb, var(--c-gold-soft) 52%, var(--c-surface-alt)) 100%
+  );
+}
+
+/* ---------------- ROADSIDE REGION SIGNBOARD BESIDE THE TRAIL ---------------- */
 
 .unit-banner {
   position: relative;
   z-index: 3;
   margin: 0;
-  padding: 0 var(--sp-4) var(--sp-3);
+  padding: var(--sp-3) var(--sp-3) var(--sp-1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  /* Top wooden lintel beam across the region entrance */
-  border-top: 8px solid color-mix(in srgb, var(--c-gold) 55%, var(--c-hud-bg));
+  align-items: flex-start;
+  max-width: 214px;
 }
 
-/* Scalloped cloth noren flaps hanging from the entrance beam */
-.unit-noren {
+/* Horizontal wooden post arm extending from the roadside to hold the noren & sign */
+.unit-banner::before {
+  content: '';
   position: absolute;
-  top: 0;
+  top: var(--sp-3);
   left: 0;
-  right: 0;
-  height: 54px;
+  width: 176px;
+  height: 7px;
+  border-radius: 0 var(--r-pill) var(--r-pill) 0;
+  background: linear-gradient(
+    180deg,
+    var(--c-panel-edge),
+    color-mix(in srgb, var(--c-gold) 58%, var(--c-hud-bg))
+  );
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--c-gold) 45%, var(--c-hud-bg));
+  pointer-events: none;
+}
+
+/* Small cloth noren flaps hanging under the roadside wooden arm */
+.unit-noren {
+  position: relative;
+  margin-top: 5px;
+  margin-left: var(--sp-2);
+  width: 148px;
+  height: 22px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
-  padding: 0 var(--sp-3);
+  gap: 4px;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .noren-flap {
   display: block;
   height: 100%;
-  border-radius: 0 0 16px 16px;
+  border-radius: 0 0 9px 9px;
   background: linear-gradient(
     180deg,
     var(--c-lacquer),
     color-mix(in srgb, var(--c-accent) 78%, var(--c-lacquer))
   );
-  border: 2px solid color-mix(in srgb, var(--c-lacquer) 65%, var(--c-hud-bg));
-  border-top: 0;
   box-shadow:
-    inset 0 -4px 0 color-mix(in srgb, var(--c-lacquer) 62%, var(--c-hud-bg)),
-    0 4px 8px var(--c-shadow);
+    inset 0 -3px 0 color-mix(in srgb, var(--c-lacquer) 62%, var(--c-hud-bg)),
+    0 2px 5px var(--c-shadow);
   transform-origin: 50% 0%;
   animation: noren-sway calc(var(--dur-celebrate) * 4.2) ease-in-out infinite alternate;
 }
@@ -136,89 +179,66 @@
   }
 }
 
-/* Carved hanging wooden signboard (看板) suspended at the center of the noren */
+/* Roadside region label shaded softly into the scene beside the trail */
 .unit-signboard {
   position: relative;
   z-index: 1;
-  margin-top: 8px;
-  padding: var(--sp-2) var(--sp-5) calc(var(--sp-2) + 3px);
-  min-width: min(100%, 268px);
-  text-align: center;
+  margin-top: 2px;
+  padding: var(--sp-1) var(--sp-3);
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  border-radius: 18px 20px 22px 18px / 16px 18px 20px 18px;
-  border: 2.5px solid color-mix(in srgb, var(--c-gold) 52%, var(--c-hud-bg));
-  background:
-    radial-gradient(
-      70% 55% at 24% 18%,
-      color-mix(in srgb, var(--c-coin-shine) 42%, transparent),
-      transparent 70%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--c-panel-edge) 82%, var(--c-panel)),
-      var(--c-panel-edge) 68%,
-      color-mix(in srgb, var(--c-gold) 68%, var(--c-hud-bg))
-    );
-  color: var(--c-hud-bg);
-  box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
-    inset 0 -4px 0 color-mix(in srgb, var(--c-gold) 55%, var(--c-hud-bg)),
-    0 5px 0 color-mix(in srgb, var(--c-gold) 45%, var(--c-hud-bg)),
-    0 10px 18px -4px var(--c-shadow);
-}
-
-/* Hanging rope pegs on the wooden signboard */
-.unit-signboard::before,
-.unit-signboard::after {
-  content: '';
-  position: absolute;
-  top: -11px;
-  width: 6px;
-  height: 14px;
-  border-radius: var(--r-pill);
-  background: var(--c-gold);
-  box-shadow: 0 2px 0 var(--c-hud-bg);
-}
-
-.unit-signboard::before {
-  left: 26px;
-}
-
-.unit-signboard::after {
-  right: 26px;
+  align-items: flex-start;
+  gap: 1px;
+  border-radius: var(--r-lg);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--c-bg) 88%, transparent) 52%,
+    color-mix(in srgb, var(--c-bg) 52%, transparent) 84%,
+    transparent 100%
+  );
+  color: var(--c-ink);
+  text-shadow:
+    0 1px 3px var(--c-bg),
+    0 0 10px var(--c-bg);
 }
 
 .unit-signboard .eyebrow {
-  color: color-mix(in srgb, var(--c-lacquer) 82%, var(--c-hud-bg));
+  color: var(--c-ink-muted);
   font-size: 11px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 }
 
 .unit-signboard h2 {
-  color: var(--c-hud-bg);
-  font-size: var(--fs-lg);
-  text-shadow: 0 1px 0 color-mix(in srgb, var(--c-coin-shine) 65%, transparent);
+  color: var(--c-ink);
+  font-size: var(--fs-md);
 }
 
 .unit-banner-ja {
   font-size: var(--fs-xs);
   font-weight: 700;
-  color: color-mix(in srgb, var(--c-hud-bg) 78%, var(--c-lacquer));
+  color: var(--c-ink-muted);
   line-height: 1.3;
 }
 
 .unit-banner-ja ruby rt {
-  color: color-mix(in srgb, var(--c-hud-bg) 72%, var(--c-lacquer));
+  color: var(--c-ink-muted);
 }
 
 /* ---------------- REGION SCENE STAGE & MISTY LOCKED STATE ---------------- */
 
 .unit-stage {
   position: relative;
-  padding: var(--sp-3) var(--sp-3) var(--sp-5);
+  padding: var(--sp-1) var(--sp-3) var(--sp-4);
+}
+
+.region-trail-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .region-scene {
@@ -237,20 +257,12 @@
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.88;
+  opacity: 0.72;
 }
 
-/* Locked regions: soft fog veil and muted/desaturated scenery */
-.unit.unit-locked {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--c-fog) 36%, var(--c-surface-alt)) 0%,
-    color-mix(in srgb, var(--c-fog) 24%, var(--c-panel)) 100%
-  );
-}
-
+/* Locked regions keep the continuous trail unbroken while veiling distant props in soft mist */
 .unit.unit-locked .region-scene {
-  opacity: 0.42;
+  opacity: 0.62;
 }
 
 .unit.unit-locked .noren-flap {
@@ -268,18 +280,13 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background:
-    radial-gradient(
-      85% 45% at 50% 30%,
-      color-mix(in srgb, var(--c-panel) 58%, transparent),
-      transparent 75%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--c-fog) 24%, transparent),
-      color-mix(in srgb, var(--c-surface-alt) 48%, transparent) 55%,
-      color-mix(in srgb, var(--c-fog) 30%, transparent)
-    );
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--c-fog) 16%, transparent) 18%,
+    color-mix(in srgb, var(--c-fog) 16%, transparent) 82%,
+    transparent 100%
+  );
 }
 
 /* Ambient transform/opacity-only scenery animations */
@@ -395,25 +402,26 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
-  width: min(100%, 312px);
+  gap: var(--sp-2);
+  width: min(100%, 336px);
+  padding-left: 44px;
   align-self: center;
 }
 
 .path-node.pos-0 {
-  transform: translateX(-4%);
+  transform: translateX(-2%);
 }
 
 .path-node.pos-1 {
-  transform: translateX(10%) rotate(0.8deg);
+  transform: translateX(8%) rotate(0.6deg);
 }
 
 .path-node.pos-2 {
-  transform: translateX(3%) rotate(-0.5deg);
+  transform: translateX(3%) rotate(-0.4deg);
 }
 
 .path-node.pos-3 {
-  transform: translateX(-10%) rotate(-0.8deg);
+  transform: translateX(-6%) rotate(-0.6deg);
 }
 
 /* Stepping-stone, shrine-lantern & torii gate markers on the trail */
@@ -429,7 +437,7 @@
   font-weight: 800;
   font-size: var(--fs-xl);
   text-decoration: none;
-  color: var(--c-ink-muted);
+  color: var(--c-hud-bg);
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -454,6 +462,16 @@
   transform: translateY(-2px);
 }
 
+/* Locked marker dim keyhole dot centered on the chibi padlock body */
+.path-node.locked .path-dot {
+  color: var(--c-hud-bg);
+}
+
+.path-node.locked .path-dot-glyph {
+  transform: translateY(2px);
+  opacity: 0.75;
+}
+
 .path-dot:hover {
   transform: translateY(-3px) scale(1.05);
 }
@@ -468,7 +486,7 @@
 }
 
 .path-node.kind-story.open .path-dot {
-  color: var(--c-ink);
+  color: var(--c-hud-bg);
   text-shadow: none;
 }
 
@@ -536,6 +554,10 @@
   transform: translateY(3px);
 }
 
+.path-node.boss.locked .path-dot-glyph {
+  transform: translateY(5px);
+}
+
 .path-node.boss.open .path-dot {
   color: var(--c-glow);
 }
@@ -547,7 +569,7 @@
 /* Player avatar standing beside the current node on the trail */
 .path-avatar {
   position: absolute;
-  left: -42px;
+  left: 0;
   bottom: 8px;
   z-index: 3;
   pointer-events: none;
@@ -565,51 +587,46 @@
 }
 
 .path-node.locked strong {
-  color: var(--c-ink-muted);
+  color: var(--c-ink);
 }
 
-/* Roadside carved wooden signpost plaque beside each trail marker */
+/* Soft scene-shaded node label (no boxy borders or plaques) */
 .path-node > .stack {
   position: relative;
-  padding: var(--sp-2) var(--sp-3) var(--sp-2) calc(var(--sp-3) + 6px);
-  border-radius: 18px 22px 20px 14px / 16px 20px 22px 16px;
-  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
-  background:
-    radial-gradient(circle at 8px 50%, var(--c-panel-edge) 0 2.5px, transparent 3px),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--c-panel) 95%, transparent),
-      color-mix(in srgb, var(--c-surface-alt) 90%, transparent)
-    );
-  box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
-    0 4px 0 color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg)),
-    0 8px 16px -6px var(--c-shadow);
+  padding: var(--sp-1) var(--sp-3);
+  border: 0;
+  border-radius: var(--r-lg);
+  box-shadow: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--c-bg) 86%, transparent) 52%,
+    color-mix(in srgb, var(--c-bg) 48%, transparent) 84%,
+    transparent 100%
+  );
+  text-shadow:
+    0 1px 3px var(--c-bg),
+    0 0 10px var(--c-bg);
 }
 
 .path-node.current > .stack {
-  border-color: var(--c-gold);
-  background:
-    radial-gradient(circle at 8px 50%, var(--c-gold) 0 3px, transparent 3.5px),
-    linear-gradient(
-      180deg,
-      var(--c-panel),
-      color-mix(in srgb, var(--c-gold-soft) 65%, var(--c-panel))
-    );
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--c-gold-soft) 72%, var(--c-bg)) 52%,
+    color-mix(in srgb, var(--c-bg) 52%, transparent) 86%,
+    transparent 100%
+  );
 }
 
 @media (max-width: 400px) {
   .path-node {
-    width: min(100%, 288px);
+    width: min(100%, 318px);
+    padding-left: 40px;
   }
   .path-node.pos-1 {
-    transform: translateX(5%) rotate(0.6deg);
+    transform: translateX(5%) rotate(0.5deg);
   }
   .path-node.pos-3 {
-    transform: translateX(-5%) rotate(-0.6deg);
-  }
-  .path-avatar {
-    left: -34px;
+    transform: translateX(-4%) rotate(-0.5deg);
   }
 }
 
