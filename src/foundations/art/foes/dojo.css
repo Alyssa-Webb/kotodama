@@ -104,6 +104,16 @@
 .trainee-senpai-hit {
   animation: trainee-bokken-hit-recoil var(--dur-base, 220ms) ease-out both;
 }
+.trainee-bokken-hit .enemy-damage-flash-white,
+.trainee-naginata-hit .enemy-damage-flash-white,
+.trainee-senpai-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+.trainee-bokken-hit .enemy-damage-flash-red,
+.trainee-naginata-hit .enemy-damage-flash-red,
+.trainee-senpai-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
+}
 
 /* ---- ATTACK: signature martial arts techniques toward lower-left player ---- */
 
