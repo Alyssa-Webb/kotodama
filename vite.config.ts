@@ -55,6 +55,18 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,json,webmanifest}'],
         navigateFallback: `${BASE}index.html`,
         cleanupOutdatedCaches: true,
+        // Voice clips are many and small: fetched when first spoken, then kept for offline play.
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) =>
+              url.pathname.startsWith(`${BASE}voice/`) && url.pathname.endsWith('.mp3'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'kotodama-voice',
+              expiration: { maxEntries: 4000 },
+            },
+          },
+        ],
       },
     }),
   ],

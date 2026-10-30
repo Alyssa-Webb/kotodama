@@ -18,7 +18,8 @@
     "schema:gen": "tsx tools/gen-schema.ts",
     "voice:build": "tsx tools/voice-build.ts",
     "voice:audition": "tsx tools/voice-audition.ts",
-    "check": "npm run typecheck && npm run lint && npm test && npm run content:lint && npm run build && npm run e2e"
+    "check": "npm run typecheck && npm run lint && npm test && npm run content:lint && npm run build && npm run e2e",
+    "voice:app": "tsx tools/voice-app.ts"
   },
   "dependencies": {
     "dexie": "^4.4.7",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
+    "@breezystack/lamejs": "^1.2.7",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.1",
     "@testing-library/react": "^16.3.3",

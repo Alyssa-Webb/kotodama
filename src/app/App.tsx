@@ -4,7 +4,7 @@ import { Shell } from './Shell';
 import { Providers } from './Providers';
 import { useGame } from '../foundations/store/gameStore';
 import { dexieRepos } from '../foundations/storage/dexie';
-import { initVoices } from '../foundations/audio/voice';
+import { initVoices, loadBundledVoices } from '../foundations/audio/voice';
 import { installAudioUnlock } from '../foundations/audio/sfx';
 import { HomeScreen } from '../features/home/HomeScreen';
 import { PathScreen } from '../features/path/PathScreen';
@@ -92,6 +92,7 @@ export function App() {
 
   useEffect(() => {
     initVoices();
+    void loadBundledVoices(import.meta.env.BASE_URL);
     installAudioUnlock();
     installPressTicks();
     void init(dexieRepos());

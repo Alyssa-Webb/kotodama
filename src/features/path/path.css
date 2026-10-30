@@ -19,6 +19,10 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
+  /* Performance: regions off-screen skip layout and paint (and their scenery loops). Units already
+     clip their overflow, so containment changes nothing visible. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
   margin: 0;
   padding: 0;
   border: 0;

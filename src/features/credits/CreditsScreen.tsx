@@ -1,8 +1,11 @@
+import { bundledVoiceCredits } from '../../foundations/audio/voice';
 import { useGame } from '../../foundations/store/gameStore';
 
 export function CreditsScreen() {
   const packs = useGame((s) => s.packs);
-  const voiceCredits = [...new Set(packs.flatMap((p) => p.voice?.credits ?? []))];
+  const voiceCredits = [
+    ...new Set([...packs.flatMap((p) => p.voice?.credits ?? []), ...bundledVoiceCredits()]),
+  ];
   return (
     <div className="stack">
       <h1>Credits</h1>

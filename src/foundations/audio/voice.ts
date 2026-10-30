@@ -40,6 +40,30 @@ export function registerVoiceSources(list: VoiceSource[]) {
   decoded.clear();
 }
 
+/**
+ * The app's own voices (npm run voice:app → public/voice/): every built-in line in the guides'
+ * voices and Koto's lines in his. Installed packs' audio wins over these; the device voice fills
+ * any gap. Clips are fetched on first use and cached by the service worker for offline play.
+ */
+let bundled: VoiceSource | null = null;
+export async function loadBundledVoices(base: string): Promise<void> {
+  try {
+    const r = await fetch(`${base}voice/manifest.json`);
+    if (!r.ok) return;
+    const manifest = (await r.json()) as VoiceManifest;
+    bundled = {
+      manifest,
+      loadBlob: async (file) => {
+        const res = await fetch(`${base}voice/${file}`);
+        return res.ok ? res.blob() : undefined;
+      },
+    };
+  } catch {
+    // Offline before the first visit cached it: the device voice covers everything.
+  }
+}
+export const bundledVoiceCredits = (): string[] => bundled?.manifest?.credits ?? [];
+
 export const hasDeviceVoice = () => jaVoices.length > 0;
 
 const FEMALE = /kyoko|o-ren|oren|haruka|nanami|ayumi|mizuki|female|女性/i;
@@ -78,7 +102,7 @@ async function packClip(
   slow: boolean,
 ): Promise<AudioBuffer | undefined> {
   const key = lineKey(text);
-  for (const src of sources) {
+  for (const src of bundled ? [...sources, bundled] : sources) {
     const entry = src.manifest?.lines[key];
     const clip = entry?.[guide] ?? (entry ? Object.values(entry)[0] : undefined);
     if (!clip) continue;

@@ -410,3 +410,24 @@
     animation: none !important;
   }
 }
+
+/*
+ * Performance: decorative scenery loops live inside large SVGs, and any animation inside an SVG
+ * makes the phone repaint the whole picture each frame. They run while the hero walks between
+ * foes; while a question is up only the foe and the hero stay alive, so answering stays smooth.
+ */
+.battle:not(.battle-walking)
+  :is(
+    .battle-clouds,
+    .battle-star,
+    .battle-lantern-glow,
+    .battle-bamboo-sway,
+    .battle-mote,
+    .battle-petal,
+    .battle-fg-tl,
+    .battle-fg-bl,
+    .battle-fg-tr,
+    .battle-fg-br
+  ) {
+  animation-play-state: paused;
+}

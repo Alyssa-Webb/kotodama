@@ -16,8 +16,8 @@ interface RegionInfo {
 
 const REGIONS: readonly RegionInfo[] = [
   { id: 'dojo', en: 'The Dojo', ja: '道場', rt: 'どうじょう' },
-  { id: 'bamboo', en: 'Bamboo Forest Road', ja: '竹林の道', rt: 'ちくりんのみち' },
-  { id: 'village', en: 'Rice Fields & Village', ja: '棚田と里', rt: 'たなだとさと' },
+  { id: 'bamboo', en: 'Bamboo Thicket', ja: '竹藪', rt: 'たけやぶ' },
+  { id: 'village', en: 'City Market', ja: '市場', rt: 'いちば' },
   { id: 'castle', en: 'Castle Town', ja: '城下町', rt: 'じょうかまち' },
   { id: 'shrine', en: 'Mountain Shrines', ja: '山の社', rt: 'やまのやしろ' },
   { id: 'capital', en: 'The Capital', ja: '都', rt: 'みやこ' },
