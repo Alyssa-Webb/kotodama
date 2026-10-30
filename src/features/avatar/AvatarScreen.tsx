@@ -78,14 +78,15 @@ export function AvatarScreen() {
         ))}
       </div>
       {slot === 'charm' ? (
-        <div className="grid-2">
+        <div className="shop-grid">
           {shop.charms.map((c) => {
             const owned = save.charms.owned.includes(c.id);
             return (
               <div key={c.id} className="card card-tight stack">
-                <strong>
-                  <JaText text={c.name} /> {c.en}
-                </strong>
+                <strong>{c.en}</strong>
+                <span className="big-ja" lang="ja">
+                  <JaText text={c.name} />
+                </span>
                 <span className="small">{c.perk}</span>
                 {owned ? (
                   <button
@@ -111,7 +112,7 @@ export function AvatarScreen() {
           })}
         </div>
       ) : (
-        <div className="grid-2">
+        <div className="shop-grid">
           {slot !== 'outfit' && (
             <button className="card card-tight" onClick={() => equip(slot, undefined)}>
               None
@@ -126,17 +127,18 @@ export function AvatarScreen() {
                 {p.svg && (
                   <svg
                     viewBox="0 0 100 120"
-                    width="64"
-                    height="76"
+                    width="52"
+                    height="62"
                     aria-hidden="true"
                     style={{ alignSelf: 'center' }}
                   >
                     <g dangerouslySetInnerHTML={{ __html: p.svg }} />
                   </svg>
                 )}
-                <strong>
-                  <JaText text={p.name} /> <span className="small">{p.en}</span>
-                </strong>
+                <strong>{p.en}</strong>
+                <span className="big-ja" lang="ja">
+                  <JaText text={p.name} />
+                </span>
                 {owned ? (
                   <button
                     className="btn btn-small"
