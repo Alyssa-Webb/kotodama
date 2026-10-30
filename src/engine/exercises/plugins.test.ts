@@ -89,9 +89,18 @@ describe('graders', () => {
     expect(g('')).toBe(false);
   });
 
-  it('type (japanese) handles long vowels: こーひー, こおひい, koohii all equal コーヒー', () => {
+  it('type (japanese) accepts kana, romaji and kanji: むぎちゃ = mugicha = 麦茶', () => {
     const q = prep('u02.n07.e08');
-    for (const t of ['コーヒー', 'こーひー', 'こおひい', 'koohii', 'ko-hi-'])
+    for (const t of ['むぎちゃ', 'ムギチャ', 'mugicha', '麦茶'])
+      expect(grade(q, { kind: 'type', text: t }).correct, t).toBe(true);
+  });
+
+  it('type (japanese) handles long vowels: ぎゅーにゅー, ぎゅうにゅう, gyuunyuu are equal', () => {
+    const q = prepareExercise(
+      { id: 'lv', type: 'type', item: 'w.gyuunyuu', ask: 'japanese' },
+      ctx(),
+    )!;
+    for (const t of ['ぎゅうにゅう', 'ぎゅーにゅー', 'gyuunyuu'])
       expect(grade(q, { kind: 'type', text: t }).correct, t).toBe(true);
   });
 
@@ -140,25 +149,25 @@ describe('graders', () => {
   it('translate toEnglish accepts any listed meaning and tolerates one typo', () => {
     const q = prep('u02.n04.e06');
     const g = (text: string) => grade(q, { kind: 'type', text });
-    expect(g('One coffee, please.').correct).toBe(true);
-    expect(g('a coffee please').correct).toBe(true);
-    expect(g('one cofee please')).toMatchObject({ correct: true, typo: true });
-    expect(g('two coffees please').correct).toBe(false);
+    expect(g('One tea, please.').correct).toBe(true);
+    expect(g('a tea please').correct).toBe(true);
+    expect(g('one tea pleas')).toMatchObject({ correct: true, typo: true });
+    expect(g('two teas please').correct).toBe(false);
   });
 
   it('tiles: the right order is correct, a wrong order or extra tile is not', () => {
-    const q = prep('u02.n04.e09'); // tiles s.koohii-o-hitotsu with extra 二つ
+    const q = prep('u02.n04.e09'); // tiles s.koohii-o-hitotsu (お茶を一つ) with extra 二つ
     if (q.shape !== 'tiles') throw new Error('shape');
     expect(q.suffix).toBe('。');
     expect(q.tiles).toHaveLength(5);
     const id = (t: string) => q.tiles.find((x) => toSurface(x.text) === t)!.id;
-    const ok = ['コーヒー', 'を', '一つ', 'ください'].map(id);
+    const ok = ['お茶', 'を', '一つ', 'ください'].map(id);
     expect(grade(q, { kind: 'tiles', tileIds: ok }).correct).toBe(true);
     expect(
-      grade(q, { kind: 'tiles', tileIds: ['を', 'コーヒー', '一つ', 'ください'].map(id) }).correct,
+      grade(q, { kind: 'tiles', tileIds: ['を', 'お茶', '一つ', 'ください'].map(id) }).correct,
     ).toBe(false);
     expect(
-      grade(q, { kind: 'tiles', tileIds: ['コーヒー', 'を', '二つ', 'ください'].map(id) }).correct,
+      grade(q, { kind: 'tiles', tileIds: ['お茶', 'を', '二つ', 'ください'].map(id) }).correct,
     ).toBe(false);
   });
 
@@ -176,9 +185,9 @@ describe('graders', () => {
       isAvailable: (x) => x === id,
     });
     const q = prepareExercise(exercise('u02.n01.e10'), only('w.koohii'))!;
-    expect(q.solution).toEqual({ ja: 'コーヒーをください' });
-    expect(q.prompt.en).toBe('Coffee, please');
-    expect(grade(q, { kind: 'type', text: 'こーひーをください' }).correct).toBe(true);
+    expect(q.solution).toEqual({ ja: '{麦茶|むぎちゃ}をください' });
+    expect(q.prompt.en).toBe('Barley tea, please');
+    expect(grade(q, { kind: 'type', text: 'むぎちゃをください' }).correct).toBe(true);
   });
 
   it('pattern toEnglish offers other fillers as distractors', () => {

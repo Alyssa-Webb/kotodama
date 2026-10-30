@@ -69,7 +69,9 @@ export function romajiOf(text: string): string {
   const { tokens } = parseFurigana(text);
   const words: string[] = [];
   for (const t of tokens) {
-    if (t.kind === 'ruby' && words.length) words.push(' ');
+    // …but the honorific お/ご stays on its word (お{守|まも}り → "omamori").
+    const prev = words.join('').split(' ').pop() ?? '';
+    if (t.kind === 'ruby' && prev && !/^[おご]$/.test(prev)) words.push(' ');
     words.push(t.kind === 'ruby' ? t.reading : t.kind === 'text' ? t.text : '');
   }
   return kanaToRomaji(words.join('')).replace(/\s+/g, ' ').trim();

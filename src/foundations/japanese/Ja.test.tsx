@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
-import { JaContext, JaText } from './Ja';
+import { JaContext, JaText, romajiOf } from './Ja';
 import type { ScriptLevel } from '../../schema/save';
 
 const html = (text: string, scriptLevel: ScriptLevel) =>
@@ -25,5 +25,13 @@ describe('JaText', () => {
     expect(html('{水|みず}をください', 'kana')).toContain('みずをください');
     expect(html('{水|みず}', 'kana')).not.toContain('水');
     expect(html('{水|みず}', 'romaji')).toContain('<rt>mizu</rt>');
+  });
+});
+
+describe('romajiOf', () => {
+  it('spaces kanji words but keeps the honorific お/ご attached', () => {
+    expect(romajiOf('{長|なが}い{髪|かみ}')).toBe('nagai kami');
+    expect(romajiOf('お{守|まも}り')).toBe('omamori');
+    expect(romajiOf('おにぎり')).toBe('onigiri');
   });
 });

@@ -427,10 +427,7 @@ export function MealArt({ id, size = 72 }: { id: string; size?: number }) {
             fill="color-mix(in srgb, var(--c-hud-bg) 80%, var(--c-lacquer))"
           />
           {/* Thick ceramic bowl (+3 lip + main) */}
-          <path
-            d="M10 35 C10 56 22 63 40 63 C58 63 70 56 70 35 Z"
-            fill="var(--c-hud-bg)"
-          />
+          <path d="M10 35 C10 56 22 63 40 63 C58 63 70 56 70 35 Z" fill="var(--c-hud-bg)" />
           <path
             d="M10 32 C10 53 22 60 40 60 C58 60 70 53 70 32 Z"
             fill="color-mix(in srgb, var(--c-hud-bg) 82%, var(--c-lacquer))"
@@ -940,10 +937,7 @@ export function MealArt({ id, size = 72 }: { id: string; size?: number }) {
             fill="color-mix(in srgb, var(--c-lacquer) 68%, var(--c-hud-bg))"
           />
           <ellipse cx="54" cy="31.5" rx="10.5" ry="7.5" fill="var(--c-accent)" />
-          <path
-            d="M44 31.5 C44 23.5 64 23.5 64 31.5 Z"
-            fill="var(--c-accent)"
-          />
+          <path d="M44 31.5 C44 23.5 64 23.5 64 31.5 Z" fill="var(--c-accent)" />
           <path
             d="M44.5 31.5 Q54 35 63.5 31.5"
             stroke="var(--c-glow)"

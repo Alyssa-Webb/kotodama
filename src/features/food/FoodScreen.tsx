@@ -11,6 +11,7 @@ import type { Meal } from '../../schema/meals';
 import { useGame } from '../../foundations/store/gameStore';
 import { economy, meals } from '../../foundations/world';
 import { Guide } from '../../foundations/art/Guide';
+import { MealArt } from '../../foundations/art/MealArt';
 import { JaText, romajiOf, useJa } from '../../foundations/japanese/Ja';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx } from '../../foundations/audio/sfx';
@@ -205,6 +206,7 @@ export function FoodScreen() {
               onClick={() => setMeal(m)}
             >
               <span className="food-stall-vendor">{m.vendor}</span>
+              <MealArt id={m.id} size={56} />
               <span className="shop-name" lang="ja-Latn">
                 {romajiOf(m.name)}
               </span>
