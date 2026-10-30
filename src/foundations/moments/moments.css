@@ -567,7 +567,78 @@
   }
 }
 
-/* Bushes: two depth layers that spring apart (overshoot, then settle off-screen). */
+/* Bushes: sliced along a jagged diagonal cut into upper & lower pieces that slide and tumble apart. */
+.m-bush-piece {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.m-bush-piece.m-bush-upper {
+  transform-origin: 35% 42%;
+  clip-path: polygon(
+    -10% -15%,
+    110% -15%,
+    110% 38.2%,
+    103% 40%,
+    97% 41.2%,
+    90% 45.2%,
+    87% 43.1%,
+    79% 47.7%,
+    76% 45.6%,
+    68% 50.7%,
+    66% 48.2%,
+    58% 53.3%,
+    55% 51.2%,
+    47% 56.5%,
+    45% 53.8%,
+    37% 59.2%,
+    34% 57.1%,
+    26% 62.3%,
+    24% 59.8%,
+    17% 64.9%,
+    14% 62.8%,
+    7% 67.6%,
+    5% 65.4%,
+    -2% 68.2%,
+    -10% 70.5%
+  );
+  animation: m-slice-upper var(--gate-ms) cubic-bezier(0.32, 0, 0.2, 1) both;
+}
+.m-bush-piece.m-bush-lower {
+  transform-origin: 65% 68%;
+  clip-path: polygon(
+    -10% 70.5%,
+    -2% 68.2%,
+    5% 65.4%,
+    7% 67.6%,
+    14% 62.8%,
+    17% 64.9%,
+    24% 59.8%,
+    26% 62.3%,
+    34% 57.1%,
+    37% 59.2%,
+    45% 53.8%,
+    47% 56.5%,
+    55% 51.2%,
+    58% 53.3%,
+    66% 48.2%,
+    68% 50.7%,
+    76% 45.6%,
+    79% 47.7%,
+    87% 43.1%,
+    90% 45.2%,
+    97% 41.2%,
+    103% 40%,
+    110% 38.2%,
+    110% 115%,
+    -10% 115%
+  );
+  animation: m-slice-lower var(--gate-ms) cubic-bezier(0.32, 0, 0.2, 1) both;
+}
+.m-bush-piece.m-bush-mid {
+  opacity: 0.92;
+  animation-delay: calc(var(--gate-ms) * 0.045);
+}
 .m-bush {
   position: absolute;
   bottom: 0;
@@ -580,44 +651,219 @@
 .m-bush-r {
   right: -6%;
 }
-.m-bush-near {
-  animation: m-part-l var(--gate-ms) cubic-bezier(0.5, 0, 0.2, 1.25) forwards;
+@keyframes m-slice-upper {
+  0%,
+  12% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  16% {
+    transform: translate(1.4%, -0.8%) rotate(0.7deg);
+  }
+  23% {
+    transform: translate(-8%, -4.5%) rotate(-2.4deg);
+  }
+  60% {
+    transform: translate(-48%, -72%) rotate(-15deg);
+  }
+  78% {
+    transform: translate(-41%, -64%) rotate(-11.5deg);
+  }
+  92%,
+  100% {
+    transform: translate(-44%, -67%) rotate(-13deg);
+  }
 }
-.m-bush-r.m-bush-near {
-  animation-name: m-part-r;
+@keyframes m-slice-lower {
+  0%,
+  12% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  16% {
+    transform: translate(-1.4%, 0.8%) rotate(-0.7deg);
+  }
+  23% {
+    transform: translate(8%, 4.5%) rotate(2.4deg);
+  }
+  60% {
+    transform: translate(48%, 68%) rotate(15deg);
+  }
+  78% {
+    transform: translate(41%, 60%) rotate(11.5deg);
+  }
+  92%,
+  100% {
+    transform: translate(44%, 63%) rotate(13deg);
+  }
 }
-.m-bush-mid {
+
+/* Blade stroke, trailing glow, jagged cut seam, and flying leaf scraps */
+.m-gate-slice,
+.m-blade-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.m-cut-seam-group {
+  transform-origin: 50% 54.35%;
+  animation: m-cut-seam-flash var(--gate-ms) linear both;
+}
+.m-cut-glow-outer {
+  fill: none;
+  stroke: var(--c-glow);
+  stroke-width: 4.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.42;
+}
+.m-cut-glow-mid {
+  fill: none;
+  stroke: color-mix(in srgb, var(--c-glow) 68%, var(--c-accent));
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.8;
+}
+.m-cut-seam {
+  fill: none;
+  stroke: var(--c-coin-shine);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.m-blade-trail {
+  transform-origin: -64px 0;
+  animation: m-blade-trail var(--gate-ms) linear both;
+}
+.m-blade-wake-outer {
+  fill: color-mix(in srgb, var(--c-glow) 75%, var(--c-accent));
+  opacity: 0.35;
+}
+.m-blade-wake-mid {
+  fill: var(--c-glow);
+  opacity: 0.72;
+}
+.m-blade-wake-jagged {
+  fill: none;
+  stroke: var(--c-coin-shine);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   opacity: 0.92;
-  animation: m-part-l var(--gate-ms) cubic-bezier(0.5, 0, 0.2, 1.2) forwards;
-  animation-delay: calc(var(--gate-ms) * -0.06);
 }
-.m-bush-r.m-bush-mid {
-  animation-name: m-part-r;
+.m-blade-streak {
+  animation: m-blade-streak var(--gate-ms) linear both;
 }
-@keyframes m-part-l {
+.m-blade-streak-glow {
+  fill: var(--c-glow);
+  opacity: 0.85;
+}
+.m-blade-streak-core {
+  fill: var(--c-coin-shine);
+}
+.m-blade-streak-tip {
+  fill: var(--c-hud-ink);
+}
+@keyframes m-blade-streak {
   0%,
-  12% {
-    transform: translateX(0) rotate(0deg);
+  9.5% {
+    opacity: 0;
+    transform: translateX(-72px) scaleX(0.35);
+  }
+  11% {
+    opacity: 1;
+    transform: translateX(-44px) scaleX(0.95);
   }
   16% {
-    transform: translateX(2.5%) rotate(1.2deg);
+    opacity: 1;
+    transform: translateX(4px) scaleX(1.15);
   }
-  62%,
+  21% {
+    opacity: 1;
+    transform: translateX(62px) scaleX(0.95);
+  }
+  25%,
   100% {
-    transform: translateX(-92%) rotate(-7deg) translateY(4%);
+    opacity: 0;
+    transform: translateX(80px) scaleX(0.3);
   }
 }
-@keyframes m-part-r {
+@keyframes m-blade-trail {
   0%,
-  12% {
-    transform: translateX(0) rotate(0deg);
+  10% {
+    opacity: 0;
+    transform: scaleX(0.02) scaleY(0.4);
+  }
+  13% {
+    opacity: 0.92;
+    transform: scaleX(0.36) scaleY(0.9);
+  }
+  21% {
+    opacity: 1;
+    transform: scaleX(1.02) scaleY(1.1);
+  }
+  27% {
+    opacity: 0.65;
+    transform: scaleX(1.04) scaleY(1.45);
+  }
+  36%,
+  100% {
+    opacity: 0;
+    transform: scaleX(1.05) scaleY(0.2);
+  }
+}
+@keyframes m-cut-seam-flash {
+  0%,
+  11% {
+    opacity: 0;
+    transform: scale(0.98);
   }
   16% {
-    transform: translateX(-2.5%) rotate(-1.2deg);
+    opacity: 0.85;
+    transform: scale(1);
   }
-  62%,
+  21% {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+  33%,
   100% {
-    transform: translateX(92%) rotate(7deg) translateY(4%);
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+.m-leaf-scrap {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin-left: -17px;
+  margin-top: -17px;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: m-scrap-fly var(--gate-ms) cubic-bezier(0.22, 0.8, 0.32, 1) both;
+  animation-delay: calc(var(--gate-ms) * var(--scrap-delay, 0));
+}
+@keyframes m-scrap-fly {
+  0%,
+  11% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(calc(var(--dx) * 0.32), calc(var(--dy) * 0.35 - 12px)) scale(1.12)
+      rotate(calc(var(--rot) * 0.3));
+  }
+  46% {
+    opacity: 1;
+    transform: translate(calc(var(--dx) * 0.78), calc(var(--dy) * 0.72 - 4px)) scale(0.96)
+      rotate(calc(var(--rot) * 0.72));
+  }
+  82%,
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), calc(var(--dy) + 26px)) scale(0.62) rotate(var(--rot));
   }
 }
 

@@ -289,22 +289,219 @@ function Coins({
 
 // ---------- training gate ----------
 
+/**
+ * Jagged diagonal cut vertices in viewport percentages [x%, y%].
+ * Used by both the CSS clip-path polygons on the bush pieces and the SVG cut seam / leaf scraps,
+ * so the blade path and the splitting bush edges match along every zig-zag and nick.
+ */
+const GATE_CUT: readonly [number, number][] = [
+  [-10, 70.5],
+  [-2, 68.2],
+  [5, 65.4],
+  [7, 67.6],
+  [14, 62.8],
+  [17, 64.9],
+  [24, 59.8],
+  [26, 62.3],
+  [34, 57.1],
+  [37, 59.2],
+  [45, 53.8],
+  [47, 56.5],
+  [55, 51.2],
+  [58, 53.3],
+  [66, 48.2],
+  [68, 50.7],
+  [76, 45.6],
+  [79, 47.7],
+  [87, 43.1],
+  [90, 45.2],
+  [97, 41.2],
+  [103, 40.0],
+  [110, 38.2],
+];
+
+const GATE_CUT_PATH = GATE_CUT.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x} ${y}`).join(' ');
+
+interface ScrapSpec {
+  x: number;
+  y: number;
+  dx: number;
+  dy: number;
+  rot: number;
+  delay: number;
+  kind: 'sprig' | 'leaf' | 'petal';
+}
+
+const GATE_SCRAPS: readonly ScrapSpec[] = [
+  { x: 11, y: 65.2, dx: -52, dy: -68, rot: -145, delay: 0.01, kind: 'leaf' },
+  { x: 21, y: 61.5, dx: 44, dy: 62, rot: 130, delay: 0.022, kind: 'sprig' },
+  { x: 31, y: 58.6, dx: -64, dy: -82, rot: -190, delay: 0.034, kind: 'petal' },
+  { x: 40, y: 56.2, dx: 58, dy: 54, rot: 165, delay: 0.046, kind: 'leaf' },
+  { x: 48, y: 54.8, dx: -48, dy: -92, rot: -160, delay: 0.056, kind: 'sprig' },
+  { x: 57, y: 52.4, dx: 66, dy: 70, rot: 210, delay: 0.068, kind: 'leaf' },
+  { x: 67, y: 49.6, dx: -58, dy: -74, rot: -175, delay: 0.08, kind: 'sprig' },
+  { x: 77, y: 46.8, dx: 52, dy: 64, rot: 155, delay: 0.092, kind: 'petal' },
+  { x: 88, y: 44.2, dx: -44, dy: -66, rot: -140, delay: 0.104, kind: 'leaf' },
+];
+
+function GateSlice() {
+  return (
+    <div className="m-gate-slice" aria-hidden="true">
+      <svg className="m-blade-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        {/* Jagged organic cut seam that flares along the exact polygon split */}
+        <g className="m-cut-seam-group">
+          <path d={GATE_CUT_PATH} className="m-cut-glow-outer" />
+          <path d={GATE_CUT_PATH} className="m-cut-glow-mid" />
+          <path d={GATE_CUT_PATH} className="m-cut-seam" />
+        </g>
+
+        {/* Diagonal blade corridor aligned to the cut (-10,70.5 -> 110,38.2) */}
+        <g transform="translate(50 54.35) rotate(-15.05)">
+          {/* Soft trailing glow band */}
+          <g className="m-blade-trail">
+            <ellipse cx="0" cy="0" rx="68" ry="6.2" className="m-blade-wake-outer" />
+            <path
+              d="M-66 0 Q-18 -4.2 64 -0.6 L66 0.6 Q-18 4.2 -66 0 Z"
+              className="m-blade-wake-mid"
+            />
+            <path
+              d="M-64 0.3 L-48 -1.2 L-39 0.9 L-24 -1.4 L-14 0.8 L-2 -1.5 L8 1.1 L22 -1.3 L31 0.8 L46 -1.1 L64 0"
+              className="m-blade-wake-jagged"
+            />
+          </g>
+
+          {/* Fast bright blade streak sweeping across */}
+          <g className="m-blade-streak">
+            <ellipse cx="-6" cy="0" rx="34" ry="2.8" className="m-blade-streak-glow" />
+            <path d="M-42 0 Q-4 -2.1 30 0 Q-4 2.1 -42 0 Z" className="m-blade-streak-core" />
+            <ellipse cx="14" cy="-0.4" rx="12" ry="0.9" className="m-blade-streak-tip" />
+          </g>
+        </g>
+      </svg>
+
+      {/* Flying leaf scraps, cut sprigs, and petals sheared off along the jagged cut */}
+      {GATE_SCRAPS.map((s, i) => (
+        <span
+          key={i}
+          className="m-leaf-scrap"
+          style={
+            {
+              left: `${s.x}%`,
+              top: `${s.y}%`,
+              '--dx': `${s.dx}px`,
+              '--dy': `${s.dy}px`,
+              '--rot': `${s.rot}deg`,
+              '--scrap-delay': s.delay,
+            } as CSSProperties
+          }
+        >
+          <svg viewBox="0 0 36 36" width="34" height="34">
+            {s.kind === 'sprig' && (
+              <g>
+                {/* Sheared bamboo sprig stem with diagonal cut nick */}
+                <path
+                  d="M6 26 L27 11 L29 14 L9 29 Z"
+                  className="stalk-node"
+                />
+                <path
+                  d="M6 25 L26 10 L28 12.5 L8 27.5 Z"
+                  className="stalk-a"
+                />
+                {/* Two plump leaves attached to the cut sprig */}
+                <path
+                  d="M17 17 C15 7 23 2 31 5 C28 13 22 17 17 17 Z"
+                  className="leaf-lip"
+                />
+                <path
+                  d="M17 15.5 C15 6 23 1 31 4 C28 12 22 15.5 17 15.5 Z"
+                  className="leaf-a"
+                />
+                <ellipse
+                  cx="23"
+                  cy="8.5"
+                  rx="4.2"
+                  ry="1.8"
+                  transform="rotate(-28 23 8.5)"
+                  className="leaf-hi"
+                />
+                <path
+                  d="M12 22 C4 20 1 13 6 7 C12 11 14 17 12 22 Z"
+                  className="leaf-b"
+                />
+              </g>
+            )}
+            {s.kind === 'leaf' && (
+              <g>
+                {/* Plump leaf sheared cleanly along a jagged diagonal edge */}
+                <path
+                  d="M6 24 C6 11 18 4 31 8 L25 20 L19 18 L14 26 Z"
+                  className="leaf-lip"
+                />
+                <path
+                  d="M6 22 C6 9 18 2 31 6 L25 18 L19 16 L14 24 Z"
+                  className="leaf-a"
+                />
+                <ellipse
+                  cx="17"
+                  cy="11"
+                  rx="5.5"
+                  ry="2.4"
+                  transform="rotate(-22 17 11)"
+                  className="leaf-hi"
+                />
+              </g>
+            )}
+            {s.kind === 'petal' && (
+              <g>
+                {/* Sheared camellia petal */}
+                <path
+                  d="M9 22 C8 12 17 6 27 10 C27 20 19 26 9 22 Z"
+                  fill="var(--c-lacquer)"
+                  opacity="0.5"
+                />
+                <path
+                  d="M9 20 C8 10 17 4 27 8 C27 18 19 24 9 20 Z"
+                  fill="var(--c-petal)"
+                />
+                <ellipse
+                  cx="17"
+                  cy="12"
+                  rx="4.2"
+                  ry="1.8"
+                  transform="rotate(-20 17 12)"
+                  fill="var(--c-coin-shine)"
+                  opacity="0.75"
+                />
+              </g>
+            )}
+          </svg>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
   const blobs =
     depth === 'near'
       ? [
+          [62, 340, 108],
+          [184, 385, 114],
           [68, 500, 118],
           [162, 595, 128],
           [42, 680, 138],
           [194, 725, 122],
           [112, 798, 148],
-          [232, 458, 92],
+          [232, 458, 96],
         ]
       : [
-          [82, 405, 92],
-          [172, 470, 102],
-          [58, 555, 104],
-          [202, 585, 92],
+          [76, 290, 96],
+          [188, 335, 102],
+          [82, 405, 96],
+          [172, 470, 106],
+          [58, 555, 108],
+          [202, 585, 98],
+          [124, 650, 108],
         ];
   const mx = (x: number) => (side === 'l' ? x : 260 - x);
   const dir = side === 'l' ? 1 : -1;
@@ -315,7 +512,7 @@ function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
       preserveAspectRatio="xMidYMax slice"
     >
       {/* Accent bamboo fronds peeking from behind the bush bank */}
-      {blobs.slice(0, 3).map(([x, y, r], i) => {
+      {blobs.slice(0, 5).map(([x, y, r], i) => {
         const cx = mx(x!) + dir * (r! * 0.72);
         const cy = y! - r! * 0.35;
         return (
@@ -350,6 +547,7 @@ function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
       {/* Camellia / sakura blossoms nestled in the near bushes */}
       {depth === 'near' &&
         [
+          [138, 395],
           [145, 555],
           [92, 665],
           [188, 705],
@@ -825,8 +1023,14 @@ function Gate({
   };
   useEffect(() => {
     haptic('rise');
+    const tSlice = window.setTimeout(() => {
+      if (!handed.current) haptic('thud');
+    }, duration * 0.21);
     const t = window.setTimeout(handOver, duration);
-    return () => window.clearTimeout(t);
+    return () => {
+      window.clearTimeout(tSlice);
+      window.clearTimeout(t);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -842,10 +1046,15 @@ function Gate({
       <div className="m-mist m-mist-1" />
       <div className="m-mist m-mist-2" />
       <div className="m-actor">{actor('walk')}</div>
-      <Bushes side="l" depth="mid" />
-      <Bushes side="r" depth="mid" />
-      <Bushes side="l" depth="near" />
-      <Bushes side="r" depth="near" />
+      {(['mid', 'near'] as const).map((depth) =>
+        (['upper', 'lower'] as const).map((half) => (
+          <div key={`${depth}-${half}`} className={`m-bush-piece m-bush-${depth} m-bush-${half}`}>
+            <Bushes side="l" depth={depth} />
+            <Bushes side="r" depth={depth} />
+          </div>
+        )),
+      )}
+      <GateSlice />
     </div>
   );
 }
