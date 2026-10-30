@@ -182,19 +182,19 @@
   86%,
   100% {
     transform: none;
-    clip-path: inset(0 0 0 0);
+    opacity: 0.55;
   }
   88% {
-    transform: translate(-6px, 1px);
-    clip-path: inset(20% 0 55% 0);
+    transform: translate(-6px, 1px) skewX(-6deg);
+    opacity: 0.85;
   }
   91% {
-    transform: translate(5px, -2px);
-    clip-path: inset(60% 0 10% 0);
+    transform: translate(5px, -2px) skewX(5deg);
+    opacity: 0.35;
   }
   94% {
-    transform: translate(-3px, 0);
-    clip-path: inset(40% 0 35% 0);
+    transform: translate(-3px, 0) scale(1.02, 0.98);
+    opacity: 0.75;
   }
 }
 @keyframes boss-hover {
@@ -207,14 +207,15 @@
 }
 @keyframes boss-hit {
   0% {
-    filter: brightness(3) saturate(0);
-    transform: translateX(0);
+    opacity: 0.35;
+    transform: translateX(0) scale(0.94);
   }
   30% {
-    transform: translateX(18px) rotate(4deg);
+    opacity: 1;
+    transform: translateX(18px) rotate(4deg) scale(1.05, 0.95);
   }
   100% {
-    filter: none;
+    opacity: 1;
     transform: none;
   }
 }
@@ -233,7 +234,6 @@
   to {
     transform: scale(0.2) rotate(30deg);
     opacity: 0;
-    filter: blur(6px);
   }
 }
 .glyph {
