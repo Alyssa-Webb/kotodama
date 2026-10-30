@@ -23,9 +23,12 @@ async function visibleText(page: Page, selector: string): Promise<string> {
 export async function answerKanaQuestion(page: Page): Promise<boolean> {
   const card = page.locator('.question');
   if (!(await card.isVisible().catch(() => false))) return false;
-  const showText = page.getByRole('button', { name: "Can't listen now? Show text" });
-  if (await showText.isVisible().catch(() => false)) await showText.click();
   const instruction = await visibleText(page, '.question .eyebrow');
+  // Audio questions: reveal the text (the accessibility fallback) before reading it.
+  if (instruction === 'What did you hear?' || instruction === 'Type what you hear') {
+    await page.getByRole('button', { name: "Can't listen now? Show text" }).click();
+    await expect(page.locator('.question .big-ja')).toBeVisible();
+  }
 
   if (instruction === 'Match the pairs') {
     const left = page.locator('.match-grid .options').first().locator('button');
@@ -82,7 +85,11 @@ export async function answerKanaQuestion(page: Page): Promise<boolean> {
 
 export async function continueIfFeedback(page: Page) {
   const cont = page.locator('.feedback').getByRole('button', { name: 'Continue' });
-  if (await cont.isVisible().catch(() => false)) await cont.click();
+  if (await cont.isVisible().catch(() => false)) {
+    await cont.click();
+    // wait for the next question to replace the feedback before reading the screen again
+    await expect(page.locator('.feedback')).toBeHidden();
+  }
 }
 
 /** Plays the open lesson to its results screen. */
