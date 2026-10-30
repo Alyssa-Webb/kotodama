@@ -1,249 +1,630 @@
-/* Path unit: unrolled Japanese paper scroll (makimono) with lacquer brocade header & wooden roller base. */
-.unit {
-  overflow: hidden;
-  border-radius: 22px 22px 30px 30px / 18px 18px 28px 28px;
-  border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 82%, var(--c-ink));
-  background:
-    radial-gradient(
-      90% 50% at 50% 50%,
-      color-mix(in srgb, var(--c-coin-shine) 55%, transparent),
-      transparent 75%
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 26px,
-      color-mix(in srgb, var(--c-panel-edge) 6%, transparent) 26px 28px
-    ),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--c-surface-alt) 85%, var(--c-panel-edge)) 0%,
-      var(--c-panel) 6%,
-      var(--c-panel) 94%,
-      color-mix(in srgb, var(--c-surface-alt) 85%, var(--c-panel-edge)) 100%
-    );
-  box-shadow:
-    inset 0 -6px 0 color-mix(in srgb, var(--c-lacquer) 65%, var(--c-ink)),
-    0 8px 0 color-mix(in srgb, var(--c-panel-edge) 68%, var(--c-ink)),
-    0 16px 30px -12px var(--c-shadow);
-}
-.unit::before {
-  display: none;
-}
-.unit-banner {
+/* Illustrated Chibi Journey Map (Dojo -> Bamboo Forest Road -> Rice Fields -> Castle Town -> Mountain Shrines -> Capital). */
+
+.journey-map {
   position: relative;
-  margin: calc(var(--sp-5) * -1) calc(var(--sp-5) * -1) 0;
-  padding: var(--sp-4) var(--sp-5) calc(var(--sp-4) + 6px);
-  background:
-    radial-gradient(
-      70% 80% at 20% 10%,
-      color-mix(in srgb, var(--c-glow) 22%, transparent),
-      transparent 70%
-    ),
-    linear-gradient(
-      135deg,
-      var(--c-lacquer),
-      color-mix(in srgb, var(--c-lacquer) 72%, var(--c-hud-bg))
-    );
-  color: var(--c-hud-ink);
-  border-bottom: 3px solid var(--c-panel-edge);
-  box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 25%, transparent),
-    0 4px 0 color-mix(in srgb, var(--c-hud-bg) 55%, transparent);
-}
-/* Scalloped cloth noren trim along the bottom of the unit banner */
-.unit-banner::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -9px;
-  height: 9px;
-  background: radial-gradient(circle at 12px 0, var(--c-panel-edge) 0 6px, transparent 6.5px) 0 0 /
-    24px 9px repeat-x;
-  pointer-events: none;
-}
-.unit-banner .eyebrow {
-  color: var(--c-glow);
-}
-.path-list {
-  position: relative;
-  list-style: none;
-  margin: 0;
-  padding: var(--sp-4) 0;
   display: flex;
   flex-direction: column;
   gap: var(--sp-5);
 }
-/* The winding stone-lantern trail */
-.path-list::before {
+
+/* Continuous pilgrimage road spine connecting every region down the scroll */
+.journey-map::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 24px;
+  bottom: 24px;
   left: 50%;
-  width: 0;
-  border-left: 8px dotted color-mix(in srgb, var(--c-panel-edge) 55%, transparent);
+  width: 44px;
   transform: translateX(-50%);
+  border-radius: var(--r-pill);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-surface-alt)) 0 12px,
+      color-mix(in srgb, var(--c-panel) 85%, var(--c-gold-soft)) 12px 26px
+    );
+  border-left: 5px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
+  border-right: 5px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
+  box-shadow: 0 6px 14px var(--c-shadow);
+  pointer-events: none;
+  z-index: 0;
 }
+
+.pack-eyebrow {
+  text-align: center;
+}
+
+/* Each unit is an illustrated region scene along the continuous pilgrimage trail */
+.unit {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 0;
+  gap: 0;
+  border-radius: 28px 28px 34px 34px / 24px 24px 30px 30px;
+  border: 3px solid color-mix(in srgb, var(--c-panel-edge) 80%, var(--c-hud-bg));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-sky-bottom) 38%, var(--c-panel)) 0%,
+    color-mix(in srgb, var(--c-success-soft) 52%, var(--c-panel)) 38%,
+    color-mix(in srgb, var(--c-surface-alt) 82%, var(--c-panel)) 100%
+  );
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
+    inset 0 -6px 0 color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg)),
+    0 8px 0 color-mix(in srgb, var(--c-panel-edge) 62%, var(--c-hud-bg)),
+    0 18px 32px -12px var(--c-shadow);
+}
+
+.unit::before {
+  display: none;
+}
+
+/* ---------------- REGION BANNER: HANGING WOODEN SIGN & NOREN ---------------- */
+
+.unit-banner {
+  position: relative;
+  z-index: 3;
+  margin: 0;
+  padding: 0 var(--sp-4) var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Top wooden lintel beam across the region entrance */
+  border-top: 8px solid color-mix(in srgb, var(--c-gold) 55%, var(--c-hud-bg));
+}
+
+/* Scalloped cloth noren flaps hanging from the entrance beam */
+.unit-noren {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 54px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding: 0 var(--sp-3);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.noren-flap {
+  display: block;
+  height: 100%;
+  border-radius: 0 0 16px 16px;
+  background: linear-gradient(
+    180deg,
+    var(--c-lacquer),
+    color-mix(in srgb, var(--c-accent) 78%, var(--c-lacquer))
+  );
+  border: 2px solid color-mix(in srgb, var(--c-lacquer) 65%, var(--c-hud-bg));
+  border-top: 0;
+  box-shadow:
+    inset 0 -4px 0 color-mix(in srgb, var(--c-lacquer) 62%, var(--c-hud-bg)),
+    0 4px 8px var(--c-shadow);
+  transform-origin: 50% 0%;
+  animation: noren-sway calc(var(--dur-celebrate) * 4.2) ease-in-out infinite alternate;
+}
+
+.noren-flap:nth-child(even) {
+  animation-delay: calc(var(--dur-celebrate) * -1.8);
+}
+
+.region-bamboo .noren-flap {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-success) 68%, var(--c-hud-bg)),
+    var(--c-success)
+  );
+}
+
+.region-village .noren-flap,
+.region-castle .noren-flap {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-secondary) 72%, var(--c-hud-bg)),
+    var(--c-secondary)
+  );
+}
+
+@keyframes noren-sway {
+  from {
+    transform: rotate(-1.4deg) scaleY(0.99);
+  }
+  to {
+    transform: rotate(1.4deg) scaleY(1.02);
+  }
+}
+
+/* Carved hanging wooden signboard (看板) suspended at the center of the noren */
+.unit-signboard {
+  position: relative;
+  z-index: 1;
+  margin-top: 8px;
+  padding: var(--sp-2) var(--sp-5) calc(var(--sp-2) + 3px);
+  min-width: min(100%, 268px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border-radius: 18px 20px 22px 18px / 16px 18px 20px 18px;
+  border: 2.5px solid color-mix(in srgb, var(--c-gold) 52%, var(--c-hud-bg));
+  background:
+    radial-gradient(
+      70% 55% at 24% 18%,
+      color-mix(in srgb, var(--c-coin-shine) 42%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-panel-edge) 82%, var(--c-panel)),
+      var(--c-panel-edge) 68%,
+      color-mix(in srgb, var(--c-gold) 68%, var(--c-hud-bg))
+    );
+  color: var(--c-hud-bg);
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
+    inset 0 -4px 0 color-mix(in srgb, var(--c-gold) 55%, var(--c-hud-bg)),
+    0 5px 0 color-mix(in srgb, var(--c-gold) 45%, var(--c-hud-bg)),
+    0 10px 18px -4px var(--c-shadow);
+}
+
+/* Hanging rope pegs on the wooden signboard */
+.unit-signboard::before,
+.unit-signboard::after {
+  content: '';
+  position: absolute;
+  top: -11px;
+  width: 6px;
+  height: 14px;
+  border-radius: var(--r-pill);
+  background: var(--c-gold);
+  box-shadow: 0 2px 0 var(--c-hud-bg);
+}
+
+.unit-signboard::before {
+  left: 26px;
+}
+
+.unit-signboard::after {
+  right: 26px;
+}
+
+.unit-signboard .eyebrow {
+  color: color-mix(in srgb, var(--c-lacquer) 82%, var(--c-hud-bg));
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.unit-signboard h2 {
+  color: var(--c-hud-bg);
+  font-size: var(--fs-lg);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--c-coin-shine) 65%, transparent);
+}
+
+.unit-banner-ja {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: color-mix(in srgb, var(--c-hud-bg) 78%, var(--c-lacquer));
+  line-height: 1.3;
+}
+
+.unit-banner-ja ruby rt {
+  color: color-mix(in srgb, var(--c-hud-bg) 72%, var(--c-lacquer));
+}
+
+/* ---------------- REGION SCENE STAGE & MISTY LOCKED STATE ---------------- */
+
+.unit-stage {
+  position: relative;
+  padding: var(--sp-3) var(--sp-3) var(--sp-5);
+}
+
+.region-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.region-mist {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.88;
+}
+
+/* Locked regions: soft fog veil and muted/desaturated scenery */
+.unit.unit-locked {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-fog) 36%, var(--c-surface-alt)) 0%,
+    color-mix(in srgb, var(--c-fog) 24%, var(--c-panel)) 100%
+  );
+}
+
+.unit.unit-locked .region-scene {
+  opacity: 0.42;
+}
+
+.unit.unit-locked .noren-flap {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-fog) 72%, var(--c-hud-bg)),
+    var(--c-fog)
+  );
+  animation: none;
+}
+
+.unit.unit-locked .unit-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(
+      85% 45% at 50% 30%,
+      color-mix(in srgb, var(--c-panel) 58%, transparent),
+      transparent 75%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-fog) 24%, transparent),
+      color-mix(in srgb, var(--c-surface-alt) 48%, transparent) 55%,
+      color-mix(in srgb, var(--c-fog) 30%, transparent)
+    );
+}
+
+/* Ambient transform/opacity-only scenery animations */
+.path-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: path-sway calc(var(--dur-celebrate) * 3.6) ease-in-out infinite alternate;
+}
+
+.path-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: path-bob calc(var(--dur-celebrate) * 2.6) ease-in-out infinite;
+}
+
+.path-lantern-glow {
+  animation: path-flicker calc(var(--dur-celebrate) * 2) ease-in-out infinite alternate;
+}
+
+.path-river-shimmer {
+  animation: path-shimmer calc(var(--dur-celebrate) * 3.4) ease-in-out infinite alternate;
+}
+
+.path-cloud-drift {
+  animation: path-cloud-drift calc(var(--dur-celebrate) * 9) ease-in-out infinite alternate;
+}
+
+.path-cloud-drift-reverse {
+  animation: path-cloud-drift-rev calc(var(--dur-celebrate) * 10) ease-in-out infinite alternate;
+}
+
+@keyframes path-sway {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes path-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+  }
+}
+
+@keyframes path-flicker {
+  from {
+    opacity: 0.22;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 0.45;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes path-shimmer {
+  from {
+    opacity: 0.45;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 0.82;
+    transform: translateX(4px);
+  }
+}
+
+@keyframes path-cloud-drift {
+  from {
+    transform: translateX(-12px);
+    opacity: 0.72;
+  }
+  to {
+    transform: translateX(12px);
+    opacity: 0.92;
+  }
+}
+
+@keyframes path-cloud-drift-rev {
+  from {
+    transform: translateX(12px);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateX(-12px);
+    opacity: 0.9;
+  }
+}
+
+/* ---------------- WINDING TRAIL NODES & MARKERS ---------------- */
+
+.path-list {
+  position: relative;
+  z-index: 2;
+  list-style: none;
+  margin: 0;
+  padding: var(--sp-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.path-list::before {
+  display: none;
+}
+
 .path-node {
   position: relative;
   display: flex;
   align-items: center;
   gap: var(--sp-3);
-  width: min(100%, 320px);
+  width: min(100%, 312px);
+  align-self: center;
 }
+
 .path-node.pos-0 {
-  align-self: center;
+  transform: translateX(-4%);
 }
+
 .path-node.pos-1 {
-  align-self: center;
-  transform: translateX(18%) rotate(1deg);
+  transform: translateX(10%) rotate(0.8deg);
 }
+
 .path-node.pos-2 {
-  align-self: center;
-  transform: rotate(-0.6deg);
+  transform: translateX(3%) rotate(-0.5deg);
 }
+
 .path-node.pos-3 {
-  align-self: center;
-  transform: translateX(-18%) rotate(-1deg);
+  transform: translateX(-10%) rotate(-0.8deg);
 }
-/* Chunky 3D stepping-stone / taiko token */
+
+/* Stepping-stone, shrine-lantern & torii gate markers on the trail */
 .path-dot {
   position: relative;
   flex: none;
   display: grid;
   place-items: center;
-  width: 74px;
-  height: 74px;
-  border-radius: 53% 47% 52% 48% / 48% 53% 47% 52%;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: var(--fs-xl);
   text-decoration: none;
-  background:
-    radial-gradient(
-      circle at 32% 26%,
-      color-mix(in srgb, var(--c-coin-shine) 85%, transparent),
-      transparent 55%
-    ),
-    radial-gradient(circle at 40% 35%, var(--c-panel), var(--c-surface-alt));
   color: var(--c-ink-muted);
-  border: 3.5px solid color-mix(in srgb, var(--c-border) 75%, var(--c-ink));
-  box-shadow:
-    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
-    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 14%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-border) 72%, var(--c-ink)),
-    0 10px 18px -6px var(--c-shadow);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
   transition:
     transform var(--dur-fast) var(--spring),
     opacity var(--dur-fast) var(--ease);
 }
+
+.node-marker-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.path-dot-glyph {
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+  transform: translateY(-2px);
+}
+
 .path-dot:hover {
-  transform: translateY(-2px) scale(1.04);
+  transform: translateY(-3px) scale(1.05);
 }
+
 .path-dot:active {
-  transform: translateY(5px) scale(0.97, 0.94);
+  transform: translateY(4px) scale(0.96, 0.92);
 }
+
 .path-node.open .path-dot {
-  background:
-    radial-gradient(
-      circle at 30% 24%,
-      color-mix(in srgb, var(--c-coin-shine) 45%, transparent),
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 35% 30%,
-      color-mix(in srgb, var(--c-accent) 75%, var(--c-glow)),
-      var(--c-accent) 72%
-    );
   color: var(--c-accent-ink);
-  border-color: var(--c-panel-edge);
-  box-shadow:
-    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 45%, transparent),
-    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 28%, transparent),
-    0 7px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
-    0 12px 20px -6px var(--c-shadow);
+  text-shadow: 0 2px 0 color-mix(in srgb, var(--c-hud-bg) 55%, transparent);
 }
+
+.path-node.kind-story.open .path-dot {
+  color: var(--c-ink);
+  text-shadow: none;
+}
+
+.path-node.done .path-dot {
+  color: var(--c-hud-bg);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--c-coin-shine) 75%, transparent);
+}
+
+/* Current node: gentle bob + pulsing transform/opacity halo */
 .path-node.current .path-dot {
-  box-shadow:
-    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 50%, transparent),
-    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 28%, transparent),
-    0 7px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
-    0 0 0 7px color-mix(in srgb, var(--c-glow) 35%, transparent),
-    0 0 26px var(--c-glow);
   animation: node-glow calc(var(--dur-celebrate) * 1.8) ease-in-out infinite;
 }
-/* Transform-only pulse for the current path node */
+
+.node-halo {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  opacity: 0.36;
+  animation: node-halo-pulse calc(var(--dur-celebrate) * 1.8) ease-in-out infinite;
+}
+
 @keyframes node-glow {
   0%,
   100% {
     transform: translateY(0) scale(1);
   }
   50% {
-    transform: translateY(-4px) scale(1.06);
+    transform: translateY(-5px) scale(1.06);
   }
 }
-.path-node.done .path-dot {
-  background:
-    radial-gradient(
-      circle at 30% 24%,
-      color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
-      transparent 52%
-    ),
-    radial-gradient(circle at 35% 30%, var(--c-glow), var(--c-gold) 75%);
-  color: var(--c-panel);
-  border-color: var(--c-panel-edge);
-  box-shadow:
-    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 55%, transparent),
-    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 22%, transparent),
-    0 7px 0 color-mix(in srgb, var(--c-gold) 48%, var(--c-ink)),
-    0 10px 18px -6px var(--c-shadow);
+
+@keyframes node-halo-pulse {
+  0%,
+  100% {
+    transform: scale(0.88);
+    opacity: 0.24;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.48;
+  }
 }
+
+/* Checkpoints & bosses: special stone/vermilion torii gate marker */
 .path-node.boss .path-dot {
-  width: 84px;
-  height: 84px;
-  font-size: var(--fs-2xl);
-  border-radius: 24px 20px 24px 20px;
-  transform: rotate(45deg);
+  width: 92px;
+  height: 92px;
+  font-size: var(--fs-xl);
+  border-radius: 26px;
+  transform: none;
 }
-.path-node.boss .path-dot > span {
-  transform: rotate(-45deg);
+
+.path-node.boss .path-dot:hover {
+  transform: translateY(-3px) scale(1.05);
 }
+
+.path-node.boss .path-dot:active {
+  transform: translateY(4px) scale(0.96, 0.92);
+}
+
+.path-node.boss.current .path-dot {
+  animation: node-glow calc(var(--dur-celebrate) * 1.8) ease-in-out infinite;
+}
+
+.path-node.boss .path-dot-glyph {
+  transform: translateY(3px);
+}
+
 .path-node.boss.open .path-dot {
-  background: radial-gradient(circle at 35% 30%, var(--c-secondary), var(--c-ink) 80%);
   color: var(--c-glow);
 }
+
+.path-node.boss.done .path-dot {
+  color: var(--c-hud-bg);
+}
+
+/* Player avatar standing beside the current node on the trail */
 .path-avatar {
   position: absolute;
-  left: -54px;
-  bottom: 6px;
+  left: -42px;
+  bottom: 8px;
+  z-index: 3;
+  pointer-events: none;
   animation: boss-hover calc(var(--dur-celebrate) * 1.6) ease-in-out infinite;
 }
+
 .path-node .stars {
   margin: 0;
   justify-content: flex-start;
 }
+
 .path-node .stars svg {
   width: 16px;
   height: 16px;
 }
+
 .path-node.locked strong {
   color: var(--c-ink-muted);
 }
-/* Roadside wooden signpost tag beside each stepping stone */
+
+/* Roadside carved wooden signpost plaque beside each trail marker */
 .path-node > .stack {
   position: relative;
   padding: var(--sp-2) var(--sp-3) var(--sp-2) calc(var(--sp-3) + 6px);
   border-radius: 18px 22px 20px 14px / 16px 20px 22px 16px;
-  border: 1.5px solid color-mix(in srgb, var(--c-panel-edge) 65%, var(--c-border));
+  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
   background:
     radial-gradient(circle at 8px 50%, var(--c-panel-edge) 0 2.5px, transparent 3px),
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--c-panel) 94%, transparent),
-      color-mix(in srgb, var(--c-surface-alt) 85%, transparent)
+      color-mix(in srgb, var(--c-panel) 95%, transparent),
+      color-mix(in srgb, var(--c-surface-alt) 90%, transparent)
     );
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
-    0 3px 0 color-mix(in srgb, var(--c-panel-edge) 52%, var(--c-ink));
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
+    0 4px 0 color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg)),
+    0 8px 16px -6px var(--c-shadow);
+}
+
+.path-node.current > .stack {
+  border-color: var(--c-gold);
+  background:
+    radial-gradient(circle at 8px 50%, var(--c-gold) 0 3px, transparent 3.5px),
+    linear-gradient(
+      180deg,
+      var(--c-panel),
+      color-mix(in srgb, var(--c-gold-soft) 65%, var(--c-panel))
+    );
+}
+
+@media (max-width: 400px) {
+  .path-node {
+    width: min(100%, 288px);
+  }
+  .path-node.pos-1 {
+    transform: translateX(5%) rotate(0.6deg);
+  }
+  .path-node.pos-3 {
+    transform: translateX(-5%) rotate(-0.6deg);
+  }
+  .path-avatar {
+    left: -34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .noren-flap,
+  .path-sway,
+  .path-bob,
+  .path-lantern-glow,
+  .path-river-shimmer,
+  .path-cloud-drift,
+  .path-cloud-drift-reverse,
+  .path-node.current .path-dot,
+  .node-halo,
+  .path-avatar {
+    animation: none !important;
+  }
 }
