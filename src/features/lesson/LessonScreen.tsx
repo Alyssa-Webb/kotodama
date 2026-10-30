@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import {
   completeLesson,
   consumeItem,
+  damageFor,
   heartsNow,
   isUnlocked,
   xpMultiplier,
@@ -69,6 +70,8 @@ export function LessonScreen() {
   // Fixed when the lesson opens: hearts and boosts at the start of the lesson.
   const [config] = useState<SessionConfig>(() => ({
     hearts: heartsNow(save, gctx()),
+    // Mistakes hurt more the further along the story this lesson's unit is.
+    damage: damageFor(economy, ref?.unitIndex ?? 0),
     economy,
     xpMultiplier: xpMultiplier(save, gctx()),
     requeueMistakes: true,

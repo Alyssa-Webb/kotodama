@@ -4,6 +4,7 @@ import {
   completeReviews,
   consumeItem,
   dueCards,
+  damageFor,
   heartsNow,
   xpMultiplier,
   type ReviewResult,
@@ -48,6 +49,7 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
     () => ({
       // The Dojo is how hearts are earned back, so at 0 hearts it runs without them.
       hearts: heartsNow(save, gctx()) || null,
+      damage: damageFor(economy, 0),
       economy,
       xpMultiplier: xpMultiplier(save, gctx(), true),
       requeueMistakes: false,

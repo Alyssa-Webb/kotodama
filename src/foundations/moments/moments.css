@@ -621,7 +621,8 @@
   position: absolute;
   bottom: 0;
   height: 100%;
-  width: 62%;
+  /* wide enough that the feathered inner edges overlap with near-full coverage */
+  width: 66%;
 }
 .m-bush-l {
   left: -6%;
@@ -1367,4 +1368,15 @@ body.m-entered .full-screen > * > *:nth-child(n + 4) {
     opacity: 0;
     transform: translateY(26px) scale(0.97);
   }
+}
+
+/* No seam before the cut: the mirrored left and right bush halves overlap in the middle, so
+   each one feathers its inner edge into the other instead of ending in a hard vertical line. */
+.m-bush-l {
+  -webkit-mask-image: linear-gradient(90deg, black 82%, transparent 100%);
+  mask-image: linear-gradient(90deg, black 82%, transparent 100%);
+}
+.m-bush-r {
+  -webkit-mask-image: linear-gradient(270deg, black 82%, transparent 100%);
+  mask-image: linear-gradient(270deg, black 82%, transparent 100%);
 }

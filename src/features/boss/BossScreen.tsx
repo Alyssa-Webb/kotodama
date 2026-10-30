@@ -2,7 +2,14 @@ import { useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { canChallenge, hit, phasePools, startBoss, type BossState } from '../../engine/boss';
 import { append } from '../../engine/economy/ledger';
-import { completeLesson, heartsNow, isUnlocked, today, xpMultiplier } from '../../engine/game';
+import {
+  completeLesson,
+  damageFor,
+  heartsNow,
+  isUnlocked,
+  today,
+  xpMultiplier,
+} from '../../engine/game';
 import { prepareExercise } from '../../engine/exercises/plugins';
 import type { Question } from '../../engine/exercises/types';
 import {
@@ -67,6 +74,8 @@ export function BossScreen() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [config] = useState<SessionConfig>(() => ({
     hearts: heartsNow(save, gctx()),
+    // Bosses hit harder than the road enemies of their unit.
+    damage: damageFor(economy, 2),
     economy,
     xpMultiplier: xpMultiplier(save, gctx()),
     requeueMistakes: false,

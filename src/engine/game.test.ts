@@ -18,6 +18,10 @@ import {
   applyTestGrant,
   buy,
   buyCharm,
+  damageFor,
+  loseHearts,
+  maxHearts,
+  playerLevel,
   changeDifficulty,
   completeLesson,
   completeReviews,
@@ -26,7 +30,6 @@ import {
   isUnlocked,
   newSave,
   settleDay,
-  settleHearts,
   type Ctx,
 } from './game';
 import { append } from './economy/ledger';
@@ -65,6 +68,7 @@ function playLesson(
   );
   const config: SessionConfig = {
     hearts: heartsNow(s, ctx(now, tz)),
+    damage: damageFor(economy, 0),
     economy,
     xpMultiplier: 1,
     requeueMistakes: true,
@@ -107,10 +111,10 @@ function playLesson(
 }
 
 describe('new save', () => {
-  it('starts in Hardcore with 5 hearts and no streak', () => {
+  it('starts in Hardcore with full level-1 health (100 HP) and no streak', () => {
     const s = newSave(T0, 'UTC', 42, economy);
     expect(s.settings.difficulty).toBe('hardcore');
-    expect(heartsNow(s, ctx(T0))).toBe(5);
+    expect(heartsNow(s, ctx(T0))).toBe(economy.hp.base);
     expect(s.streak.current).toBe(0);
   });
 });
@@ -132,7 +136,7 @@ describe('lesson completion', () => {
     expect(heartsNow(s, ctx(T0))).toBe(0);
     expect(balanceOf(s.ledger, 'xp')).toBe(0);
     expect(s.nodes['kotodama-starter/u01.n01']).toBeUndefined();
-    expect(s.mistakes.length).toBe(5);
+    expect(s.mistakes.length).toBeGreaterThan(0);
   });
 
   it('unlocks nodes in order', () => {
@@ -145,20 +149,22 @@ describe('lesson completion', () => {
   });
 });
 
-describe('hearts (Hardcore)', () => {
-  it('refill 1 per hour, capped at 5', () => {
-    let s = playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false);
-    expect(heartsNow(s, ctx(T0 + 59 * 60_000))).toBe(0);
-    expect(heartsNow(s, ctx(T0 + H))).toBe(1);
-    expect(heartsNow(s, ctx(T0 + 3.5 * H))).toBe(3);
-    s = settleHearts(s, ctx(T0 + 3.5 * H));
-    expect(balanceOf(s.ledger, 'heart')).toBe(3);
-    expect(heartsNow(s, ctx(T0 + 4 * H))).toBe(4); // partial hour carried over
-    expect(heartsNow(s, ctx(T0 + 48 * H))).toBe(5);
+describe('health (HP)', () => {
+  const lose = (s: SaveState, n: number) => loseHearts(s, ctx(T0), n, 'test');
+
+  it('never refills by itself: only food heals', () => {
+    let s = lose(newSave(T0, 'UTC', 1, economy), 40);
+    expect(heartsNow(s, ctx(T0 + 48 * H))).toBe(60);
+    s = settleDay(s, ctx(T0 + 24 * H)).save;
+    expect(heartsNow(s, ctx(T0 + 24 * H))).toBe(60);
+    s = lose(newSave(T0, 'UTC', 1, economy, { difficulty: 'standard' }), 40);
+    s = settleDay(s, ctx(T0 + 24 * H)).save;
+    expect(heartsNow(s, ctx(T0 + 24 * H))).toBe(60);
+    expect(heartsNow(newSave(T0, 'UTC', 1, economy, { difficulty: 'casual' }), ctx(T0))).toBeNull();
   });
 
-  it('10 Dojo reviews earn a heart back', () => {
-    let s = playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false);
+  it('Dojo reviews no longer heal', () => {
+    const s = lose(newSave(T0, 'UTC', 1, economy), 40);
     const summary = {
       firstPassCorrect: 10,
       mistakes: [],
@@ -174,23 +180,28 @@ describe('hearts (Hardcore)', () => {
       { summary, heartsLost: 0, reviewed: 10 },
       scheduler,
     );
-    expect(r.heartsEarned).toBe(1);
-    expect(heartsNow(r.save, ctx(T0 + 60_000))).toBe(1);
-    s = r.save;
-    expect(s.hearts.dojoProgress).toBe(0);
+    expect(r.heartsEarned).toBe(0);
+    expect(heartsNow(r.save, ctx(T0 + 60_000))).toBe(60);
   });
 
-  it('Standard mode refills fully each new day; Casual has no hearts', () => {
-    let s = playLesson(
-      newSave(T0, 'UTC', 1, economy, { difficulty: 'standard' }),
-      T0,
-      'u01.n01',
-      false,
-    );
-    expect(heartsNow(s, ctx(T0 + 5 * H))).toBe(0);
-    s = settleDay(s, ctx(T0 + 24 * H)).save;
-    expect(heartsNow(s, ctx(T0 + 24 * H))).toBe(5);
-    expect(heartsNow(newSave(T0, 'UTC', 1, economy, { difficulty: 'casual' }), ctx(T0))).toBeNull();
+  it('max HP grows with level and is scaled by difficulty', () => {
+    const s = newSave(T0, 'UTC', 1, economy);
+    expect(maxHearts(s, economy)).toBe(100);
+    const leveled = {
+      ...s,
+      ledger: append(s.ledger, T0, '2026-03-02', [
+        { asset: 'xp', amount: economy.hp.xpPerLevel * 2, reason: 'test' },
+      ]),
+    };
+    expect(playerLevel(leveled, economy)).toBe(3);
+    expect(maxHearts(leveled, economy)).toBe(100 + 2 * economy.hp.perLevel);
+    const iron = { ...s, settings: { ...s.settings, difficulty: 'ironman' as const } };
+    expect(maxHearts(iron, economy)).toBe(60);
+  });
+
+  it('mistakes hit harder further along the story', () => {
+    expect(damageFor(economy, 0)).toBe(economy.hp.damageBase);
+    expect(damageFor(economy, 3)).toBe(economy.hp.damageBase + 3 * economy.hp.damagePerUnit);
   });
 });
 
@@ -277,11 +288,11 @@ describe('shop', () => {
     expect(s.collection.shopWords).toContain('kotatsu');
   });
 
-  it('onigiri restores a heart; Ironman forbids it', () => {
+  it('onigiri restores some HP; Ironman forbids it', () => {
     const s = giveYen(playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false), 100);
     const r = buy(s, ctx(T0), shop, 'onigiri');
     if ('error' in r) throw new Error(r.error);
-    expect(heartsNow(r.save, ctx(T0))).toBe(1);
+    expect(heartsNow(r.save, ctx(T0))).toBe(economy.hp.onigiriHeal);
     const iron = giveYen(newSave(T0, 'UTC', 1, economy, { difficulty: 'ironman' }), 100);
     expect(buy(iron, ctx(T0), shop, 'onigiri')).toEqual({ error: 'not-allowed' });
   });
@@ -412,7 +423,7 @@ describe('review fixes (regressions)', () => {
     s = newSave(T0, 'UTC', 1, economy);
     const iron = changeDifficulty(s, ctx(T0), 'ironman');
     if ('error' in iron) throw new Error('locked');
-    expect(balanceOf(iron.save.ledger, 'heart')).toBe(3);
+    expect(balanceOf(iron.save.ledger, 'heart')).toBe(60);
   });
 
   it('onigiri cannot be bought at full hearts or without hearts', () => {

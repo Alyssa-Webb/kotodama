@@ -32,7 +32,11 @@ export function newSave(
 ): SaveState {
   const st = SettingsSchema.parse(settings);
   const day = gameDay(now, timeZone, st.rolloverHour);
-  const maxHearts = Math.max(0, ...Object.values(economy.difficulty).map((d) => d.hearts ?? 0));
+  // A new player starts at full level-1 health for the most generous difficulty.
+  const maxHearts = Math.max(
+    0,
+    ...Object.values(economy.difficulty).map((d) => hpFor(economy, d.hearts, 1) ?? 0),
+  );
   return {
     saveVersion: SAVE_VERSION,
     createdAt: now,
@@ -72,8 +76,25 @@ export function newSave(
 
 // ---------------------------------------------------------------- hearts
 
+/** Player level from lifetime XP. */
+export function playerLevel(s: SaveState, e: Economy): number {
+  return 1 + Math.floor(Math.max(0, balanceOf(s.ledger, 'xp')) / e.hp.xpPerLevel);
+}
+
+/** Max HP for a difficulty's heart rating (5 = Standard) at a level; null = no HP (Casual). */
+function hpFor(e: Economy, hearts: number | null | undefined, level: number): number | null {
+  if (hearts === null || hearts === undefined) return null;
+  return Math.round((hearts / 5) * (e.hp.base + e.hp.perLevel * (level - 1)));
+}
+
+/** Max HP (hearts are HP points): grows with level, scaled by difficulty. */
 export function maxHearts(s: SaveState, e: Economy): number | null {
-  return e.difficulty[s.settings.difficulty]?.hearts ?? null;
+  return hpFor(e, e.difficulty[s.settings.difficulty]?.hearts, playerLevel(s, e));
+}
+
+/** Damage a mistake deals: harder the further along the story (unit index in its pack). */
+export function damageFor(e: Economy, unitIndex: number): number {
+  return e.hp.damageBase + e.hp.damagePerUnit * Math.max(0, unitIndex);
 }
 
 /** Hearts right now, including hourly refills not yet written to the ledger. */
@@ -244,7 +265,7 @@ export function settleDay(s: SaveState, c: Ctx): { save: SaveState; notices: Set
     daily: { day, xp: 0, lessons: 0, reviews: 0, chestClaimed: false },
   };
   if (rules.refill === 'daily') {
-    const max = rules.hearts ?? 0;
+    const max = maxHearts(next, c.economy) ?? 0;
     const add = max - balanceOf(next.ledger, 'heart');
     if (add > 0) {
       next = {
@@ -495,8 +516,9 @@ export function completeReviews(
 
   const progress = save.hearts.dojoProgress + input.reviewed;
   const per = c.economy.hearts.dojoReviewsPerHeart;
-  const heartsEarned = Math.floor(progress / per);
-  save = { ...save, hearts: { ...save.hearts, dojoProgress: progress % per } };
+  // per = 0: reviews no longer heal (food does); progress is kept for when it is turned back on.
+  const heartsEarned = per > 0 ? Math.floor(progress / per) : 0;
+  save = { ...save, hearts: { ...save.hearts, dojoProgress: per > 0 ? progress % per : progress } };
   const before = heartsNow(save, c) ?? 0;
   save = gainHearts(save, c, heartsEarned, 'heart-dojo');
   const gained = (heartsNow(save, c) ?? 0) - before;
@@ -618,7 +640,7 @@ export function consumeItem(s: SaveState, c: Ctx, id: ConsumableId): SaveState {
   });
   switch (id) {
     case 'onigiri':
-      return gainHearts(spend(s), c, 1, 'heart-onigiri');
+      return gainHearts(spend(s), c, c.economy.hp.onigiriHeal, 'heart-onigiri');
     case 'taiko':
       return {
         ...spend(s),
@@ -705,7 +727,7 @@ export function changeDifficulty(
   const until = difficultyLockedUntil(s, c);
   if (until) return { error: 'locked', until };
   let save = settleHearts(s, c);
-  const newMax = c.economy.difficulty[to]?.hearts ?? null;
+  const newMax = hpFor(c.economy, c.economy.difficulty[to]?.hearts, playerLevel(s, c.economy));
   const have = balanceOf(save.ledger, 'heart');
   if (newMax !== null && have > newMax) {
     save = {

@@ -4,6 +4,8 @@
  */
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { grade } from '../../engine/exercises/grade';
+import { maxHearts as engineMaxHp } from '../../engine/game';
+import { economy } from '../../foundations/world';
 import type { Answer, GradeResult, Question } from '../../engine/exercises/types';
 import {
   answer,
@@ -79,6 +81,8 @@ export function Player({
   const { speak } = useJa();
   const voiceMode = useGame((s) => s.save?.settings.voiceMode ?? 'alternate-lesson');
   const lessonCount = useGame((s) => s.save?.lessonCount ?? 0);
+  // The bar shows HP against your true max (it doesn't refill between lessons).
+  const hpMax = useGame((st) => (st.save ? engineMaxHp(st.save, economy) : null));
   const [state, setState] = useState(() => startSession(questions, config));
   const [feedback, setFeedback] = useState<{
     result: GradeResult;
@@ -241,8 +245,15 @@ export function Player({
                 </span>
               ))
             ) : (
-              <span className="stat stat-hearts">
-                <HeartIcon size={20} /> {state.hearts}
+              <span className="hp-bar" title={`${state.hearts} / ${hpMax ?? state.hearts} HP`}>
+                <HeartIcon size={18} />
+                <span className="hp-track">
+                  <span
+                    className="hp-fill"
+                    style={{ transform: `scaleX(${hpMax ? state.hearts! / hpMax : 1})` }}
+                  />
+                </span>
+                <b>{state.hearts}</b>
               </span>
             )}
           </div>

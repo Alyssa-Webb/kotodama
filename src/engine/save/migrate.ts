@@ -6,13 +6,18 @@ import { SAVE_VERSION, SaveStateSchema, type SaveState } from '../../schema/save
 
 type Raw = Record<string, unknown>;
 const MIGRATIONS: Record<number, (raw: Raw) => Raw> = {
-  // v1 → v2: the currency became real yen (¥10 per old koban), asset id 'koban' → 'yen'.
+  // v1 → v2: real yen (¥10 per old koban, asset 'koban' → 'yen'); hearts became HP (×20).
   1: (raw) => ({
     ...raw,
     saveVersion: 2,
     ledger: Array.isArray(raw.ledger)
       ? (raw.ledger as Record<string, unknown>[]).map((e) =>
-          e.asset === 'koban' ? { ...e, asset: 'yen', amount: Number(e.amount) * 10 } : e,
+          e.asset === 'koban'
+            ? { ...e, asset: 'yen', amount: Number(e.amount) * 10 }
+            : // hearts became HP: one old heart = 20 HP (5 hearts = the new 100 HP)
+              e.asset === 'heart'
+              ? { ...e, amount: Number(e.amount) * 20 }
+              : e,
         )
       : raw.ledger,
   }),

@@ -86,7 +86,7 @@
     },
     "standard": {
       "hearts": 5,
-      "refill": "daily",
+      "refill": "none",
       "spoil": false,
       "kintsugiTrial": false,
       "kintsugi": true,
@@ -95,7 +95,7 @@
     },
     "hardcore": {
       "hearts": 5,
-      "refill": "hourly",
+      "refill": "none",
       "spoil": true,
       "kintsugiTrial": true,
       "kintsugi": true,
@@ -104,7 +104,7 @@
     },
     "ironman": {
       "hearts": 3,
-      "refill": "hourly",
+      "refill": "none",
       "spoil": true,
       "kintsugiTrial": false,
       "kintsugi": false,
@@ -114,7 +114,7 @@
   },
   "hearts": {
     "refillMinutes": 60,
-    "dojoReviewsPerHeart": 10
+    "dojoReviewsPerHeart": 0
   },
   "redemptionTrial": {
     "questions": 20,
@@ -162,5 +162,13 @@
   "charms": {
     "gakugyoReviewXp": 1.1,
     "mimiListeningYen": 0.15
+  },
+  "hp": {
+    "base": 100,
+    "perLevel": 10,
+    "xpPerLevel": 300,
+    "damageBase": 10,
+    "damagePerUnit": 5,
+    "onigiriHeal": 15
   }
 }

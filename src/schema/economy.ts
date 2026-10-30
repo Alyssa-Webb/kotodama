@@ -56,9 +56,32 @@ export const EconomySchema = z.object({
     kintsugiWindowHours: nonneg,
   }),
   difficulty: z.record(DifficultySchema, DifficultyRules),
+  /**
+   * Persistent health (HP). Max HP grows with level; each mistake deals more damage the further
+   * along the story the lesson is; HP only comes back from food (meals in town, onigiri).
+   * The difficulty's `hearts` value scales max HP relative to 5 (Standard), so Ironman's 3 = 60%.
+   */
+  hp: z
+    .object({
+      base: z.number().int().positive(),
+      perLevel: z.number().int().nonnegative(),
+      xpPerLevel: z.number().int().positive(),
+      damageBase: z.number().int().positive(),
+      damagePerUnit: z.number().int().nonnegative(),
+      onigiriHeal: z.number().int().positive(),
+    })
+    .default({
+      base: 100,
+      perLevel: 10,
+      xpPerLevel: 300,
+      damageBase: 10,
+      damagePerUnit: 5,
+      onigiriHeal: 15,
+    }),
   hearts: z.object({
     refillMinutes: z.number().positive(),
-    dojoReviewsPerHeart: z.number().int().positive(),
+    /** Dojo reviews per heart regained; 0 turns review healing off (food heals instead). */
+    dojoReviewsPerHeart: z.number().int().nonnegative(),
   }),
   redemptionTrial: z.object({
     questions: z.number().int().positive(),

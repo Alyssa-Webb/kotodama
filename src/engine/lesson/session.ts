@@ -6,8 +6,10 @@ import type { Economy } from '../../schema/economy';
 import type { GradeResult, Question, Target } from '../exercises/types';
 
 export interface SessionConfig {
-  /** Hearts available at the start (null = no hearts, e.g. Casual). */
+  /** HP available at the start (null = no HP, e.g. Casual). */
   hearts: number | null;
+  /** HP a mistake costs (story-scaled; default 1). */
+  damage?: number;
   economy: Pick<Economy, 'xp' | 'kiai' | 'stars'>;
   /** XP multiplier from boosts (taiko drum, study charm). */
   xpMultiplier: number;
@@ -107,8 +109,9 @@ export function answer(
     combo = 0;
     kiaiCharge = 0;
     if (hearts !== null) {
-      hearts = Math.max(0, hearts - 1);
-      heartsLost++;
+      const hit = Math.min(hearts, Math.max(1, config.damage ?? 1));
+      hearts -= hit;
+      heartsLost += hit;
     }
     if (config.requeueMistakes && !retried.includes(q.exerciseId)) {
       retried.push(q.exerciseId);
