@@ -16,6 +16,12 @@ import type { Rarity } from '../../engine/gacha';
 import { momentsConfig } from '../world';
 import { haptic } from '../haptics/haptics';
 import { onMoment, type MomentEvent, type Point } from './moments';
+import { cutFromSwipe, DEFAULT_SWIPE, isSwipe, type Cut, type Pt } from './cut';
+
+/** The blade's impact frame in the gate timeline (design: 10–22% of --gate-ms is the stroke). */
+const CUT_AT = 0.2;
+/** How long the bushes wait for a swipe before the blade cuts by itself. */
+const CUT_WAIT_MS = 4500;
 import './moments.css';
 
 export type ActorPose = 'walk' | 'happy' | 'cheer' | 'idle';
@@ -289,39 +295,6 @@ function Coins({
 
 // ---------- training gate ----------
 
-/**
- * Jagged diagonal cut vertices in viewport percentages [x%, y%].
- * Used by both the CSS clip-path polygons on the bush pieces and the SVG cut seam / leaf scraps,
- * so the blade path and the splitting bush edges match along every zig-zag and nick.
- */
-const GATE_CUT: readonly [number, number][] = [
-  [-10, 70.5],
-  [-2, 68.2],
-  [5, 65.4],
-  [7, 67.6],
-  [14, 62.8],
-  [17, 64.9],
-  [24, 59.8],
-  [26, 62.3],
-  [34, 57.1],
-  [37, 59.2],
-  [45, 53.8],
-  [47, 56.5],
-  [55, 51.2],
-  [58, 53.3],
-  [66, 48.2],
-  [68, 50.7],
-  [76, 45.6],
-  [79, 47.7],
-  [87, 43.1],
-  [90, 45.2],
-  [97, 41.2],
-  [103, 40.0],
-  [110, 38.2],
-];
-
-const GATE_CUT_PATH = GATE_CUT.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x} ${y}`).join(' ');
-
 interface ScrapSpec {
   x: number;
   y: number;
@@ -332,31 +305,38 @@ interface ScrapSpec {
   kind: 'sprig' | 'leaf' | 'petal';
 }
 
-const GATE_SCRAPS: readonly ScrapSpec[] = [
-  { x: 11, y: 65.2, dx: -52, dy: -68, rot: -145, delay: 0.01, kind: 'leaf' },
-  { x: 21, y: 61.5, dx: 44, dy: 62, rot: 130, delay: 0.022, kind: 'sprig' },
-  { x: 31, y: 58.6, dx: -64, dy: -82, rot: -190, delay: 0.034, kind: 'petal' },
-  { x: 40, y: 56.2, dx: 58, dy: 54, rot: 165, delay: 0.046, kind: 'leaf' },
-  { x: 48, y: 54.8, dx: -48, dy: -92, rot: -160, delay: 0.056, kind: 'sprig' },
-  { x: 57, y: 52.4, dx: 66, dy: 70, rot: 210, delay: 0.068, kind: 'leaf' },
-  { x: 67, y: 49.6, dx: -58, dy: -74, rot: -175, delay: 0.08, kind: 'sprig' },
-  { x: 77, y: 46.8, dx: 52, dy: 64, rot: 155, delay: 0.092, kind: 'petal' },
-  { x: 88, y: 44.2, dx: -44, dy: -66, rot: -140, delay: 0.104, kind: 'leaf' },
+const SCRAP_KINDS: ScrapSpec['kind'][] = [
+  'leaf',
+  'sprig',
+  'petal',
+  'leaf',
+  'sprig',
+  'leaf',
+  'sprig',
+  'petal',
+  'leaf',
 ];
 
-function GateSlice() {
+function GateSlice({ cut }: { cut: Cut }) {
+  const path = cut.points
+    .map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(2)} ${y.toFixed(2)}`)
+    .join(' ');
+  const scraps = cut.scraps.map((sc, i) => ({ ...sc, kind: SCRAP_KINDS[i % SCRAP_KINDS.length]! }));
   return (
     <div className="m-gate-slice" aria-hidden="true">
       <svg className="m-blade-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
         {/* Jagged organic cut seam that flares along the exact polygon split */}
-        <g className="m-cut-seam-group">
-          <path d={GATE_CUT_PATH} className="m-cut-glow-outer" />
-          <path d={GATE_CUT_PATH} className="m-cut-glow-mid" />
-          <path d={GATE_CUT_PATH} className="m-cut-seam" />
+        <g
+          className="m-cut-seam-group"
+          style={{ transformOrigin: `${cut.center[0]}% ${cut.center[1]}%` }}
+        >
+          <path d={path} className="m-cut-glow-outer" />
+          <path d={path} className="m-cut-glow-mid" />
+          <path d={path} className="m-cut-seam" />
         </g>
 
-        {/* Diagonal blade corridor aligned to the cut (-10,70.5 -> 110,38.2) */}
-        <g transform="translate(50 54.35) rotate(-15.05)">
+        {/* Blade corridor aligned to the player's swipe */}
+        <g transform={`translate(${cut.center[0]} ${cut.center[1]}) rotate(${cut.angle})`}>
           {/* Soft trailing glow band */}
           <g className="m-blade-trail">
             <ellipse cx="0" cy="0" rx="68" ry="6.2" className="m-blade-wake-outer" />
@@ -380,7 +360,7 @@ function GateSlice() {
       </svg>
 
       {/* Flying leaf scraps, cut sprigs, and petals sheared off along the jagged cut */}
-      {GATE_SCRAPS.map((s, i) => (
+      {scraps.map((s, i) => (
         <span
           key={i}
           className="m-leaf-scrap"
@@ -399,23 +379,11 @@ function GateSlice() {
             {s.kind === 'sprig' && (
               <g>
                 {/* Sheared bamboo sprig stem with diagonal cut nick */}
-                <path
-                  d="M6 26 L27 11 L29 14 L9 29 Z"
-                  className="stalk-node"
-                />
-                <path
-                  d="M6 25 L26 10 L28 12.5 L8 27.5 Z"
-                  className="stalk-a"
-                />
+                <path d="M6 26 L27 11 L29 14 L9 29 Z" className="stalk-node" />
+                <path d="M6 25 L26 10 L28 12.5 L8 27.5 Z" className="stalk-a" />
                 {/* Two plump leaves attached to the cut sprig */}
-                <path
-                  d="M17 17 C15 7 23 2 31 5 C28 13 22 17 17 17 Z"
-                  className="leaf-lip"
-                />
-                <path
-                  d="M17 15.5 C15 6 23 1 31 4 C28 12 22 15.5 17 15.5 Z"
-                  className="leaf-a"
-                />
+                <path d="M17 17 C15 7 23 2 31 5 C28 13 22 17 17 17 Z" className="leaf-lip" />
+                <path d="M17 15.5 C15 6 23 1 31 4 C28 12 22 15.5 17 15.5 Z" className="leaf-a" />
                 <ellipse
                   cx="23"
                   cy="8.5"
@@ -424,23 +392,14 @@ function GateSlice() {
                   transform="rotate(-28 23 8.5)"
                   className="leaf-hi"
                 />
-                <path
-                  d="M12 22 C4 20 1 13 6 7 C12 11 14 17 12 22 Z"
-                  className="leaf-b"
-                />
+                <path d="M12 22 C4 20 1 13 6 7 C12 11 14 17 12 22 Z" className="leaf-b" />
               </g>
             )}
             {s.kind === 'leaf' && (
               <g>
                 {/* Plump leaf sheared cleanly along a jagged diagonal edge */}
-                <path
-                  d="M6 24 C6 11 18 4 31 8 L25 20 L19 18 L14 26 Z"
-                  className="leaf-lip"
-                />
-                <path
-                  d="M6 22 C6 9 18 2 31 6 L25 18 L19 16 L14 24 Z"
-                  className="leaf-a"
-                />
+                <path d="M6 24 C6 11 18 4 31 8 L25 20 L19 18 L14 26 Z" className="leaf-lip" />
+                <path d="M6 22 C6 9 18 2 31 6 L25 18 L19 16 L14 24 Z" className="leaf-a" />
                 <ellipse
                   cx="17"
                   cy="11"
@@ -459,10 +418,7 @@ function GateSlice() {
                   fill="var(--c-lacquer)"
                   opacity="0.5"
                 />
-                <path
-                  d="M9 20 C8 10 17 4 27 8 C27 18 19 24 9 20 Z"
-                  fill="var(--c-petal)"
-                />
+                <path d="M9 20 C8 10 17 4 27 8 C27 18 19 24 9 20 Z" fill="var(--c-petal)" />
                 <ellipse
                   cx="17"
                   cy="12"
@@ -1012,7 +968,11 @@ function Gate({
   onEnd: () => void;
 }) {
   const { duration, fadeOut } = momentsConfig.gate;
+  const root = useRef<HTMLDivElement>(null);
+  const [cut, setCut] = useState<Cut | null>(null);
   const [out, setOut] = useState(false);
+  const [trail, setTrail] = useState<Pt[]>([]);
+  const swipe = useRef<Pt[] | null>(null);
   const handed = useRef(false);
   const handOver = () => {
     if (handed.current) return;
@@ -1021,23 +981,61 @@ function Gate({
     done();
     window.setTimeout(onEnd, fadeOut + 40);
   };
+  const pct = (e: { clientX: number; clientY: number }): Pt => [
+    (e.clientX / window.innerWidth) * 100,
+    (e.clientY / window.innerHeight) * 100,
+  ];
+  /** The blade lands: split the bushes along this stroke and play the rest of the gate. */
+  const slice = (from: Pt, to: Pt) => {
+    if (cut) return;
+    haptic('thud');
+    setCut(cutFromSwipe(from, to, from[0] * 31 + to[1]));
+    setTrail([]);
+  };
+  // Waiting for the swipe: if nobody swipes, the blade cuts on its own so the gate never stalls.
   useEffect(() => {
     haptic('rise');
-    const tSlice = window.setTimeout(() => {
-      if (!handed.current) haptic('thud');
-    }, duration * 0.21);
-    const t = window.setTimeout(handOver, duration);
-    return () => {
-      window.clearTimeout(tSlice);
-      window.clearTimeout(t);
-    };
+    const t = window.setTimeout(() => slice(...DEFAULT_SWIPE), CUT_WAIT_MS);
+    return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // After the cut, every gate animation starts from the blade's impact frame together.
+  useLayoutEffect(() => {
+    if (!cut || !root.current) return;
+    const from = duration * CUT_AT;
+    for (const anim of root.current.getAnimations({ subtree: true })) {
+      if ((anim as CSSAnimation).animationName === 'm-sway') continue;
+      anim.currentTime = from;
+      anim.play();
+    }
+    const t = window.setTimeout(handOver, duration - from);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cut]);
   return (
     <div
-      className={`m-gate ${out ? 'm-out' : ''}`}
+      ref={root}
+      className={`m-gate ${cut ? 'm-cutting' : 'm-waiting'} ${out ? 'm-out' : ''}`}
       style={{ '--gate-ms': `${duration}ms`, '--fade-ms': `${fadeOut}ms` } as CSSProperties}
-      onPointerDown={handOver}
+      onPointerDown={(e) => {
+        if (cut) return handOver();
+        e.currentTarget.setPointerCapture?.(e.pointerId);
+        swipe.current = [pct(e)];
+      }}
+      onPointerMove={(e) => {
+        if (!swipe.current || cut) return;
+        const p = pct(e);
+        swipe.current.push(p);
+        setTrail(swipe.current.slice(-12));
+      }}
+      onPointerUp={(e) => {
+        if (!swipe.current || cut) return;
+        const from = swipe.current[0]!;
+        const to = pct(e);
+        swipe.current = null;
+        if (isSwipe(from, to, window.innerWidth, window.innerHeight)) slice(from, to);
+        else slice(...DEFAULT_SWIPE);
+      }}
       aria-hidden="true"
     >
       <div className="m-world">
@@ -1048,13 +1046,37 @@ function Gate({
       <div className="m-actor">{actor('walk')}</div>
       {(['mid', 'near'] as const).map((depth) =>
         (['upper', 'lower'] as const).map((half) => (
-          <div key={`${depth}-${half}`} className={`m-bush-piece m-bush-${depth} m-bush-${half}`}>
+          <div
+            key={`${depth}-${half}`}
+            className={`m-bush-piece m-bush-${depth} m-bush-${half}`}
+            style={
+              cut
+                ? ({
+                    clipPath: `polygon(${half === 'upper' ? cut.sideA : cut.sideB})`,
+                    '--nx': cut.normal[0],
+                    '--ny': cut.normal[1],
+                    '--spin': cut.angle > 0 ? 1 : -1,
+                  } as CSSProperties)
+                : { clipPath: 'none' }
+            }
+          >
             <Bushes side="l" depth={depth} />
             <Bushes side="r" depth={depth} />
           </div>
         )),
       )}
-      <GateSlice />
+      {cut && <GateSlice cut={cut} />}
+      {!cut && trail.length > 1 && (
+        <svg className="m-swipe-trail" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polyline points={trail.map(([x, y]) => `${x},${y}`).join(' ')} />
+        </svg>
+      )}
+      {!cut && (
+        <div className="m-swipe-hint">
+          <span className="m-swipe-arrow" />
+          <span className="m-swipe-label">Swipe to cut through!</span>
+        </div>
+      )}
     </div>
   );
 }
