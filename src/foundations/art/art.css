@@ -416,22 +416,19 @@
   animation: enemy-enter-shadow 900ms ease-out both;
 }
 .enemy-hit {
-  animation: enemy-hit 420ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  animation: enemy-hit 220ms ease-out both;
 }
 .enemy-hit .enemy-damage-flash-white {
-  animation: enemy-hit-flash-white 180ms steps(1, end) both;
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
 }
 .enemy-hit .enemy-damage-flash-red {
-  animation: enemy-hit-flash-red 180ms steps(1, end) both;
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
 }
 .enemy-attack {
   animation: enemy-attack 520ms cubic-bezier(0.5, 0, 0.2, 1) both;
 }
 .enemy-defeat {
-  animation: enemy-defeat 620ms ease-in both;
-}
-.enemy-defeat .enemy-damage-flash-white {
-  animation: enemy-defeat-flash 620ms linear both;
+  animation: enemy-defeat 600ms ease-in both;
 }
 
 @keyframes enemy-bob {
@@ -622,17 +619,11 @@
   0% {
     transform: none;
   }
-  14% {
-    transform: translate(7%, -2%) rotate(4deg) scale(1.04, 0.96);
+  34% {
+    transform: translateX(8px) rotate(2deg);
   }
-  30% {
-    transform: translate(8%, -2%) rotate(4deg) scale(0.98, 1.02);
-  }
-  54% {
-    transform: translate(-2%, 0) rotate(-1deg) scale(1.01, 0.99);
-  }
-  78% {
-    transform: translate(1%, 0) rotate(0.5deg);
+  68% {
+    transform: translateX(-1px) rotate(-0.5deg);
   }
   100% {
     transform: none;
@@ -640,65 +631,40 @@
 }
 @keyframes enemy-hit-flash-white {
   0%,
-  7% {
-    opacity: 0;
-  }
-  8%,
-  23% {
+  14% {
     opacity: 1;
   }
-  24%,
-  40% {
+  15%,
+  49% {
     opacity: 0;
   }
-  41%,
-  57% {
-    opacity: 0.96;
+  50%,
+  64% {
+    opacity: 1;
   }
-  58%,
-  74% {
-    opacity: 0;
-  }
-  75%,
-  89% {
-    opacity: 0.88;
-  }
-  90%,
+  65%,
   100% {
     opacity: 0;
   }
 }
 @keyframes enemy-hit-flash-red {
   0%,
-  23% {
+  14% {
     opacity: 0;
   }
-  24%,
-  40% {
-    opacity: 0.94;
-  }
-  41%,
-  57% {
-    opacity: 0;
-  }
-  58%,
-  74% {
-    opacity: 0.88;
-  }
-  75%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes enemy-defeat-flash {
-  0% {
-    opacity: 0;
-  }
-  4%,
-  27% {
+  15%,
+  29% {
     opacity: 1;
   }
-  42%,
+  30%,
+  64% {
+    opacity: 0;
+  }
+  65%,
+  79% {
+    opacity: 1;
+  }
+  80%,
   100% {
     opacity: 0;
   }
@@ -730,12 +696,16 @@
     transform: scale(1);
     opacity: 1;
   }
-  24% {
-    transform: translate(6%, -4%) scale(1.22, 0.78) rotate(-8deg);
-    opacity: 0.95;
+  22% {
+    transform: translateY(2px) scale(1.08, 0.88);
+    opacity: 1;
+  }
+  38% {
+    transform: translateY(5px) scale(0.96, 1.02);
+    opacity: 0.94;
   }
   100% {
-    transform: translateY(-46%) scale(0.16) rotate(42deg);
+    transform: translateY(30px) scale(0.82, 0.68);
     opacity: 0;
   }
 }
