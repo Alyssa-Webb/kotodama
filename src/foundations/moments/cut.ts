@@ -13,7 +13,10 @@ export interface Cut {
   /** clip-path polygon() bodies for the two halves (side A lies along the normal). */
   sideA: string;
   sideB: string;
-  /** Unit normal in % space pointing to side A, for the halves' push-apart motion. */
+  /**
+   * Unit normal in % space pointing to side A, for the halves' push-apart motion. Side A is the
+   * left half of a top-to-bottom swipe (the intended stroke) and the upper half of a sideways one.
+   */
   normal: Pt;
   /** Unit direction of the swipe as the player made it: the torn-off half follows the hand. */
   dir: Pt;
@@ -23,10 +26,10 @@ export interface Cut {
   scraps: { x: number; y: number; dx: number; dy: number; rot: number; delay: number }[];
 }
 
-/** Default stroke when the player taps or lets the hint time out: low-left to high-right. */
+/** Default stroke when the player taps or lets the hint time out: top to bottom, a slight lean. */
 export const DEFAULT_SWIPE: [Pt, Pt] = [
-  [-10, 70.5],
-  [110, 38.2],
+  [46, -10],
+  [54, 110],
 ];
 
 const BOX: Pt[] = [
@@ -104,21 +107,19 @@ function half(points: Pt[], n: Pt, sign: 1 | -1): string {
 export function cutFromSwipe(from: Pt, to: Pt, seed = 1): Cut {
   const sw = Math.hypot(to[0] - from[0], to[1] - from[1]);
   const dir: Pt = sw > 1e-6 ? [(to[0] - from[0]) / sw, (to[1] - from[1]) / sw] : [1, 0];
-  let a = from;
-  let b = to;
-  // Keep the cut running left to right so "side A" is consistently the upper half.
-  if (b[0] < a[0]) [a, b] = [b, a];
-  const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
-  if (len < 1e-6) [a, b] = DEFAULT_SWIPE;
+  let [a, b] = sw < 1e-6 ? DEFAULT_SWIPE : [from, to];
+  // Steep cuts run top to bottom (side A = left half), flat ones left to right (side A = upper).
+  const steep = Math.abs(b[1] - a[1]) > Math.abs(b[0] - a[0]);
+  if (steep ? b[1] < a[1] : b[0] < a[0]) [a, b] = [b, a];
   const [p0, p1] = clipToBox(a, b);
   const dx = p1[0] - p0[0];
   const dy = p1[1] - p0[1];
   const total = Math.hypot(dx, dy);
   const ux = dx / total;
   const uy = dy / total;
-  // Normal pointing "up" the screen (smaller y) is side A.
+  // Side A: the left half of a steep cut, the upper half of a flat one.
   let normal: Pt = [uy, -ux];
-  if (normal[1] > 0) normal = [-uy, ux];
+  if (steep ? normal[0] > 0 : normal[1] > 0) normal = [-uy, ux];
   const r = rng(seed);
   const steps = Math.max(20, Math.round(total / 2.5));
   const points: Pt[] = [p0];

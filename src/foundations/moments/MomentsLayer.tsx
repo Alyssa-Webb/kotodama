@@ -15,6 +15,7 @@ import type { GateScene } from '../../schema/moments';
 import type { Rarity } from '../../engine/gacha';
 import { momentsConfig } from '../world';
 import { haptic } from '../haptics/haptics';
+import { playSfx, startAmbient } from '../audio/sfx';
 import { onMoment, type MomentEvent, type Point } from './moments';
 import { CaseReel } from './CaseOpening';
 import type { Reel } from '../../engine/gachaReel';
@@ -1249,10 +1250,13 @@ function Gate({
   const slice = (from: Pt, to: Pt) => {
     if (cut) return;
     haptic('thud');
+    playSfx('rip');
     setCut(cutFromSwipe(from, to, from[0] * 31 + to[1]));
     setTrail([]);
   };
   // Waiting for the swipe: if nobody swipes, the blade cuts on its own so the gate never stalls.
+  // Wind through the bushes while the gate waits and opens.
+  useEffect(() => startAmbient('wind'), []);
   useEffect(() => {
     haptic('rise');
     const t = window.setTimeout(() => slice(...DEFAULT_SWIPE), CUT_WAIT_MS);
@@ -1317,7 +1321,8 @@ function Gate({
                     '--ny': cut.normal[1],
                     '--tx': cut.dir[0],
                     '--ty': cut.dir[1],
-                    '--spin': cut.angle > 0 ? 1 : -1,
+                    // Each half topples outward: the left one to the left, the right one to the right.
+                    '--spin': cut.normal[0] <= 0 ? 1 : -1,
                   } as CSSProperties)
                 : { clipPath: 'none' }
             }
@@ -1336,7 +1341,7 @@ function Gate({
       {!cut && (
         <div className="m-swipe-hint">
           <span className="m-swipe-arrow" />
-          <span className="m-swipe-label">Swipe to cut through!</span>
+          <span className="m-swipe-label">Swipe down to cut through!</span>
         </div>
       )}
     </div>

@@ -606,11 +606,12 @@
   will-change: transform;
 }
 .m-bush-piece.m-bush-upper {
-  transform-origin: 50% 40%;
+  /* Pivot near the ground so each half topples over like a felled hedge. */
+  transform-origin: 50% 95%;
   animation: m-slice-upper var(--gate-ms) linear both;
 }
 .m-bush-piece.m-bush-lower {
-  transform-origin: 50% 70%;
+  transform-origin: 50% 95%;
   animation: m-slice-lower var(--gate-ms) linear both;
 }
 /* Both depths split as one sheet (no stagger), so the torn edge never doubles up. */
@@ -630,9 +631,10 @@
 .m-bush-r {
   right: -6%;
 }
-/* A pack rip: the halves crack open along the cut, then the top half is flung off the way the
-   hand swiped (--tx, --ty) while the bottom half drops away. One-way motion, no settle-back.
-   The gate timeline starts at 20% (the blade's impact frame), so the rip lives in 20–62%. */
+/* A pack rip down the middle: the halves crack open along the cut, then topple outward and fall,
+   the left half to the left and the right half to the right (for a sideways cut, the top half
+   lifts away and the bottom drops). One-way motion, no settle-back. The gate timeline starts at
+   20% (the blade's impact frame), so the rip lives in 20–62%. */
 @keyframes m-slice-upper {
   0%,
   20% {
@@ -641,16 +643,13 @@
   }
   25% {
     transform: translate(calc(var(--nx) * 2.5%), calc(var(--ny) * 2.5%))
-      rotate(calc(var(--spin) * -1deg));
+      rotate(calc(var(--spin) * -1.5deg));
     animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.5);
   }
   62%,
   100% {
-    transform: translate(
-        calc(var(--nx) * 70% + var(--tx) * 55%),
-        calc(var(--ny) * 70% + var(--ty) * 55%)
-      )
-      rotate(calc(var(--spin) * -16deg));
+    transform: translate(calc(var(--nx) * 70%), calc(var(--ny) * 70% + 28%))
+      rotate(calc(var(--spin) * -20deg));
   }
 }
 @keyframes m-slice-lower {
@@ -660,14 +659,14 @@
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1);
   }
   25% {
-    transform: translate(calc(var(--nx) * -1.5%), calc(var(--ny) * -1.5%))
-      rotate(calc(var(--spin) * 0.6deg));
-    animation-timing-function: cubic-bezier(0.6, 0, 0.95, 0.6);
+    transform: translate(calc(var(--nx) * -2.5%), calc(var(--ny) * -2.5%))
+      rotate(calc(var(--spin) * 1.5deg));
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.5);
   }
   62%,
   100% {
-    transform: translate(calc(var(--nx) * -55% + var(--tx) * 8%), calc(var(--ny) * -55% + 30%))
-      rotate(calc(var(--spin) * 7deg));
+    transform: translate(calc(var(--nx) * -70%), calc(var(--ny) * -70% + 28%))
+      rotate(calc(var(--spin) * 20deg));
   }
 }
 
@@ -727,20 +726,21 @@
   transform-origin: left center;
   animation: m-hint-swipe 1.4s cubic-bezier(0.5, 0, 0.2, 1) infinite;
 }
+/* The hint strokes downward, the way the player should swipe. */
 @keyframes m-hint-swipe {
   0% {
-    transform: translateX(-60px) rotate(-18deg) scaleX(0.1);
+    transform: rotate(84deg) translateX(-80px) scaleX(0.1);
     opacity: 0;
   }
   30% {
     opacity: 1;
   }
   70% {
-    transform: translateX(10px) rotate(-18deg) scaleX(1);
+    transform: rotate(84deg) translateX(-10px) scaleX(1);
     opacity: 1;
   }
   100% {
-    transform: translateX(40px) rotate(-18deg) scaleX(1);
+    transform: rotate(84deg) translateX(20px) scaleX(1);
     opacity: 0;
   }
 }

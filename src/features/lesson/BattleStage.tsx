@@ -10,6 +10,7 @@ import type { SessionState } from '../../engine/lesson/session';
 import { Enemy, ENEMY_KINDS, type EnemyState } from '../../foundations/art/Enemy';
 import { momentsConfig } from '../../foundations/world';
 import { haptic } from '../../foundations/haptics/haptics';
+import { playSfx, startAmbient } from '../../foundations/audio/sfx';
 import { AvatarActor, type ActorMood } from '../avatar/AvatarActor';
 import { BattleFx } from './BattleFx';
 import './battle.css';
@@ -194,6 +195,9 @@ export function BattleStage({ state }: { state: SessionState }) {
     return () => window.clearTimeout(t);
   }, []);
 
+  // The bamboo path has a soft wind under the whole battle.
+  useEffect(() => startAmbient('wind'), []);
+
   useEffect(() => {
     if (state.attempts.length === seen.current) return;
     seen.current = state.attempts.length;
@@ -205,6 +209,7 @@ export function BattleStage({ state }: { state: SessionState }) {
       // The enemy's blow lands as its lunge peaks.
       later(220, () => {
         setFx({ id, kind: 'impact' });
+        playSfx('hit');
         root.current?.animate(
           [
             { transform: 'translate(0, 0)' },
@@ -223,6 +228,7 @@ export function BattleStage({ state }: { state: SessionState }) {
       setHero('strike');
       later(160, () => {
         setFx({ id, kind: 'slash' });
+        playSfx('slash');
         setFoe('hit');
         haptic('thud');
       });
@@ -231,6 +237,8 @@ export function BattleStage({ state }: { state: SessionState }) {
       setHero('strike');
       later(160, () => {
         setFx({ id, kind: 'finisher' });
+        playSfx('slash');
+        window.setTimeout(() => playSfx('hit'), 90);
         setFoe('defeat');
         haptic('heartbeat');
       });

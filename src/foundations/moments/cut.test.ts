@@ -44,7 +44,25 @@ describe('cutFromSwipe', () => {
     expect(b.length).toBeGreaterThan(edge);
   });
 
-  it('points side A up the screen whichever way the player swipes (property)', () => {
+  it('splits a top-to-bottom swipe into left (side A) and right halves', () => {
+    for (const [from, to] of [
+      [
+        [50, 5],
+        [52, 95],
+      ],
+      [
+        [52, 95],
+        [50, 5],
+      ],
+    ] as [Pt, Pt][]) {
+      const c = cutFromSwipe(from, to);
+      expect(c.normal[0]).toBeLessThan(-0.9);
+      const corners = c.sideA.split(', ').slice(c.points.length);
+      expect(corners.every((p) => p.startsWith('-15.00%'))).toBe(true);
+    }
+  });
+
+  it('points side A left on steep cuts and up on flat ones, whichever way (property)', () => {
     fc.assert(
       fc.property(
         fc.tuple(
@@ -57,7 +75,9 @@ describe('cutFromSwipe', () => {
         ),
         (from, to) => {
           const c = cutFromSwipe(from, to);
-          return c.normal[1] <= 1e-9 && Math.abs(Math.hypot(...c.normal) - 1) < 1e-6;
+          const flat = Math.abs(c.normal[1]) >= Math.abs(c.normal[0]);
+          const ok = flat ? c.normal[1] <= 1e-9 : c.normal[0] <= 1e-9;
+          return ok && Math.abs(Math.hypot(...c.normal) - 1) < 1e-6;
         },
       ),
     );
