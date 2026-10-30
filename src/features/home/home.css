@@ -1,12 +1,24 @@
+/* Home hero: carved shrine diorama stage with scalloped noren apron and chunky lacquer base. */
 .card.home-hero {
   padding: 0;
   overflow: hidden;
+  border-radius: 34px 28px 30px 26px / 28px 34px 26px 30px;
+  border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
+  box-shadow:
+    inset 0 0 0 4px color-mix(in srgb, var(--c-panel-edge) 28%, transparent),
+    0 8px 0 color-mix(in srgb, var(--c-lacquer) 62%, var(--c-ink)),
+    0 18px 34px -12px var(--c-shadow);
+}
+.card.home-hero::before {
+  display: none;
 }
 .home-scene {
-  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  border-radius: 31px 25px 0 0 / 25px 31px 0 0;
 }
 .home-stage {
   position: relative;
+  border-bottom: 3px solid var(--c-panel-edge);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--c-lacquer) 50%, transparent);
 }
 .home-hero-guide {
   position: absolute;
@@ -17,28 +29,46 @@
 }
 .speech {
   position: absolute;
-  left: calc(var(--sp-3) + 124px);
+  left: calc(var(--sp-3) + 122px);
   right: var(--sp-3);
-  bottom: 70px;
+  bottom: 68px;
   display: flex;
   flex-direction: column;
-  max-width: 210px;
+  max-width: 212px;
   padding: var(--sp-2) var(--sp-3);
-  border-radius: var(--r-md);
-  background: var(--c-panel);
-  border: 1.5px solid var(--c-panel-edge);
-  box-shadow: 0 6px 16px -8px var(--c-shadow);
-  animation: q-in var(--dur-slow) var(--spring) both;
-  animation-delay: 300ms;
+  border-radius: 22px 26px 24px 8px / 20px 24px 22px 8px;
+  background:
+    radial-gradient(
+      70% 55% at 25% 20%,
+      color-mix(in srgb, var(--c-coin-shine) 80%, transparent),
+      transparent 70%
+    ),
+    var(--c-panel);
+  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 80%, transparent),
+    0 4px 0 color-mix(in srgb, var(--c-panel-edge) 70%, var(--c-ink)),
+    0 8px 18px -6px var(--c-shadow);
+  animation:
+    q-in var(--dur-slow) var(--spring) 300ms both,
+    speech-bob calc(var(--dur-celebrate) * 3.6) ease-in-out 900ms infinite alternate;
+}
+@keyframes speech-bob {
+  from {
+    transform: translateY(0) rotate(-1deg);
+  }
+  to {
+    transform: translateY(-4px) rotate(1deg);
+  }
 }
 .speech::before {
   content: '';
   position: absolute;
-  left: -8px;
+  left: -9px;
   top: 16px;
   border: 8px solid transparent;
   border-left: 0;
-  border-right-color: var(--c-panel-edge);
+  border-right-color: color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
 }
 .speech-ja {
   font-family: var(--font-display);
@@ -54,6 +84,17 @@
   justify-content: space-between;
   gap: var(--sp-3);
   padding: var(--sp-4) var(--sp-5) var(--sp-5);
+  background:
+    radial-gradient(
+      55% 75% at 88% 50%,
+      color-mix(in srgb, var(--c-glow) 22%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      var(--c-panel),
+      color-mix(in srgb, var(--c-surface-alt) 65%, var(--c-panel))
+    );
 }
 .home-hero-body h1 {
   font-size: var(--fs-lg);
@@ -61,12 +102,48 @@
 .ring-wrap {
   flex: none;
 }
+
+/* Next lesson card: carved wooden ema (shrine wish plaque) with hanging cord pin. */
 .next-card {
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--c-gold-soft) 60%, var(--c-panel)),
-    var(--c-panel)
-  );
+  padding-top: calc(var(--sp-5) + 6px);
+  border-radius: 32px 32px 24px 24px / 38px 38px 20px 20px;
+  border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
+  background:
+    radial-gradient(
+      70% 50% at 22% 16%,
+      color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--c-gold-soft) 72%, var(--c-panel)),
+      var(--c-panel) 65%,
+      color-mix(in srgb, var(--c-surface-alt) 80%, var(--c-panel))
+    );
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 85%, transparent),
+    inset 0 -4px 0 color-mix(in srgb, var(--c-panel-edge) 35%, transparent),
+    inset 0 0 0 4px var(--c-panel),
+    inset 0 0 0 6px color-mix(in srgb, var(--c-panel-edge) 42%, transparent),
+    0 8px 0 color-mix(in srgb, var(--c-gold) 62%, var(--c-ink)),
+    0 16px 30px -12px var(--c-shadow);
+}
+/* Hanging brass ring & vermilion cord knot at top center of the ema plaque */
+.next-card::before {
+  inset: 8px auto auto 50%;
+  width: 36px;
+  height: 12px;
+  transform: translateX(-50%);
+  border-radius: var(--r-pill);
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      var(--c-hud-bg) 0 3px,
+      var(--c-panel-edge) 3.2px 6px,
+      var(--c-accent) 6.2px 8.5px,
+      transparent 9px
+    );
+  opacity: 0.95;
 }
 .next-avatar {
   flex: none;
@@ -74,27 +151,80 @@
   height: 100px;
   display: grid;
   place-items: end center;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 50% 70%,
-    color-mix(in srgb, var(--c-glow) 40%, transparent),
-    transparent 70%
-  );
+  border-radius: 52% 48% 48% 52% / 48% 52% 52% 48%;
+  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 65%, transparent);
+  background:
+    radial-gradient(
+      circle at 50% 65%,
+      color-mix(in srgb, var(--c-glow) 45%, transparent),
+      color-mix(in srgb, var(--c-gold-soft) 50%, var(--c-panel)) 72%
+    );
+  box-shadow:
+    inset 0 2px 6px var(--c-shadow),
+    0 3px 0 color-mix(in srgb, var(--c-panel-edge) 50%, transparent);
 }
+/* Big candy-like "Play" toy button */
 .play-btn {
-  min-height: 60px;
+  min-height: 64px;
   font-size: var(--fs-lg);
   letter-spacing: 0.04em;
+  border-radius: var(--r-pill);
+  box-shadow:
+    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
+    inset 0 -4px 0 color-mix(in srgb, var(--c-ink) 18%, transparent),
+    0 7px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
+    0 14px 24px -6px var(--c-shadow);
+}
+
+/* World destination signboards (Dojo, Town, Arcade, Spirits): hanging wooden plaques. */
+.tile-card {
+  padding-top: calc(var(--sp-5) + 4px);
+  border-radius: 28px 18px 26px 20px / 20px 28px 18px 26px;
+  transform-origin: 50% 8px;
+  animation:
+    card-pop var(--dur-slow) var(--spring) both,
+    sign-sway calc(var(--dur-celebrate) * 4.5) ease-in-out 700ms infinite alternate;
+}
+.tile-card:nth-child(even) {
+  border-radius: 18px 28px 20px 26px / 28px 20px 26px 18px;
+  animation-delay: 60ms, 1200ms;
+}
+.tile-card:nth-child(3) {
+  animation-delay: 120ms, 1600ms;
+}
+.tile-card:nth-child(4) {
+  animation-delay: 180ms, 2000ms;
+}
+@keyframes sign-sway {
+  from {
+    transform: rotate(-0.45deg);
+  }
+  to {
+    transform: rotate(0.45deg);
+  }
 }
 .tile-card.urgent {
   border-color: var(--c-accent);
+  background:
+    radial-gradient(
+      75% 55% at 20% 15%,
+      color-mix(in srgb, var(--c-accent-soft) 70%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(180deg, var(--c-panel), var(--c-surface-alt));
+  box-shadow:
+    inset 0 0 0 4px var(--c-panel),
+    inset 0 0 0 5.5px color-mix(in srgb, var(--c-accent) 35%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-accent) 60%, var(--c-ink)),
+    0 0 22px color-mix(in srgb, var(--c-accent) 24%, transparent);
   animation: urgent-pulse calc(var(--dur-celebrate) * 2) ease-in-out infinite;
 }
 @keyframes urgent-pulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotate(-0.4deg);
+  }
   50% {
-    box-shadow:
-      inset 0 0 0 4px var(--c-panel),
-      0 0 0 3px color-mix(in srgb, var(--c-accent) 35%, transparent),
-      0 0 24px color-mix(in srgb, var(--c-accent) 25%, transparent);
+    transform: translateY(-3px) scale(1.018) rotate(0.5deg);
   }
 }

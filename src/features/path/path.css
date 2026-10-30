@@ -1,16 +1,70 @@
+/* Path unit: unrolled Japanese paper scroll (makimono) with lacquer brocade header & wooden roller base. */
 .unit {
   overflow: hidden;
+  border-radius: 22px 22px 30px 30px / 18px 18px 28px 28px;
+  border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 82%, var(--c-ink));
+  background:
+    radial-gradient(
+      90% 50% at 50% 50%,
+      color-mix(in srgb, var(--c-coin-shine) 55%, transparent),
+      transparent 75%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 26px,
+      color-mix(in srgb, var(--c-panel-edge) 6%, transparent) 26px 28px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--c-surface-alt) 85%, var(--c-panel-edge)) 0%,
+      var(--c-panel) 6%,
+      var(--c-panel) 94%,
+      color-mix(in srgb, var(--c-surface-alt) 85%, var(--c-panel-edge)) 100%
+    );
+  box-shadow:
+    inset 0 -6px 0 color-mix(in srgb, var(--c-lacquer) 65%, var(--c-ink)),
+    0 8px 0 color-mix(in srgb, var(--c-panel-edge) 68%, var(--c-ink)),
+    0 16px 30px -12px var(--c-shadow);
+}
+.unit::before {
+  display: none;
 }
 .unit-banner {
+  position: relative;
   margin: calc(var(--sp-5) * -1) calc(var(--sp-5) * -1) 0;
-  padding: var(--sp-4) var(--sp-5);
-  background: linear-gradient(
-    135deg,
-    var(--c-lacquer),
-    color-mix(in srgb, var(--c-lacquer) 70%, var(--c-ink))
-  );
+  padding: var(--sp-4) var(--sp-5) calc(var(--sp-4) + 6px);
+  background:
+    radial-gradient(
+      70% 80% at 20% 10%,
+      color-mix(in srgb, var(--c-glow) 22%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      var(--c-lacquer),
+      color-mix(in srgb, var(--c-lacquer) 72%, var(--c-hud-bg))
+    );
   color: var(--c-hud-ink);
-  border-bottom: 2px solid var(--c-panel-edge);
+  border-bottom: 3px solid var(--c-panel-edge);
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 25%, transparent),
+    0 4px 0 color-mix(in srgb, var(--c-hud-bg) 55%, transparent);
+}
+/* Scalloped cloth noren trim along the bottom of the unit banner */
+.unit-banner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  height: 9px;
+  background: radial-gradient(
+      circle at 12px 0,
+      var(--c-panel-edge) 0 6px,
+      transparent 6.5px
+    )
+    0 0 / 24px 9px repeat-x;
+  pointer-events: none;
 }
 .unit-banner .eyebrow {
   color: var(--c-glow);
@@ -24,7 +78,7 @@
   flex-direction: column;
   gap: var(--sp-5);
 }
-/* the road */
+/* The winding stone-lantern trail */
 .path-list::before {
   content: '';
   position: absolute;
@@ -32,7 +86,7 @@
   bottom: 0;
   left: 50%;
   width: 0;
-  border-left: 6px dashed color-mix(in srgb, var(--c-panel-edge) 45%, transparent);
+  border-left: 8px dotted color-mix(in srgb, var(--c-panel-edge) 55%, transparent);
   transform: translateX(-50%);
 }
 .path-node {
@@ -47,76 +101,113 @@
 }
 .path-node.pos-1 {
   align-self: center;
-  transform: translateX(22%);
+  transform: translateX(18%) rotate(1deg);
 }
 .path-node.pos-2 {
   align-self: center;
+  transform: rotate(-0.6deg);
 }
 .path-node.pos-3 {
   align-self: center;
-  transform: translateX(-22%);
+  transform: translateX(-18%) rotate(-1deg);
 }
+/* Chunky 3D stepping-stone / taiko token */
 .path-dot {
   position: relative;
   flex: none;
   display: grid;
   place-items: center;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  width: 74px;
+  height: 74px;
+  border-radius: 53% 47% 52% 48% / 48% 53% 47% 52%;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: var(--fs-xl);
   text-decoration: none;
-  background: radial-gradient(circle at 35% 30%, var(--c-panel), var(--c-surface-alt));
+  background:
+    radial-gradient(
+      circle at 32% 26%,
+      color-mix(in srgb, var(--c-coin-shine) 85%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(circle at 40% 35%, var(--c-panel), var(--c-surface-alt));
   color: var(--c-ink-muted);
-  border: 4px solid var(--c-border);
+  border: 3.5px solid color-mix(in srgb, var(--c-border) 75%, var(--c-ink));
   box-shadow:
-    inset 0 -4px 0 color-mix(in srgb, var(--c-ink) 12%, transparent),
-    0 5px 0 color-mix(in srgb, var(--c-border) 80%, var(--c-ink));
-  transition: transform var(--dur-fast) var(--spring);
+    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
+    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 14%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-border) 72%, var(--c-ink)),
+    0 10px 18px -6px var(--c-shadow);
+  transition:
+    transform var(--dur-fast) var(--spring),
+    opacity var(--dur-fast) var(--ease);
+}
+.path-dot:hover {
+  transform: translateY(-2px) scale(1.04);
 }
 .path-dot:active {
-  transform: translateY(4px);
+  transform: translateY(5px) scale(0.97, 0.94);
 }
 .path-node.open .path-dot {
-  background: radial-gradient(
-    circle at 35% 30%,
-    color-mix(in srgb, var(--c-accent) 70%, var(--c-glow)),
-    var(--c-accent) 70%
-  );
+  background:
+    radial-gradient(
+      circle at 30% 24%,
+      color-mix(in srgb, var(--c-coin-shine) 45%, transparent),
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 35% 30%,
+      color-mix(in srgb, var(--c-accent) 75%, var(--c-glow)),
+      var(--c-accent) 72%
+    );
   color: var(--c-accent-ink);
   border-color: var(--c-panel-edge);
   box-shadow:
-    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 25%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-accent) 50%, var(--c-ink));
+    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 45%, transparent),
+    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 28%, transparent),
+    0 7px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
+    0 12px 20px -6px var(--c-shadow);
 }
 .path-node.current .path-dot {
+  box-shadow:
+    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 50%, transparent),
+    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 28%, transparent),
+    0 7px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
+    0 0 0 7px color-mix(in srgb, var(--c-glow) 35%, transparent),
+    0 0 26px var(--c-glow);
   animation: node-glow calc(var(--dur-celebrate) * 1.8) ease-in-out infinite;
 }
+/* Transform-only pulse for the current path node */
 @keyframes node-glow {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
   50% {
-    box-shadow:
-      inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 25%, transparent),
-      0 6px 0 color-mix(in srgb, var(--c-accent) 50%, var(--c-ink)),
-      0 0 0 8px color-mix(in srgb, var(--c-glow) 35%, transparent),
-      0 0 30px var(--c-glow);
-    transform: scale(1.05);
+    transform: translateY(-4px) scale(1.06);
   }
 }
 .path-node.done .path-dot {
-  background: radial-gradient(circle at 35% 30%, var(--c-glow), var(--c-gold) 75%);
+  background:
+    radial-gradient(
+      circle at 30% 24%,
+      color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
+      transparent 52%
+    ),
+    radial-gradient(circle at 35% 30%, var(--c-glow), var(--c-gold) 75%);
   color: var(--c-panel);
   border-color: var(--c-panel-edge);
   box-shadow:
-    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 20%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-gold) 50%, var(--c-ink));
+    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 55%, transparent),
+    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 22%, transparent),
+    0 7px 0 color-mix(in srgb, var(--c-gold) 48%, var(--c-ink)),
+    0 10px 18px -6px var(--c-shadow);
 }
 .path-node.boss .path-dot {
   width: 84px;
   height: 84px;
   font-size: var(--fs-2xl);
-  border-radius: 22px;
+  border-radius: 24px 20px 24px 20px;
   transform: rotate(45deg);
 }
 .path-node.boss .path-dot > span {
@@ -143,8 +234,24 @@
 .path-node.locked strong {
   color: var(--c-ink-muted);
 }
+/* Roadside wooden signpost tag beside each stepping stone */
 .path-node > .stack {
-  padding: var(--sp-1) var(--sp-3);
-  border-radius: var(--r-md);
-  background: color-mix(in srgb, var(--c-panel) 85%, transparent);
+  position: relative;
+  padding: var(--sp-2) var(--sp-3) var(--sp-2) calc(var(--sp-3) + 6px);
+  border-radius: 18px 22px 20px 14px / 16px 20px 22px 16px;
+  border: 1.5px solid color-mix(in srgb, var(--c-panel-edge) 65%, var(--c-border));
+  background:
+    radial-gradient(
+      circle at 8px 50%,
+      var(--c-panel-edge) 0 2.5px,
+      transparent 3px
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-panel) 94%, transparent),
+      color-mix(in srgb, var(--c-surface-alt) 85%, transparent)
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
+    0 3px 0 color-mix(in srgb, var(--c-panel-edge) 52%, var(--c-ink));
 }
