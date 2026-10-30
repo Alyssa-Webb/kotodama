@@ -22,7 +22,7 @@ import { nodeKey } from '../../engine/pack/index';
 import { Rng } from '../../engine/rng';
 import { useGame } from '../../foundations/store/gameStore';
 import { bosses, economy } from '../../foundations/world';
-import { SpeakableJa, useJa } from '../../foundations/japanese/Ja';
+import { SpeakableJa, UiJa, useJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { commitHeartLoss, freshSeed, useSave, useStats } from '../hooks';
 import { Player } from '../lesson/Player';
@@ -160,7 +160,7 @@ export function BossScreen() {
         <div className="card stack center boss-card">
           <p className="eyebrow">Checkpoint boss</p>
           <Mojibake size={180} />
-          <SpeakableJa text={boss.name} className="display-ja" />
+          <UiJa text={boss.name} className="display-ja" />
           <h1>{boss.en}</h1>
           <p className="muted">{boss.description}</p>
           <p className="small">

@@ -15,7 +15,7 @@ import { shopWordItem, useGame } from '../../foundations/store/gameStore';
 import { avatarParts, economy, koto, shop } from '../../foundations/world';
 import { YenIcon } from '../../foundations/art/icons';
 import { ItemArt } from '../../foundations/art/ItemArt';
-import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
+import { romajiOf, UiJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { useSave, useStats } from '../hooks';
 import { centerOf, fx } from '../../foundations/fx/fx';
@@ -196,18 +196,12 @@ export function ShopScreen() {
           {shop.consumables.map((c) => {
             const price = priceOf(save, shop, c.id) ?? c.price;
             const held = stats.inventory(c.id);
-            const disabled =
-              (c.id === 'onigiri' && !rules.onigiri) ||
-              (c.id === 'kintsugi' && !kintsugiAvailable(save, gctx()));
+            const disabled = c.id === 'kintsugi' && !kintsugiAvailable(save, gctx());
             return (
               <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
                 <ItemArt id={c.id} size={52} />
-                <div className="row spread">
-                  <span className="big-ja">
-                    <SpeakableJa text={c.name} />
-                  </span>
-                  {held > 0 && <span className="pill">×{held}</span>}
-                </div>
+                {held > 0 && <span className="pill shop-held">×{held}</span>}
+                <UiJa text={c.name} className="shop-name" />
                 <strong>{c.en}</strong>
                 <span className="small muted">{c.effect}</span>
                 <button
@@ -221,8 +215,8 @@ export function ShopScreen() {
                 >
                   ¥{price.toLocaleString('en-US')}
                 </button>
-                <span className="small price-ja" lang="ja">
-                  <JaText text={yenFurigana(price)} />
+                <span className="small price-ja" lang="ja-Latn">
+                  {romajiOf(yenFurigana(price))}
                 </span>
               </div>
             );
@@ -235,9 +229,7 @@ export function ShopScreen() {
           {shop.charms.map((c) => (
             <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
               <ItemArt id={c.id} size={52} />
-              <span className="big-ja">
-                <SpeakableJa text={c.name} />
-              </span>
+              <UiJa text={c.name} className="shop-name" />
               <strong>{c.en}</strong>
               <span className="small muted">{c.perk}</span>
               {save.charms.owned.includes(c.id) ? (
@@ -262,9 +254,7 @@ export function ShopScreen() {
       </section>
       <section className="card stack" aria-label="Gachapon">
         <div className="row spread">
-          <h2>
-            <JaText text="ガチャポン" /> Gachapon
-          </h2>
+          <h2>Gachapon</h2>
           <span className="pill pill-gold">{stats.tokens} koban</span>
         </div>
         <p className="small muted">
@@ -294,9 +284,7 @@ export function ShopScreen() {
               size={96}
               equipped={{ ...save.avatar.equipped, [prize.part.slot]: prize.part.id }}
             />
-            <span className="big-ja">
-              <JaText text={prize.part.name} />
-            </span>
+            <UiJa text={prize.part.name} className="shop-name" />
             <span>
               {prize.part.en} · {prize.part.gacha}
               {prize.duplicate ? ' (duplicate)' : ' · new!'}

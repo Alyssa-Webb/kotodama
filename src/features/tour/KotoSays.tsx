@@ -11,7 +11,7 @@ import { haptic } from '../../foundations/haptics/haptics';
 import type { KotoLine } from '../../schema/koto';
 import './tour.css';
 
-const WARES = ['onigiri', 'chochin', 'daruma', 'taiko', 'maneki'];
+const WARES = ['chochin', 'daruma', 'taiko', 'maneki'];
 
 export function KotoSays({
   lines,
@@ -65,9 +65,7 @@ export function KotoSays({
         {role === 'shop' ? (
           <>
             <span className="koto-awning" />
-            <span className="koto-noren" lang="ja">
-              店
-            </span>
+            <span className="koto-noren">¥</span>
           </>
         ) : (
           <>
@@ -87,9 +85,7 @@ export function KotoSays({
             </span>
           ))
         ) : (
-          <span className="koto-podium-seal" lang="ja">
-            町長
-          </span>
+          <span className="koto-podium-seal">Mayor</span>
         )}
       </div>
       <button

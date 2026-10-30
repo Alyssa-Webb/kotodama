@@ -7,7 +7,7 @@ import { districts } from '../../foundations/world';
 import { useSave, useStats } from '../hooks';
 import { Avatar } from '../avatar/Avatar';
 import { Slot } from '../../foundations/slots/Slot';
-import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
+import { SpeakableJa } from '../../foundations/japanese/Ja';
 import { Scene } from '../../foundations/art/Scene';
 import { Guide } from '../../foundations/art/Guide';
 import { CapsuleIcon, FlameIcon, YenIcon } from '../../foundations/art/icons';
@@ -156,9 +156,7 @@ export function HomeScreen() {
         </Link>
         <Link to="/town" className="card stack card-link tile-card">
           <p className="eyebrow">Town</p>
-          <h2>
-            <JaText text="{言霊町|ことだまちょう}" />
-          </h2>
+          <h2></h2>
           <p className="muted small">
             {towns.filter((d) => d.restored).length} of {towns.length} districts awake
           </p>

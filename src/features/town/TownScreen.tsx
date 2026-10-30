@@ -4,7 +4,6 @@ import { daysAway } from '../../engine/game';
 import { useGame } from '../../foundations/store/gameStore';
 import { districts, koto } from '../../foundations/world';
 import { KotoSays } from '../tour/KotoSays';
-import { JaText } from '../../foundations/japanese/Ja';
 import { useSave, useStats } from '../hooks';
 import { Scene } from '../../foundations/art/Scene';
 import './town.css';
@@ -121,9 +120,7 @@ export function TownScreen() {
   const tree = bonsai(learned, away);
   return (
     <div className="stack">
-      <h1>
-        <JaText text="{言霊町|ことだまちょう}" /> Kotodama Town
-      </h1>
+      <h1>Kotodama Town</h1>
       <KotoSays lines={koto.town} outfit="mayor" role="town" />
       <Link className="btn btn-accent btn-block" to="/food">
         Food Street: order a meal to heal

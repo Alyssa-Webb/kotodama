@@ -11,7 +11,7 @@ import {
   YEN_DENOMINATIONS,
   type YenDenomination,
 } from '../../engine/text/yen';
-import { JaText, useJa } from '../../foundations/japanese/Ja';
+import { romajiOf, useJa } from '../../foundations/japanese/Ja';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx } from '../../foundations/audio/sfx';
 import { Mascot } from '../../foundations/art/Mascot';
@@ -83,8 +83,8 @@ export function PayCounter({
             >
               ¥{price.toLocaleString('en-US')}
             </button>
-            <p className="pay-ja" lang="ja">
-              <JaText text={yenFurigana(price)} />
+            <p className="pay-ja" lang="ja-Latn">
+              {romajiOf(yenFurigana(price))}
             </p>
           </div>
         </div>
@@ -107,7 +107,7 @@ export function PayCounter({
         </div>
         <p className={`pay-total ${over ? 'bad' : ''}`}>
           {done
-            ? 'Exactly right! ありがとうございます！'
+            ? 'Exactly right! Arigatou gozaimasu!'
             : over
               ? `That's ¥${(sum - price).toLocaleString('en-US')} too much: tap a piece to take it back.`
               : `¥${sum.toLocaleString('en-US')} of ¥${price.toLocaleString('en-US')}`}
@@ -123,8 +123,8 @@ export function PayCounter({
               aria-label={`${d} yen`}
             >
               <YenPiece value={d} />
-              <span className="pay-wallet-ja" lang="ja">
-                <JaText text={yenFurigana(d)} />
+              <span className="pay-wallet-ja" lang="ja-Latn">
+                {romajiOf(yenFurigana(d))}
               </span>
             </button>
           ))}

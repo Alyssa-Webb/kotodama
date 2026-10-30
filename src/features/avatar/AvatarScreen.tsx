@@ -5,7 +5,7 @@ import { AVATAR_SLOTS, type AvatarSlot } from '../../schema/world';
 import { useGame } from '../../foundations/store/gameStore';
 import { avatarParts, shop } from '../../foundations/world';
 import { YenIcon } from '../../foundations/art/icons';
-import { JaText } from '../../foundations/japanese/Ja';
+import { UiJa } from '../../foundations/japanese/Ja';
 import { AvatarActor } from './AvatarActor';
 import { useSave } from '../hooks';
 
@@ -60,7 +60,7 @@ export function AvatarScreen() {
         </button>
         {title && (
           <p className="pill pill-gold" style={{ alignSelf: 'center' }}>
-            <JaText text={title.name} /> · {title.en}
+            <UiJa text={title.name} /> · {title.en}
           </p>
         )}
       </section>
@@ -85,9 +85,7 @@ export function AvatarScreen() {
             return (
               <div key={c.id} className="card card-tight stack">
                 <strong>{c.en}</strong>
-                <span className="big-ja" lang="ja">
-                  <JaText text={c.name} />
-                </span>
+                <UiJa text={c.name} className="shop-name" />
                 <span className="small">{c.perk}</span>
                 {owned ? (
                   <button
@@ -137,9 +135,7 @@ export function AvatarScreen() {
                   </svg>
                 )}
                 <strong>{p.en}</strong>
-                <span className="big-ja" lang="ja">
-                  <JaText text={p.name} />
-                </span>
+                <UiJa text={p.name} className="shop-name" />
                 {owned ? (
                   <button
                     className="btn btn-small"

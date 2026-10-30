@@ -153,7 +153,7 @@ export function Player({
       if (kiaiStarted) {
         playSfx('kiai');
         fx.slot('kiai.start', card.current);
-        fx.banner('FOCUS!', 'gold', '気合 (kiai) · double XP');
+        fx.banner('FOCUS!', 'gold', 'Kiai · double XP');
       } else if ('ja' in q.solution && q.shape !== 'match' && q.shape !== 'dialogue')
         speak(q.solution.ja);
       const auto = (q.shape === 'match' || q.shape === 'dialogue') && result.correct;

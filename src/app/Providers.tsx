@@ -12,7 +12,9 @@ let lineCounter = 0;
 export function Providers({ children }: { children: ReactNode }) {
   const settings = useGame((s) => s.save?.settings);
   const lessonCount = useGame((s) => s.save?.lessonCount ?? 0);
-  const scriptLevel = settings?.scriptLevel ?? 'furigana';
+  // Lessons are built in romaji over hiragana for now (katakana and kanji levels come later), so
+  // every save shows that level whatever the stored setting says.
+  const scriptLevel = 'romaji' as const;
   const voiceMode = settings?.voiceMode ?? 'alternate-lesson';
   const slow = settings?.slowAudio ?? false;
 

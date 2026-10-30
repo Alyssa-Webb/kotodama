@@ -9,9 +9,7 @@ export function ModesScreen() {
       <div className="grid-2">
         <Link to="/rush/kana" className="card stack card-link">
           <p className="eyebrow">Survival</p>
-          <h2>
-            <span lang="ja">かな</span> Kana Rush
-          </h2>
+          <h2>Kana Rush</h2>
           <p className="muted small">
             Name each kana before the clock runs out. Three misses and you're done.
           </p>

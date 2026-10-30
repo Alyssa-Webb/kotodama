@@ -1,18 +1,18 @@
 import { Link } from 'react-router';
 
 const LINKS = [
-  { to: '/town', label: 'Town', sub: 'Districts you have woken', icon: '町' },
-  { to: '/collection', label: 'Spirits', sub: 'Your collection', icon: '霊' },
-  { to: '/avatar', label: 'Avatar', sub: 'Outfits, charms, titles', icon: '姿' },
-  { to: '/modes', label: 'Game modes', sub: 'Kana Rush, Listening Rush', icon: '速' },
+  { to: '/town', label: 'Town', sub: 'Districts you have woken', icon: '⌂' },
+  { to: '/collection', label: 'Spirits', sub: 'Your collection', icon: '✦' },
+  { to: '/avatar', label: 'Avatar', sub: 'Outfits, charms, titles', icon: '☺' },
+  { to: '/modes', label: 'Game modes', sub: 'Kana Rush, Listening Rush', icon: '⚡' },
   {
     to: '/packs',
     label: 'Packs & Backup',
     sub: 'Import lessons, Learner Report, backups',
-    icon: '巻',
+    icon: '▤',
   },
-  { to: '/settings', label: 'Settings', sub: 'Difficulty, voice, script, theme', icon: '設' },
-  { to: '/credits', label: 'Credits', sub: 'Voices, data and licenses', icon: '謝' },
+  { to: '/settings', label: 'Settings', sub: 'Difficulty, voice, script, theme', icon: '⚙' },
+  { to: '/credits', label: 'Credits', sub: 'Voices, data and licenses', icon: '♥' },
 ];
 
 export function MoreScreen() {
@@ -27,7 +27,7 @@ export function MoreScreen() {
             className="card card-tight card-link row"
             style={{ flexWrap: 'nowrap' }}
           >
-            <span className="big-ja" lang="ja" aria-hidden="true">
+            <span className="big-ja" aria-hidden="true">
               {l.icon}
             </span>
             <span className="stack" style={{ gap: 0 }}>

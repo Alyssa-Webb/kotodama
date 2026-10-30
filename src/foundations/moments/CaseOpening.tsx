@@ -360,9 +360,7 @@ export function CaseReel({
 
       {/* Brushed calligraphy seal for Legendary reveal */}
       <div className="m-case-stamp" aria-hidden="true">
-        <span className="m-case-stamp-ja" lang="ja">
-          伝説
-        </span>
+        <span className="m-case-stamp-ja">LEGEND</span>
       </div>
 
       <p className="m-case-title" aria-live="polite">

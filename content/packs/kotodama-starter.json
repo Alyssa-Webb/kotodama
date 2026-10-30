@@ -5,7 +5,7 @@
     "title": "First Steps",
     "version": 1,
     "level": "N5",
-    "description": "Your first kana and your first café visit: ten hiragana, polite basics, and ordering a coffee.",
+    "description": "Your first kana and your first café visit: ten hiragana, polite basics, and ordering tea.",
     "district": "café"
   },
   "items": [
@@ -90,10 +90,10 @@
     {
       "id": "w.koohii",
       "kind": "word",
-      "text": "コーヒー",
-      "romaji": "koohii",
+      "text": "{麦茶|むぎちゃ}",
+      "romaji": "mugicha",
       "pos": "noun",
-      "meanings": ["coffee"]
+      "meanings": ["barley tea"]
     },
     {
       "id": "w.ocha",
@@ -114,10 +114,10 @@
     {
       "id": "w.juusu",
       "kind": "word",
-      "text": "ジュース",
-      "romaji": "juusu",
+      "text": "{抹茶|まっちゃ}",
+      "romaji": "matcha",
       "pos": "noun",
-      "meanings": ["juice"]
+      "meanings": ["matcha", "powdered green tea"]
     },
     {
       "id": "w.gyuunyuu",
@@ -130,26 +130,26 @@
     {
       "id": "w.pan",
       "kind": "word",
-      "text": "パン",
-      "romaji": "pan",
+      "text": "ごはん",
+      "romaji": "gohan",
       "pos": "noun",
-      "meanings": ["bread"]
+      "meanings": ["rice", "meal"]
     },
     {
       "id": "w.keeki",
       "kind": "word",
-      "text": "ケーキ",
-      "romaji": "keeki",
+      "text": "お{菓子|かし}",
+      "romaji": "okashi",
       "pos": "noun",
-      "meanings": ["cake"]
+      "meanings": ["sweets", "snack"]
     },
     {
       "id": "w.sandoicchi",
       "kind": "word",
-      "text": "サンドイッチ",
-      "romaji": "sandoicchi",
+      "text": "おにぎり",
+      "romaji": "onigiri",
       "pos": "noun",
-      "meanings": ["sandwich"]
+      "meanings": ["rice ball"]
     },
     {
       "id": "w.kissaten",
@@ -162,10 +162,10 @@
     {
       "id": "w.menyuu",
       "kind": "word",
-      "text": "メニュー",
-      "romaji": "menyuu",
+      "text": "{注文|ちゅうもん}",
+      "romaji": "chuumon",
       "pos": "noun",
-      "meanings": ["menu"]
+      "meanings": ["order"]
     },
     {
       "id": "w.hitotsu",
@@ -203,8 +203,8 @@
         "past": "おいしかった"
       },
       "example": {
-        "text": "このケーキはおいしいです。",
-        "en": "This cake is delicious."
+        "text": "このおにぎりはおいしいです。",
+        "en": "This rice ball is delicious."
       }
     },
     {
@@ -329,18 +329,18 @@
     {
       "id": "s.koohii-o-hitotsu",
       "kind": "sentence",
-      "text": "コーヒーを{一|ひと}つください。",
+      "text": "お{茶|ちゃ}を{一|ひと}つください。",
       "register": "polite",
-      "meanings": ["One coffee, please.", "A coffee, please."],
-      "tiles": ["コーヒー", "を", "{一|ひと}つ", "ください", "。"]
+      "meanings": ["One tea, please.", "A tea, please."],
+      "tiles": ["お{茶|ちゃ}", "を", "{一|ひと}つ", "ください", "。"]
     },
     {
       "id": "s.menyuu-o-onegaishimasu",
       "kind": "sentence",
-      "text": "メニューをお{願|ねが}いします。",
+      "text": "{注文|ちゅうもん}をお{願|ねが}いします。",
       "register": "polite",
-      "meanings": ["The menu, please.", "Menu, please.", "Could I have the menu?"],
-      "tiles": ["メニュー", "を", "お{願|ねが}いします", "。"]
+      "meanings": ["I'd like to order.", "Can I order, please?", "My order, please."],
+      "tiles": ["{注文|ちゅうもん}", "を", "お{願|ねが}いします", "。"]
     },
     {
       "id": "s.kore-wa-nan-desu-ka",
@@ -380,11 +380,11 @@
         },
         {
           "speaker": "player",
-          "text": "すみません、メニューをお{願|ねが}いします。",
-          "en": "Excuse me, the menu, please.",
+          "text": "すみません、{注文|ちゅうもん}をお{願|ねが}いします。",
+          "en": "Excuse me, I'd like to order.",
           "choices": [
             {
-              "text": "すみません、メニューをお{願|ねが}いします。",
+              "text": "すみません、{注文|ちゅうもん}をお{願|ねが}いします。",
               "correct": true,
               "feedback": "Polite and natural."
             },
@@ -403,22 +403,22 @@
         {
           "speaker": "clerk",
           "text": "はい、どうぞ。",
-          "en": "Here you are."
+          "en": "Yes, go ahead."
         },
         {
           "speaker": "player",
-          "text": "コーヒーを{一|ひと}つください。",
-          "en": "One coffee, please.",
+          "text": "お{茶|ちゃ}を{一|ひと}つください。",
+          "en": "One tea, please.",
           "choices": [
             {
-              "text": "コーヒーを{一|ひと}つください。",
+              "text": "お{茶|ちゃ}を{一|ひと}つください。",
               "correct": true,
               "feedback": "The thing, を, how many, ください. Perfect."
             },
             {
-              "text": "コーヒーです。",
+              "text": "お{茶|ちゃ}です。",
               "correct": false,
-              "feedback": "That means 'It is coffee', not a request."
+              "feedback": "That means 'It is tea', not a request."
             },
             {
               "text": "ごちそうさまでした。",
@@ -434,8 +434,8 @@
         },
         {
           "speaker": "clerk",
-          "text": "お{待|ま}たせしました。コーヒーです。",
-          "en": "Sorry to keep you waiting. Your coffee."
+          "text": "お{待|ま}たせしました。お{茶|ちゃ}です。",
+          "en": "Sorry to keep you waiting. Your tea."
         },
         {
           "speaker": "player",
@@ -1229,7 +1229,7 @@
             {
               "note": {
                 "title": "Counting things",
-                "body": "{一|ひと}つ (one) and {二|ふた}つ (two) count things in general. The number goes after を: コーヒーを{一|ひと}つください。"
+                "body": "{一|ひと}つ (one) and {二|ふた}つ (two) count things in general. The number goes after を: お{茶|ちゃ}を{一|ひと}つください。"
               }
             },
             {
@@ -1521,10 +1521,10 @@
             {
               "id": "u02.n07.e06",
               "type": "fill",
-              "text": "コーヒー＿＿{一|ひと}つください。",
+              "text": "お{茶|ちゃ}＿＿{一|ひと}つください。",
               "answer": "を",
               "options": ["を", "は", "が"],
-              "en": "One coffee, please."
+              "en": "One tea, please."
             },
             {
               "id": "u02.n07.e07",

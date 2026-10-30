@@ -7,7 +7,8 @@
 .food-stall {
   display: grid;
   gap: 4px;
-  text-align: left;
+  justify-items: center;
+  text-align: center;
   cursor: pointer;
   font: inherit;
   color: inherit;

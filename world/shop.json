@@ -28,14 +28,6 @@
       "meaning": "paper lantern"
     },
     {
-      "id": "onigiri",
-      "name": "おにぎり",
-      "en": "Onigiri",
-      "effect": "Restores 1 heart.",
-      "price": 150,
-      "meaning": "rice ball"
-    },
-    {
       "id": "taiko",
       "name": "{太鼓|たいこ}",
       "en": "Taiko drum",

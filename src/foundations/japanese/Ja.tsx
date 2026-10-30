@@ -61,6 +61,39 @@ export function JaText({ text, level, className }: JaProps) {
   );
 }
 
+/**
+ * Romaji for a UI label ("{長|なが}い{髪|かみ}" → "nagai kami"). UI labels are romaji only while
+ * lessons teach hiragana; a space goes before each kanji word so compounds stay readable.
+ */
+export function romajiOf(text: string): string {
+  const { tokens } = parseFurigana(text);
+  const words: string[] = [];
+  for (const t of tokens) {
+    if (t.kind === 'ruby' && words.length) words.push(' ');
+    words.push(t.kind === 'ruby' ? t.reading : t.kind === 'text' ? t.text : '');
+  }
+  return kanaToRomaji(words.join('')).replace(/\s+/g, ' ').trim();
+}
+
+/** A Japanese UI label shown in romaji; tapping it says the Japanese. */
+export function UiJa({ text, className }: { text: string; className?: string }) {
+  const { speak } = useJa();
+  return (
+    <button
+      type="button"
+      className={`speakable ui-ja ${className ?? ''}`}
+      lang="ja-Latn"
+      onClick={(e) => {
+        e.stopPropagation();
+        speak(text);
+      }}
+      aria-label={`Play: ${romajiOf(text)}`}
+    >
+      {romajiOf(text)}
+    </button>
+  );
+}
+
 /** Japanese text that speaks when tapped. */
 export function SpeakableJa({
   text,

@@ -10,17 +10,17 @@ import './path.css';
 interface RegionInfo {
   id: 'dojo' | 'bamboo' | 'village' | 'castle' | 'shrine' | 'capital';
   en: string;
-  ja: string;
-  rt: string;
+  /** The region's Japanese name in romaji (UI labels are romaji while lessons teach kana). */
+  ro: string;
 }
 
 const REGIONS: readonly RegionInfo[] = [
-  { id: 'dojo', en: 'The Dojo', ja: '道場', rt: 'どうじょう' },
-  { id: 'bamboo', en: 'Bamboo Forest Road', ja: '竹林の道', rt: 'ちくりんのみち' },
-  { id: 'village', en: 'Rice Fields & Village', ja: '棚田と里', rt: 'たなだとさと' },
-  { id: 'castle', en: 'Castle Town', ja: '城下町', rt: 'じょうかまち' },
-  { id: 'shrine', en: 'Mountain Shrines', ja: '山の社', rt: 'やまのやしろ' },
-  { id: 'capital', en: 'The Capital', ja: '都', rt: 'みやこ' },
+  { id: 'dojo', en: 'The Dojo', ro: 'doujou' },
+  { id: 'bamboo', en: 'Bamboo Forest Road', ro: 'chikurin no michi' },
+  { id: 'village', en: 'Rice Fields & Village', ro: 'tanada to sato' },
+  { id: 'castle', en: 'Castle Town', ro: 'joukamachi' },
+  { id: 'shrine', en: 'Mountain Shrines', ro: 'yama no yashiro' },
+  { id: 'capital', en: 'The Capital', ro: 'miyako' },
 ];
 
 function regionFor(unitIndex: number): RegionInfo {
@@ -1027,11 +1027,8 @@ export function PathScreen() {
                             Unit {unitIdx + 1} · {region.en}
                           </span>
                           <h2>{unit.title}</h2>
-                          <span className="unit-banner-ja" lang="ja">
-                            <ruby>
-                              {region.ja}
-                              <rt>{region.rt}</rt>
-                            </ruby>
+                          <span className="unit-banner-ja" lang="ja-Latn">
+                            {region.ro}
                           </span>
                         </div>
                       </div>
@@ -1056,11 +1053,11 @@ export function PathScreen() {
                               : `/lesson/${n.packId}/${n.node.id}`;
                             const icon =
                               n.node.kind === 'checkpoint'
-                                ? '鬼'
+                                ? '⚔'
                                 : n.node.kind === 'story'
-                                  ? '話'
+                                  ? '✦'
                                   : done
-                                    ? '済'
+                                    ? '✓'
                                     : String(i + 1);
                             return (
                               <li

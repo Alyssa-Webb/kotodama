@@ -11,7 +11,7 @@ import type { Meal } from '../../schema/meals';
 import { useGame } from '../../foundations/store/gameStore';
 import { economy, meals } from '../../foundations/world';
 import { Guide } from '../../foundations/art/Guide';
-import { JaText, useJa } from '../../foundations/japanese/Ja';
+import { JaText, romajiOf, useJa } from '../../foundations/japanese/Ja';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
@@ -175,9 +175,7 @@ export function FoodScreen() {
   return (
     <div className="stack">
       <div className="row spread">
-        <h1>
-          <JaText text="{食|く}いだおれ{横丁|よこちょう}" /> Food Street
-        </h1>
+        <h1>Food Street</h1>
         <Link className="btn btn-small" to="/town">
           Town
         </Link>
@@ -186,29 +184,43 @@ export function FoodScreen() {
         Only food heals your HP ({hp ?? '—'}/{max ?? '—'}). Order in Japanese, pay in yen (you have
         ¥{stats.yen.toLocaleString('en-US')}). Level {level}: bigger meals unlock as you grow.
       </p>
+      {hp !== null && max !== null && hp >= max && (
+        <p className="card card-tight small">
+          Your HP is full, so there's nothing to heal yet. Come back after a battle costs you some
+          HP.
+        </p>
+      )}
       <div className="food-grid">
         {meals.map((m) => {
-          const locked = level < m.level;
+          // Check up front (a dry run of the real rule) so you never order, count out the coins,
+          // and only then hear you can't have it.
+          const r = eatMeal(save, gctx(), m);
+          const why = 'error' in r ? r.error : null;
+          const locked = why === 'locked';
           return (
             <button
               key={m.id}
-              className={`card card-tight food-stall ${locked ? 'locked' : ''}`}
-              disabled={locked}
+              className={`card card-tight food-stall ${why ? 'locked' : ''}`}
+              disabled={why !== null}
               onClick={() => setMeal(m)}
             >
               <span className="food-stall-vendor">{m.vendor}</span>
-              <span className="big-ja" lang="ja">
-                <JaText text={m.name} />
+              <span className="shop-name" lang="ja-Latn">
+                {romajiOf(m.name)}
               </span>
               <strong>{m.en}</strong>
               <span className="food-stall-heal">+{m.heal} HP</span>
               <span className="food-stall-price">
                 ¥{m.price.toLocaleString('en-US')}{' '}
-                <small lang="ja">
-                  <JaText text={yenFurigana(m.price)} />
-                </small>
+                <small lang="ja-Latn">{romajiOf(yenFurigana(m.price))}</small>
               </span>
               {locked && <span className="pill">Level {m.level}</span>}
+              {why === 'not-enough-yen' && (
+                <span className="pill">
+                  Need ¥{(m.price - stats.yen).toLocaleString('en-US')} more
+                </span>
+              )}
+              {why === 'hp-full' && <span className="pill">HP full</span>}
             </button>
           );
         })}

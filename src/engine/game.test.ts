@@ -289,13 +289,9 @@ describe('shop', () => {
     expect(s.collection.shopWords).toContain('kotatsu');
   });
 
-  it('onigiri restores some HP; Ironman forbids it', () => {
-    const s = giveYen(playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false), 100);
-    const r = buy(s, ctx(T0), shop, 'onigiri');
-    if ('error' in r) throw new Error(r.error);
-    expect(heartsNow(r.save, ctx(T0))).toBe(economy.hp.onigiriHeal);
-    const iron = giveYen(newSave(T0, 'UTC', 1, economy, { difficulty: 'ironman' }), 100);
-    expect(buy(iron, ctx(T0), shop, 'onigiri')).toEqual({ error: 'not-allowed' });
+  it('healing is not sold in the shop: only Food Street meals heal', () => {
+    const s = giveYen(playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false), 1000);
+    expect(buy(s, ctx(T0), shop, 'onigiri')).toEqual({ error: 'unknown-item' });
   });
 
   it('kintsugi mends a broken streak within 48h, only after the trial in Hardcore', () => {
@@ -425,13 +421,6 @@ describe('review fixes (regressions)', () => {
     const iron = changeDifficulty(s, ctx(T0), 'ironman');
     if ('error' in iron) throw new Error('locked');
     expect(balanceOf(iron.save.ledger, 'heart')).toBe(60);
-  });
-
-  it('onigiri cannot be bought at full hearts or without hearts', () => {
-    const s = giveYen(newSave(T0, 'UTC', 1, economy), 100);
-    expect(buy(s, ctx(T0), shop, 'onigiri')).toEqual({ error: 'hearts-full' });
-    const casual = giveYen(newSave(T0, 'UTC', 1, economy, { difficulty: 'casual' }), 100);
-    expect(buy(casual, ctx(T0), shop, 'onigiri')).toEqual({ error: 'not-allowed' });
   });
 
   it('charms are bought once, only when buyable', () => {

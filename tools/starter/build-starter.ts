@@ -59,10 +59,10 @@ const items: Item[] = [
   {
     id: 'w.koohii',
     kind: 'word',
-    text: 'コーヒー',
-    romaji: 'koohii',
+    text: '{麦茶|むぎちゃ}',
+    romaji: 'mugicha',
     pos: 'noun',
-    meanings: ['coffee'],
+    meanings: ['barley tea'],
   },
   {
     id: 'w.ocha',
@@ -83,10 +83,10 @@ const items: Item[] = [
   {
     id: 'w.juusu',
     kind: 'word',
-    text: 'ジュース',
-    romaji: 'juusu',
+    text: '{抹茶|まっちゃ}',
+    romaji: 'matcha',
     pos: 'noun',
-    meanings: ['juice'],
+    meanings: ['matcha', 'powdered green tea'],
   },
   {
     id: 'w.gyuunyuu',
@@ -96,15 +96,30 @@ const items: Item[] = [
     pos: 'noun',
     meanings: ['milk'],
   },
-  { id: 'w.pan', kind: 'word', text: 'パン', romaji: 'pan', pos: 'noun', meanings: ['bread'] },
-  { id: 'w.keeki', kind: 'word', text: 'ケーキ', romaji: 'keeki', pos: 'noun', meanings: ['cake'] },
+  // Ids are kept from the first (katakana) version so saved review cards still line up.
+  {
+    id: 'w.pan',
+    kind: 'word',
+    text: 'ごはん',
+    romaji: 'gohan',
+    pos: 'noun',
+    meanings: ['rice', 'meal'],
+  },
+  {
+    id: 'w.keeki',
+    kind: 'word',
+    text: 'お{菓子|かし}',
+    romaji: 'okashi',
+    pos: 'noun',
+    meanings: ['sweets', 'snack'],
+  },
   {
     id: 'w.sandoicchi',
     kind: 'word',
-    text: 'サンドイッチ',
-    romaji: 'sandoicchi',
+    text: 'おにぎり',
+    romaji: 'onigiri',
     pos: 'noun',
-    meanings: ['sandwich'],
+    meanings: ['rice ball'],
   },
   {
     id: 'w.kissaten',
@@ -117,10 +132,10 @@ const items: Item[] = [
   {
     id: 'w.menyuu',
     kind: 'word',
-    text: 'メニュー',
-    romaji: 'menyuu',
+    text: '{注文|ちゅうもん}',
+    romaji: 'chuumon',
     pos: 'noun',
-    meanings: ['menu'],
+    meanings: ['order'],
   },
   {
     id: 'w.hitotsu',
@@ -154,7 +169,7 @@ const items: Item[] = [
     pos: 'i-adj',
     meanings: ['delicious', 'tasty'],
     forms: { nai: 'おいしくない', past: 'おいしかった' },
-    example: { text: 'このケーキはおいしいです。', en: 'This cake is delicious.' },
+    example: { text: 'このおにぎりはおいしいです。', en: 'This rice ball is delicious.' },
   },
   // ---- phrases
   {
@@ -261,18 +276,18 @@ const items: Item[] = [
   {
     id: 's.koohii-o-hitotsu',
     kind: 'sentence',
-    text: 'コーヒーを{一|ひと}つください。',
+    text: 'お{茶|ちゃ}を{一|ひと}つください。',
     register: 'polite',
-    meanings: ['One coffee, please.', 'A coffee, please.'],
-    tiles: ['コーヒー', 'を', '{一|ひと}つ', 'ください', '。'],
+    meanings: ['One tea, please.', 'A tea, please.'],
+    tiles: ['お{茶|ちゃ}', 'を', '{一|ひと}つ', 'ください', '。'],
   },
   {
     id: 's.menyuu-o-onegaishimasu',
     kind: 'sentence',
-    text: 'メニューをお{願|ねが}いします。',
+    text: '{注文|ちゅうもん}をお{願|ねが}いします。',
     register: 'polite',
-    meanings: ['The menu, please.', 'Menu, please.', 'Could I have the menu?'],
-    tiles: ['メニュー', 'を', 'お{願|ねが}いします', '。'],
+    meanings: ["I'd like to order.", 'Can I order, please?', 'My order, please.'],
+    tiles: ['{注文|ちゅうもん}', 'を', 'お{願|ねが}いします', '。'],
   },
   {
     id: 's.kore-wa-nan-desu-ka',
@@ -308,7 +323,7 @@ const pack: LessonPack = {
     version: 1,
     level: 'N5',
     description:
-      'Your first kana and your first café visit: ten hiragana, polite basics, and ordering a coffee.',
+      'Your first kana and your first café visit: ten hiragana, polite basics, and ordering tea.',
     district: 'café',
   },
   items,
@@ -321,11 +336,11 @@ const pack: LessonPack = {
         { speaker: 'clerk', text: 'いらっしゃいませ。', en: 'Welcome.' },
         {
           speaker: 'player',
-          text: 'すみません、メニューをお{願|ねが}いします。',
-          en: 'Excuse me, the menu, please.',
+          text: 'すみません、{注文|ちゅうもん}をお{願|ねが}いします。',
+          en: "Excuse me, I'd like to order.",
           choices: [
             {
-              text: 'すみません、メニューをお{願|ねが}いします。',
+              text: 'すみません、{注文|ちゅうもん}をお{願|ねが}いします。',
               correct: true,
               feedback: 'Polite and natural.',
             },
@@ -341,21 +356,21 @@ const pack: LessonPack = {
             },
           ],
         },
-        { speaker: 'clerk', text: 'はい、どうぞ。', en: 'Here you are.' },
+        { speaker: 'clerk', text: 'はい、どうぞ。', en: 'Yes, go ahead.' },
         {
           speaker: 'player',
-          text: 'コーヒーを{一|ひと}つください。',
-          en: 'One coffee, please.',
+          text: 'お{茶|ちゃ}を{一|ひと}つください。',
+          en: 'One tea, please.',
           choices: [
             {
-              text: 'コーヒーを{一|ひと}つください。',
+              text: 'お{茶|ちゃ}を{一|ひと}つください。',
               correct: true,
               feedback: 'The thing, を, how many, ください. Perfect.',
             },
             {
-              text: 'コーヒーです。',
+              text: 'お{茶|ちゃ}です。',
               correct: false,
-              feedback: "That means 'It is coffee', not a request.",
+              feedback: "That means 'It is tea', not a request.",
             },
             {
               text: 'ごちそうさまでした。',
@@ -371,8 +386,8 @@ const pack: LessonPack = {
         },
         {
           speaker: 'clerk',
-          text: 'お{待|ま}たせしました。コーヒーです。',
-          en: 'Sorry to keep you waiting. Your coffee.',
+          text: 'お{待|ま}たせしました。お{茶|ちゃ}です。',
+          en: 'Sorry to keep you waiting. Your tea.',
         },
         {
           speaker: 'player',
@@ -739,7 +754,7 @@ const pack: LessonPack = {
             {
               note: {
                 title: 'Counting things',
-                body: '{一|ひと}つ (one) and {二|ふた}つ (two) count things in general. The number goes after を: コーヒーを{一|ひと}つください。',
+                body: '{一|ひと}つ (one) and {二|ふた}つ (two) count things in general. The number goes after を: お{茶|ちゃ}を{一|ひと}つください。',
               },
             },
             { item: 's.mizu-o-kudasai' },
@@ -890,10 +905,10 @@ const pack: LessonPack = {
           { type: 'tiles', item: 's.okaikei' },
           {
             type: 'fill',
-            text: 'コーヒー＿＿{一|ひと}つください。',
+            text: 'お{茶|ちゃ}＿＿{一|ひと}つください。',
             answer: 'を',
             options: ['を', 'は', 'が'],
-            en: 'One coffee, please.',
+            en: 'One tea, please.',
           },
           {
             type: 'listen',

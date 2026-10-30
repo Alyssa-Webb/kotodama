@@ -29,16 +29,13 @@ export function OutOfHearts({ onBack }: { onBack: () => void }) {
             <HeartIcon key={i} size={28} empty />
           ))}
         </div>
-        <h1>Out of hearts</h1>
+        <h1>Out of HP</h1>
         <p className="muted">
-          Hearts are shared across lessons. Rest, or train in the Dojo to earn them back.
+          HP is shared across lessons and only comes back by eating. Head to Food Street, order in
+          Japanese and pay in yen.
         </p>
-        {s.nextHeartMin !== null && <p>Next heart in {s.nextHeartMin} min.</p>}
-        <Link className="btn btn-indigo btn-block" to="/reviews">
-          Earn hearts in the Dojo (10 reviews = 1 heart)
-        </Link>
-        <Link className="btn btn-block" to="/shop">
-          Buy an onigiri (restores 1 heart)
+        <Link className="btn btn-accent btn-block" to="/food">
+          Eat on Food Street
         </Link>
         <button className="btn btn-ghost" onClick={onBack}>
           Back
@@ -108,7 +105,7 @@ export function CountUp({ to, prefix = '' }: { to: number; prefix?: string }) {
   );
 }
 
-const GRADE = { 3: '優', 2: '良', 1: '可', 0: '' } as const;
+const GRADE = { 3: 'S', 2: 'A', 1: 'B', 0: '' } as const;
 
 export function ResultCard({
   title,
@@ -163,7 +160,7 @@ export function ResultCard({
         <h1>{title}</h1>
         {stars !== undefined && !failed && revealed && <Stars n={stars} celebrate />}
         {stars !== undefined && !failed && revealed && GRADE[stars as 0 | 1 | 2 | 3] && (
-          <span className="hanko" lang="ja" aria-label={`Grade ${GRADE[stars as 0 | 1 | 2 | 3]}`}>
+          <span className="hanko" aria-label={`Grade ${GRADE[stars as 0 | 1 | 2 | 3]}`}>
             {GRADE[stars as 0 | 1 | 2 | 3]}
           </span>
         )}
