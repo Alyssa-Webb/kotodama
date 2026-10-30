@@ -17,12 +17,11 @@
   width: 44px;
   transform: translateX(-50%);
   border-radius: var(--r-pill);
-  background:
-    repeating-linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-surface-alt)) 0 12px,
-      color-mix(in srgb, var(--c-panel) 85%, var(--c-gold-soft)) 12px 26px
-    );
+  background: repeating-linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-surface-alt)) 0 12px,
+    color-mix(in srgb, var(--c-panel) 85%, var(--c-gold-soft)) 12px 26px
+  );
   border-left: 5px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
   border-right: 5px solid color-mix(in srgb, var(--c-panel-edge) 72%, var(--c-hud-bg));
   box-shadow: 0 6px 14px var(--c-shadow);

@@ -95,15 +95,7 @@ function ChibiTree({
         rx="5"
         fill="color-mix(in srgb, var(--c-gold) 48%, var(--c-hud-bg))"
       />
-      <rect
-        x="-4"
-        y="6"
-        width="4"
-        height="20"
-        rx="2"
-        fill="var(--c-panel-edge)"
-        opacity="0.55"
-      />
+      <rect x="-4" y="6" width="4" height="20" rx="2" fill="var(--c-panel-edge)" opacity="0.55" />
       {/* Back left & right puffs (lip + main) */}
       <circle cx="-15" cy="3" r="16" fill={lip} />
       <circle cx="-15" cy="0" r="16" fill={crown} />
@@ -346,22 +338,8 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
       {/* Arched wooden Taiko Bridge where the trail crosses the river */}
       {(region.id === 'village' || region.id === 'castle') && (
         <g transform="translate(200 276)">
-          <rect
-            x="-36"
-            y="-22"
-            width="72"
-            height="48"
-            rx="16"
-            fill="var(--c-lacquer)"
-          />
-          <rect
-            x="-36"
-            y="-26"
-            width="72"
-            height="46"
-            rx="16"
-            fill="var(--c-accent)"
-          />
+          <rect x="-36" y="-22" width="72" height="48" rx="16" fill="var(--c-lacquer)" />
+          <rect x="-36" y="-26" width="72" height="46" rx="16" fill="var(--c-accent)" />
           <rect
             x="-26"
             y="-26"
@@ -433,14 +411,8 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
               strokeWidth="2.4"
             />
             {/* Sweeping tiled dojo roof (lip + main + highlight) */}
-            <path
-              d="M-60 -6 Q0 -44 60 -6 L52 4 Q0 -26 -52 4 Z"
-              fill="var(--c-hud-bg)"
-            />
-            <path
-              d="M-60 -10 Q0 -48 60 -10 L52 0 Q0 -30 -52 0 Z"
-              fill="var(--c-lacquer)"
-            />
+            <path d="M-60 -6 Q0 -44 60 -6 L52 4 Q0 -26 -52 4 Z" fill="var(--c-hud-bg)" />
+            <path d="M-60 -10 Q0 -48 60 -10 L52 0 Q0 -30 -52 0 Z" fill="var(--c-lacquer)" />
             <ellipse
               cx="-20"
               cy="-22"
@@ -472,11 +444,7 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
             {/* Straw rope wrap */}
             <rect x="-20" y="-12" width="20" height="22" rx="5" fill="var(--c-gold)" />
             <rect x="-20" y="-14" width="20" height="20" rx="5" fill="var(--c-glow)" />
-            <path
-              d="M-18 -8 H-2 M-18 -2 H-2 M-18 4 H-2"
-              stroke="var(--c-gold)"
-              strokeWidth="2.2"
-            />
+            <path d="M-18 -8 H-2 M-18 -2 H-2 M-18 4 H-2" stroke="var(--c-gold)" strokeWidth="2.2" />
             {/* Leaning bokken wooden sword */}
             <g transform="translate(14 4) rotate(18)">
               <rect
@@ -747,23 +715,11 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
             <path d="M-42 39 L-34 11 H34 L42 39 Z" fill="var(--c-border)" />
             {/* Lower & upper white plaster stories */}
             <rect x="-30" y="-12" width="60" height="25" rx="4" fill="var(--c-panel)" />
-            <path
-              d="M-44 -8 Q0 -26 44 -8 L38 -1 Q0 -16 -38 -1 Z"
-              fill="var(--c-hud-bg)"
-            />
-            <path
-              d="M-44 -11 Q0 -29 44 -11 L38 -4 Q0 -19 -38 -4 Z"
-              fill="var(--c-secondary)"
-            />
+            <path d="M-44 -8 Q0 -26 44 -8 L38 -1 Q0 -16 -38 -1 Z" fill="var(--c-hud-bg)" />
+            <path d="M-44 -11 Q0 -29 44 -11 L38 -4 Q0 -19 -38 -4 Z" fill="var(--c-secondary)" />
             <rect x="-20" y="-34" width="40" height="18" rx="3" fill="var(--c-panel)" />
-            <path
-              d="M-32 -30 Q0 -48 32 -30 L27 -23 Q0 -38 -27 -23 Z"
-              fill="var(--c-hud-bg)"
-            />
-            <path
-              d="M-32 -33 Q0 -51 32 -33 L27 -26 Q0 -41 -27 -26 Z"
-              fill="var(--c-secondary)"
-            />
+            <path d="M-32 -30 Q0 -48 32 -30 L27 -23 Q0 -38 -27 -23 Z" fill="var(--c-hud-bg)" />
+            <path d="M-32 -33 Q0 -51 32 -33 L27 -26 Q0 -41 -27 -26 Z" fill="var(--c-secondary)" />
             {/* Golden shachihoko roof finials */}
             <circle cx="-22" cy="-35" r="4" fill="var(--c-glow)" />
             <circle cx="22" cy="-35" r="4" fill="var(--c-glow)" />
@@ -868,11 +824,7 @@ function NodeMarker({
   current: boolean;
 }) {
   if (kind === 'checkpoint') {
-    const gateFill = done
-      ? 'var(--c-glow)'
-      : open
-        ? 'var(--c-accent)'
-        : 'var(--c-border)';
+    const gateFill = done ? 'var(--c-glow)' : open ? 'var(--c-accent)' : 'var(--c-border)';
     const gateLip = done
       ? 'var(--c-gold)'
       : open
@@ -880,9 +832,7 @@ function NodeMarker({
         : 'color-mix(in srgb, var(--c-border) 58%, var(--c-hud-bg))';
     return (
       <svg viewBox="0 0 96 96" className="node-marker-svg" aria-hidden="true">
-        {current && (
-          <circle cx="48" cy="50" r="44" fill="var(--c-glow)" className="node-halo" />
-        )}
+        {current && <circle cx="48" cy="50" r="44" fill="var(--c-glow)" className="node-halo" />}
         <ellipse cx="48" cy="84" rx="34" ry="8" fill="var(--c-shadow)" />
         {/* Stepped stone plinth (lip + top) */}
         <rect
@@ -905,14 +855,8 @@ function NodeMarker({
         <rect x="14" y="34" width="68" height="8" rx="3.5" fill={gateLip} />
         <rect x="14" y="31" width="68" height="7.5" rx="3.5" fill={gateFill} />
         {/* Sweeping kasagi top lintel (lip + main + highlight) */}
-        <path
-          d="M8 23 Q48 11 88 23 L84 32 Q48 22 12 32 Z"
-          fill="var(--c-hud-bg)"
-        />
-        <path
-          d="M8 19 Q48 7 88 19 L84 28 Q48 18 12 28 Z"
-          fill={gateFill}
-        />
+        <path d="M8 23 Q48 11 88 23 L84 32 Q48 22 12 32 Z" fill="var(--c-hud-bg)" />
+        <path d="M8 19 Q48 7 88 19 L84 28 Q48 18 12 28 Z" fill={gateFill} />
         <ellipse
           cx="30"
           cy="18"
@@ -961,17 +905,11 @@ function NodeMarker({
   }
 
   if (kind === 'story') {
-    const roofFill = done
-      ? 'var(--c-gold)'
-      : open
-        ? 'var(--c-secondary)'
-        : 'var(--c-border)';
+    const roofFill = done ? 'var(--c-gold)' : open ? 'var(--c-secondary)' : 'var(--c-border)';
     const roofLip = `color-mix(in srgb, ${roofFill} 58%, var(--c-hud-bg))`;
     return (
       <svg viewBox="0 0 88 88" className="node-marker-svg" aria-hidden="true">
-        {current && (
-          <circle cx="44" cy="46" r="40" fill="var(--c-glow)" className="node-halo" />
-        )}
+        {current && <circle cx="44" cy="46" r="40" fill="var(--c-glow)" className="node-halo" />}
         <ellipse cx="44" cy="79" rx="28" ry="6.5" fill="var(--c-shadow)" />
         {/* Stone lantern base */}
         <rect x="22" y="68" width="44" height="10" rx="5" fill={roofLip} />
@@ -1003,11 +941,7 @@ function NodeMarker({
     );
   }
 
-  const stoneFill = done
-    ? 'var(--c-glow)'
-    : open
-      ? 'var(--c-accent)'
-      : 'var(--c-surface-alt)';
+  const stoneFill = done ? 'var(--c-glow)' : open ? 'var(--c-accent)' : 'var(--c-surface-alt)';
   const stoneLip = done
     ? 'var(--c-gold)'
     : open
@@ -1021,9 +955,7 @@ function NodeMarker({
 
   return (
     <svg viewBox="0 0 88 88" className="node-marker-svg" aria-hidden="true">
-      {current && (
-        <circle cx="44" cy="46" r="40" fill="var(--c-glow)" className="node-halo" />
-      )}
+      {current && <circle cx="44" cy="46" r="40" fill="var(--c-glow)" className="node-halo" />}
       <ellipse cx="44" cy="76" rx="31" ry="8" fill="var(--c-shadow)" />
       {/* Chunky 3D stepping-stone pebble (shade lip + main body + inner medallion + top-left shine) */}
       <ellipse cx="44" cy="49" rx="34" ry="27" fill={stoneLip} />
@@ -1152,19 +1084,12 @@ export function PathScreen() {
                                       open={open}
                                       current={n.key === current}
                                     />
-                                    <span
-                                      className="path-dot-glyph"
-                                      lang="ja"
-                                      aria-hidden="true"
-                                    >
+                                    <span className="path-dot-glyph" lang="ja" aria-hidden="true">
                                       {icon}
                                     </span>
                                   </Link>
                                 ) : (
-                                  <span
-                                    className="path-dot"
-                                    aria-label={`${n.node.title}, locked`}
-                                  >
+                                  <span className="path-dot" aria-label={`${n.node.title}, locked`}>
                                     <NodeMarker
                                       kind={n.node.kind}
                                       done={false}
