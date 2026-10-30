@@ -5,30 +5,67 @@
     "comboBonusEvery": 5,
     "comboBonusXp": 5,
     "dailyGoalOptions": [
-      { "minutes": 5, "xp": 50 },
-      { "minutes": 10, "xp": 100 },
-      { "minutes": 20, "xp": 200 }
+      {
+        "minutes": 5,
+        "xp": 50
+      },
+      {
+        "minutes": 10,
+        "xp": 100
+      },
+      {
+        "minutes": 20,
+        "xp": 200
+      }
     ],
     "defaultDailyGoalXp": 100
   },
-  "kiai": { "fillAt": 5, "answers": 5, "multiplier": 2 },
-  "stars": { "threeStarMaxMistakes": 0, "twoStarMaxMistakes": 2 },
+  "kiai": {
+    "fillAt": 5,
+    "answers": 5,
+    "multiplier": 2
+  },
+  "stars": {
+    "threeStarMaxMistakes": 0,
+    "twoStarMaxMistakes": 2
+  },
   "earn": {
     "lessonComplete": 10,
     "lessonThreeStarBonus": 5,
     "clearAllReviews": 15,
-    "dailyQuest": { "min": 10, "max": 20 },
-    "omikuji": { "daikichi": 50, "kichi": 25, "chukichi": 15, "shokichi": 10, "suekichi": 5 },
+    "dailyQuest": {
+      "min": 10,
+      "max": 20
+    },
+    "omikuji": {
+      "daikichi": 50,
+      "kichi": 25,
+      "chukichi": 15,
+      "shokichi": 10,
+      "suekichi": 5
+    },
     "rushPersonalBest": 10,
     "bossDefeat": 100,
     "bossDefeatTokens": 1,
     "perfectLessonTokens": 1,
     "clearReviewDebtTokens": 1,
     "streakMilestones": [
-      { "days": 7, "koban": 50 },
-      { "days": 30, "koban": 150 },
-      { "days": 100, "koban": 500 },
-      { "days": 365, "koban": 1500 }
+      {
+        "days": 7,
+        "koban": 50
+      },
+      {
+        "days": 30,
+        "koban": 150
+      },
+      {
+        "days": 100,
+        "koban": 500
+      },
+      {
+        "days": 365,
+        "koban": 1500
+      }
     ],
     "guardianDailyKoban": 1
   },
@@ -75,8 +112,14 @@
       "bossOncePerDay": true
     }
   },
-  "hearts": { "refillMinutes": 60, "dojoReviewsPerHeart": 10 },
-  "redemptionTrial": { "questions": 20, "maxMistakes": 2 },
+  "hearts": {
+    "refillMinutes": 60,
+    "dojoReviewsPerHeart": 10
+  },
+  "redemptionTrial": {
+    "questions": 20,
+    "maxMistakes": 2
+  },
   "boosts": {
     "taikoMinutes": 15,
     "taikoXpMultiplier": 2,
@@ -88,9 +131,33 @@
     "cost": 1,
     "pityAfter": 10,
     "odds": [
-      { "rarity": "common", "weight": 70 },
-      { "rarity": "rare", "weight": 25 },
-      { "rarity": "legendary", "weight": 5 }
+      {
+        "rarity": "common",
+        "weight": 70
+      },
+      {
+        "rarity": "rare",
+        "weight": 25
+      },
+      {
+        "rarity": "legendary",
+        "weight": 5
+      }
     ]
+  },
+  "rush": {
+    "seconds": 60,
+    "misses": 3,
+    "hourglassSeconds": 10,
+    "darumaLives": 1
+  },
+  "boss": {
+    "comboForDoubleHit": 5,
+    "doubleHitDamage": 2,
+    "hitDamage": 1
+  },
+  "charms": {
+    "gakugyoReviewXp": 1.1,
+    "mimiListeningKoban": 0.15
   }
 }

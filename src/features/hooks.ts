@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useGame } from '../foundations/store/gameStore';
 import { balances } from '../engine/economy/ledger';
-import { dueCards, heartsNow, maxHearts, minutesToNextHeart } from '../engine/game';
+import { dueCards, heartsNow, loseHearts, maxHearts, minutesToNextHeart } from '../engine/game';
 import { economy } from '../foundations/world';
 import type { SaveState } from '../schema/save';
 
@@ -49,3 +49,14 @@ export function useStats() {
 
 /** A per-session random seed (the engine itself never calls Math.random). */
 export const freshSeed = () => crypto.getRandomValues(new Uint32Array(1))[0]!;
+
+/**
+ * Commits heart losses the moment they happen (not at the end of a session), so quitting a
+ * lesson or closing the app can't undo them.
+ */
+export function commitHeartLoss(prevLost: number, nextLost: number, ref: string) {
+  const n = nextLost - prevLost;
+  if (n <= 0) return;
+  const { save, ctx, commit } = useGame.getState();
+  if (save) commit(loseHearts(save, ctx(), n, ref));
+}

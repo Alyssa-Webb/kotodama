@@ -3,7 +3,7 @@
 ## 1. Status
 
 - **Live link:** not live yet. Creating the public GitHub repository was blocked by a permission check overnight, so one double-click from you publishes it (step 1 below). It will then be at **https://alyssa-webb.github.io/kotodama/**
-- **What works (run and checked in Safari's engine):** the full core loop. Lessons with 14 exercise types and voice, FSRS reviews, streaks with the 04:00 day rollover, Hardcore hearts, koban, shop, gachapon, town, spirits, avatar, the Mojibake boss, Kana/Listening Rush, pasting a ChatGPT pack, the Learner Report, backup/restore, offline play, dark mode. 103 unit tests and 16 end-to-end tests pass.
+- **What works (run and checked in Safari's engine):** the full core loop. Lessons with 14 exercise types and voice, FSRS reviews, streaks with the 04:00 day rollover, Hardcore hearts, koban, shop, gachapon, town, spirits, avatar, the Mojibake boss, Kana/Listening Rush, pasting a ChatGPT pack, the Learner Report, backup/restore, offline play, dark mode. 118 unit tests and 16 end-to-end tests pass.
 - **What's next:** publish, install VOICEVOX and voice the starter pack, then ask ChatGPT for your first real unit.
 
 ## 2. Needs you

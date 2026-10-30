@@ -24,6 +24,8 @@ export function normalizeJapanese(input: string, opts: JaNormalizeOptions = {}):
 
 export function normalizeEnglish(input: string): string {
   return input
+    .normalize('NFKD')
+    .replace(/\p{M}/gu, '') // café → cafe, chōchin → chochin
     .normalize('NFKC')
     .toLowerCase()
     .replace(EN_PUNCT, ' ')
@@ -55,12 +57,13 @@ export type TextMatch = 'exact' | 'typo' | 'wrong';
 
 /**
  * Compares a typed answer with accepted answers (already normalized by the caller's choice of
- * normalizer). Answers of 5+ characters tolerate one edit, reported as "typo".
+ * normalizer). With allowTypo, answers of 5+ characters tolerate one edit, reported as "typo".
+ * Japanese answers pass allowTypo=false: one kana is often a different particle or word.
  */
-export function matchText(given: string, accepted: readonly string[]): TextMatch {
+export function matchText(given: string, accepted: readonly string[], allowTypo = true): TextMatch {
   if (!given) return 'wrong';
   if (accepted.includes(given)) return 'exact';
   const len = [...given].length;
-  if (len >= 5 && accepted.some((a) => editDistance(given, a) <= 1)) return 'typo';
+  if (allowTypo && len >= 5 && accepted.some((a) => editDistance(given, a) <= 1)) return 'typo';
   return 'wrong';
 }

@@ -95,6 +95,42 @@ describe('graders', () => {
       expect(grade(q, { kind: 'type', text: t }).correct, t).toBe(true);
   });
 
+  it('Japanese answers get no typo pass: a wrong particle is wrong', () => {
+    const q = prepareExercise(
+      { id: 'w', type: 'type', item: 's.mizu-o-kudasai', ask: 'japanese' },
+      ctx(),
+    )!;
+    expect(grade(q, { kind: 'type', text: 'みずをください' }).correct).toBe(true);
+    expect(grade(q, { kind: 'type', text: 'みずがください' }).correct).toBe(false);
+  });
+
+  it('romaji particles (wa, o, e) are exact, not typos', () => {
+    const q = prepareExercise(
+      { id: 'x', type: 'type', item: 's.kore-wa-nan-desu-ka', ask: 'japanese' },
+      ctx(),
+    )!;
+    expect(grade(q, { kind: 'type', text: 'kore wa nan desu ka' })).toMatchObject({
+      correct: true,
+      typo: false,
+    });
+    const m = prepareExercise(
+      { id: 'y', type: 'type', item: 's.mizu-o-kudasai', ask: 'japanese' },
+      ctx(),
+    )!;
+    expect(grade(m, { kind: 'type', text: 'mizu o kudasai' })).toMatchObject({
+      correct: true,
+      typo: false,
+    });
+  });
+
+  it('English answers ignore accents: cafe = café', () => {
+    const q = prepareExercise(
+      { id: 'z', type: 'type', item: 'w.kissaten', ask: 'meaning' },
+      ctx(),
+    )!;
+    expect(grade(q, { kind: 'type', text: 'cafe' }).correct).toBe(true);
+  });
+
   it('type (meaning) for kana takes the romaji sound', () => {
     const q = prep('u01.n03.e06'); // type k.ka meaning
     expect(grade(q, { kind: 'type', text: 'ka' }).correct).toBe(true);

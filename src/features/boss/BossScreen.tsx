@@ -17,11 +17,12 @@ import { useGame } from '../../foundations/store/gameStore';
 import { bosses, economy } from '../../foundations/world';
 import { SpeakableJa, useJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
-import { freshSeed, useSave, useStats } from '../hooks';
+import { commitHeartLoss, freshSeed, useSave, useStats } from '../hooks';
 import { Player } from '../lesson/Player';
 import { OutOfHearts, ResultCard, RewardRow } from '../lesson/common';
 import { Mojibake } from '../../foundations/art/Mojibake';
 import { fx } from '../../foundations/fx/fx';
+import { tokens } from '../../foundations/theme/theme';
 
 export function BossScreen() {
   const { bossId = '' } = useParams();
@@ -39,7 +40,7 @@ export function BossScreen() {
   const bossEl = useRef<HTMLDivElement>(null);
   const react = (st: 'hit' | 'attack') => {
     setBossFx(st);
-    window.setTimeout(() => setBossFx('idle'), 450);
+    window.setTimeout(() => setBossFx('idle'), tokens.motion.slow);
   };
   const [bs, setBs] = useState<BossState | null>(boss ? startBoss(boss) : null);
   const bsRef = useRef(bs);
@@ -90,7 +91,7 @@ export function BossScreen() {
       {
         nodeKey: key,
         summary: { ...summary, stars: won ? summary.stars || 1 : 0 },
-        heartsLost: state.heartsLost,
+        heartsLost: 0, // committed answer by answer
         completed: won,
         introduces: [],
         totalQuestions: state.attempts.length,
@@ -259,7 +260,7 @@ export function BossScreen() {
         let next = s;
         const prev = bsRef.current!;
         if (r.correct) {
-          const nb = hit(boss, prev, s.combo);
+          const nb = hit(boss, prev, s.combo, economy.boss);
           bsRef.current = nb;
           setBs(nb);
           react('hit');
@@ -295,6 +296,8 @@ export function BossScreen() {
         }
         if (next.status === 'complete' && (bsRef.current?.hp ?? 1) > 0)
           next = { ...next, status: 'failed' };
+        commitHeartLoss(last.current?.heartsLost ?? 0, next.heartsLost, key);
+        last.current = next;
         return next;
       }}
       onQuit={() => {

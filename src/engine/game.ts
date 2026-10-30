@@ -2,7 +2,7 @@
  * Game rules over the SaveState (pure). Every function takes the current time explicitly and
  * returns a new state; nothing here touches storage, the DOM or the wall clock.
  */
-import type { Economy } from '../schema/economy';
+import type { Difficulty, Economy } from '../schema/economy';
 import type { Item } from '../schema/pack';
 import { SAVE_VERSION, SettingsSchema, type SaveState, type Settings } from '../schema/save';
 import type { ConsumableId, Shop } from '../schema/world';
@@ -32,7 +32,7 @@ export function newSave(
 ): SaveState {
   const st = SettingsSchema.parse(settings);
   const day = gameDay(now, timeZone, st.rolloverHour);
-  const maxHearts = economy.difficulty[st.difficulty]?.hearts ?? 0;
+  const maxHearts = Math.max(0, ...Object.values(economy.difficulty).map((d) => d.hearts ?? 0));
   return {
     saveVersion: SAVE_VERSION,
     createdAt: now,
@@ -126,7 +126,7 @@ export function minutesToNextHeart(s: SaveState, c: Ctx): number | null {
   return Math.ceil((period - ((c.now - s.hearts.updatedAt) % period)) / 60_000);
 }
 
-function loseHearts(s: SaveState, c: Ctx, n: number, ref: string): SaveState {
+export function loseHearts(s: SaveState, c: Ctx, n: number, ref: string): SaveState {
   if (n <= 0 || maxHearts(s, c.economy) === null) return s;
   const settled = settleHearts(s, c);
   const have = Math.max(0, balanceOf(settled.ledger, 'heart'));
@@ -146,7 +146,7 @@ function gainHearts(s: SaveState, c: Ctx, n: number, reason: string): SaveState 
   const max = maxHearts(s, c.economy);
   if (max === null || n <= 0) return s;
   const settled = settleHearts(s, c);
-  const add = Math.min(n, max - balanceOf(settled.ledger, 'heart'));
+  const add = Math.max(0, Math.min(n, max - balanceOf(settled.ledger, 'heart')));
   return {
     ...settled,
     ledger: append(settled.ledger, c.now, today(s, c), [{ asset: 'heart', amount: add, reason }]),
@@ -183,21 +183,29 @@ export function settleDay(s: SaveState, c: Ctx): { save: SaveState; notices: Set
     if (streak.lastGoalDay === null || dayDiff(streak.lastGoalDay, d) > 0) missed.push(d);
   }
 
-  let kotatsu = balanceOf(ledger, 'item:kotatsu');
-  let uncovered = 0;
-  for (const d of missed) {
-    if (kotatsu > 0) {
-      kotatsu--;
+  // Kotatsu only help when there is a streak to keep and enough of them to cover every missed
+  // day; otherwise they would be burned for nothing, so they are kept.
+  const kotatsu = balanceOf(ledger, 'item:kotatsu');
+  let uncovered = missed.length;
+  if (missed.length && streak.current > 0 && kotatsu >= missed.length) {
+    for (const d of missed) {
       events.push({ asset: 'item:kotatsu', amount: -1, reason: 'kotatsu-used', ref: d });
       streak.lastGoalDay = d; // a frozen day keeps the chain unbroken but does not extend it
-    } else uncovered++;
+    }
+    uncovered = 0;
   }
   const frozen = missed.length - uncovered;
   if (frozen) notices.push({ kind: 'streak-frozen', amount: frozen });
 
   if (uncovered > 0) {
     if (streak.current > 0) {
-      streak = { ...streak, broken: { day, length: streak.current, at: c.now }, current: 0 };
+      const breakDay = addDays(missed[0]!, 1);
+      const at = c.now - Math.max(0, dayDiff(breakDay, day)) * 86_400_000;
+      streak = {
+        ...streak,
+        broken: { day: breakDay, length: streak.current, at, trial: rules.kintsugiTrial },
+        current: 0,
+      };
       notices.push({ kind: 'streak-lost' });
     }
     streak.missedDays = s.streak.missedDays + uncovered;
@@ -253,17 +261,12 @@ function addXp(
   xp: number,
 ): { save: SaveState; streakExtended: boolean; milestone?: number } {
   const day = today(s, c);
-  const before = s.daily.xp;
-  const after = before + xp;
+  const after = s.daily.xp + xp;
   let streak = s.streak;
   let ledger = s.ledger;
   let extended = false;
   let milestone: number | undefined;
-  if (
-    before < s.settings.dailyGoalXp &&
-    after >= s.settings.dailyGoalXp &&
-    streak.lastGoalDay !== day
-  ) {
+  if (after >= s.settings.dailyGoalXp && streak.lastGoalDay !== day) {
     const chained = streak.lastGoalDay !== null && dayDiff(streak.lastGoalDay, day) === 1;
     const current = chained ? streak.current + 1 : 1;
     streak = { ...streak, current, best: Math.max(streak.best, current), lastGoalDay: day };
@@ -312,7 +315,13 @@ function applyOutcomes(
   const itemStats = { ...s.itemStats };
   for (const o of outcomes) {
     const id = cardId(o.target.itemId, o.target.facet);
-    cards[id] = scheduler.review(cards[id], gradeFor(o), now);
+    const g = gradeFor(o);
+    // A brand-new card answered quickly once is not "easy" yet: cap first exposures at good.
+    cards[id] = scheduler.review(
+      cards[id],
+      g === 'easy' && !(cards[id]?.reps ?? 0) ? 'good' : g,
+      now,
+    );
     const st = itemStats[o.target.itemId] ?? { seen: 0, correct: 0, wrong: 0 };
     itemStats[o.target.itemId] = {
       seen: st.seen + 1,
@@ -346,7 +355,7 @@ function recordMistakes(s: SaveState, summary: SessionSummary, now: number): Sav
 
 export const xpMultiplier = (s: SaveState, c: Ctx, review = false): number =>
   (s.boosts.taikoUntil > c.now ? c.economy.boosts.taikoXpMultiplier : 1) *
-  (review && s.charms.equipped === 'gakugyo' ? 1.1 : 1);
+  (review && s.charms.equipped === 'gakugyo' ? c.economy.charms.gakugyoReviewXp : 1);
 
 export interface LessonResult {
   save: SaveState;
@@ -528,7 +537,9 @@ export type PurchaseError =
   | 'unknown-item'
   | 'not-allowed'
   | 'no-broken-streak'
-  | 'window-closed';
+  | 'window-closed'
+  | 'hearts-full'
+  | 'already-owned';
 
 export function kintsugiPrice(s: SaveState, shop: Shop): number {
   const k = shop.consumables.find((x) => x.id === 'kintsugi');
@@ -556,7 +567,11 @@ export function buy(
   const item = shop.consumables.find((x) => x.id === id);
   if (!item) return { error: 'unknown-item' };
   const rules = c.economy.difficulty[s.settings.difficulty]!;
-  if (id === 'onigiri' && !rules.onigiri) return { error: 'not-allowed' };
+  if (id === 'onigiri') {
+    const max = maxHearts(s, c.economy);
+    if (!rules.onigiri || max === null) return { error: 'not-allowed' };
+    if ((heartsNow(s, c) ?? 0) >= max) return { error: 'hearts-full' };
+  }
   if (id === 'kintsugi' && !kintsugiAvailable(s, c))
     return { error: s.streak.broken ? 'window-closed' : 'no-broken-streak' };
   const price = priceOf(s, shop, id) ?? item.price;
@@ -620,7 +635,9 @@ export function consumeItem(s: SaveState, c: Ctx, id: ConsumableId): SaveState {
 export function applyKintsugi(s: SaveState, c: Ctx, trialPassed: boolean): SaveState | null {
   const rules = c.economy.difficulty[s.settings.difficulty]!;
   if (!s.streak.broken || balanceOf(s.ledger, 'item:kintsugi') <= 0) return null;
-  if (rules.kintsugiTrial && !trialPassed) return null;
+  if (!kintsugiAvailable(s, c)) return null;
+  // A streak broken under trial rules needs the trial even if the difficulty changed since.
+  if ((rules.kintsugiTrial || s.streak.broken.trial) && !trialPassed) return null;
   const day = today(s, c);
   const restored = s.streak.broken.length + s.streak.current;
   return {
@@ -648,4 +665,75 @@ export function weakestItems(s: SaveState, n: number): string[] {
   };
   const ids = [...new Set(Object.keys(s.cards).map((k) => k.split('#')[0]!))];
   return ids.sort((a, b) => score(b) - score(a)).slice(0, n);
+}
+
+// ---------------------------------------------------------------- difficulty
+
+export const DIFFICULTY_LOCK_DAYS = 7;
+
+/** Game day until which difficulty can't change again (null when free to change). */
+export function difficultyLockedUntil(
+  s: SaveState,
+  c: Pick<Ctx, 'now' | 'timeZone'>,
+): string | null {
+  const until = s.settings.difficultyLockedUntil;
+  return until && dayDiff(today(s, c), until) > 0 ? until : null;
+}
+
+/**
+ * Changes difficulty. Hearts are clamped to the new maximum (never refilled by switching), and the
+ * choice locks for a week so modes can't be flipped to dodge spoil or the Redemption Trial.
+ */
+export function changeDifficulty(
+  s: SaveState,
+  c: Ctx,
+  to: Difficulty,
+): { save: SaveState } | { error: 'locked'; until: string } {
+  if (to === s.settings.difficulty) return { save: s };
+  const until = difficultyLockedUntil(s, c);
+  if (until) return { error: 'locked', until };
+  let save = settleHearts(s, c);
+  const newMax = c.economy.difficulty[to]?.hearts ?? null;
+  const have = balanceOf(save.ledger, 'heart');
+  if (newMax !== null && have > newMax) {
+    save = {
+      ...save,
+      ledger: append(save.ledger, c.now, today(save, c), [
+        { asset: 'heart', amount: newMax - have, reason: 'difficulty' },
+      ]),
+    };
+  }
+  return {
+    save: {
+      ...save,
+      hearts: { ...save.hearts, updatedAt: c.now },
+      settings: {
+        ...save.settings,
+        difficulty: to,
+        difficultyLockedUntil: addDays(today(save, c), DIFFICULTY_LOCK_DAYS),
+      },
+    },
+  };
+}
+
+/** Buys a charm with koban (charms with an unlock condition can't be bought). */
+export function buyCharm(
+  s: SaveState,
+  c: Ctx,
+  shop: Shop,
+  id: string,
+): { save: SaveState } | { error: PurchaseError } {
+  const charm = shop.charms.find((x) => x.id === id);
+  if (!charm || charm.price === undefined) return { error: charm ? 'not-allowed' : 'unknown-item' };
+  if (s.charms.owned.includes(id)) return { error: 'already-owned' };
+  if (balanceOf(s.ledger, 'koban') < charm.price) return { error: 'not-enough-koban' };
+  return {
+    save: {
+      ...s,
+      ledger: append(s.ledger, c.now, today(s, c), [
+        { asset: 'koban', amount: -charm.price, reason: 'purchase', ref: `charm:${id}` },
+      ]),
+      charms: { ...s.charms, owned: [...s.charms.owned, id] },
+    },
+  };
 }

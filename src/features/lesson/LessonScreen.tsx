@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import {
   completeLesson,
@@ -22,7 +22,7 @@ import { useGame } from '../../foundations/store/gameStore';
 import { economy } from '../../foundations/world';
 import { SpeakableJa, RichText } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
-import { freshSeed, useSave, useStats } from '../hooks';
+import { commitHeartLoss, freshSeed, useSave, useStats } from '../hooks';
 import { Player } from './Player';
 import { MistakeReview, OutOfHearts, ResultCard, RewardRow } from './common';
 
@@ -47,6 +47,7 @@ export function LessonScreen() {
     state: SessionState;
   } | null>(null);
   const [showReview, setShowReview] = useState(false);
+  const lost = useRef(0);
 
   const introducedSoFar = useMemo(() => {
     const ids = new Set<string>();
@@ -168,10 +169,15 @@ export function LessonScreen() {
         config={config}
         lanterns={stats.inventory('chochin')}
         onUseLantern={() => commit(consumeItem(useGame.getState().save!, gctx(), 'chochin'))}
+        onAnswered={(st) => {
+          commitHeartLoss(lost.current, st.heartsLost, key);
+          lost.current = st.heartsLost;
+          return st;
+        }}
         onQuit={() => {
           if (
             window.confirm(
-              'Quit this lesson? Progress in it is lost (hearts already lost stay lost).',
+              'Quit this lesson? Its XP is lost, and hearts you already lost stay lost.',
             )
           )
             navigate('/path');
@@ -184,7 +190,7 @@ export function LessonScreen() {
             {
               nodeKey: key,
               summary,
-              heartsLost: state.heartsLost,
+              heartsLost: 0, // already committed answer by answer
               completed: state.status === 'complete',
               introduces: ref.node.introduces.map((id) => index.item(id)).filter((x) => !!x),
               totalQuestions: state.total,
@@ -277,7 +283,7 @@ export function LessonScreen() {
         <button
           className="btn btn-accent"
           style={{ flex: 1 }}
-          onClick={() => navigate(failed ? '/path' : '/path')}
+          onClick={() => navigate('/path')}
           autoFocus
         >
           Continue

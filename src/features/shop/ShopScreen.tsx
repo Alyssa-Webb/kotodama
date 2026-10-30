@@ -10,7 +10,7 @@ import {
   type PurchaseError,
 } from '../../engine/game';
 import { publishedOdds, pull } from '../../engine/gacha';
-import { cardIdsFor } from '../../engine/game';
+import { buyCharm, cardIdsFor } from '../../engine/game';
 import { shopWordItem, useGame } from '../../foundations/store/gameStore';
 import { avatarParts, economy, shop } from '../../foundations/world';
 import { KobanIcon } from '../../foundations/art/icons';
@@ -25,7 +25,9 @@ const ERR: Record<PurchaseError, string> = {
   'unknown-item': 'Unknown item.',
   'not-allowed': 'Not allowed in this difficulty.',
   'no-broken-streak': 'Kintsugi mends a broken streak; yours is intact.',
-  'window-closed': 'Kintsugi only works within 48 hours of the break.',
+  'window-closed': `Kintsugi only works within ${economy.penalties.kintsugiWindowHours} hours of the break.`,
+  'hearts-full': 'Your hearts are already full.',
+  'already-owned': 'You already own this.',
 };
 
 export function ShopScreen() {
@@ -62,16 +64,10 @@ export function ShopScreen() {
     if (id === 'kintsugi' && rules.kintsugiTrial) navigate('/trial');
   };
 
-  const buyCharm = (id: string, price: number) => {
-    const c = gctx();
-    if (balanceOf(save.ledger, 'koban') < price) return setMsg(ERR['not-enough-koban']);
-    commit({
-      ...save,
-      ledger: append(save.ledger, c.now, today(save, c), [
-        { asset: 'koban', amount: -price, reason: 'purchase', ref: `charm:${id}` },
-      ]),
-      charms: { ...save.charms, owned: [...save.charms.owned, id] },
-    });
+  const charm = (id: string) => {
+    const r = buyCharm(useGame.getState().save!, gctx(), shop, id);
+    if ('error' in r) return setMsg(ERR[r.error]);
+    commit(r.save);
     playSfx('coin');
     setMsg('Charm bought. Equip it on the Avatar screen.');
   };
@@ -181,7 +177,7 @@ export function ShopScreen() {
                 <button
                   className="btn btn-small btn-gold"
                   disabled={stats.koban < c.price}
-                  onClick={() => buyCharm(c.id, c.price!)}
+                  onClick={() => charm(c.id)}
                 >
                   <KobanIcon size={18} /> {c.price}
                 </button>

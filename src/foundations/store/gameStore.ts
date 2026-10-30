@@ -239,13 +239,18 @@ export const useGame = create<GameState>((set, get) => ({
     };
     await repos.packs.put(entry);
     const next = [...packs.filter((p) => p.id !== entry.id), entry];
-    // Progress is keyed by item ID, so it carries over; removed items are archived, never deleted.
-    const nextSave = archived.length
-      ? { ...save, archivedItems: [...new Set([...save.archivedItems, ...archived])] }
-      : save;
+    // Progress is keyed by item ID, so it carries over; removed items are archived, never deleted,
+    // and items that come back (reinstall or update) leave the archive.
+    const back = new Set(json.items.map((i) => i.id));
+    const nextSave = {
+      ...save,
+      archivedItems: [
+        ...new Set([...save.archivedItems.filter((id) => !back.has(id)), ...archived]),
+      ],
+    };
     wireVoices(repos, next);
     set({ packs: next, index: buildIndex(next, nextSave) });
-    if (nextSave !== save) get().commit(nextSave);
+    get().commit(nextSave);
     return { updated: !!existing, archived };
   },
 
@@ -271,7 +276,17 @@ export const useGame = create<GameState>((set, get) => ({
     await repos.packs.put(entry);
     const next = packs.map((x) => (x.id === id ? entry : x));
     wireVoices(repos, next);
-    set({ packs: next, index: buildIndex(next, get().save) });
+    // A disabled pack's items leave reviews and review debt until it is enabled again.
+    const save = get().save;
+    const ids = new Set(p.json.items.map((i) => i.id));
+    const nextSave = save && {
+      ...save,
+      archivedItems: enabled
+        ? save.archivedItems.filter((x) => !ids.has(x))
+        : [...new Set([...save.archivedItems, ...ids])],
+    };
+    set({ packs: next, index: buildIndex(next, nextSave) });
+    if (nextSave) get().commit(nextSave);
   },
 
   exportBackup() {
@@ -296,30 +311,34 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   async restoreBackup(raw) {
-    const { repos } = get();
+    const { repos, packs: current } = get();
     if (!repos) return { ok: false, error: 'not ready' };
     const parsed = BackupSchema.safeParse(raw);
-    if (!parsed.success) {
-      const m = migrateSave((raw as { save?: unknown } | null)?.save);
-      return { ok: false, error: m.ok ? 'This is not a Kotodama backup file.' : m.error };
-    }
-    const { save, packs } = parsed.data;
-    for (const p of packs) {
+    if (!parsed.success) return { ok: false, error: 'This is not a Kotodama backup file.' };
+    // Validate everything before writing anything, so a bad backup never half-applies.
+    const migrated = migrateSave(parsed.data.save);
+    if (!migrated.ok) return { ok: false, error: migrated.error };
+    const entries: InstalledPack[] = [];
+    for (const p of parsed.data.packs) {
       const json = LessonPackSchema.safeParse(p.json);
       if (!json.success) return { ok: false, error: `Pack "${p.id}" in the backup is invalid.` };
-      await repos.packs.put({
+      const existing = current.find((x) => x.id === p.id && x.version === p.version);
+      entries.push({
         id: p.id,
         version: p.version,
         enabled: p.enabled,
         source: p.source as PackSource,
         installedAt: p.installedAt,
         json: json.data,
+        // audio lives on the device, not in the backup: keep the voice manifest that matches it
+        ...(existing?.voice ? { voice: existing.voice } : {}),
       });
     }
-    await repos.profile.save(save);
+    for (const e of entries) await repos.packs.put(e);
+    await repos.profile.save(migrated.save);
     const all = await repos.packs.list();
     wireVoices(repos, all);
-    set({ packs: all, save, index: buildIndex(all, save) });
+    set({ packs: all, save: migrated.save, index: buildIndex(all, migrated.save) });
     get().settle();
     return { ok: true };
   },

@@ -120,7 +120,8 @@ export function answer(
   const attempts = [...s.attempts, { question: q, result, ms, hints, retry, duringKiai }];
   const position = s.position + 1;
   let status: SessionState['status'] = 'playing';
-  if (hearts !== null && hearts <= 0) status = 'failed';
+  // Only a mistake can end the lesson; a correct answer at 0 hearts never fails it.
+  if (!result.correct && hearts !== null && hearts <= 0) status = 'failed';
   else if (position >= queue.length) status = 'complete';
 
   return {

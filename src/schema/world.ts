@@ -23,6 +23,8 @@ export const ShopSchema = z.object({
       id: ConsumableIdSchema,
       name: FuriganaSchema,
       en: z.string(),
+      /** What the word means, used when the name joins your reviews. */
+      meaning: z.string(),
       effect: z.string(),
       price: z.number().int().nonnegative(),
       pricePerStreakDay: z.number().int().nonnegative().optional(),

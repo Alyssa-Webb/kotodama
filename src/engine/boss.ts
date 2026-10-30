@@ -23,9 +23,15 @@ export function phaseFor(b: Boss, hp: number): number {
   return idx;
 }
 
-/** A hit deals 1 damage, 2 with a combo of 5 or more. */
-export function hit(b: Boss, s: BossState, combo: number): BossState {
-  const hp = Math.max(0, s.hp - (combo >= 5 ? 2 : 1));
+export interface HitRules {
+  comboForDoubleHit: number;
+  doubleHitDamage: number;
+  hitDamage: number;
+}
+
+/** A hit deals hitDamage, or doubleHitDamage with a big enough combo (economy.json). */
+export function hit(b: Boss, s: BossState, combo: number, r: HitRules): BossState {
+  const hp = Math.max(0, s.hp - (combo >= r.comboForDoubleHit ? r.doubleHitDamage : r.hitDamage));
   return { ...s, hp, phase: phaseFor(b, hp) };
 }
 

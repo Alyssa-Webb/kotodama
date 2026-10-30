@@ -88,6 +88,13 @@ describe('session', () => {
     expect(summarize(s, c).stars).toBe(0);
   });
 
+  it('a correct answer at 0 hearts never fails the session', () => {
+    const c = config(0);
+    let s = startSession([q(1), q(2)], c);
+    s = answer(s, c, ok, 1000);
+    expect(s.status).toBe('playing');
+  });
+
   it('casual mode (no hearts) never fails', () => {
     const c = config(null);
     let s = startSession([q(1)], c);

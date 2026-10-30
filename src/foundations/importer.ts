@@ -49,7 +49,15 @@ export function safeEntryName(name: string): string | null {
 
 export function readJlpack(bytes: Uint8Array): ImportPayload {
   if (bytes.byteLength > MAX_PACK_BYTES) throw new Error('This pack is larger than 60 MB.');
-  const entries = unzipSync(bytes);
+  // Check declared sizes before inflating anything, so a tiny zip bomb can't exhaust memory.
+  let declared = 0;
+  const entries = unzipSync(bytes, {
+    filter: (f) => {
+      declared += f.originalSize;
+      if (declared > MAX_PACK_BYTES) throw new Error('This pack unpacks to more than 60 MB.');
+      return true;
+    },
+  });
   const files: Record<string, Blob> = {};
   let packJson: unknown;
   let manifest: VoiceManifest | undefined;
@@ -108,6 +116,8 @@ export async function readUrl(url: string): Promise<ImportPayload> {
   const len = Number(res.headers.get('content-length') ?? 0);
   if (len > MAX_PACK_BYTES) throw new Error('That pack is larger than 60 MB.');
   const bytes = new Uint8Array(await res.arrayBuffer());
+  if (bytes.byteLength > MAX_PACK_BYTES) throw new Error('That pack is larger than 60 MB.');
   if (bytes[0] === 0x50 && bytes[1] === 0x4b) return readJlpack(bytes);
+  if (bytes.byteLength > MAX_JSON_BYTES) throw new Error('That JSON file is too large.');
   return { json: parsePastedJson(new TextDecoder().decode(bytes)) };
 }

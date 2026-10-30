@@ -36,6 +36,19 @@ export function TrialScreen() {
     requeueMistakes: false,
   };
   if (!save.streak.broken) return <div className="card">No broken streak to mend.</div>;
+  if (questions.length < Math.min(10, n))
+    return (
+      <div className="card stack" style={{ maxWidth: 520, margin: '0 auto' }}>
+        <h1>Not enough to test yet</h1>
+        <p>
+          The Redemption Trial draws from your weakest items, and you have learned too few so far.
+          Your Kintsugi is kept.
+        </p>
+        <button className="btn btn-accent" onClick={() => navigate('/shop')}>
+          Back to the shop
+        </button>
+      </div>
+    );
   if (result)
     return (
       <div className="stack" style={{ maxWidth: 560, margin: '0 auto' }}>
@@ -46,7 +59,7 @@ export function TrialScreen() {
           <p>
             {result === 'passed'
               ? `Your streak is back: ${useGame.getState().save!.streak.current} days.`
-              : 'Your Kintsugi is kept. Study, then try again before the 48 hours run out.'}
+              : 'Your Kintsugi is kept. Study, then try again before the repair window closes.'}
           </p>
         </ResultCard>
         <button className="btn btn-accent" onClick={() => navigate('/')}>

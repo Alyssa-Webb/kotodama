@@ -20,6 +20,7 @@ import { fx } from '../../foundations/fx/fx';
 import { Guide, type Mood } from '../../foundations/art/Guide';
 import { FlameIcon, HeartIcon, LanternIcon } from '../../foundations/art/icons';
 import { useGame } from '../../foundations/store/gameStore';
+import { tokens } from '../../foundations/theme/theme';
 import {
   ChooseShape,
   DialogueShape,
@@ -152,7 +153,7 @@ export function Player({
         window.setTimeout(() => {
           setFeedback(null);
           if (next.status !== 'playing') onFinish(next);
-        }, 650);
+        }, tokens.motion.slow * 1.5);
       }
     },
     [q, feedback, state, config, hints, showAudioText, onAnswered, speak, onFinish],
@@ -181,7 +182,15 @@ export function Player({
     return () => window.removeEventListener('keydown', onKey);
   }, [feedback, next, q, speak]);
 
-  if (!q) return null;
+  if (!q)
+    return (
+      <div className="card stack center">
+        <p>No questions could be built for this session.</p>
+        <button className="btn btn-accent" onClick={() => onQuit()}>
+          Back
+        </button>
+      </div>
+    );
   const kiai = kiaiActive(state);
   const charge = kiai ? 1 : state.kiaiCharge / config.economy.kiai.fillAt;
   const canCheck = q.shape === 'tiles' || q.shape === 'type';

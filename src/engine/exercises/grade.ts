@@ -9,7 +9,10 @@ export function jaAccepted(texts: readonly string[]): string[] {
   const out = new Set<string>();
   for (const t of texts) {
     out.add(normalizeJapanese(toSurface(t)));
-    out.add(normalizeJapanese(toReading(t)));
+    const reading = normalizeJapanese(toReading(t));
+    out.add(reading);
+    // Typed romaji spells the particles は, を, へ as wa, o, e.
+    out.add(reading.replace(/は/g, 'わ').replace(/を/g, 'お').replace(/へ/g, 'え'));
   }
   return [...out];
 }
@@ -60,7 +63,7 @@ export function grade(q: Question, a: Answer): GradeResult {
       if (a.kind !== 'type') break;
       const given = a.text.trim();
       const norm = q.answerLang === 'ja' ? normalizeTypedJapanese(given) : normalizeEnglish(given);
-      const m = matchText(norm, q.accepted);
+      const m = matchText(norm, q.accepted, q.answerLang === 'en');
       return { correct: m !== 'wrong', typo: m === 'typo', given };
     }
     case 'trace':

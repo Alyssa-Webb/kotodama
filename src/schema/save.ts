@@ -32,6 +32,8 @@ export const SettingsSchema = z.object({
   respectSilentSwitch: z.boolean().default(false),
   rolloverHour: z.number().int().min(0).max(23).default(4),
   installGuideDismissed: z.boolean().default(false),
+  /** Game day until which difficulty is locked after a change. */
+  difficultyLockedUntil: z.string().default(''),
 });
 export type Settings = z.infer<typeof SettingsSchema>;
 
@@ -94,7 +96,14 @@ export const SaveStateSchema = z.object({
     best: z.number().int().nonnegative(),
     lastGoalDay: z.string().nullable(),
     lastProcessedDay: z.string().nullable(),
-    broken: z.object({ day: z.string(), length: z.number().int(), at: z.number() }).nullable(),
+    broken: z
+      .object({
+        day: z.string(),
+        length: z.number().int(),
+        at: z.number(),
+        trial: z.boolean().optional(),
+      })
+      .nullable(),
     missedDays: z.number().int().nonnegative(),
   }),
   daily: z.object({
@@ -144,7 +153,8 @@ export const BackupSchema = z.object({
   kind: z.literal('kotodama-backup'),
   backupVersion: z.literal(1),
   exportedAt: z.number(),
-  save: SaveStateSchema,
+  /** Validated and migrated by engine/save/migrate when restored. */
+  save: z.unknown(),
   packs: z.array(
     z.object({
       id: z.string(),

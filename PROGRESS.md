@@ -14,11 +14,11 @@ Read this first every session (and after any context compaction), together with 
 - **Game-feel overhaul (owner request):** living ukiyo-e scene, reactive guides Akari/Tetsu, canvas FX layer (particles, flashes, shake, floating XP, 気合 banner), lacquer/gold game skin, stamped results, map path, boss art; all through tokens + animation slots (ADR 0006).
 - **M7 Voice tooling:** voice-build (speaker/style by name, reading check vs furigana, 1.0×/0.75×, afconvert AAC, hashed names, manifest + credits, .jlpack to outbox), voice-audition (local page, writes voices.json), `Voice Audition.command`, `Voice Packs.command`. Not run for real: VOICEVOX not installed.
 - **Elo skill ratings** update from every answer (item difficulty from FSRS); dojo ranks and belt follow.
-- **Verification:** 103 unit tests, content-lint, 16 WebKit e2e tests (golden path, ChatGPT loop, backup/restore, axe, dark mode, offline).
+- **Verification:** 118 unit tests, content-lint, 16 WebKit e2e tests (golden path, ChatGPT loop, backup/restore, axe, dark mode, offline).
 
 ## In progress
 
-- Reviewer findings (fresh-context review) → fixes.
+- (nothing) — the fresh-context review's 15 findings are fixed with regression tests (hearts at 0 in the Dojo, heart loss committed per answer, goal changes, kotatsu waste, kintsugi window and trial, difficulty lock and heart clamp, particle grading, romaji particles, accents, review debt for disabled packs, zip bombs, all-or-nothing restore, onigiri at full hearts, data-driven rush/boss/charm numbers, first-exposure grading).
 
 ## Next
 

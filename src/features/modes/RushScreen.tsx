@@ -14,7 +14,7 @@ import { freshSeed, useSave } from '../hooks';
 import { Player } from '../lesson/Player';
 import { ResultCard, RewardRow } from '../lesson/common';
 
-const SECONDS = 60;
+const SECONDS = economy.rush.seconds;
 type Mode = 'kana' | 'listening' | 'dictation';
 
 export function RushScreen() {
@@ -88,7 +88,7 @@ export function RushScreen() {
     return out;
   }, [phase, pool, index, mode]);
 
-  const misses = 3 + (extras.daruma ? 1 : 0);
+  const misses = economy.rush.misses + (extras.daruma ? economy.rush.darumaLives : 0);
   const config: SessionConfig = {
     hearts: misses,
     economy,
@@ -140,7 +140,7 @@ export function RushScreen() {
   }, [left, phase]);
 
   const ghost = save.rush[mode]?.ghost;
-  const elapsed = (SECONDS + (extras.hourglass ? 10 : 0) - left) * 1000;
+  const elapsed = (SECONDS + (extras.hourglass ? economy.rush.hourglassSeconds : 0) - left) * 1000;
   const ghostScore = ghost ? ghost.times.filter((t) => t <= elapsed).length : 0;
   const title =
     mode === 'kana' ? 'Kana Rush' : mode === 'listening' ? 'Listening Rush' : 'Dictation drill';
@@ -163,7 +163,7 @@ export function RushScreen() {
               checked={extras.daruma}
               onChange={(e) => setExtras({ ...extras, daruma: e.target.checked })}
             />{' '}
-            Use a daruma (+1 life, have {inv('daruma')})
+            Use a daruma (+{economy.rush.darumaLives} life, have {inv('daruma')})
           </label>
           <label className="row" style={{ justifyContent: 'center' }}>
             <input
@@ -173,7 +173,7 @@ export function RushScreen() {
               checked={extras.hourglass}
               onChange={(e) => setExtras({ ...extras, hourglass: e.target.checked })}
             />{' '}
-            Use an hourglass (+10 s, have {inv('sunadokei')})
+            Use an hourglass (+{economy.rush.hourglassSeconds} s, have {inv('sunadokei')})
           </label>
           <button
             className="btn btn-accent btn-block"
@@ -197,7 +197,7 @@ export function RushScreen() {
                     })),
                   ),
                 });
-              setLeft(SECONDS + (extras.hourglass ? 10 : 0));
+              setLeft(SECONDS + (extras.hourglass ? economy.rush.hourglassSeconds : 0));
               times.current = [];
               setScore(0);
               setPhase('play');

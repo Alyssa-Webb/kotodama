@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import {
   completeReviews,
@@ -14,7 +14,7 @@ import { Rng } from '../../engine/rng';
 import { useGame } from '../../foundations/store/gameStore';
 import { economy } from '../../foundations/world';
 import { playSfx } from '../../foundations/audio/sfx';
-import { freshSeed, useSave, useStats } from '../hooks';
+import { commitHeartLoss, freshSeed, useSave, useStats } from '../hooks';
 import { Player } from '../lesson/Player';
 import { MistakeReview, ResultCard, RewardRow } from '../lesson/common';
 import { cardsOf, spiritStage } from '../../engine/world';
@@ -29,6 +29,7 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
   const commit = useGame((s) => s.commit);
   const gctx = useGame((s) => s.ctx);
   const [done, setDone] = useState<{ r: ReviewResult; summary: SessionSummary } | null>(null);
+  const lost = useRef(0);
   const [practice] = useState(() => session && dueCards(save, gctx().now).length === 0);
 
   const questions = useMemo(() => {
@@ -45,7 +46,8 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
   }, [session]);
   const config = useMemo<SessionConfig>(
     () => ({
-      hearts: heartsNow(save, gctx()),
+      // The Dojo is how hearts are earned back, so at 0 hearts it runs without them.
+      hearts: heartsNow(save, gctx()) || null,
       economy,
       xpMultiplier: xpMultiplier(save, gctx(), true),
       requeueMistakes: false,
@@ -77,13 +79,19 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
             Every 10 reviews earn back a heart. Clearing every due review pays{' '}
             {economy.earn.clearAllReviews} koban and a capsule token.
           </p>
-          <Link className="btn btn-indigo btn-block" to="/dojo" aria-disabled={!items.length}>
-            {stats.due
-              ? 'Start rescue'
-              : items.length
-                ? 'Practice anyway'
-                : 'Finish a lesson first'}
-          </Link>
+          {items.length ? (
+            <Link className="btn btn-indigo btn-block" to="/dojo">
+              {stats.due
+                ? 'Start rescue'
+                : items.length
+                  ? 'Practice anyway'
+                  : 'Finish a lesson first'}
+            </Link>
+          ) : (
+            <button className="btn btn-block" disabled>
+              Finish a lesson first
+            </button>
+          )}
         </section>
       </div>
     );
@@ -139,6 +147,11 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
       config={config}
       lanterns={stats.inventory('chochin')}
       onUseLantern={() => commit(consumeItem(useGame.getState().save!, gctx(), 'chochin'))}
+      onAnswered={(st) => {
+        commitHeartLoss(lost.current, st.heartsLost, 'dojo');
+        lost.current = st.heartsLost;
+        return st;
+      }}
       onQuit={() => navigate('/reviews')}
       onFinish={(state) => {
         const summary = summarize(state, config);
@@ -146,7 +159,7 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
         const r = completeReviews(
           useGame.getState().save!,
           gctx(),
-          { summary, heartsLost: state.heartsLost, reviewed: answered },
+          { summary, heartsLost: 0, reviewed: answered },
           scheduler,
         );
         commit(r.save);

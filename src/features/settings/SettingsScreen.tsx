@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
+import { changeDifficulty, DIFFICULTY_LOCK_DAYS } from '../../engine/game';
 import { DIFFICULTIES } from '../../schema/economy';
 import type { Settings } from '../../schema/save';
 import { useGame } from '../../foundations/store/gameStore';
@@ -36,6 +37,8 @@ function Seg<T extends string | number | boolean>({
 export function SettingsScreen() {
   const save = useSave();
   const commit = useGame((s) => s.commit);
+  const gctx = useGame((s) => s.ctx);
+  const [lockMsg, setLockMsg] = useState<string | null>(null);
   const { speak } = useJa();
   const set = <K extends keyof Settings>(k: K, v: Settings[K]) =>
     commit({
@@ -49,10 +52,23 @@ export function SettingsScreen() {
       <h1>Settings</h1>
       <section className="card stack">
         <h2>Difficulty</h2>
+        {lockMsg && (
+          <p className="bad-text small" role="status">
+            {lockMsg}
+          </p>
+        )}
         <Seg
           label="Difficulty"
           value={st.difficulty}
-          onChange={(v) => set('difficulty', v)}
+          onChange={(v) => {
+            const r = changeDifficulty(useGame.getState().save!, gctx(), v);
+            if ('error' in r)
+              return setLockMsg(
+                `Difficulty is locked until ${r.until} (changes lock for ${DIFFICULTY_LOCK_DAYS} days).`,
+              );
+            setLockMsg(null);
+            commit(r.save);
+          }}
           options={DIFFICULTIES.map((d) => ({ v: d, label: d[0]!.toUpperCase() + d.slice(1) }))}
         />
         <p className="muted small">

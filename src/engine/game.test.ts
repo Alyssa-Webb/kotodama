@@ -16,6 +16,8 @@ import { answer, startSession, summarize, type SessionConfig } from './lesson/se
 import {
   applyKintsugi,
   buy,
+  buyCharm,
+  changeDifficulty,
   completeLesson,
   completeReviews,
   dueCards,
@@ -339,5 +341,97 @@ describe('Elo skill ratings', () => {
     expect(up.elo.kana).toBeGreaterThan(800);
     const down = playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false);
     expect(down.elo.kana).toBeLessThan(800);
+  });
+});
+
+describe('review fixes (regressions)', () => {
+  const day = (n: number) => T0 + n * 24 * H;
+
+  it('lowering the daily goal mid-day still lets today count', () => {
+    let s = newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 200 });
+    s = playLesson(s, T0); // ~150 XP, below 200
+    expect(s.streak.current).toBe(0);
+    s = { ...s, settings: { ...s.settings, dailyGoalXp: 50 } };
+    s = playLesson(s, T0 + H, 'u01.n01');
+    expect(s.streak.current).toBe(1);
+  });
+
+  it('kotatsu are kept when they cannot save the streak, or when there is no streak', () => {
+    let s = giveKoban(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 500);
+    const r1 = buy(s, ctx(T0), shop, 'kotatsu');
+    if ('error' in r1) throw new Error(r1.error);
+    expect(balanceOf(settleDay(r1.save, ctx(day(3))).save.ledger, 'item:kotatsu')).toBe(1); // no streak
+    s = playLesson(r1.save, T0);
+    const r = settleDay(s, ctx(day(4))); // 3 missed days, 1 kotatsu
+    expect(r.save.streak.current).toBe(0);
+    expect(balanceOf(r.save.ledger, 'item:kotatsu')).toBe(1);
+  });
+
+  it('kintsugi cannot be applied after its window, even if held', () => {
+    let s = giveKoban(
+      newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50, difficulty: 'standard' }),
+      1000,
+    );
+    s = playLesson(s, T0);
+    s = settleDay(s, ctx(day(2))).save;
+    const r = buy(s, ctx(day(2)), shop, 'kintsugi');
+    if ('error' in r) throw new Error(r.error);
+    expect(applyKintsugi(r.save, ctx(day(30)), true)).toBeNull();
+  });
+
+  it('a streak broken under Hardcore still needs the trial after switching to Standard', () => {
+    let s = giveKoban(newSave(T0, 'UTC', 1, economy, { dailyGoalXp: 50 }), 1000);
+    s = playLesson(s, T0);
+    s = settleDay(s, ctx(day(2))).save;
+    const r = buy(s, ctx(day(2)), shop, 'kintsugi');
+    if ('error' in r) throw new Error(r.error);
+    const switched = {
+      ...r.save,
+      settings: { ...r.save.settings, difficulty: 'standard' as const },
+    };
+    expect(applyKintsugi(switched, ctx(day(2)), false)).toBeNull();
+    expect(applyKintsugi(switched, ctx(day(2)), true)).not.toBeNull();
+  });
+
+  it('changing difficulty clamps hearts, never refills them, and locks for a week', () => {
+    let s = playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false); // 0 hearts
+    const toCasual = changeDifficulty(s, ctx(T0), 'casual');
+    if ('error' in toCasual) throw new Error('locked');
+    expect(changeDifficulty(toCasual.save, ctx(T0 + H), 'hardcore')).toMatchObject({
+      error: 'locked',
+    });
+    const unlocked = {
+      ...toCasual.save,
+      settings: { ...toCasual.save.settings, difficultyLockedUntil: '' },
+    };
+    const back = changeDifficulty(unlocked, ctx(T0 + 60_000), 'hardcore');
+    if ('error' in back) throw new Error('locked');
+    expect(heartsNow(back.save, ctx(T0 + 60_000))).toBe(0);
+    s = newSave(T0, 'UTC', 1, economy);
+    const iron = changeDifficulty(s, ctx(T0), 'ironman');
+    if ('error' in iron) throw new Error('locked');
+    expect(balanceOf(iron.save.ledger, 'heart')).toBe(3);
+  });
+
+  it('onigiri cannot be bought at full hearts or without hearts', () => {
+    const s = giveKoban(newSave(T0, 'UTC', 1, economy), 100);
+    expect(buy(s, ctx(T0), shop, 'onigiri')).toEqual({ error: 'hearts-full' });
+    const casual = giveKoban(newSave(T0, 'UTC', 1, economy, { difficulty: 'casual' }), 100);
+    expect(buy(casual, ctx(T0), shop, 'onigiri')).toEqual({ error: 'not-allowed' });
+  });
+
+  it('charms are bought once, only when buyable', () => {
+    let s = giveKoban(newSave(T0, 'UTC', 1, economy), 1000);
+    const r = buyCharm(s, ctx(T0), shop, 'gakugyo');
+    if ('error' in r) throw new Error(r.error);
+    s = r.save;
+    expect(buyCharm(s, ctx(T0), shop, 'gakugyo')).toEqual({ error: 'already-owned' });
+    expect(buyCharm(s, ctx(T0), shop, 'goukaku')).toEqual({ error: 'not-allowed' });
+  });
+
+  it('a quick first answer does not schedule a new card as easy', () => {
+    const s = playLesson(newSave(T0, 'UTC', 1, economy), T0);
+    const card = s.cards['k.a#main']!;
+    expect(card.dueAt - T0).toBeLessThan(3 * 24 * H);
   });
 });

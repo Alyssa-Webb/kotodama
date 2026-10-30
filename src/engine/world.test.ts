@@ -84,10 +84,10 @@ describe('boss', () => {
   it('changes phase as HP drops and hits harder with a combo', () => {
     let s = startBoss(mojibake);
     expect(s.phase).toBe(0);
-    for (let i = 0; i < 5; i++) s = hit(mojibake, s, 0);
+    for (let i = 0; i < 5; i++) s = hit(mojibake, s, 0, economy.boss);
     expect(s.hp).toBe(7);
     expect(s.phase).toBe(1);
-    s = hit(mojibake, s, 5);
+    s = hit(mojibake, s, 5, economy.boss);
     expect(s.hp).toBe(5);
     expect(phaseFor(mojibake, 3)).toBe(2);
   });

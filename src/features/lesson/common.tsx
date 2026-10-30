@@ -23,13 +23,13 @@ export function OutOfHearts({ onBack }: { onBack: () => void }) {
           <Guide who="tetsu" mood="worried" size={110} />
         </div>
         <div className="row" style={{ justifyContent: 'center', gap: 2 }} aria-hidden="true">
-          {Array.from({ length: 5 }, (_, i) => (
+          {Array.from({ length: s.maxHearts ?? 0 }, (_, i) => (
             <HeartIcon key={i} size={28} empty />
           ))}
         </div>
         <h1>Out of hearts</h1>
         <p className="muted">
-          Hardcore rules: hearts are shared across lessons. Rest, or train to earn them back.
+          Hearts are shared across lessons. Rest, or train in the Dojo to earn them back.
         </p>
         {s.nextHeartMin !== null && <p>Next heart in {s.nextHeartMin} min.</p>}
         <Link className="btn btn-indigo btn-block" to="/reviews">

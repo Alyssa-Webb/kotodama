@@ -71,6 +71,18 @@ export const EconomySchema = z.object({
     manekiKobanBonus: nonneg,
   }),
   streakFreezeMax: z.number().int().nonnegative(),
+  rush: z.object({
+    seconds: z.number().int().positive(),
+    misses: z.number().int().positive(),
+    hourglassSeconds: z.number().int().nonnegative(),
+    darumaLives: z.number().int().nonnegative(),
+  }),
+  boss: z.object({
+    comboForDoubleHit: z.number().int().positive(),
+    doubleHitDamage: z.number().int().positive(),
+    hitDamage: z.number().int().positive(),
+  }),
+  charms: z.object({ gakugyoReviewXp: z.number().positive(), mimiListeningKoban: nonneg }),
   gachapon: z.object({
     cost: z.number().int().positive(),
     pityAfter: z.number().int().positive(),

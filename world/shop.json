@@ -7,7 +7,8 @@
       "en": "Kotatsu",
       "effect": "Streak freeze: stays warm through one missed day. Hold up to 2.",
       "price": 60,
-      "max": 2
+      "max": 2,
+      "meaning": "heated table"
     },
     {
       "id": "kintsugi",
@@ -15,63 +16,72 @@
       "en": "Kintsugi",
       "effect": "Mends a broken streak with gold within 48 hours. Hardcore also requires a Redemption Trial.",
       "price": 150,
-      "pricePerStreakDay": 5
+      "pricePerStreakDay": 5,
+      "meaning": "golden repair"
     },
     {
       "id": "chochin",
       "name": "{提灯|ちょうちん}",
       "en": "Chōchin lantern",
       "effect": "Hint: lights up one tile, letter or option.",
-      "price": 8
+      "price": 8,
+      "meaning": "paper lantern"
     },
     {
       "id": "onigiri",
       "name": "おにぎり",
       "en": "Onigiri",
       "effect": "Restores 1 heart.",
-      "price": 15
+      "price": 15,
+      "meaning": "rice ball"
     },
     {
       "id": "taiko",
       "name": "{太鼓|たいこ}",
       "en": "Taiko drum",
       "effect": "Double XP for 15 minutes.",
-      "price": 50
+      "price": 50,
+      "meaning": "drum"
     },
     {
       "id": "maneki",
       "name": "{招|まね}き{猫|ねこ}",
       "en": "Maneki-neko",
       "effect": "+25% koban for your next 3 lessons.",
-      "price": 70
+      "price": 70,
+      "meaning": "beckoning cat"
     },
     {
       "id": "daruma",
       "name": "だるま",
       "en": "Daruma",
       "effect": "Extra life in a Rush round.",
-      "price": 20
+      "price": 20,
+      "meaning": "daruma doll"
     },
     {
       "id": "sunadokei",
       "name": "{砂時計|すなどけい}",
       "en": "Hourglass",
       "effect": "+10 seconds in a Rush round.",
-      "price": 25
+      "price": 25,
+      "meaning": "hourglass"
     },
     {
       "id": "omamori",
       "name": "お{守|まも}り",
       "en": "Omamori shield",
       "effect": "Keeps one spirit from fading for 3 days.",
-      "price": 30
+      "price": 30,
+      "meaning": "protective charm"
     },
     {
       "id": "ema",
       "name": "{絵馬|えま}",
       "en": "Ema plaque",
       "effect": "Write a wish to reroll one daily quest.",
-      "price": 20
+      "price": 20,
+      "meaning": "votive plaque"
     }
   ],
   "charms": [
