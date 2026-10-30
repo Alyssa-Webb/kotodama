@@ -8,7 +8,7 @@ Read this first every session (and after any context compaction), together with 
 
 ## In progress
 
-- M0: publish to GitHub and confirm the first deploy.
+- M0: publishing is waiting on the owner (repo creation was not permitted overnight); "Publish to GitHub.command" does it.
 
 ## Next
 
