@@ -1188,3 +1188,23 @@
     transition: none !important;
   }
 }
+
+/* Readability (Claude): the prize art must win over the card-back pattern, and the shop must
+   not show through the case. */
+.m-case-card-pat {
+  opacity: 0.35;
+}
+.m-case-art {
+  position: relative;
+  z-index: 1;
+}
+.m-case-art svg {
+  width: calc(var(--card) * 0.9);
+}
+.m-case-dim {
+  background: radial-gradient(
+    80% 60% at 50% 45%,
+    color-mix(in srgb, var(--c-hud-bg) 82%, transparent),
+    color-mix(in srgb, var(--c-hud-bg) 97%, transparent)
+  );
+}
