@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
-import { JaContext, JaText, romajiOf } from './Ja';
+import { JaContext, JaText } from './Ja';
 import type { ScriptLevel } from '../../schema/save';
 
 const html = (text: string, scriptLevel: ScriptLevel) =>
@@ -28,10 +28,13 @@ describe('JaText', () => {
   });
 });
 
-describe('romajiOf', () => {
-  it('spaces kanji words but keeps the honorific お/ご attached', () => {
-    expect(romajiOf('{長|なが}い{髪|かみ}')).toBe('nagai kami');
-    expect(romajiOf('お{守|まも}り')).toBe('omamori');
-    expect(romajiOf('おにぎり')).toBe('onigiri');
+describe('katakana switch', () => {
+  it('shows katakana in place of hiragana, furigana included', () => {
+    const { container } = render(
+      <JaContext.Provider value={{ scriptLevel: 'furigana', kana: 'katakana', speak: () => {} }}>
+        <JaText text="{水|みず}をください" />
+      </JaContext.Provider>,
+    );
+    expect(container.textContent).toBe('水ミズヲクダサイ');
   });
 });

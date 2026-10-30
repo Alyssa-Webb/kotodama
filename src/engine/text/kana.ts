@@ -13,6 +13,11 @@ export function katakanaToHiragana(s: string): string {
   return s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
 }
 
+/** Hiragana → katakana (the Settings switch that shows katakana in place of hiragana). */
+export function hiraganaToKatakana(s: string): string {
+  return s.replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
+}
+
 const VOWEL_OF: Record<string, string> = {};
 const ROWS: [string, string][] = [
   ['あかさたなはまやらわがざだばぱぁゃゎ', 'あ'],

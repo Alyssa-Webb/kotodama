@@ -1440,7 +1440,7 @@ label.field {
 .shop-grid .price-ja {
   font-size: 10px;
 }
-/* Japanese UI labels are romaji (lessons teach the kana): centred, tappable to hear them. */
+/* Japanese UI labels: centred under the item, tappable to hear them. */
 .ui-ja {
   font: inherit;
   color: inherit;
@@ -1454,8 +1454,6 @@ label.field {
   text-align: center;
   font-family: var(--font-display);
   font-size: var(--fs-sm);
-  font-style: italic;
-  color: var(--c-ink-muted);
 }
 .shop-held {
   position: absolute;

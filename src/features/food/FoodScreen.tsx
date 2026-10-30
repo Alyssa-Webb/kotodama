@@ -12,7 +12,7 @@ import { useGame } from '../../foundations/store/gameStore';
 import { economy, meals } from '../../foundations/world';
 import { Guide } from '../../foundations/art/Guide';
 import { MealArt } from '../../foundations/art/MealArt';
-import { JaText, romajiOf, useJa } from '../../foundations/japanese/Ja';
+import { JaText, UiJa, useJa } from '../../foundations/japanese/Ja';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
@@ -207,14 +207,14 @@ export function FoodScreen() {
             >
               <span className="food-stall-vendor">{m.vendor}</span>
               <MealArt id={m.id} size={56} />
-              <span className="shop-name" lang="ja-Latn">
-                {romajiOf(m.name)}
-              </span>
+              <UiJa text={m.name} className="shop-name" />
               <strong>{m.en}</strong>
               <span className="food-stall-heal">+{m.heal} HP</span>
               <span className="food-stall-price">
                 ¥{m.price.toLocaleString('en-US')}{' '}
-                <small lang="ja-Latn">{romajiOf(yenFurigana(m.price))}</small>
+                <small>
+                  <JaText text={yenFurigana(m.price)} />
+                </small>
               </span>
               {locked && <span className="pill">Level {m.level}</span>}
               {why === 'not-enough-yen' && (

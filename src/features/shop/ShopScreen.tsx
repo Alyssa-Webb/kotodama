@@ -15,7 +15,7 @@ import { shopWordItem, useGame } from '../../foundations/store/gameStore';
 import { avatarParts, economy, koto, shop } from '../../foundations/world';
 import { YenIcon } from '../../foundations/art/icons';
 import { ItemArt } from '../../foundations/art/ItemArt';
-import { romajiOf, UiJa } from '../../foundations/japanese/Ja';
+import { JaText, UiJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { useSave, useStats } from '../hooks';
 import { centerOf, fx } from '../../foundations/fx/fx';
@@ -215,8 +215,8 @@ export function ShopScreen() {
                 >
                   ¥{price.toLocaleString('en-US')}
                 </button>
-                <span className="small price-ja" lang="ja-Latn">
-                  {romajiOf(yenFurigana(price))}
+                <span className="small price-ja">
+                  <JaText text={yenFurigana(price)} />
                 </span>
               </div>
             );

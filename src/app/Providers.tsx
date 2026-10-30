@@ -12,9 +12,9 @@ let lineCounter = 0;
 export function Providers({ children }: { children: ReactNode }) {
   const settings = useGame((s) => s.save?.settings);
   const lessonCount = useGame((s) => s.save?.lessonCount ?? 0);
-  // Lessons are built in romaji over hiragana for now (katakana and kanji levels come later), so
-  // every save shows that level whatever the stored setting says.
-  const scriptLevel = 'romaji' as const;
+  // Japanese is shown as kanji with hiragana furigana for now; the only switch is the kana.
+  const scriptLevel = 'furigana' as const;
+  const kana = settings?.kana ?? 'hiragana';
   const voiceMode = settings?.voiceMode ?? 'alternate-lesson';
   const slow = settings?.slowAudio ?? false;
 
@@ -41,6 +41,6 @@ export function Providers({ children }: { children: ReactNode }) {
     },
     [voiceMode, lessonCount, slow],
   );
-  const value = useMemo(() => ({ scriptLevel, speak: say }), [scriptLevel, say]);
+  const value = useMemo(() => ({ scriptLevel, kana, speak: say }), [scriptLevel, kana, say]);
   return <JaContext.Provider value={value}>{children}</JaContext.Provider>;
 }

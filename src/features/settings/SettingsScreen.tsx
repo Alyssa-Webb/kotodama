@@ -97,8 +97,18 @@ export function SettingsScreen() {
       </section>
       <section className="card stack">
         <h2>Script</h2>
+        <Seg
+          label="Kana"
+          value={st.kana}
+          onChange={(v) => set('kana', v)}
+          options={[
+            { v: 'hiragana', label: 'Hiragana' },
+            { v: 'katakana', label: 'Katakana' },
+          ]}
+        />
         <p className="small muted">
-          Lessons show hiragana with romaji above it. Katakana and kanji come in later chapters.
+          Kanji always show their reading above them. Switch to katakana to practise reading it
+          everywhere hiragana would appear.
         </p>
         <p className="big-ja center">
           <JaText text="{水|みず}をください。" />

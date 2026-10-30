@@ -24,6 +24,8 @@ export const SettingsSchema = z.object({
   difficulty: DifficultySchema.default('hardcore'),
   dailyGoalXp: z.number().int().positive().default(100),
   scriptLevel: ScriptLevelSchema.default('furigana'),
+  /** Show katakana wherever the app would show hiragana (kana practice switch). */
+  kana: z.enum(['hiragana', 'katakana']).default('hiragana'),
   theme: z.enum(['system', 'light', 'dark']).default('system'),
   voiceMode: VoiceModeSchema.default('alternate-lesson'),
   slowAudio: z.boolean().default(false),

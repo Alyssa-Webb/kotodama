@@ -5,10 +5,12 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { ScriptLevel } from '../../schema/save';
 import { parseFurigana, toReading } from '../../engine/text/furigana';
-import { kanaToRomaji } from '../../engine/text/kana';
+import { hiraganaToKatakana, kanaToRomaji } from '../../engine/text/kana';
 
 export interface JaSettings {
   scriptLevel: ScriptLevel;
+  /** 'katakana' shows katakana wherever hiragana would appear (furigana included). */
+  kana?: 'hiragana' | 'katakana';
   speak: (text: string, opts?: { role?: string; slow?: boolean }) => void;
 }
 
@@ -28,10 +30,11 @@ interface JaProps {
 export function JaText({ text, level, className }: JaProps) {
   const ctx = useJa();
   const lv = level ?? ctx.scriptLevel;
+  const k = ctx.kana === 'katakana' ? hiraganaToKatakana : (x: string) => x;
   const { tokens } = parseFurigana(text);
   let content: ReactNode;
   if (lv === 'romaji') {
-    const kana = toReading(text);
+    const kana = k(toReading(text));
     content = (
       <ruby>
         {kana}
@@ -39,15 +42,15 @@ export function JaText({ text, level, className }: JaProps) {
       </ruby>
     );
   } else if (lv === 'kana') {
-    content = toReading(text);
+    content = k(toReading(text));
   } else {
     content = tokens.map((t, i) => {
-      if (t.kind === 'text') return <span key={i}>{t.text}</span>;
+      if (t.kind === 'text') return <span key={i}>{k(t.text)}</span>;
       if (t.kind === 'slot') return <span key={i}>＿＿</span>;
       return lv === 'furigana' ? (
         <ruby key={i}>
           {t.base}
-          <rt>{t.reading}</rt>
+          <rt>{k(t.reading)}</rt>
         </ruby>
       ) : (
         <span key={i}>{t.base}</span>
@@ -61,37 +64,20 @@ export function JaText({ text, level, className }: JaProps) {
   );
 }
 
-/**
- * Romaji for a UI label ("{長|なが}い{髪|かみ}" → "nagai kami"). UI labels are romaji only while
- * lessons teach hiragana; a space goes before each kanji word so compounds stay readable.
- */
-export function romajiOf(text: string): string {
-  const { tokens } = parseFurigana(text);
-  const words: string[] = [];
-  for (const t of tokens) {
-    // …but the honorific お/ご stays on its word (お{守|まも}り → "omamori").
-    const prev = words.join('').split(' ').pop() ?? '';
-    if (t.kind === 'ruby' && prev && !/^[おご]$/.test(prev)) words.push(' ');
-    words.push(t.kind === 'ruby' ? t.reading : t.kind === 'text' ? t.text : '');
-  }
-  return kanaToRomaji(words.join('')).replace(/\s+/g, ' ').trim();
-}
-
-/** A Japanese UI label shown in romaji; tapping it says the Japanese. */
+/** A Japanese UI label (furigana, centred by its card); tapping it says the Japanese. */
 export function UiJa({ text, className }: { text: string; className?: string }) {
   const { speak } = useJa();
   return (
     <button
       type="button"
       className={`speakable ui-ja ${className ?? ''}`}
-      lang="ja-Latn"
       onClick={(e) => {
         e.stopPropagation();
         speak(text);
       }}
-      aria-label={`Play: ${romajiOf(text)}`}
+      aria-label={`Play: ${toReading(text)}`}
     >
-      {romajiOf(text)}
+      <JaText text={text} />
     </button>
   );
 }
