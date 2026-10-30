@@ -190,7 +190,13 @@ export function Avatar({
   return (
     <svg viewBox="0 0 100 120" width={size} height={size * 1.2} role="img" aria-label="Your avatar">
       {order.map((slot) => {
-        const part = avatarParts.find((p) => p.id === eq[slot]);
+        // Base, outfit and hair always show something: the first free option when none is set.
+        const id =
+          eq[slot] ??
+          (slot === 'base' || slot === 'outfit' || slot === 'hair'
+            ? avatarParts.find((p) => p.slot === slot && p.free)?.id
+            : undefined);
+        const part = avatarParts.find((p) => p.id === id);
         if (!part) return null;
         return (
           <g key={slot}>

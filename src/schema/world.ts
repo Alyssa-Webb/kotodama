@@ -102,6 +102,8 @@ export type Boss = z.infer<typeof BossSchema>;
 export const AVATAR_SLOTS = [
   'base',
   'outfit',
+  // Hair is its own slot (drawn over the outfit collar, under headgear) so players can restyle.
+  'hair',
   'headgear',
   'held',
   'companion',

@@ -10,8 +10,9 @@ import { AvatarActor } from './AvatarActor';
 import { useSave } from '../hooks';
 
 const LABEL: Record<AvatarSlot, string> = {
-  base: 'Base',
+  base: 'Body',
   outfit: 'Outfit',
+  hair: 'Hair',
   headgear: 'Headgear',
   held: 'Held item',
   companion: 'Companion',
@@ -64,7 +65,7 @@ export function AvatarScreen() {
         )}
       </section>
       <div className="seg" role="tablist" aria-label="Slots">
-        {AVATAR_SLOTS.filter((s) => s !== 'belt' && s !== 'base').map((s) => (
+        {AVATAR_SLOTS.filter((s) => s !== 'belt').map((s) => (
           <button
             key={s}
             role="tab"
@@ -113,7 +114,7 @@ export function AvatarScreen() {
         </div>
       ) : (
         <div className="shop-grid">
-          {slot !== 'outfit' && (
+          {slot !== 'outfit' && slot !== 'base' && slot !== 'hair' && (
             <button className="card card-tight" onClick={() => equip(slot, undefined)}>
               None
             </button>
