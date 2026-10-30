@@ -448,3 +448,435 @@ export function NopperaboArt({ state }: { state: EnemyState }): ReactNode {
     </g>
   );
 }
+
+/**
+ * 3. ROKUROKUBI — ろくろ首 (ろくろくび)
+ * Folklore: From Edo-period kaidan and Toriyama Sekien's Gazu Hyakki Yagyō. By day she appears
+ * as an ordinary woman in a kimono with a Shimada mage coiffure and ornamental kanzashi; by night
+ * her neck stretches in a long serpentine loop while she sleeps or haunts the lantern-lit streets.
+ */
+export function RokurokubiArt({ state }: { state: EnemyState }): ReactNode {
+  const skin = '#f1d3b6';
+  const skinShade = 'color-mix(in srgb, #f1d3b6 72%, var(--c-hud-bg))';
+  const skinWarm = 'color-mix(in srgb, #f1d3b6 66%, var(--c-accent))';
+  const kimonoShade = 'var(--c-lacquer)';
+  const kimonoMain = 'var(--c-accent)';
+  const hairBack = 'color-mix(in srgb, var(--c-hud-bg) 90%, var(--c-secondary))';
+  const hairFront = 'color-mix(in srgb, var(--c-hud-bg) 80%, var(--c-secondary))';
+
+  return (
+    <g className={`rokurokubi-root rokurokubi-${state}`}>
+      {/* Grounded shadow on the market street */}
+      <g className="enemy-shadow rokurokubi-shadow">
+        <ellipse cx="56" cy="92" rx="25" ry="5.2" fill="var(--c-shadow)" />
+        <ellipse cx="56" cy="92" rx="15" ry="2.8" fill="var(--c-shadow)" />
+      </g>
+
+      <g className="enemy-body rokurokubi-body">
+        {/* Floating night-lantern spirit wisp */}
+        <g className="rokurokubi-wisp">
+          <path d="M86 25 C90 30 90 36 86 38 C82 36 82 30 86 25 Z" fill={kimonoShade} />
+          <path d="M86 23 C89.5 28 89.5 33.5 86 35.5 C82.5 33.5 82.5 28 86 23 Z" fill="var(--c-glow)" />
+          <circle cx="86" cy="31" r="1.8" fill={SHINE} />
+        </g>
+
+        {/* Tabi feet & lacquered zōri sandals on the ground line (y ≈ 88) */}
+        <rect x="46" y="82" width="10.5" height="8.5" rx="4.2" fill={INK} />
+        <rect x="46" y="80" width="10.5" height="7.5" rx="3.8" fill="var(--c-lacquer)" />
+        <rect x="47" y="78" width="8.5" height="7.5" rx="3.8" fill={CREAM} />
+        <rect x="61.5" y="82" width="10.5" height="8.5" rx="4.2" fill={INK} />
+        <rect x="61.5" y="80" width="10.5" height="7.5" rx="3.8" fill="var(--c-lacquer)" />
+        <rect x="62.5" y="78" width="8.5" height="7.5" rx="3.8" fill={CREAM} />
+
+        {/* Chibi kimono torso & draping furisode sleeves (+3 shade lip + main fill) */}
+        <path
+          d="M40 66 C40 56 48 51 59 51 C70 51 78 56 78 66 L75 84 Q59 89 43 84 Z"
+          fill={kimonoShade}
+        />
+        <path
+          d="M40 63 C40 53 48 48 59 48 C70 48 78 53 78 63 L75 81 Q59 86 43 81 Z"
+          fill={kimonoMain}
+        />
+        {/* White juban collar, golden brocade obi & obijime cord */}
+        <path d="M51 48 L59 61 L67 48 Z" fill={CREAM} />
+        <rect x="43" y="67" width="32" height="8.5" rx="3.8" fill="var(--c-gold)" />
+        <rect x="43" y="65" width="32" height="7.5" rx="3.5" fill="var(--c-glow)" />
+        <rect x="45" y="68" width="28" height="2.2" rx="1.1" fill={kimonoShade} />
+        <ellipse
+          cx="49"
+          cy="56"
+          rx="5.5"
+          ry="2"
+          transform="rotate(-16 49 56)"
+          fill="var(--c-hud-ink)"
+          opacity="0.38"
+        />
+        {/* Left & right kimono sleeves with dainty chibi hands */}
+        <path d="M33 66 C33 57 38 52 46 54 L47 72 C39 74 33 71 33 66 Z" fill={kimonoShade} />
+        <path d="M33 63 C33 54 38 49 46 51 L47 69 C39 71 33 68 33 63 Z" fill={kimonoMain} />
+        <circle cx="42" cy="60.5" r="4.4" fill={skinShade} />
+        <circle cx="42" cy="59" r="4.4" fill={skin} />
+        <path d="M85 66 C85 57 80 52 72 54 L71 72 C79 74 85 71 85 66 Z" fill={kimonoShade} />
+        <path d="M85 63 C85 54 80 49 72 51 L71 69 C79 71 85 68 85 63 Z" fill={kimonoMain} />
+        <circle cx="76" cy="60.5" r="4.4" fill={skinShade} />
+        <circle cx="76" cy="59" r="4.4" fill={skin} />
+
+        {/* Long looping neck & head group (scales around collar 60,58 to stretch toward player) */}
+        <g className="rokurokubi-neck">
+          {/* Serpentine looping neck (+3 shade lip + main skin curve + soft highlight) */}
+          <path
+            d="M55 57 C59 73 37 78 32 61 C28 49 34 42 36 37 L45 39 C43 44 38 50 41 58 C44 67 52 65 51 54 Z"
+            fill={skinShade}
+          />
+          <path
+            d="M55 54 C59 70 37 75 32 58 C28 46 34 39 36 34 L45 36 C43 41 38 47 41 55 C44 64 52 62 51 51 Z"
+            fill={skin}
+          />
+          <path
+            d="M35 55 C33 48 36 42 39 38"
+            stroke="var(--c-hud-ink)"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.4"
+          />
+
+          {/* Oversized chibi head with Edo Shimada mage coiffure & kanzashi */}
+          <g className="rokurokubi-head">
+            {/* Back hair & arched Edo mage topknot with vermilion tegara ribbon */}
+            <ellipse cx="40" cy="11.5" rx="11" ry="6.5" fill={hairBack} />
+            <ellipse cx="40" cy="9.5" rx="11" ry="6.2" fill={hairFront} />
+            <rect x="33" y="12.5" width="14" height="3.5" rx="1.75" fill="var(--c-accent)" />
+            <path
+              d="M15 32 C14 15 24 9 40 9 C56 9 66 15 65 32 C65 39 62 44 58 46 L22 46 C18 44 15 39 15 32 Z"
+              fill={hairBack}
+            />
+
+            {/* Golden blossom kanzashi hairpin with dangling shidare drops */}
+            <g className="rokurokubi-kanzashi">
+              <path d="M47 18 L63 8" stroke="var(--c-gold)" strokeWidth="3.2" strokeLinecap="round" />
+              <path d="M47 17 L63 7" stroke="var(--c-glow)" strokeWidth="2.2" strokeLinecap="round" />
+              <circle cx="61" cy="9.5" r="4.5" fill={kimonoShade} />
+              <circle cx="61" cy="8" r="4.5" fill="var(--c-petal)" />
+              <circle cx="61" cy="8" r="1.8" fill="var(--c-glow)" />
+              <circle cx="65" cy="14" r="2" fill="var(--c-accent)" />
+              <circle cx="65" cy="18.5" r="1.8" fill="var(--c-petal)" />
+            </g>
+
+            {/* Ears & chibi face (+3 shade lip + main skin) */}
+            <circle cx="17.5" cy="34.5" r="5" fill={skinShade} />
+            <circle cx="17.5" cy="33" r="5" fill={skin} />
+            <circle cx="18" cy="33.5" r="2.2" fill={skinWarm} />
+            <circle cx="62.5" cy="34.5" r="5" fill={skinShade} />
+            <circle cx="62.5" cy="33" r="5" fill={skin} />
+            <circle cx="62" cy="33.5" r="2.2" fill={skinWarm} />
+
+            <rect x="18" y="16" width="44" height="33" rx="17" fill={skinShade} />
+            <rect x="18" y="13" width="44" height="33" rx="17" fill={skin} />
+
+            {/* Swept Edo bangs & hair shine */}
+            <path
+              d="M16 29 C16 14 26 9 40 9 C54 9 64 14 64 29 C61 23 55 19 49 22 C45 17 35 17 31 22 C25 19 19 23 16 29 Z"
+              fill={hairFront}
+            />
+            <path
+              d="M25 16 C33 12 46 12 54 15.5"
+              stroke="color-mix(in srgb, var(--c-secondary) 52%, var(--c-hud-ink))"
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.65"
+            />
+            <ellipse
+              cx="29"
+              cy="22"
+              rx="7.5"
+              ry="3"
+              transform="rotate(-16 29 22)"
+              fill="var(--c-hud-ink)"
+              opacity="0.42"
+            />
+
+            {/* Blush, brows, eyes & mischievous smile */}
+            <ellipse cx="25.5" cy="38.5" rx="4.2" ry="2.4" fill="var(--c-petal)" opacity="0.78" />
+            <ellipse cx="54.5" cy="38.5" rx="4.2" ry="2.4" fill="var(--c-petal)" opacity="0.78" />
+            <path
+              d={
+                state === 'hit' || state === 'defeat'
+                  ? 'M26 27.5 L35 24.5 M54 27.5 L45 24.5'
+                  : 'M26 25.5 Q31 23.5 35 27 M54 25.5 Q49 23.5 45 27'
+              }
+              stroke={INK}
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <YokaiEyes
+              state={state}
+              x1={31}
+              x2={49}
+              y={33.5}
+              iris="var(--c-secondary)"
+              pupil={INK}
+              hurtStroke={INK}
+            />
+            <ellipse cx="40" cy="37.5" rx="1.2" ry="0.8" fill={skinWarm} />
+            {state === 'attack' ? (
+              <path d="M35 40 C35 45.5 45 45.5 45 40 Z" fill={kimonoShade} />
+            ) : (
+              <path
+                d="M36 40.5 Q40 43.5 44 40.5"
+                stroke={INK}
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                fill="none"
+              />
+            )}
+          </g>
+        </g>
+      </g>
+
+      <YokaiDamageFlash
+        renderSilhouette={(fill) => (
+          <g className="enemy-body rokurokubi-body">
+            <rect x="46" y="78" width="10.5" height="12.5" rx="4.2" fill={fill} />
+            <rect x="61.5" y="78" width="10.5" height="12.5" rx="4.2" fill={fill} />
+            <path
+              d="M33 66 C33 53 45 48 59 48 C73 48 85 53 85 66 L75 84 Q59 89 43 84 Z"
+              fill={fill}
+            />
+            <g className="rokurokubi-neck">
+              <path
+                d="M55 57 C59 73 37 78 32 61 C28 49 34 42 36 34 L45 36 C43 44 38 50 41 58 C44 67 52 65 51 51 Z"
+                fill={fill}
+              />
+              <g className="rokurokubi-head">
+                <ellipse cx="40" cy="10.5" rx="11" ry="7" fill={fill} />
+                <rect x="15" y="9" width="50" height="40" rx="19" fill={fill} />
+              </g>
+            </g>
+          </g>
+        )}
+      />
+    </g>
+  );
+}
+
+/**
+ * 4. BAKENEKO — 化け猫 (ばけねこ)
+ * Folklore: An aged housecat that transforms into a yokai (famous from the Nabeshima kaidan and
+ * Edo ukiyo-e). In folklore it stands on its hind legs with a knotted tenugui towel on its head,
+ * splits its tail in two (nekomata-style), and steals into rooms at night to lick lamp oil.
+ */
+export function BakenekoArt({ state }: { state: EnemyState }): ReactNode {
+  const furShade = 'color-mix(in srgb, var(--c-gold) 58%, var(--c-hud-bg))';
+  const furMain = 'color-mix(in srgb, var(--c-glow) 78%, var(--c-accent))';
+  const spotDark = 'color-mix(in srgb, var(--c-hud-bg) 82%, var(--c-secondary))';
+  const haoriShade = 'color-mix(in srgb, var(--c-secondary) 60%, var(--c-hud-bg))';
+
+  return (
+    <g className={`bakeneko-root bakeneko-${state}`}>
+      {/* Grounded shadow on the market street */}
+      <g className="enemy-shadow bakeneko-shadow">
+        <ellipse cx="50" cy="92" rx="24" ry="5.2" fill="var(--c-shadow)" />
+        <ellipse cx="50" cy="92" rx="14" ry="2.8" fill="var(--c-shadow)" />
+      </g>
+
+      <g className="enemy-body bakeneko-body">
+        {/* Forked twin cat tail (nekomata-style) behind torso */}
+        <g className="bakeneko-tail">
+          <path
+            d="M58 78 C74 79 89 67 89 48 C89 41 81 40 79 47 C77 55 71 66 58 72 Z"
+            fill={furShade}
+          />
+          <path
+            d="M58 75 C74 76 89 64 89 45 C89 38 81 37 79 44 C77 52 71 63 58 69 Z"
+            fill={furMain}
+          />
+          <path
+            d="M60 80 C77 85 95 77 95 61 C95 54 87 54 85 60 C82 67 74 74 60 74 Z"
+            fill={furShade}
+          />
+          <path
+            d="M60 77 C77 82 95 74 95 58 C95 51 87 51 85 57 C82 64 74 71 60 71 Z"
+            fill={furMain}
+          />
+          <circle cx="84" cy="43" r="4" fill={CREAM} />
+          <circle cx="90" cy="57" r="4" fill={spotDark} />
+        </g>
+
+        {/* Dancing hind legs & white-socked cat paws on the ground line (y ≈ 88) */}
+        <ellipse cx="39" cy="89" rx="8" ry="4.2" fill={furShade} />
+        <ellipse cx="39" cy="87" rx="8" ry="4" fill={CREAM} />
+        <ellipse cx="61" cy="89" rx="8" ry="4.2" fill={furShade} />
+        <ellipse cx="61" cy="87" rx="8" ry="4" fill={CREAM} />
+
+        {/* Upright cat torso in an Edo chōnin haori vest & red suzu bell collar */}
+        <rect x="31" y="57" width="38" height="29" rx="15" fill={furShade} />
+        <rect x="31" y="54" width="38" height="28" rx="14.5" fill={furMain} />
+        <path d="M40 58 C40 74 60 74 60 58 Z" fill={CREAM} />
+        <path
+          d="M31 61 C31 54 38 53 42 54 L41 78 L31 76 Z M69 61 C69 54 62 53 58 54 L59 78 L69 76 Z"
+          fill={haoriShade}
+        />
+        <path
+          d="M31 58.5 C31 52 38 51 42 52 L41 75.5 L31 73.5 Z M69 58.5 C69 52 62 51 58 52 L59 75.5 L69 73.5 Z"
+          fill="var(--c-secondary)"
+        />
+        <rect x="34" y="55" width="32" height="5.5" rx="2.75" fill="var(--c-lacquer)" />
+        <rect x="34" y="53.5" width="32" height="5" rx="2.5" fill="var(--c-accent)" />
+        <circle cx="50" cy="60" r="5" fill="var(--c-gold)" />
+        <circle cx="50" cy="58.5" r="4.8" fill="var(--c-glow)" />
+        <circle cx="50" cy="59.8" r="1.5" fill={INK} />
+
+        {/* Left beckoning/swiping cat paw with sharp claws */}
+        <g className="bakeneko-arm-l">
+          <ellipse cx="23" cy="60" rx="7.5" ry="5.5" fill={furShade} />
+          <ellipse cx="23" cy="57.5" rx="7.5" ry="5.2" fill={CREAM} />
+          <circle cx="22" cy="58" r="2.4" fill="var(--c-petal)" />
+          <path d="M16 55 L13 53 M16 58 L12.5 57.5 M17 61 L14 62" stroke={CREAM} strokeWidth="2.2" strokeLinecap="round" />
+        </g>
+
+        {/* Right paw balancing a ceramic lamp-oil dish (abura-zara) with flickering flame */}
+        <g className="bakeneko-arm-r">
+          <ellipse cx="75" cy="60" rx="7" ry="5.2" fill={furShade} />
+          <ellipse cx="75" cy="57.5" rx="7" ry="5" fill={CREAM} />
+          <ellipse cx="83" cy="56" rx="10.5" ry="4.2" fill="var(--c-lacquer)" />
+          <ellipse cx="83" cy="54" rx="10.5" ry="4" fill="var(--c-accent)" />
+          <ellipse cx="83" cy="53.5" rx="7.5" ry="2.5" fill="var(--c-glow)" />
+          <g className="bakeneko-flame">
+            <path d="M83 41 C87.5 46.5 87.5 52 83 53 C78.5 52 78.5 46.5 83 41 Z" fill="var(--c-glow)" />
+            <circle cx="83" cy="49" r="2.3" fill={SHINE} />
+          </g>
+        </g>
+
+        {/* Pointed cat ears with calico patches */}
+        <path d="M21 34 C16 19 20 8 29 9 C36 10 41 19 43 31 Z" fill={furShade} />
+        <path d="M21 31.5 C16 17 20 6 29 7 C36 8 41 17 43 29 Z" fill={furMain} />
+        <path d="M25 29 C23 21 25 14 29 14 C33 14 36 20 37 27 Z" fill="var(--c-petal)" />
+        <path d="M79 34 C84 19 80 8 71 9 C64 10 59 19 57 31 Z" fill={furShade} />
+        <path d="M79 31.5 C84 17 80 6 71 7 C64 8 59 17 57 29 Z" fill={spotDark} />
+        <path d="M75 29 C77 21 75 14 71 14 C67 14 64 20 63 27 Z" fill="var(--c-petal)" />
+
+        {/* Big chibi calico cat head (+3 shade lip + main fur + cream cheeks + calico spot) */}
+        <path
+          d="M18 45 C18 28 30 20 50 20 C70 20 82 28 82 45 C82 56 70 61 50 61 C30 61 18 56 18 45 Z"
+          fill={furShade}
+        />
+        <path
+          d="M18 42 C18 25 30 17 50 17 C70 17 82 25 82 42 C82 53 70 58 50 58 C30 58 18 53 18 42 Z"
+          fill={furMain}
+        />
+        <path d="M54 18 C68 19 79 26 81 38 C73 40 62 35 54 18 Z" fill={spotDark} />
+        <path
+          d="M19 44 C24 40 33 42 40 48 C45 52 55 52 60 48 C67 42 76 40 81 44 C78 53 67 58 50 58 C33 58 22 53 19 44 Z"
+          fill={CREAM}
+        />
+        <ellipse
+          cx="34"
+          cy="27"
+          rx="8.5"
+          ry="3.4"
+          transform="rotate(-18 34 27)"
+          fill={SHINE}
+          opacity="0.65"
+        />
+
+        {/* Edo tenugui cotton towel draped on head with knotted ends on the right */}
+        <path
+          d="M25 27 C27 17 37 13 50 13 C63 13 73 17 75 27 Q50 23 25 27 Z"
+          fill={haoriShade}
+        />
+        <path
+          d="M25 24.5 C27 15 37 11 50 11 C63 11 73 15 75 24.5 Q50 20.5 25 24.5 Z"
+          fill={CREAM}
+        />
+        <circle cx="38" cy="18" r="2" fill="var(--c-secondary)" />
+        <circle cx="50" cy="16.5" r="2" fill="var(--c-secondary)" />
+        <circle cx="62" cy="18" r="2" fill="var(--c-secondary)" />
+        <g className="bakeneko-tenugui-knot">
+          <path d="M71 22 L84 17 L82 24 Z M71 24 L85 27 L80 32 Z" fill={haoriShade} />
+          <path d="M71 20 L84 15 L82 22 Z M71 22.5 L85 25 L80 30 Z" fill={CREAM} />
+          <circle cx="72" cy="22" r="3.5" fill="var(--c-secondary)" />
+        </g>
+
+        {/* Cat face: blush, whiskers, brows, YokaiEyes & fanged oil-licking grin */}
+        <ellipse cx="27" cy="48.5" rx="4.2" ry="2.3" fill="var(--c-petal)" opacity="0.8" />
+        <ellipse cx="73" cy="48.5" rx="4.2" ry="2.3" fill="var(--c-petal)" opacity="0.8" />
+        <path
+          d="M15 43 L24 44.5 M15 48 L24 47.5 M85 43 L76 44.5 M85 48 L76 47.5"
+          stroke={INK}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <path
+          d={
+            state === 'hit' || state === 'defeat'
+              ? 'M30 34 L42 30.5 M70 34 L58 30.5'
+              : 'M30 31.5 Q36 29 42 33 M70 31.5 Q64 29 58 33'
+          }
+          stroke={INK}
+          strokeWidth="2.8"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <YokaiEyes
+          state={state}
+          x1={36}
+          x2={64}
+          y={41}
+          iris="var(--c-glow)"
+          pupil={INK}
+          hurtStroke={INK}
+        />
+        <polygon points="47,46 53,46 50,49.5" fill="var(--c-petal)" />
+        <path d="M42 50.5 C44 56.5 56 56.5 58 50.5 Z" fill="var(--c-lacquer)" />
+        <path d="M44 50.5 L46 54 L48 50.5 Z M52 50.5 L54 54 L56 50.5 Z" fill={CREAM} />
+        <ellipse cx="50" cy="54" rx="4" ry="2.2" fill="var(--c-petal)" />
+
+        {/* Signature attack FX: glowing claw slash arcs toward the lower-left player */}
+        <g className="bakeneko-claws">
+          <path
+            d="M32 46 C20 54 12 66 8 78 M38 52 C26 60 18 72 14 84 M44 58 C32 66 24 78 20 90"
+            stroke="var(--c-glow)"
+            strokeWidth="4"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M32 46 C20 54 12 66 8 78 M38 52 C26 60 18 72 14 84 M44 58 C32 66 24 78 20 90"
+            stroke={SHINE}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </g>
+      </g>
+
+      <YokaiDamageFlash
+        renderSilhouette={(fill) => (
+          <g className="enemy-body bakeneko-body">
+            <g className="bakeneko-tail">
+              <path d="M58 78 C74 79 89 67 89 45 C89 38 81 37 79 44 C77 52 71 63 58 69 Z" fill={fill} />
+              <path d="M60 80 C77 85 95 77 95 58 C95 51 87 51 85 57 C82 64 74 71 60 71 Z" fill={fill} />
+            </g>
+            <ellipse cx="39" cy="88" rx="8" ry="4.5" fill={fill} />
+            <ellipse cx="61" cy="88" rx="8" ry="4.5" fill={fill} />
+            <rect x="31" y="53" width="38" height="33" rx="15" fill={fill} />
+            <g className="bakeneko-arm-l">
+              <ellipse cx="23" cy="58.5" rx="8" ry="6" fill={fill} />
+            </g>
+            <g className="bakeneko-arm-r">
+              <ellipse cx="75" cy="58.5" rx="7.5" ry="6" fill={fill} />
+              <ellipse cx="83" cy="55" rx="10.5" ry="4.5" fill={fill} />
+            </g>
+            <path d="M21 34 C16 17 20 6 29 7 C36 8 41 17 43 31 Z" fill={fill} />
+            <path d="M79 34 C84 17 80 6 71 7 C64 8 59 17 57 31 Z" fill={fill} />
+            <rect x="18" y="11" width="64" height="50" rx="22" fill={fill} />
+          </g>
+        )}
+      />
+    </g>
+  );
+}
+

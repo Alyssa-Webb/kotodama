@@ -506,6 +506,12 @@
 .rokurokubi-hit .rokurokubi-neck {
   animation: rokurokubi-neck-recoil 220ms ease-out both;
 }
+.rokurokubi-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+.rokurokubi-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
+}
 .rokurokubi-attack .rokurokubi-neck {
   animation: rokurokubi-neck-stretch 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
@@ -686,6 +692,12 @@
 }
 .bakeneko-hit .bakeneko-body.enemy-body {
   animation: bakeneko-hit 220ms ease-out both;
+}
+.bakeneko-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+.bakeneko-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
 }
 .bakeneko-attack .bakeneko-arm-l {
   animation: bakeneko-paw-swipe 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
