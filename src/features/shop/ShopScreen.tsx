@@ -17,6 +17,9 @@ import { KobanIcon } from '../../foundations/art/icons';
 import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { useSave, useStats } from '../hooks';
+import { ToyView } from '../../foundations/toy/ToyView';
+import { toy } from '../../foundations/toy/toy';
+import { centerOf, fx } from '../../foundations/fx/fx';
 import type { ConsumableId } from '../../schema/world';
 
 const ERR: Record<PurchaseError, string> = {
@@ -41,7 +44,15 @@ export function ShopScreen() {
   const [prize, setPrize] = useState<string | null>(null);
   const rules = economy.difficulty[save.settings.difficulty]!;
 
-  const purchase = (id: ConsumableId) => {
+  const [opening, setOpening] = useState(false);
+
+  /** Every purchase is a moment: the toy leaps out of its card under a gold ring. */
+  const celebrate = (id: string, from: Element | null) => {
+    fx.slot('purchase', from);
+    void toy.reveal(id, centerOf(from));
+  };
+
+  const purchase = (id: ConsumableId, from: Element | null) => {
     const r = buy(useGame.getState().save!, gctx(), shop, id);
     if ('error' in r) return setMsg(ERR[r.error]);
     // The item's Japanese name joins your reviews as a new word.
@@ -56,6 +67,7 @@ export function ShopScreen() {
       next = applyKintsugi(next, gctx(), false) ?? next;
     commit(next);
     playSfx('coin');
+    celebrate(id, from);
     setMsg(
       id === 'kintsugi' && rules.kintsugiTrial
         ? 'Kintsugi bought. Pass the Redemption Trial to mend your streak.'
@@ -64,11 +76,12 @@ export function ShopScreen() {
     if (id === 'kintsugi' && rules.kintsugiTrial) navigate('/trial');
   };
 
-  const charm = (id: string) => {
+  const charm = (id: string, from: Element | null) => {
     const r = buyCharm(useGame.getState().save!, gctx(), shop, id);
     if ('error' in r) return setMsg(ERR[r.error]);
     commit(r.save);
     playSfx('coin');
+    celebrate(id, from);
     setMsg('Charm bought. Equip it on the Avatar screen.');
   };
 
@@ -99,10 +112,19 @@ export function ShopScreen() {
             : s.gacha.owned,
       },
     });
-    playSfx('kiai');
-    setPrize(
-      r.prize ? `${r.prize.name}|${r.prize.en}|${r.prize.gacha}|${r.duplicate ? 'dup' : ''}` : null,
-    );
+    // The pull is already saved; the capsule only decides when the player gets to see it.
+    const text = r.prize
+      ? `${r.prize.name}|${r.prize.en}|${r.prize.gacha}|${r.duplicate ? 'dup' : ''}`
+      : null;
+    setPrize(null);
+    setOpening(true);
+    playSfx('tap');
+    void toy.capsule(r.prize?.gacha ?? 'common', () => {
+      playSfx('kiai');
+      fx.slot('gacha.open');
+      setPrize(text);
+      setOpening(false);
+    });
   };
 
   return (
@@ -140,6 +162,7 @@ export function ShopScreen() {
               (c.id === 'kintsugi' && !kintsugiAvailable(save, gctx()));
             return (
               <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
+                <ToyView item={c.id} size={88} />
                 <div className="row spread">
                   <span className="big-ja">
                     <SpeakableJa text={c.name} />
@@ -151,7 +174,7 @@ export function ShopScreen() {
                 <button
                   className="btn btn-small btn-gold"
                   disabled={disabled || stats.koban < price}
-                  onClick={() => purchase(c.id)}
+                  onClick={(e) => purchase(c.id, e.currentTarget.closest('.card'))}
                   aria-label={`Buy ${c.en} for ${price} koban`}
                 >
                   <KobanIcon size={18} /> {price}
@@ -166,6 +189,7 @@ export function ShopScreen() {
         <div className="grid-2">
           {shop.charms.map((c) => (
             <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
+              <ToyView item={c.id} size={88} />
               <span className="big-ja">
                 <SpeakableJa text={c.name} />
               </span>
@@ -177,7 +201,7 @@ export function ShopScreen() {
                 <button
                   className="btn btn-small btn-gold"
                   disabled={stats.koban < c.price}
-                  onClick={() => charm(c.id)}
+                  onClick={(e) => charm(c.id, e.currentTarget.closest('.card'))}
                 >
                   <KobanIcon size={18} /> {c.price}
                 </button>
@@ -205,11 +229,16 @@ export function ShopScreen() {
         </p>
         <button
           className="btn btn-indigo"
-          disabled={stats.tokens < economy.gachapon.cost}
+          disabled={stats.tokens < economy.gachapon.cost || opening}
           onClick={spin}
         >
           Spin ({economy.gachapon.cost} token)
         </button>
+        {opening && (
+          <p className="center small muted" role="status">
+            Tap the capsule to open it!
+          </p>
+        )}
         {prize && (
           <p className="card card-accent card-tight center" role="status">
             <span className="big-ja">

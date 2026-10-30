@@ -46,11 +46,36 @@ export function OutOfHearts({ onBack }: { onBack: () => void }) {
   );
 }
 
-export function Stars({ n, size = 44 }: { n: number; size?: number }) {
+export function Stars({
+  n,
+  size = 44,
+  celebrate,
+}: {
+  n: number;
+  size?: number;
+  celebrate?: boolean;
+}) {
+  const els = useRef<(HTMLSpanElement | null)[]>([]);
+  // Each earned star lands as a chunky 3D toy with its own thud, one beat apart.
+  useEffect(() => {
+    if (!celebrate) return;
+    const timers = [1, 2, 3]
+      .filter((i) => i <= n)
+      .map((i) =>
+        window.setTimeout(
+          () => {
+            fx.slot('star.earn', els.current[i - 1]);
+            playSfx('tap');
+          },
+          tokens.motion.stamp + i * 280,
+        ),
+      );
+    return () => timers.forEach((t) => window.clearTimeout(t));
+  }, [celebrate, n]);
   return (
     <div className="stars" aria-label={`${n} of 3 stars`} role="img">
       {[1, 2, 3].map((i) => (
-        <span key={i} className="star">
+        <span key={i} className="star" ref={(el) => void (els.current[i - 1] = el)}>
           <StarIcon size={size} on={i <= n} />
         </span>
       ))}
@@ -121,7 +146,7 @@ export function ResultCard({
         />
         <p className="eyebrow">{failed ? 'Lesson failed' : 'Complete'}</p>
         <h1>{title}</h1>
-        {stars !== undefined && !failed && <Stars n={stars} />}
+        {stars !== undefined && !failed && <Stars n={stars} celebrate />}
         {stars !== undefined && !failed && GRADE[stars as 0 | 1 | 2 | 3] && (
           <span className="hanko" lang="ja" aria-label={`Grade ${GRADE[stars as 0 | 1 | 2 | 3]}`}>
             {GRADE[stars as 0 | 1 | 2 | 3]}

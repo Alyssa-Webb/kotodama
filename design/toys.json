@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "palette": {
+    "light": {
+      "skyTop": "#ffb48a",
+      "skyBottom": "#ffe9c9",
+      "fog": "#fff4e2",
+      "ground": "#a8c86a",
+      "groundEdge": "#6f9a3f",
+      "bambooLight": "#8fd16a",
+      "bambooDark": "#4f9a3a",
+      "leaf": "#6cc24a",
+      "leafDeep": "#3f8f35",
+      "bush": "#58b548",
+      "bushDeep": "#2f7d3a",
+      "vermilion": "#e8452c",
+      "wood": "#c98a4f",
+      "woodDark": "#7d4a2a",
+      "roof": "#3c3f5c",
+      "paper": "#fff6e3",
+      "ink": "#2a2430",
+      "gold": "#ffc23d",
+      "stone": "#b9b4ab",
+      "lanternGlow": "#ffd36b",
+      "white": "#fffdf8",
+      "matcha": "#9ccc65",
+      "indigo": "#3f5fb0",
+      "sakura": "#ffaec9"
+    },
+    "dark": {
+      "skyTop": "#141a45",
+      "skyBottom": "#4a3470",
+      "fog": "#3a3660",
+      "ground": "#2f4f3a",
+      "groundEdge": "#1d3527",
+      "bambooLight": "#4f9a5a",
+      "bambooDark": "#2b6340",
+      "leaf": "#3f8f4f",
+      "leafDeep": "#215a36",
+      "bush": "#2f7a45",
+      "bushDeep": "#1a4a2c",
+      "vermilion": "#e2533a",
+      "wood": "#9a6a42",
+      "woodDark": "#5a3420",
+      "roof": "#25263d",
+      "paper": "#f6e9cf",
+      "ink": "#16131b",
+      "gold": "#ffcf5a",
+      "stone": "#7d7a86",
+      "lanternGlow": "#ffc95e",
+      "white": "#f3ede2",
+      "matcha": "#7fb25a",
+      "indigo": "#5a7ad0",
+      "sakura": "#f08fb0"
+    }
+  },
+  "plastic": {
+    "roughness": 0.34,
+    "clearcoat": 1,
+    "clearcoatRoughness": 0.1,
+    "envIntensity": 0.9
+  },
+  "gate": {
+    "duration": 1700,
+    "fadeOut": 320,
+    "lowTierSpeed": 1.8
+  },
+  "scenes": {
+    "lesson": ["grove", "shrine", "grove", "dojo"],
+    "dojo": "dojo",
+    "boss": "dojo",
+    "rush": "shrine"
+  },
+  "rarity": {
+    "common": "#fff6e3",
+    "rare": "#6fa8ff",
+    "legendary": "#ffc23d"
+  }
+}

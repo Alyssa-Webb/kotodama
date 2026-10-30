@@ -23,10 +23,26 @@ import { RushScreen } from '../features/modes/RushScreen';
 import { BossScreen } from '../features/boss/BossScreen';
 import { TrialScreen } from '../features/shop/TrialScreen';
 import { FxLayer } from '../foundations/fx/FxLayer';
+import { TrainingWorld } from '../foundations/toy/TrainingWorld';
+import { prewarmToys } from '../foundations/toy/toy';
+import { haptic } from '../foundations/haptics/haptics';
+
+/** Every plastic button answers a press with a tick, in the same frame it squashes. */
+function installPressTicks() {
+  window.addEventListener(
+    'pointerdown',
+    (e) => {
+      const el = (e.target as Element | null)?.closest?.('.btn, .tab, .card-link');
+      if (el && !(el as HTMLButtonElement).disabled) haptic('tick');
+    },
+    { capture: true, passive: true },
+  );
+}
 
 function FullScreen() {
   return (
     <div className="full-screen">
+      <TrainingWorld />
       <Outlet />
     </div>
   );
@@ -73,11 +89,13 @@ export function App() {
   useEffect(() => {
     initVoices();
     installAudioUnlock();
+    installPressTicks();
     void init(dexieRepos());
   }, [init]);
 
   useEffect(() => {
     if (!ready) return;
+    prewarmToys();
     // Day rollover while the app stays open, and save before the app is backgrounded.
     const tick = window.setInterval(settle, 60_000);
     const onVis = () => (document.visibilityState === 'hidden' ? void flush() : settle());

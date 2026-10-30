@@ -29,6 +29,8 @@ export const SettingsSchema = z.object({
   slowAudio: z.boolean().default(false),
   autoplayAudio: z.boolean().default(true),
   soundEffects: z.boolean().default(true),
+  /** Vibration on taps and big moments (light ticks on iPhone, full patterns on Android). */
+  haptics: z.boolean().default(true),
   respectSilentSwitch: z.boolean().default(false),
   rolloverHour: z.number().int().min(0).max(23).default(4),
   installGuideDismissed: z.boolean().default(false),

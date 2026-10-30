@@ -1,4 +1,6 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
+import { toy } from '../../foundations/toy/toy';
+import { TIER_NAMES, type Tier } from '../../foundations/toy/quality';
 import { changeDifficulty, DIFFICULTY_LOCK_DAYS } from '../../engine/game';
 import { DIFFICULTIES } from '../../schema/economy';
 import type { Settings } from '../../schema/save';
@@ -31,6 +33,52 @@ function Seg<T extends string | number | boolean>({
         </button>
       ))}
     </div>
+  );
+}
+
+type QualityMode = 'auto' | Tier;
+
+/** 3D quality lives on this device only (not in the save or backups). */
+function QualitySection() {
+  const [info, setInfo] = useState<{ tier: Tier; mode: QualityMode } | null>(null);
+  useEffect(() => {
+    let live = true;
+    void toy.quality().then((q) => live && q && setInfo({ tier: q.tier, mode: q.mode }));
+    return () => {
+      live = false;
+    };
+  }, []);
+  return (
+    <section className="card stack">
+      <h2>3D quality</h2>
+      {info ? (
+        <>
+          <Seg<string>
+            label="3D quality"
+            value={String(info.mode)}
+            onChange={(v) => {
+              const mode: QualityMode = v === 'auto' ? 'auto' : (Number(v) as Tier);
+              void toy.setQuality(mode);
+              setInfo({ tier: mode === 'auto' ? info.tier : mode, mode });
+            }}
+            options={[
+              { v: 'auto', label: 'Auto' },
+              ...TIER_NAMES.map((n, i) => ({
+                v: String(i),
+                label: n[0]!.toUpperCase() + n.slice(1),
+              })),
+            ]}
+          />
+          <p className="muted small">
+            {info.mode === 'auto'
+              ? `Auto keeps motion smooth on this device (now: ${TIER_NAMES[info.tier]}).`
+              : 'Fixed on this device. Auto lowers effects instead of dropping frames.'}
+          </p>
+        </>
+      ) : (
+        <p className="muted small">3D effects are not available on this device.</p>
+      )}
+    </section>
   );
 }
 
@@ -167,10 +215,20 @@ export function SettingsScreen() {
           />{' '}
           Sound effects
         </label>
+        <label className="row">
+          <input
+            type="checkbox"
+            style={{ width: 24, minHeight: 24 }}
+            checked={st.haptics}
+            onChange={(e) => set('haptics', e.target.checked)}
+          />{' '}
+          Haptics
+        </label>
         <p className="muted small">
           Until a pack is voiced on the Mac, your device's Japanese voice reads every line.
         </p>
       </section>
+      <QualitySection />
       <section className="card stack">
         <h2>Theme</h2>
         <Seg

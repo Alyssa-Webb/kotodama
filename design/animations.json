@@ -1,47 +1,69 @@
 {
-  "version": 2,
+  "version": 3,
+  "haptics": {
+    "tick": [8],
+    "tap": [14],
+    "thud": [32],
+    "pop": [10, 30, 18],
+    "double": [12, 70, 12],
+    "rise": [10, 60, 14, 50, 20, 40, 30],
+    "heartbeat": [24, 110, 36],
+    "roll": [6, 50, 6, 44, 6, 38, 6, 32, 6, 26, 8]
+  },
   "slots": {
     "answer.correct": {
       "fallback": "pulse",
       "particles": "sparks",
       "flash": "none",
-      "shake": false
+      "shake": false,
+      "haptic": "thud",
+      "toy": "stamp"
     },
     "answer.incorrect": {
       "fallback": "shake",
-      "particles": "ink",
-      "flash": "red",
-      "shake": true
+      "particles": "none",
+      "flash": "none",
+      "shake": true,
+      "haptic": "double",
+      "toy": "crack"
     },
     "combo.up": {
       "fallback": "pop",
       "particles": "sparks",
       "flash": "none",
-      "shake": false
+      "shake": false,
+      "haptic": "rise",
+      "toy": "lanterns"
     },
     "lesson.complete": {
       "fallback": "rise",
       "particles": "confetti",
       "flash": "gold",
-      "shake": false
+      "shake": false,
+      "haptic": "rise",
+      "toy": "hanabi"
     },
     "node.unlock": {
       "fallback": "pop",
       "particles": "sparks",
       "flash": "none",
-      "shake": false
+      "shake": false,
+      "haptic": "pop"
     },
     "streak.extend": {
       "fallback": "pop",
       "particles": "embers",
       "flash": "gold",
-      "shake": false
+      "shake": false,
+      "haptic": "pop"
     },
     "level.up": {
       "fallback": "rise",
       "particles": "confetti",
       "flash": "gold",
-      "shake": false
+      "shake": false,
+      "haptic": "rise",
+      "toy": "hanabi"
     },
     "mascot.idle": {
       "fallback": "float",
@@ -53,31 +75,75 @@
       "fallback": "pop",
       "particles": "embers",
       "flash": "gold",
-      "shake": true
+      "shake": true,
+      "haptic": "heartbeat",
+      "toy": "lanterns"
     },
     "heart.lost": {
       "fallback": "shake",
       "particles": "shards",
-      "flash": "red",
-      "shake": true
+      "flash": "none",
+      "shake": false
     },
     "coin.earned": {
       "fallback": "pop",
-      "particles": "coins",
+      "particles": "none",
       "flash": "none",
-      "shake": false
+      "shake": false,
+      "haptic": "roll",
+      "toy": "coins"
     },
     "boss.hit": {
       "fallback": "shake",
       "particles": "sparks",
       "flash": "white",
-      "shake": true
+      "shake": true,
+      "haptic": "thud",
+      "toy": "stamp"
     },
     "boss.attack": {
       "fallback": "shake",
       "particles": "ink",
       "flash": "red",
-      "shake": true
+      "shake": true,
+      "haptic": "double"
+    },
+    "lesson.start": {
+      "fallback": "none",
+      "particles": "none",
+      "flash": "none",
+      "shake": false,
+      "haptic": "rise"
+    },
+    "star.earn": {
+      "fallback": "pop",
+      "particles": "sparks",
+      "flash": "none",
+      "shake": false,
+      "haptic": "thud",
+      "toy": "stars"
+    },
+    "purchase": {
+      "fallback": "pop",
+      "particles": "coins",
+      "flash": "none",
+      "shake": false,
+      "haptic": "pop"
+    },
+    "gacha.open": {
+      "fallback": "pop",
+      "particles": "confetti",
+      "flash": "white",
+      "shake": false,
+      "haptic": "pop"
+    },
+    "boss.defeat": {
+      "fallback": "rise",
+      "particles": "confetti",
+      "flash": "gold",
+      "shake": true,
+      "haptic": "heartbeat",
+      "toy": "shatter"
     }
   }
 }

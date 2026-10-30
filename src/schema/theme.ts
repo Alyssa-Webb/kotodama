@@ -78,6 +78,11 @@ export const ANIMATION_SLOTS = [
   'coin.earned',
   'boss.hit',
   'boss.attack',
+  'lesson.start',
+  'star.earn',
+  'purchase',
+  'gacha.open',
+  'boss.defeat',
 ] as const;
 export type AnimationSlot = (typeof ANIMATION_SLOTS)[number];
 
@@ -96,8 +101,40 @@ export const ParticlesSchema = z.enum([
 ]);
 export type ParticlesKind = z.infer<typeof ParticlesSchema>;
 
+/** Named haptic patterns (the vocabulary every screen shares). */
+export const HAPTICS = [
+  'tick',
+  'tap',
+  'thud',
+  'pop',
+  'double',
+  'rise',
+  'heartbeat',
+  'roll',
+] as const;
+export const HapticSchema = z.enum(['none', ...HAPTICS]);
+export type HapticName = (typeof HAPTICS)[number];
+
+/** 3D plastic-toy effects played by the toy stage (src/foundations/toy). */
+export const ToyEffectSchema = z.enum([
+  'none',
+  'stamp',
+  'crack',
+  'lanterns',
+  'hanabi',
+  'coins',
+  'shatter',
+  'stars',
+]);
+export type ToyEffect = z.infer<typeof ToyEffectSchema>;
+
 export const AnimationsSchema = z.object({
   version: z.number().int().positive(),
+  /**
+   * Vibration patterns in ms, alternating on/off (navigator.vibrate format). iPhone Safari
+   * plays one light tick per "on" segment; Android plays the pattern as written.
+   */
+  haptics: z.record(z.enum(HAPTICS), z.array(z.number().int().nonnegative()).min(1)).optional(),
   slots: z.partialRecord(
     z.enum(ANIMATION_SLOTS),
     z.object({
@@ -109,6 +146,10 @@ export const AnimationsSchema = z.object({
       /** Full-screen flash color. */
       flash: z.enum(['none', 'gold', 'red', 'white']).default('none'),
       shake: z.boolean().default(false),
+      /** Haptic pattern fired with the slot. */
+      haptic: HapticSchema.default('none'),
+      /** 3D toy effect fired with the slot (skipped with reduced motion). */
+      toy: ToyEffectSchema.default('none'),
     }),
   ),
 });

@@ -126,6 +126,11 @@ export function BossScreen() {
     }
     commit(s);
     playSfx(won ? 'complete' : 'fail');
+    // The boss bursts into plastic shards where it stood, then the sky fills with hanabi.
+    if (won) {
+      fx.slot('boss.defeat', bossEl.current);
+      window.setTimeout(() => fx.slot('level.up'), 450);
+    }
     fx.banner(
       won ? 'やった！' : '…',
       won ? 'gold' : 'red',

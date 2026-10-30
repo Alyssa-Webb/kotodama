@@ -3,6 +3,7 @@ import { JaContext } from '../foundations/japanese/Ja';
 import { pickGuide, speak } from '../foundations/audio/voice';
 import { setRespectSilentSwitch, setSoundEffects } from '../foundations/audio/sfx';
 import { applyThemePreference } from '../foundations/theme/theme';
+import { setHaptics } from '../foundations/haptics/haptics';
 import { useGame } from '../foundations/store/gameStore';
 
 let lineCounter = 0;
@@ -20,6 +21,7 @@ export function Providers({ children }: { children: ReactNode }) {
     applyThemePreference(settings.theme);
     setSoundEffects(settings.soundEffects);
     setRespectSilentSwitch(settings.respectSilentSwitch);
+    setHaptics(settings.haptics);
   }, [settings]);
 
   const say = useCallback(
