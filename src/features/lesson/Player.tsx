@@ -149,7 +149,7 @@ export function Player({
       if (kiaiStarted) {
         playSfx('kiai');
         fx.slot('kiai.start', card.current);
-        fx.banner('気合！', 'gold', 'Double rewards');
+        fx.banner('FOCUS!', 'gold', '気合 (kiai) · double XP');
       } else if ('ja' in q.solution && q.shape !== 'match' && q.shape !== 'dialogue')
         speak(q.solution.ja);
       const auto = (q.shape === 'match' || q.shape === 'dialogue') && result.correct;
@@ -259,7 +259,7 @@ export function Player({
           <span style={{ width: `${charge * 100}%` }} />
         </div>
         <span className={`kiai-label ${kiai ? 'on' : ''}`} lang="ja">
-          {kiai ? '気合！×2' : '気合'}
+          {kiai ? 'Focus ×2 XP' : 'Focus'}
         </span>
         {state.combo >= 2 && (
           <span key={state.combo} className="combo-chip">

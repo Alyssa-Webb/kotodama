@@ -103,6 +103,7 @@ export function BattleStage({ state }: { state: SessionState }) {
   return (
     <div ref={root} className={`battle ${walking ? 'battle-walking' : ''}`} aria-hidden="true">
       <div className="battle-road" />
+      <div className="battle-verge" />
       {!(allDown && foe !== 'defeat') && (
         <div className="battle-foe">
           <div className="battle-hp" style={{ '--hp': hp / maxHp } as CSSProperties}>

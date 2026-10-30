@@ -12,26 +12,67 @@
   );
 }
 .battle-road {
+  /* A dirt path winding into the woods: a trapezoid of earth between grass verges. */
   position: absolute;
-  left: -50%;
-  right: -50%;
-  bottom: -40px;
-  height: 130px;
-  background: repeating-linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-ink)) 0 14px,
-    color-mix(in srgb, var(--c-panel-edge) 75%, var(--c-panel)) 14px 60px
-  );
-  transform: perspective(160px) rotateX(58deg);
-  transform-origin: 50% 0;
-  opacity: 0.9;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  background:
+    radial-gradient(
+      4px 3px at 30% 70%,
+      color-mix(in srgb, var(--c-ink) 30%, transparent) 60%,
+      transparent
+    ),
+    radial-gradient(
+      3px 2px at 62% 40%,
+      color-mix(in srgb, var(--c-ink) 25%, transparent) 60%,
+      transparent
+    ),
+    radial-gradient(
+      5px 3px at 48% 88%,
+      color-mix(in srgb, var(--c-ink) 28%, transparent) 60%,
+      transparent
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-mountain-near)),
+      color-mix(in srgb, var(--c-panel-edge) 80%, var(--c-panel))
+    );
+  clip-path: polygon(44% 0, 56% 0, 96% 100%, 4% 100%);
 }
-.battle-walking .battle-road {
-  animation: battle-road 0.6s linear infinite;
+/* Grass tufts and leaves on the verges scroll past while walking; pausing (not removing) the
+   animation means the ground never snaps back when the avatar stops. */
+.battle-verge {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  /* one tile taller than it shows, so a one-tile translate loops seamlessly */
+  height: calc(62% + 70px);
+  background-image:
+    radial-gradient(
+      6px 9px at 10px 20px,
+      color-mix(in srgb, var(--c-success) 85%, var(--c-ink)) 60%,
+      transparent
+    ),
+    radial-gradient(5px 8px at 44px 52px, var(--c-success) 60%, transparent),
+    radial-gradient(4px 4px at 70px 30px, var(--c-petal) 60%, transparent);
+  background-size: 90px 70px;
+  -webkit-mask: linear-gradient(90deg, black 30%, transparent 42%, transparent 58%, black 70%);
+  mask: linear-gradient(90deg, black 30%, transparent 42%, transparent 58%, black 70%);
+  animation: battle-verge 1.1s linear infinite;
+  animation-play-state: paused;
 }
-@keyframes battle-road {
+.battle-walking .battle-verge {
+  animation-play-state: running;
+}
+@keyframes battle-verge {
+  from {
+    transform: translateY(-70px);
+  }
   to {
-    translate: 0 -60px;
+    transform: translateY(0);
   }
 }
 .battle-foe {
@@ -81,7 +122,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .battle-road,
+  .battle-verge,
   .battle-hero .avatar-motion {
     animation: none !important;
   }
