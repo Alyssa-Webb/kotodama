@@ -14,6 +14,30 @@ const CREAM = 'var(--c-hud-ink)';
 const SHINE = 'var(--c-coin-shine)';
 
 /** Shared two-eye expression helper for two-eyed yokai (inkling, kitsune, kappa). */
+function spiralEyePath(cx: number, cy: number, dir: 1 | -1 = 1): string {
+  return [
+    `M ${cx} ${cy}`,
+    `C ${cx + dir * 1.8} ${cy - 1.8}, ${cx + dir * 3} ${cy + 1.2}, ${cx} ${cy + 2.6}`,
+    `C ${cx - dir * 3.2} ${cy + 2.8}, ${cx - dir * 4.4} ${cy - 2}, ${cx} ${cy - 4.2}`,
+    `C ${cx + dir * 4.6} ${cy - 4.4}, ${cx + dir * 6} ${cy + 2.4}, ${cx + dir * 1.2} ${cy + 5.8}`,
+    `C ${cx - dir * 3.8} ${cy + 6.4}, ${cx - dir * 6.5} ${cy + 0.5}, ${cx - dir * 4.8} ${cy - 4}`,
+  ].join(' ');
+}
+
+/** Shared two-row damage flash wrapper (white surface flash + red danger flash). */
+function YokaiDamageFlash({ renderSilhouette }: { renderSilhouette: (fill: string) => ReactNode }) {
+  return (
+    <>
+      <g className="enemy-damage-flash enemy-damage-flash-white" fill="var(--c-surface)">
+        {renderSilhouette('var(--c-surface)')}
+      </g>
+      <g className="enemy-damage-flash enemy-damage-flash-red" fill="var(--c-danger)">
+        {renderSilhouette('var(--c-danger)')}
+      </g>
+    </>
+  );
+}
+
 function YokaiEyes({
   state,
   x1,
@@ -21,6 +45,7 @@ function YokaiEyes({
   y,
   iris = 'var(--c-glow)',
   pupil = INK,
+  hurtStroke = CREAM,
 }: {
   state: EnemyState;
   x1: number;
@@ -28,12 +53,53 @@ function YokaiEyes({
   y: number;
   iris?: string;
   pupil?: string;
+  hurtStroke?: string;
 }) {
-  if (state === 'hit' || state === 'defeat') {
+  if (state === 'hit') {
     return (
-      <g stroke={CREAM} strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none">
-        <path d={`M${x1 - 5} ${y - 4} L${x1 + 4} ${y} L${x1 - 5} ${y + 4}`} />
-        <path d={`M${x2 + 5} ${y - 4} L${x2 - 4} ${y} L${x2 + 5} ${y + 4}`} />
+      <g>
+        {/* Squeezed > < wince eyes */}
+        <g
+          stroke={hurtStroke}
+          strokeWidth="3.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        >
+          <path d={`M${x1 - 5.5} ${y - 4.2} L${x1 + 4} ${y} L${x1 - 5.5} ${y + 4.2}`} />
+          <path d={`M${x2 + 5.5} ${y - 4.2} L${x2 - 4} ${y} L${x2 + 5.5} ${y + 4.2}`} />
+        </g>
+        {/* Chibi sweat drop near temple */}
+        <path
+          d={`M${x2 + 9.5} ${y - 9} C${x2 + 12} ${y - 5} ${x2 + 12} ${y - 2} ${x2 + 9.5} ${y - 2} C${x2 + 7} ${y - 2} ${x2 + 7} ${y - 5} ${x2 + 9.5} ${y - 9} Z`}
+          fill="var(--c-secondary-soft)"
+          stroke="var(--c-secondary)"
+          strokeWidth="1"
+        />
+        <circle cx={x2 + 8.8} cy={y - 4.2} r="0.9" fill={SHINE} />
+      </g>
+    );
+  }
+  if (state === 'defeat') {
+    return (
+      <g>
+        {/* Swirly spiral KO eyes */}
+        <circle cx={x1} cy={y} r="6.6" fill={CREAM} opacity="0.92" />
+        <circle cx={x2} cy={y} r="6.6" fill={CREAM} opacity="0.92" />
+        <path
+          d={spiralEyePath(x1, y, 1)}
+          stroke={INK}
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <path
+          d={spiralEyePath(x2, y, -1)}
+          stroke={INK}
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          fill="none"
+        />
       </g>
     );
   }
@@ -184,14 +250,26 @@ function InklingArt({ state }: { state: EnemyState }) {
         {/* Cute-menacing face */}
         <ellipse cx="29" cy="56" rx="4.5" ry="2.6" fill="var(--c-petal)" opacity="0.75" />
         <ellipse cx="69" cy="56" rx="4.5" ry="2.6" fill="var(--c-petal)" opacity="0.75" />
-        {/* Furrowed golden brows */}
+        {/* Furrowed / pained golden brows */}
         <path
-          d="M31 41 L43 45 M67 41 L55 45"
+          d={
+            state === 'hit' || state === 'defeat'
+              ? 'M31 44 L43 40 M67 44 L55 40'
+              : 'M31 41 L43 45 M67 41 L55 45'
+          }
           stroke="var(--c-glow)"
           strokeWidth="3.2"
           strokeLinecap="round"
         />
-        <YokaiEyes state={state} x1={37} x2={61} y={50} iris="var(--c-glow)" pupil={INK} />
+        <YokaiEyes
+          state={state}
+          x1={37}
+          x2={61}
+          y={50}
+          iris="var(--c-glow)"
+          pupil={INK}
+          hurtStroke={CREAM}
+        />
         {/* Cheeky fanged imp grin */}
         <path
           d={state === 'attack' ? 'M37 59 C37 69 61 69 61 59 Z' : 'M39 60 C39 67 59 67 59 60 Z'}
@@ -200,6 +278,48 @@ function InklingArt({ state }: { state: EnemyState }) {
         <ellipse cx="49" cy="64" rx="5.5" ry="2.6" fill="var(--c-accent)" />
         <path d="M41.5 60 L43.5 63.5 L45.5 60 Z M52.5 60 L54.5 63.5 L56.5 60 Z" fill={CREAM} />
       </g>
+
+      <YokaiDamageFlash
+        renderSilhouette={(fill) => (
+          <>
+            <g className="enemy-part-tail" style={{ transformOrigin: '64px 66px' }}>
+              <path
+                d="M62 67 L82 32"
+                stroke={fill}
+                strokeWidth="8.5"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <path
+                d="M77 38 L83 28"
+                stroke={fill}
+                strokeWidth="9.5"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <path d="M82 30 C75 22 79 10 91 9 C93 19 91 29 82 30 Z" fill={fill} />
+            </g>
+            <path
+              d="M50 15 C54 15 57 19 54 24 C69 29 79 44 79 62 C79 73 73 79 66 79 C62 79 60 75 56 75 C53 75 52 79 48 79 C44 79 43 75 40 75 C36 75 34 79 30 79 C23 79 19 73 19 62 C19 44 31 28 45 22 C44 17 47 15 50 15 Z"
+              fill={fill}
+            />
+            <path
+              d="M50 11 C54 11 57 15 54 20 C69 25 79 40 79 58 C79 69 73 75 66 75 C62 75 60 71 56 71 C53 71 52 75 48 75 C44 75 43 71 40 71 C36 71 34 75 30 75 C23 75 19 69 19 58 C19 40 31 24 45 18 C44 13 47 11 50 11 Z"
+              fill={fill}
+              stroke={fill}
+              strokeWidth="1.5"
+            />
+            <g className="enemy-part-arm-l" style={{ transformOrigin: '24px 56px' }}>
+              <ellipse cx="18" cy="58" rx="6.5" ry="5.5" fill={fill} />
+              <ellipse cx="18" cy="56" rx="6.5" ry="5" fill={fill} />
+            </g>
+            <g className="enemy-part-arm-r" style={{ transformOrigin: '74px 56px' }}>
+              <ellipse cx="78" cy="58" rx="6.5" ry="5.5" fill={fill} />
+              <ellipse cx="78" cy="56" rx="6.5" ry="5" fill={fill} />
+            </g>
+          </>
+        )}
+      />
     </>
   );
 }
@@ -374,10 +494,57 @@ function GlitchlingArt({ state }: { state: EnemyState }) {
           <rect x="26" y="37" width="48" height="24" rx="10" fill={INK} />
 
           {/* Glitching eyes inside visor */}
-          {state === 'hit' || state === 'defeat' ? (
-            <g stroke="var(--c-glow)" strokeWidth="3" strokeLinecap="round" fill="none">
-              <path d="M33 44 L41 52 M41 44 L33 52" />
-              <path d="M59 44 L67 52 M67 44 L59 52" />
+          {state === 'hit' ? (
+            <g>
+              {/* Pained digital brows + squeezed > < pixel visor eyes */}
+              <path
+                d="M32 40.5 L41 42.5 M68 40.5 L59 42.5"
+                stroke="var(--c-accent)"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <path
+                d="M32 43.5 L42 47.5 L32 51.5"
+                stroke="var(--c-glow)"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+              <path
+                d="M68 43.5 L58 47.5 L68 51.5"
+                stroke="var(--c-accent)"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+              {/* Tiny sweat drop at right temple */}
+              <path
+                d="M74 37 C76.5 41 76.5 44 74 44 C71.5 44 71.5 41 74 37 Z"
+                fill="var(--c-secondary-soft)"
+                stroke="var(--c-secondary)"
+                strokeWidth="1"
+              />
+            </g>
+          ) : state === 'defeat' ? (
+            <g>
+              {/* Swirly spiral KO eyes inside visor */}
+              <path
+                d={spiralEyePath(37.5, 46.8, 1)}
+                stroke="var(--c-glow)"
+                strokeWidth="2.3"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <path
+                d={spiralEyePath(62, 46.8, -1)}
+                stroke="var(--c-accent)"
+                strokeWidth="2.3"
+                strokeLinecap="round"
+                fill="none"
+              />
             </g>
           ) : (
             <g className="enemy-blink" style={{ transformOrigin: '50px 47px' }}>
@@ -403,6 +570,44 @@ function GlitchlingArt({ state }: { state: EnemyState }) {
           />
         </g>
       </g>
+
+      <YokaiDamageFlash
+        renderSilhouette={(fill) => (
+          <>
+            <g className="enemy-orb-1" transform="rotate(-16 14 31)">
+              <rect x="5" y="20.5" width="18" height="23.5" rx="5" fill={fill} />
+            </g>
+            <g className="enemy-orb-2" transform="rotate(18 86 62)">
+              <rect x="77" y="50.5" width="18" height="23.5" rx="5" fill={fill} />
+            </g>
+            <g className="enemy-part-foot">
+              <rect x="29" y="68.5" width="17" height="13.5" rx="4.5" fill={fill} />
+              <rect x="54" y="68.5" width="17" height="13.5" rx="4.5" fill={fill} />
+            </g>
+            <g className="enemy-part-horns">
+              <path
+                d="M36 23 L30 17 L34 13 L28 9"
+                stroke={fill}
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+              <path
+                d="M64 23 L70 17 L66 13 L72 9"
+                stroke={fill}
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+            </g>
+            <g transform="rotate(-2 50 47)">
+              <rect x="21" y="19" width="58" height="57" rx="15" fill={fill} />
+            </g>
+          </>
+        )}
+      />
     </>
   );
 }
@@ -521,21 +726,50 @@ function KasaObakeArt({ state }: { state: EnemyState }) {
 
         {/* Giant Cyclops Eye */}
         <path
-          d="M36 28 Q50 34 64 28"
+          d={
+            state === 'hit' || state === 'defeat'
+              ? 'M36 26 L50 32 L64 26'
+              : 'M36 28 Q50 34 64 28'
+          }
           stroke={INK}
           strokeWidth="4"
           strokeLinecap="round"
+          strokeLinejoin="round"
           fill="none"
         />
-        {state === 'hit' || state === 'defeat' ? (
+        {state === 'hit' ? (
           <g>
             <circle cx="50" cy="42" r="12.5" fill="var(--c-lacquer)" />
             <circle cx="50" cy="40.5" r="12" fill={CREAM} />
+            {/* Squeezed > < pinch inside giant cyclops eye */}
             <path
-              d="M43 36 L57 45 M57 36 L43 45"
+              d="M40 35.5 L48 40.5 L40 45.5 M60 35.5 L52 40.5 L60 45.5 M47 40.5 H53"
               stroke={INK}
-              strokeWidth="4"
+              strokeWidth="3.5"
               strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+            {/* Flying sweat drop */}
+            <path
+              d="M67 28 C69.8 32.5 69.8 36 67 36 C64.2 36 64.2 32.5 67 28 Z"
+              fill="var(--c-secondary-soft)"
+              stroke="var(--c-secondary)"
+              strokeWidth="1.2"
+            />
+            <circle cx="66.2" cy="33.5" r="1" fill={SHINE} />
+          </g>
+        ) : state === 'defeat' ? (
+          <g>
+            <circle cx="50" cy="42" r="12.5" fill="var(--c-lacquer)" />
+            <circle cx="50" cy="40.5" r="12" fill={CREAM} />
+            {/* Giant swirly spiral KO cyclops eye */}
+            <path
+              d="M50 40.5 C52.5 38 54.5 42 50 44 C45 44.5 43.5 37.5 50 34.5 C56.5 34 58.5 43.5 51.5 48 C44 49 40 39.5 43.5 33.5 C47.5 29.5 56 30.5 59.5 36.5"
+              stroke={INK}
+              strokeWidth="2.8"
+              strokeLinecap="round"
+              fill="none"
             />
           </g>
         ) : (
@@ -572,6 +806,35 @@ function KasaObakeArt({ state }: { state: EnemyState }) {
           />
         </g>
       </g>
+
+      <YokaiDamageFlash
+        renderSilhouette={(fill) => (
+          <>
+            <g className="enemy-part-foot" style={{ transformOrigin: '50px 72px' }}>
+              <rect x="44" y="65" width="12" height="21" rx="6" fill={fill} />
+              <rect x="39" y="86" width="5" height="6" rx="1.5" fill={fill} />
+              <rect x="56" y="86" width="5" height="6" rx="1.5" fill={fill} />
+              <rect x="35" y="82" width="30" height="7.5" rx="2.75" fill={fill} />
+            </g>
+            <g className="enemy-part-arm-l" style={{ transformOrigin: '20px 58px' }}>
+              <circle cx="14" cy="58.2" r="6" fill={fill} />
+            </g>
+            <g className="enemy-part-arm-r" style={{ transformOrigin: '80px 58px' }}>
+              <circle cx="86" cy="58.2" r="6" fill={fill} />
+            </g>
+            <rect x="46.5" y="6" width="7" height="12" rx="3.5" fill={fill} />
+            <path d="M39 18 C43 12 57 12 61 18 Z" fill={fill} />
+            <path
+              d="M13 66 C15 31 30 16 50 16 C70 16 85 31 87 66 C81 62 75 63 72 68 C66 63 59 63 56 69 C52 64 48 64 44 69 C41 63 34 63 28 68 C25 63 19 62 13 66 Z"
+              fill={fill}
+            />
+            <path
+              d="M13 62 C15 28 30 14 50 14 C70 14 85 28 87 62 C81 58 75 59 72 64 C66 59 59 59 56 65 C52 60 48 60 44 65 C41 59 34 59 28 64 C25 59 19 58 13 62 Z"
+              fill={fill}
+            />
+          </>
+        )}
+      />
     </>
   );
 }
@@ -692,18 +955,62 @@ function KitsuneArt({ state }: { state: EnemyState }) {
         <ellipse cx="29" cy="52" rx="4.5" ry="2.4" fill="var(--c-petal)" opacity="0.8" />
         <ellipse cx="71" cy="52" rx="4.5" ry="2.4" fill="var(--c-petal)" opacity="0.8" />
         <path
-          d="M31 37 Q37 35 43 39 M69 37 Q63 35 57 39"
+          d={
+            state === 'hit' || state === 'defeat'
+              ? 'M31 39 L43 35 M69 39 L57 35'
+              : 'M31 37 Q37 35 43 39 M69 37 Q63 35 57 39'
+          }
           stroke={INK}
           strokeWidth="3"
           strokeLinecap="round"
           fill="none"
         />
-        <YokaiEyes state={state} x1={37} x2={63} y={45} iris={INK} pupil="var(--c-glow)" />
+        <YokaiEyes
+          state={state}
+          x1={37}
+          x2={63}
+          y={45}
+          iris={INK}
+          pupil="var(--c-glow)"
+          hurtStroke={INK}
+        />
         {/* Button nose & fanged smirk */}
         <ellipse cx="50" cy="50" rx="3" ry="2" fill={INK} />
         <path d="M42 54 C44 60 56 60 58 54 Z" fill="var(--c-lacquer)" />
         <path d="M52 54 L54.2 58 L56.2 54 Z" fill={CREAM} />
       </g>
+
+      <YokaiDamageFlash
+        renderSilhouette={(fill) => (
+          <>
+            <g className="enemy-part-tail" style={{ transformOrigin: '60px 78px' }}>
+              <path
+                d="M58 82 C78 84 93 69 90 50 C88 40 78 38 74 45 C70 52 62 64 56 74 Z"
+                fill={fill}
+              />
+              <path
+                d="M58 79 C77 81 92 66 89 48 C87 38 77 36 73 43 C69 50 62 62 56 72 Z"
+                fill={fill}
+              />
+            </g>
+            <ellipse cx="38" cy="89" rx="8.5" ry="4.5" fill={fill} />
+            <ellipse cx="62" cy="89" rx="8.5" ry="4.5" fill={fill} />
+            <rect x="31" y="59" width="38" height="30" rx="15" fill={fill} />
+            <path d="M22 38 C16 22 20 9 29 9 C37 9 43 20 45 34 Z" fill={fill} />
+            <path d="M22 36 C16 20 20 7 29 7 C37 7 43 18 45 32 Z" fill={fill} />
+            <path d="M78 38 C84 22 80 9 71 9 C63 9 57 20 55 34 Z" fill={fill} />
+            <path d="M78 36 C84 20 80 7 71 7 C63 7 57 18 55 32 Z" fill={fill} />
+            <path
+              d="M17 48 C17 31 30 24 50 24 C70 24 83 31 83 48 C83 59 71 65 50 65 C29 65 17 59 17 48 Z"
+              fill={fill}
+            />
+            <path
+              d="M17 45 C17 28 30 21 50 21 C70 21 83 28 83 45 C83 56 71 62 50 62 C29 62 17 56 17 45 Z"
+              fill={fill}
+            />
+          </>
+        )}
+      />
     </>
   );
 }
@@ -800,12 +1107,24 @@ function KappaArt({ state }: { state: EnemyState }) {
         <ellipse cx="28" cy="49" rx="4.5" ry="2.5" fill="var(--c-petal)" opacity="0.8" />
         <ellipse cx="72" cy="49" rx="4.5" ry="2.5" fill="var(--c-petal)" opacity="0.8" />
         <path
-          d="M30 35 L42 38 M70 35 L58 38"
+          d={
+            state === 'hit' || state === 'defeat'
+              ? 'M30 37 L42 33 M70 37 L58 33'
+              : 'M30 35 L42 38 M70 35 L58 38'
+          }
           stroke={kelpShade}
           strokeWidth="3.4"
           strokeLinecap="round"
         />
-        <YokaiEyes state={state} x1={36} x2={64} y={43} iris={CREAM} pupil={INK} />
+        <YokaiEyes
+          state={state}
+          x1={36}
+          x2={64}
+          y={43}
+          iris={CREAM}
+          pupil={INK}
+          hurtStroke={INK}
+        />
 
         {/* Chibi duck beak */}
         <ellipse cx="50" cy="53" rx="11" ry="6.5" fill="var(--c-gold)" />
@@ -813,6 +1132,32 @@ function KappaArt({ state }: { state: EnemyState }) {
         <ellipse cx="50" cy="49.5" rx="11" ry="5" fill="var(--c-glow)" />
         <ellipse cx="47" cy="48" rx="4.5" ry="1.6" fill={SHINE} opacity="0.8" />
       </g>
+
+      <YokaiDamageFlash
+        renderSilhouette={(fill) => (
+          <>
+            <rect x="22" y="52" width="56" height="35" rx="16.5" fill={fill} />
+            <ellipse cx="37" cy="88.5" rx="10" ry="5" fill={fill} />
+            <ellipse cx="63" cy="88.5" rx="10" ry="5" fill={fill} />
+            <rect x="28" y="55" width="44" height="33" rx="16" fill={fill} />
+            <g className="enemy-part-arm-l" style={{ transformOrigin: '28px 64px' }}>
+              <ellipse cx="22" cy="66" rx="7" ry="6" fill={fill} />
+            </g>
+            <g className="enemy-part-arm-r" style={{ transformOrigin: '72px 64px' }}>
+              <g transform="rotate(18 82 54)">
+                <rect x="76" y="32" width="12" height="36" rx="6" fill={fill} />
+              </g>
+              <ellipse cx="76" cy="65" rx="7" ry="6" fill={fill} />
+            </g>
+            <rect x="19" y="22" width="62" height="44" rx="20.5" fill={fill} />
+            <path
+              d="M23 24 C23 16 35 13 50 13 C65 13 77 16 77 24 C73 28 68 25 65 28 C60 25 55 26 50 29 C45 26 40 25 35 28 C32 25 27 28 23 24 Z"
+              fill={fill}
+            />
+            <ellipse cx="50" cy="19.5" rx="20" ry="6.5" fill={fill} />
+          </>
+        )}
+      />
     </>
   );
 }
