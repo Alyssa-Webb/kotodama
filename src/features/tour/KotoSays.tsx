@@ -3,7 +3,7 @@
  * or at the town podium (mayor). Like the guide on Home, the counter cuts him off at the waist.
  * He waves hello when you arrive, then talks; tap him for another line (spoken aloud).
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Mascot, type MascotOutfit, type MascotPose } from '../../foundations/art/Mascot';
 import { ItemArt } from '../../foundations/art/ItemArt';
 import { JaText, useJa } from '../../foundations/japanese/Ja';
@@ -11,7 +11,6 @@ import { haptic } from '../../foundations/haptics/haptics';
 import type { KotoLine } from '../../schema/koto';
 import './tour.css';
 
-const TALK: MascotPose[] = ['talk', 'point', 'cheer', 'talk'];
 const WARES = ['onigiri', 'chochin', 'daruma', 'taiko', 'maneki'];
 
 export function KotoSays({
@@ -28,16 +27,34 @@ export function KotoSays({
   const { speak } = useJa();
   const line = lines[i % lines.length]!;
 
-  // A wave hello on arrival, then he starts talking.
+  // Talking lasts about as long as the line takes to read, then he settles back to idle.
+  const talkMs = (l: KotoLine) => Math.min(4500, 1200 + l.en.length * 45);
+  const timer = useRef(0);
+  const talk = (l: KotoLine) => {
+    window.clearTimeout(timer.current);
+    setPose('talk');
+    timer.current = window.setTimeout(() => setPose('idle'), talkMs(l));
+  };
+
+  // On arrival: wave hello, then say the first line, then idle.
   useEffect(() => {
-    const t = window.setTimeout(() => setPose('talk'), 1600);
-    return () => window.clearTimeout(t);
+    const t = window.setTimeout(() => {
+      talk(line);
+      speak(line.ja, { role: 'koto' });
+    }, 1500);
+    return () => {
+      window.clearTimeout(t);
+      window.clearTimeout(timer.current);
+    };
+    // once per visit
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /** Tap Koto or his bubble: the next line, spoken, with his talking animation. */
   const next = () => {
     const n = (i + 1) % lines.length;
     setI(n);
-    setPose(TALK[n % TALK.length]!);
+    talk(lines[n]!);
     haptic('tick');
     speak(lines[n]!.ja, { role: 'koto' });
   };
@@ -75,12 +92,20 @@ export function KotoSays({
           </span>
         )}
       </div>
-      <div key={i} className="koto-stage-bubble" role="status">
+      <button
+        key={i}
+        className="koto-stage-bubble"
+        onClick={next}
+        aria-label="Tap for Koto's next line"
+      >
         <p className="tour-ja" lang="ja">
           <JaText text={line.ja} />
         </p>
         <p className="tour-en">{line.en}</p>
-      </div>
+        <span className="koto-more" aria-hidden="true">
+          ▸
+        </span>
+      </button>
     </section>
   );
 }
