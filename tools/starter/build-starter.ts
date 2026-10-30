@@ -55,6 +55,7 @@ const items: Item[] = [
     romaji: 'mizu',
     pos: 'noun',
     meanings: ['water'],
+    tags: ['drink'],
   },
   {
     id: 'w.koohii',
@@ -63,6 +64,7 @@ const items: Item[] = [
     romaji: 'mugicha',
     pos: 'noun',
     meanings: ['barley tea'],
+    tags: ['drink'],
   },
   {
     id: 'w.ocha',
@@ -71,6 +73,7 @@ const items: Item[] = [
     romaji: 'ocha',
     pos: 'noun',
     meanings: ['tea', 'green tea'],
+    tags: ['drink'],
   },
   {
     id: 'w.koucha',
@@ -79,6 +82,7 @@ const items: Item[] = [
     romaji: 'koucha',
     pos: 'noun',
     meanings: ['black tea'],
+    tags: ['drink'],
   },
   {
     id: 'w.juusu',
@@ -87,6 +91,7 @@ const items: Item[] = [
     romaji: 'matcha',
     pos: 'noun',
     meanings: ['matcha', 'powdered green tea'],
+    tags: ['drink'],
   },
   {
     id: 'w.gyuunyuu',
@@ -95,6 +100,7 @@ const items: Item[] = [
     romaji: 'gyuunyuu',
     pos: 'noun',
     meanings: ['milk'],
+    tags: ['drink'],
   },
   // Ids are kept from the first (katakana) version so saved review cards still line up.
   {
@@ -104,6 +110,7 @@ const items: Item[] = [
     romaji: 'gohan',
     pos: 'noun',
     meanings: ['rice', 'meal'],
+    tags: ['food'],
   },
   {
     id: 'w.keeki',
@@ -112,6 +119,7 @@ const items: Item[] = [
     romaji: 'okashi',
     pos: 'noun',
     meanings: ['sweets', 'snack'],
+    tags: ['food'],
   },
   {
     id: 'w.sandoicchi',
@@ -120,6 +128,7 @@ const items: Item[] = [
     romaji: 'onigiri',
     pos: 'noun',
     meanings: ['rice ball'],
+    tags: ['food'],
   },
   {
     id: 'w.kissaten',

@@ -3,6 +3,7 @@
  * schema is versioned: bump SAVE_VERSION and add a migration in engine/save/migrate.ts.
  */
 import { z } from 'zod';
+import { TownStateSchema } from './town';
 import { DifficultySchema } from './economy';
 import { AvatarSlotSchema } from './world';
 
@@ -151,6 +152,8 @@ export const SaveStateSchema = z.object({
   notes: z.string(),
   lessonCount: z.number().int(),
   lastBackupAt: z.number().nullable(),
+  /** Town tycoon: the businesses your spirits run (older saves start empty). */
+  town: TownStateSchema.default({ buildings: {} }),
 });
 export type SaveState = z.infer<typeof SaveStateSchema>;
 

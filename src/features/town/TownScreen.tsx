@@ -6,6 +6,7 @@ import { districts, koto } from '../../foundations/world';
 import { KotoSays } from '../tour/KotoSays';
 import { useSave, useStats } from '../hooks';
 import { Scene } from '../../foundations/art/Scene';
+import { Tycoon } from './Tycoon';
 import './town.css';
 
 /** A placeholder building per district: roof style varies, windows glow when the district is lit. */
@@ -180,6 +181,7 @@ export function TownScreen() {
           </div>
         ))}
       </div>
+      <Tycoon states={states} />
       <div className="grid-2">
         {states.map((s) => (
           <div key={s.district.id} className="card card-tight stack" style={{ gap: 'var(--sp-1)' }}>

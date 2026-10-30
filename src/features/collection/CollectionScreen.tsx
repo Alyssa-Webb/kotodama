@@ -7,7 +7,7 @@ import { SpeakableJa } from '../../foundations/japanese/Ja';
 import { useSave, useStats } from '../hooks';
 import '../town/town.css';
 
-const STAGE_LABEL: Record<SpiritStage, string> = {
+export const STAGE_LABEL: Record<SpiritStage, string> = {
   egg: 'Egg',
   sprite: 'Sprite',
   guardian: 'Guardian',
@@ -15,7 +15,7 @@ const STAGE_LABEL: Record<SpiritStage, string> = {
   lost: 'Lost in the fog',
 };
 
-function SpiritArt({ stage, hue }: { stage: SpiritStage; hue: number }) {
+export function SpiritArt({ stage, hue }: { stage: SpiritStage; hue: number }) {
   const fill = `hsl(${hue} 60% 62%)`;
   if (stage === 'egg')
     return (

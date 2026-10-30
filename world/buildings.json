@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "capHours": 8,
+  "affinityBonus": 1.25,
+  "maxStaff": 4,
+  "rarities": [
+    { "id": "common", "en": "Common", "weight": 60, "power": 1 },
+    { "id": "rare", "en": "Rare", "weight": 28, "power": 1.4 },
+    { "id": "epic", "en": "Epic", "weight": 10, "power": 1.9 },
+    { "id": "legendary", "en": "Legendary", "weight": 2, "power": 2.6 }
+  ],
+  "skill": { "egg": 0.35, "sprite": 0.7, "guardian": 1, "fading": 0.4, "lost": 0.15 },
+  "buildings": [
+    {
+      "district": "station",
+      "en": "Ticket office",
+      "product": { "en": "Train tickets", "ja": "{切符|きっぷ}" },
+      "yenPerHour": 40,
+      "affinity": ["twin-spirit", "echo-spirit"],
+      "roles": ["Ticket clerk", "Porter", "Announcer", "Guide"],
+      "upgradeBase": 300,
+      "upgradeGrowth": 1.8,
+      "maxLevel": 5
+    },
+    {
+      "district": "cafe",
+      "en": "Kissaten",
+      "product": { "en": "Tea and sweets", "ja": "お{茶|ちゃ}とお{菓子|かし}" },
+      "yenPerHour": 60,
+      "affinity": ["food-spirit"],
+      "roles": ["Brewer", "Baker", "Server", "Cashier"],
+      "upgradeBase": 450,
+      "upgradeGrowth": 1.8,
+      "maxLevel": 5
+    },
+    {
+      "district": "shrine",
+      "en": "Charm stall",
+      "product": { "en": "Omamori charms", "ja": "お{守|まも}り" },
+      "yenPerHour": 80,
+      "affinity": ["glyph-sprite", "twin-spirit"],
+      "roles": ["Miko", "Charm maker", "Scribe", "Bell ringer"],
+      "upgradeBase": 600,
+      "upgradeGrowth": 1.8,
+      "maxLevel": 5
+    },
+    {
+      "district": "shopping",
+      "en": "Souvenir shop",
+      "product": { "en": "Souvenirs", "ja": "お{土産|みやげ}" },
+      "yenPerHour": 90,
+      "affinity": ["word-creature", "food-spirit"],
+      "roles": ["Shopkeeper", "Craftsman", "Caller", "Wrapper"],
+      "upgradeBase": 700,
+      "upgradeGrowth": 1.8,
+      "maxLevel": 5
+    },
+    {
+      "district": "bathhouse",
+      "en": "Sentō",
+      "product": { "en": "Bath tickets", "ja": "{入浴券|にゅうよくけん}" },
+      "yenPerHour": 100,
+      "affinity": ["shapeshifter", "echo-spirit"],
+      "roles": ["Attendant", "Stoker", "Towel folder", "Painter"],
+      "upgradeBase": 800,
+      "upgradeGrowth": 1.8,
+      "maxLevel": 5
+    },
+    {
+      "district": "school",
+      "en": "Terakoya",
+      "product": { "en": "Lessons", "ja": "{授業|じゅぎょう}" },
+      "yenPerHour": 120,
+      "affinity": ["glyph-sprite", "shapeshifter"],
+      "roles": ["Teacher", "Calligrapher", "Librarian", "Monitor"],
+      "upgradeBase": 900,
+      "upgradeGrowth": 1.8,
+      "maxLevel": 5
+    }
+  ]
+}

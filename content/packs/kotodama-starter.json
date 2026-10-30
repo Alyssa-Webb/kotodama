@@ -85,7 +85,8 @@
       "text": "{水|みず}",
       "romaji": "mizu",
       "pos": "noun",
-      "meanings": ["water"]
+      "meanings": ["water"],
+      "tags": ["drink"]
     },
     {
       "id": "w.koohii",
@@ -93,7 +94,8 @@
       "text": "{麦茶|むぎちゃ}",
       "romaji": "mugicha",
       "pos": "noun",
-      "meanings": ["barley tea"]
+      "meanings": ["barley tea"],
+      "tags": ["drink"]
     },
     {
       "id": "w.ocha",
@@ -101,7 +103,8 @@
       "text": "お{茶|ちゃ}",
       "romaji": "ocha",
       "pos": "noun",
-      "meanings": ["tea", "green tea"]
+      "meanings": ["tea", "green tea"],
+      "tags": ["drink"]
     },
     {
       "id": "w.koucha",
@@ -109,7 +112,8 @@
       "text": "{紅茶|こうちゃ}",
       "romaji": "koucha",
       "pos": "noun",
-      "meanings": ["black tea"]
+      "meanings": ["black tea"],
+      "tags": ["drink"]
     },
     {
       "id": "w.juusu",
@@ -117,7 +121,8 @@
       "text": "{抹茶|まっちゃ}",
       "romaji": "matcha",
       "pos": "noun",
-      "meanings": ["matcha", "powdered green tea"]
+      "meanings": ["matcha", "powdered green tea"],
+      "tags": ["drink"]
     },
     {
       "id": "w.gyuunyuu",
@@ -125,7 +130,8 @@
       "text": "{牛乳|ぎゅうにゅう}",
       "romaji": "gyuunyuu",
       "pos": "noun",
-      "meanings": ["milk"]
+      "meanings": ["milk"],
+      "tags": ["drink"]
     },
     {
       "id": "w.pan",
@@ -133,7 +139,8 @@
       "text": "ごはん",
       "romaji": "gohan",
       "pos": "noun",
-      "meanings": ["rice", "meal"]
+      "meanings": ["rice", "meal"],
+      "tags": ["food"]
     },
     {
       "id": "w.keeki",
@@ -141,7 +148,8 @@
       "text": "お{菓子|かし}",
       "romaji": "okashi",
       "pos": "noun",
-      "meanings": ["sweets", "snack"]
+      "meanings": ["sweets", "snack"],
+      "tags": ["food"]
     },
     {
       "id": "w.sandoicchi",
@@ -149,7 +157,8 @@
       "text": "おにぎり",
       "romaji": "onigiri",
       "pos": "noun",
-      "meanings": ["rice ball"]
+      "meanings": ["rice ball"],
+      "tags": ["food"]
     },
     {
       "id": "w.kissaten",

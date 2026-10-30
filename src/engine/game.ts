@@ -72,6 +72,7 @@ export function newSave(
     notes: '',
     lessonCount: 0,
     lastBackupAt: null,
+    town: { buildings: {} },
   };
 }
 

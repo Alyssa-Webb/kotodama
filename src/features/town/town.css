@@ -154,3 +154,142 @@
   opacity: 0.15;
   filter: blur(1px);
 }
+
+/* ---------- Town businesses (tycoon) ---------- */
+.biz {
+  display: grid;
+  gap: var(--sp-2);
+}
+.biz-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+.biz-head h3 {
+  margin: 0;
+  font-size: var(--fs-lg);
+}
+.biz-head p {
+  margin: 2px 0 0;
+}
+.biz-earn {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  flex: none;
+}
+.biz-rate {
+  font-weight: 900;
+  font-size: var(--fs-sm);
+  color: var(--c-success);
+}
+.biz-staff {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: var(--sp-2);
+}
+.biz-slot {
+  appearance: none;
+  font: inherit;
+  color: inherit;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 2px;
+  min-height: 112px;
+  padding: 6px 4px;
+  border-radius: 16px;
+  border: 2px solid var(--c-panel-edge);
+  background: color-mix(in srgb, var(--c-panel) 85%, var(--c-surface-alt));
+  cursor: pointer;
+  text-align: center;
+  touch-action: manipulation;
+}
+.biz-slot:active {
+  transform: scale(0.96);
+}
+.biz-slot.empty {
+  border-style: dashed;
+  opacity: 0.85;
+}
+.biz-role {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-ink-muted);
+}
+.biz-plus {
+  margin-top: 18px;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--c-ink-muted);
+}
+.biz-spirit {
+  width: 40px;
+  height: 40px;
+}
+.biz-spirit svg {
+  width: 100%;
+  height: 100%;
+}
+.biz-word {
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+.biz-upgrade {
+  justify-self: stretch;
+}
+/* Rarity rims: rare blue, epic violet, legendary gold. */
+.r-rare {
+  border-color: color-mix(in srgb, var(--c-secondary) 80%, var(--c-panel-edge));
+}
+.r-epic {
+  border-color: color-mix(in srgb, var(--c-indigo, var(--c-secondary)) 60%, var(--c-accent));
+}
+.r-legendary {
+  border-color: var(--c-gold);
+  background: color-mix(in srgb, var(--c-gold) 14%, var(--c-panel));
+}
+.biz-picker .pay-card {
+  max-height: 82vh;
+}
+.biz-list {
+  display: grid;
+  gap: 6px;
+  overflow-y: auto;
+  max-height: 52vh;
+  overscroll-behavior: contain;
+}
+.biz-row {
+  appearance: none;
+  font: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 6px 10px;
+  border-radius: 14px;
+  border: 2px solid var(--c-panel-edge);
+  background: var(--c-panel);
+  text-align: left;
+  cursor: pointer;
+}
+.biz-row.on {
+  outline: 3px solid var(--c-glow);
+}
+.biz-row:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.biz-row-main {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+.biz-row-out {
+  font-weight: 900;
+  color: var(--c-success);
+  flex: none;
+}
