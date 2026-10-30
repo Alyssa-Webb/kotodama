@@ -20,6 +20,7 @@ import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
 import { Guide, type Mood } from '../../foundations/art/Guide';
 import { AvatarActor } from '../avatar/AvatarActor';
+import { BattleStage } from './BattleStage';
 import { FlameIcon, HeartIcon, LanternIcon } from '../../foundations/art/icons';
 import { useGame } from '../../foundations/store/gameStore';
 import { tokens } from '../../foundations/theme/theme';
@@ -50,6 +51,8 @@ export interface PlayerProps {
   hideGuide?: boolean;
   /** Boss fights: the avatar lunges at the boss on a correct answer instead of hopping. */
   fighter?: boolean;
+  /** Show the battle road (lessons and Dojo reviews; off for bosses and rushes). */
+  battle?: boolean;
 }
 
 const PRAISE = ['Nice!', 'Correct!', 'Great!', 'Sharp!', 'Excellent!'];
@@ -71,6 +74,7 @@ export function Player({
   onAnswered,
   hideGuide,
   fighter,
+  battle = !hideGuide && !header,
 }: PlayerProps) {
   const { speak } = useJa();
   const voiceMode = useGame((s) => s.save?.settings.voiceMode ?? 'alternate-lesson');
@@ -265,6 +269,7 @@ export function Player({
         )}
       </div>
       {header}
+      {battle && <BattleStage state={state} />}
 
       <div className="stage">
         {!hideGuide && (

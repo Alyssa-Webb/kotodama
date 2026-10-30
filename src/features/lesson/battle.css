@@ -1,0 +1,88 @@
+/* The battle road: a little diorama strip above the question (transform/opacity motion only). */
+.battle {
+  position: relative;
+  height: 156px;
+  border-radius: 22px 26px 18px 24px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    var(--c-sky-top),
+    var(--c-sky-mid) 55%,
+    color-mix(in srgb, var(--c-success) 45%, var(--c-mountain-near)) 56%
+  );
+}
+.battle-road {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -40px;
+  height: 130px;
+  background: repeating-linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-ink)) 0 14px,
+    color-mix(in srgb, var(--c-panel-edge) 75%, var(--c-panel)) 14px 60px
+  );
+  transform: perspective(160px) rotateX(58deg);
+  transform-origin: 50% 0;
+  opacity: 0.9;
+}
+.battle-walking .battle-road {
+  animation: battle-road 0.6s linear infinite;
+}
+@keyframes battle-road {
+  to {
+    translate: 0 -60px;
+  }
+}
+.battle-foe {
+  position: absolute;
+  left: 64%;
+  top: 8px;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.battle-hp {
+  display: flex;
+  gap: 3px;
+}
+.battle-hp span {
+  width: 14px;
+  height: 8px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--c-ink) 35%, transparent);
+}
+.battle-hp span.on {
+  background: var(--c-danger);
+}
+.battle-hero {
+  position: absolute;
+  left: 32%;
+  bottom: -10px;
+  translate: -50% 0;
+}
+.battle-count {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-weight: 800;
+  font-size: var(--fs-xs);
+  color: var(--c-hud-ink);
+  opacity: 0.8;
+}
+/* Seen from behind, a strike lunges up the road toward the enemy. */
+.battle-hero .avatar-actor[data-mood='strike'] .avatar-motion {
+  animation: battle-lunge 480ms cubic-bezier(0.5, 0, 0.2, 1);
+}
+@keyframes battle-lunge {
+  35% {
+    transform: translateY(-34%) scale(0.86);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .battle-road,
+  .battle-hero .avatar-motion {
+    animation: none !important;
+  }
+}

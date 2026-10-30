@@ -166,10 +166,13 @@ export function Avatar({
   size = 120,
   equipped,
   mood = 'idle',
+  facing = 'front',
 }: {
   size?: number;
   equipped?: Partial<Record<string, string>>;
   mood?: AvatarMood;
+  /** 'back' draws each part's back view (walking into battle, seen from behind). */
+  facing?: 'front' | 'back';
 }) {
   const save = useSave();
   const eq = equipped ?? save.avatar.equipped;
@@ -191,8 +194,14 @@ export function Avatar({
         if (!part) return null;
         return (
           <g key={slot}>
-            <g dangerouslySetInnerHTML={{ __html: part.svg }} />
-            {slot === 'base' && part.face && <Face face={part.face} mood={mood} />}
+            <g
+              dangerouslySetInnerHTML={{
+                __html: facing === 'back' ? (part.back ?? part.svg) : part.svg,
+              }}
+            />
+            {facing === 'front' && slot === 'base' && part.face && (
+              <Face face={part.face} mood={mood} />
+            )}
             {slot === 'outfit' && (
               <g>
                 <rect

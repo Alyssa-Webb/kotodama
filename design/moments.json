@@ -2,6 +2,7 @@
   "version": 1,
   "gate": { "duration": 1500, "fadeOut": 280 },
   "finish": { "duration": 1500 },
+  "battle": { "hitsPerEnemy": 3 },
   "capsule": { "autoOpen": 3500 },
   "scenes": {
     "lesson": ["grove", "shrine", "grove", "dojo"],

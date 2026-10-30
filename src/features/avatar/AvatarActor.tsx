@@ -15,7 +15,10 @@ export function AvatarActor({
   reaction = 0,
   equipped,
   className,
+  facing = 'front',
 }: {
+  /** 'back' shows the avatar from behind (walking into battle). */
+  facing?: 'front' | 'back';
   mood?: ActorMood;
   size?: number;
   /** Bump to replay the current mood's animation (one per answer). */
@@ -34,9 +37,14 @@ export function AvatarActor({
   }, [mood, reaction]);
   const face: AvatarMood = mood === 'walk' ? 'idle' : mood === 'strike' ? 'focus' : mood;
   return (
-    <div className={`avatar-actor ${className ?? ''}`} data-mood={mood} style={{ width: size }}>
+    <div
+      className={`avatar-actor ${className ?? ''}`}
+      data-mood={mood}
+      data-facing={facing}
+      style={{ width: size }}
+    >
       <div key={beat} className="avatar-motion">
-        <Avatar size={size} mood={face} {...(equipped ? { equipped } : {})} />
+        <Avatar size={size} mood={face} facing={facing} {...(equipped ? { equipped } : {})} />
       </div>
       <span className="avatar-shadow" aria-hidden="true" />
     </div>

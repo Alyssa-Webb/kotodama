@@ -122,6 +122,8 @@ export const AvatarPartSchema = z.object({
   unlock: z.string().optional(),
   /** Placeholder art: inline SVG fragment drawn in a 0 0 100 120 box, using currentColor and CSS vars. */
   svg: z.string(),
+  /** The same part seen from behind (battle walks); falls back to `svg` when missing. */
+  back: z.string().optional(),
   free: z.boolean().optional(),
   /** Present when the part can drop from the gachapon. */
   gacha: z.enum(['common', 'rare', 'legendary']).optional(),
