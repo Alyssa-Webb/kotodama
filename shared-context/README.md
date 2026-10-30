@@ -7,6 +7,8 @@
 | Path                        | What it is                                                                                                                   |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `README.md`                 | This guide: vision, rules, workflow, history, open work                                                                      |
+| `HANDOFF.md`                | **The current task queue** from the owner, work in flight, and traps learned the hard way. Start here after this file        |
+| `VOICEVOX.md`               | Setting up VOICEVOX and rendering the app's voices                                                                           |
 | `design/world-and-story.md` | The world: regions as story chapters, the yokai bestiary, NPCs, the journey to fluency                                       |
 | `design/town-tycoon.md`     | The town as a tycoon game: residents, stations, products, spirits with rarity                                                |
 | `skills/gemini-art/`        | The Claude Code skill that delegates art and animation to Gemini 4 Argon through the Cursor CLI, with every brief we've sent |
