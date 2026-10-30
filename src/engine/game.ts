@@ -12,6 +12,7 @@ import type { SessionSummary } from './lesson/session';
 import { addDays, dayDiff, gameDay } from './memory/day';
 import { cardId, gradeFor, isDue, type Scheduler } from './memory/scheduler';
 import { facetFor } from './exercises/plugins';
+import { eloUpdate } from './world';
 
 export interface Ctx {
   now: number;
@@ -322,6 +323,16 @@ function applyOutcomes(
   return { ...s, cards, itemStats };
 }
 
+/** Elo skill ratings; an item's difficulty comes from its FSRS difficulty (1..10 → 760..1300). */
+function applyElo(s: SaveState, outcomes: SessionSummary['outcomes']): SaveState {
+  const elo = { ...s.elo };
+  for (const o of outcomes) {
+    const difficulty = s.cards[cardId(o.target.itemId, o.target.facet)]?.difficulty || 5;
+    elo[o.skill] = eloUpdate(elo[o.skill] ?? 800, 700 + difficulty * 60, o.correct);
+  }
+  return { ...s, elo };
+}
+
 function recordMistakes(s: SaveState, summary: SessionSummary, now: number): SaveState {
   const fresh = summary.mistakes.map((m) => ({
     at: now,
@@ -364,6 +375,7 @@ export function completeLesson(
 ): LessonResult {
   let save = loseHearts(s, c, input.heartsLost, input.nodeKey);
   save = recordMistakes(save, input.summary, c.now);
+  save = applyElo(save, input.summary.outcomes);
   if (!input.completed) {
     return {
       save,
@@ -456,6 +468,7 @@ export function completeReviews(
   const hadDebt = dueCards(s, c.now).length > 0;
   let save = loseHearts(s, c, input.heartsLost, 'dojo');
   save = recordMistakes(save, input.summary, c.now);
+  save = applyElo(save, input.summary.outcomes);
   save = applyOutcomes(save, input.summary.outcomes, scheduler, c.now);
   const day = today(save, c);
 

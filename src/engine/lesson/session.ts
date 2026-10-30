@@ -159,6 +159,7 @@ export interface SessionSummary {
     hints: number;
     ms: number;
     shape: Question['shape'];
+    skill: Question['skill'];
   }[];
 }
 
@@ -188,6 +189,7 @@ export function summarize(s: SessionState, config: SessionConfig): SessionSummar
         hints: a.hints,
         ms: a.ms,
         shape: a.question.shape,
+        skill: a.question.skill,
       });
     }
   return {

@@ -310,6 +310,7 @@ describe('reviews', () => {
       hints: 0,
       ms: 3000,
       shape: 'choose' as const,
+      skill: 'vocabulary' as const,
     }));
     const summary = {
       firstPassCorrect: due.length,
@@ -329,5 +330,14 @@ describe('reviews', () => {
     expect(r.clearedAll).toBe(true);
     expect(r.koban).toBe(economy.earn.clearAllReviews);
     expect(dueCards(r.save, later)).toEqual([]);
+  });
+});
+
+describe('Elo skill ratings', () => {
+  it('rise with correct answers and fall with mistakes', () => {
+    const up = playLesson(newSave(T0, 'UTC', 1, economy), T0);
+    expect(up.elo.kana).toBeGreaterThan(800);
+    const down = playLesson(newSave(T0, 'UTC', 1, economy), T0, 'u01.n01', false);
+    expect(down.elo.kana).toBeLessThan(800);
   });
 });
