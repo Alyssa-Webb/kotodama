@@ -1,12 +1,13 @@
 /* One-shot battle choreography. Keyframes deliberately animate only transform and opacity. */
 .battle-fx {
   --fx-target-x: 58%;
+  --fx-target-y: 34px;
   position: absolute;
   inset: 0;
   z-index: 4;
   overflow: hidden;
   pointer-events: none;
-  transform-origin: var(--fx-target-x) 58px;
+  transform-origin: var(--fx-target-x) var(--fx-target-y);
   will-change: transform, opacity;
 }
 
@@ -89,14 +90,14 @@
 /* Anticipation streaks travel from the hero toward the enemy before contact. */
 .battle-fx-speed-lines {
   position: absolute;
-  left: 24%;
-  top: 22px;
-  width: 42%;
-  height: 88px;
+  left: 33%;
+  top: 13px;
+  width: 26%;
+  height: 54px;
   overflow: visible;
   fill: none;
   stroke: var(--c-coin-shine);
-  stroke-width: 3;
+  stroke-width: 1.7;
   stroke-linecap: round;
   opacity: 0;
   animation: battle-fx-speed-lines 620ms cubic-bezier(0.3, 0, 0.2, 1) both;
@@ -104,12 +105,12 @@
 
 .battle-fx-speed-lines path:nth-child(2) {
   stroke: var(--c-glow);
-  stroke-width: 2.4;
+  stroke-width: 1.35;
 }
 
 .battle-fx-speed-lines path:nth-child(3) {
   stroke: var(--c-accent);
-  stroke-width: 2;
+  stroke-width: 1.1;
 }
 
 @keyframes battle-fx-speed-lines {
@@ -133,10 +134,10 @@
 
 .battle-fx-slash-field {
   position: absolute;
-  left: calc(var(--fx-target-x) - 78px);
-  top: -2px;
-  width: 156px;
-  height: 126px;
+  left: calc(var(--fx-target-x) - 48px);
+  top: -5px;
+  width: 96px;
+  height: 78px;
   transform-origin: 50% 50%;
 }
 
@@ -288,14 +289,14 @@
 .battle-fx-jab-core {
   fill: none;
   stroke: var(--c-coin-shine);
-  stroke-width: 5;
+  stroke-width: 2.8;
   stroke-linecap: round;
 }
 
 .battle-fx-jab circle {
   fill: none;
   stroke: var(--c-glow);
-  stroke-width: 4;
+  stroke-width: 2;
 }
 
 .battle-fx-jab-a {
@@ -350,10 +351,10 @@
 
 .battle-fx-hit-burst {
   position: absolute;
-  left: calc(var(--fx-target-x) - 52px);
-  top: 5px;
-  width: 104px;
-  height: 104px;
+  left: calc(var(--fx-target-x) - 30px);
+  top: 4px;
+  width: 60px;
+  height: 60px;
   overflow: visible;
   transform-origin: 50% 50%;
   animation: battle-fx-hit-burst 620ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
@@ -388,6 +389,145 @@
   }
   100% {
     transform: scale(1.72) rotate(28deg);
+    opacity: 0;
+  }
+}
+
+.battle-fx-contact-sparks {
+  position: absolute;
+  left: calc(var(--fx-target-x) - 24px);
+  top: 10px;
+  width: 48px;
+  height: 48px;
+  overflow: visible;
+}
+
+.battle-fx-contact-sparks path {
+  fill: var(--c-coin-shine);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.battle-fx-contact-sparks path:nth-child(even) {
+  fill: var(--c-accent);
+}
+
+.battle-fx-contact-sparks path:nth-child(1) {
+  animation: battle-fx-spark-nw 620ms cubic-bezier(0.18, 0.9, 0.25, 1) both;
+}
+
+.battle-fx-contact-sparks path:nth-child(2) {
+  animation: battle-fx-spark-ne 620ms cubic-bezier(0.18, 0.9, 0.25, 1) both;
+}
+
+.battle-fx-contact-sparks path:nth-child(3) {
+  animation: battle-fx-spark-e 620ms cubic-bezier(0.18, 0.9, 0.25, 1) both;
+}
+
+.battle-fx-contact-sparks path:nth-child(4) {
+  animation: battle-fx-spark-sw 620ms cubic-bezier(0.18, 0.9, 0.25, 1) both;
+}
+
+.battle-fx-contact-sparks path:nth-child(5) {
+  animation: battle-fx-spark-w 620ms cubic-bezier(0.18, 0.9, 0.25, 1) both;
+}
+
+@keyframes battle-fx-spark-nw {
+  0%,
+  12% {
+    transform: translate(5px, 8px) scale(0.2);
+    opacity: 0;
+  }
+  18% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  52% {
+    transform: translate(-7px, -10px) scale(0.62);
+    opacity: 0.58;
+  }
+  100% {
+    transform: translate(-13px, -18px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes battle-fx-spark-ne {
+  0%,
+  12% {
+    transform: translate(-5px, 6px) scale(0.2);
+    opacity: 0;
+  }
+  18% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  52% {
+    transform: translate(8px, -8px) scale(0.66);
+    opacity: 0.62;
+  }
+  100% {
+    transform: translate(16px, -15px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes battle-fx-spark-e {
+  0%,
+  12% {
+    transform: translate(-7px, -2px) scale(0.2);
+    opacity: 0;
+  }
+  18% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  52% {
+    transform: translate(11px, 2px) scale(0.58);
+    opacity: 0.52;
+  }
+  100% {
+    transform: translate(20px, 5px) scale(0.18);
+    opacity: 0;
+  }
+}
+
+@keyframes battle-fx-spark-sw {
+  0%,
+  12% {
+    transform: translate(4px, -7px) scale(0.2);
+    opacity: 0;
+  }
+  18% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  52% {
+    transform: translate(-6px, 9px) scale(0.6);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate(-11px, 17px) scale(0.18);
+    opacity: 0;
+  }
+}
+
+@keyframes battle-fx-spark-w {
+  0%,
+  12% {
+    transform: translate(8px, 1px) scale(0.2);
+    opacity: 0;
+  }
+  18% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  52% {
+    transform: translate(-10px, -2px) scale(0.6);
+    opacity: 0.56;
+  }
+  100% {
+    transform: translate(-19px, -4px) scale(0.18);
     opacity: 0;
   }
 }
@@ -495,7 +635,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  transform-origin: var(--fx-target-x) 58px;
+  transform-origin: var(--fx-target-x) var(--fx-target-y);
   animation: battle-fx-screen-punch 1100ms cubic-bezier(0.18, 0.9, 0.26, 1) both;
 }
 
@@ -530,10 +670,10 @@
 
 .battle-fx-cross {
   position: absolute;
-  left: calc(var(--fx-target-x) - 100px);
-  top: -15px;
-  width: 200px;
-  height: 145px;
+  left: calc(var(--fx-target-x) - 60px);
+  top: -9.5px;
+  width: 120px;
+  height: 87px;
   overflow: visible;
   transform-origin: 50% 50%;
 }
@@ -632,11 +772,11 @@
 
 .battle-fx-shockwave {
   position: absolute;
-  left: calc(var(--fx-target-x) - 52px);
-  top: 7px;
-  width: 104px;
-  height: 104px;
-  border: 8px solid var(--c-glow);
+  left: calc(var(--fx-target-x) - 30px);
+  top: 4px;
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--c-glow);
   border-radius: 50%;
   transform-origin: 50% 50%;
 }
@@ -647,7 +787,7 @@
 
 .battle-fx-shockwave-b {
   border-color: var(--c-coin-shine);
-  border-width: 4px;
+  border-width: 2px;
   animation: battle-fx-shockwave-b 1100ms cubic-bezier(0.14, 0.88, 0.26, 1) both;
 }
 
@@ -693,10 +833,10 @@
 
 .battle-fx-ko-debris {
   position: absolute;
-  left: calc(var(--fx-target-x) - 102px);
-  top: -13px;
-  width: 204px;
-  height: 166px;
+  left: calc(var(--fx-target-x) - 61px);
+  top: -16px;
+  width: 122px;
+  height: 100px;
   overflow: visible;
   transform-origin: 50% 52%;
   animation: battle-fx-ko-debris 1100ms cubic-bezier(0.15, 0.85, 0.25, 1) both;

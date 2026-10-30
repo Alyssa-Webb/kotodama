@@ -40,6 +40,18 @@ function HitBurst() {
   );
 }
 
+function ContactSparks() {
+  return (
+    <svg className="battle-fx-contact-sparks" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M23 21 L18 10 L25 19Z" />
+      <path d="M27 21 L36 13 L29 23Z" />
+      <path d="M28 26 L40 29 L29 29Z" />
+      <path d="M23 27 L18 39 L20 27Z" />
+      <path d="M20 24 L8 21 L19 21Z" />
+    </svg>
+  );
+}
+
 function SlashFx({ variant }: { variant: (typeof slashVariants)[number] }) {
   const isJab = variant === 'jab';
   return (
@@ -49,14 +61,14 @@ function SlashFx({ variant }: { variant: (typeof slashVariants)[number] }) {
         {isJab ? (
           <svg className="battle-fx-jabs" viewBox="0 0 150 100" aria-hidden="true">
             <g className="battle-fx-jab battle-fx-jab-a">
-              <path className="battle-fx-jab-smear" d="M8 72 L112 38 L124 42 L15 80Z" />
+              <path className="battle-fx-jab-smear" d="M12 73 L119 39 L124 41 L15 77Z" />
               <path className="battle-fx-jab-core" d="M16 75 L122 40" />
-              <circle cx="122" cy="40" r="12" />
+              <circle cx="122" cy="40" r="6" />
             </g>
             <g className="battle-fx-jab battle-fx-jab-b">
-              <path className="battle-fx-jab-smear" d="M15 85 L117 52 L131 57 L22 92Z" />
+              <path className="battle-fx-jab-smear" d="M18 86 L126 53 L131 56 L21 89Z" />
               <path className="battle-fx-jab-core" d="M22 87 L129 55" />
-              <circle cx="129" cy="55" r="9" />
+              <circle cx="129" cy="55" r="5" />
             </g>
           </svg>
         ) : (
@@ -66,27 +78,28 @@ function SlashFx({ variant }: { variant: (typeof slashVariants)[number] }) {
               viewBox="0 0 140 110"
               aria-hidden="true"
             >
-              <path d="M9 87 Q45 16 130 22 Q62 34 18 96Z" />
+              <path d="M10 89 Q47 15 132 21 Q60 29 15 93Z" />
             </svg>
             <svg
               className="battle-fx-crescent battle-fx-crescent-main"
               viewBox="0 0 140 110"
               aria-hidden="true"
             >
-              <path d="M9 87 Q45 16 130 22 Q62 34 18 96Z" />
-              <path className="battle-fx-crescent-shine" d="M18 82 Q52 28 119 27 Q61 38 25 88Z" />
+              <path d="M10 89 Q47 15 132 21 Q60 29 15 93Z" />
+              <path className="battle-fx-crescent-shine" d="M16 85 Q52 24 121 23 Q59 31 20 88Z" />
             </svg>
             <svg
               className="battle-fx-crescent battle-fx-crescent-after"
               viewBox="0 0 140 110"
               aria-hidden="true"
             >
-              <path d="M9 87 Q45 16 130 22 Q62 34 18 96Z" />
+              <path d="M10 89 Q47 15 132 21 Q60 29 15 93Z" />
             </svg>
           </>
         )}
       </div>
       <HitBurst />
+      <ContactSparks />
       <span className="battle-fx-number">−1</span>
     </>
   );
@@ -112,24 +125,24 @@ function FinisherFx() {
           viewBox="0 0 180 130"
           aria-hidden="true"
         >
-          <path d="M20 105 Q79 19 161 20 Q91 39 30 114Z" />
-          <path d="M24 22 Q105 31 158 112 Q92 60 17 31Z" />
+          <path d="M20 107 Q79 18 163 19 Q89 31 27 112Z" />
+          <path d="M22 21 Q107 30 160 113 Q91 52 18 27Z" />
         </svg>
         <svg
           className="battle-fx-cross battle-fx-cross-after-b"
           viewBox="0 0 180 130"
           aria-hidden="true"
         >
-          <path d="M20 105 Q79 19 161 20 Q91 39 30 114Z" />
-          <path d="M24 22 Q105 31 158 112 Q92 60 17 31Z" />
+          <path d="M20 107 Q79 18 163 19 Q89 31 27 112Z" />
+          <path d="M22 21 Q107 30 160 113 Q91 52 18 27Z" />
         </svg>
         <svg
           className="battle-fx-cross battle-fx-cross-main"
           viewBox="0 0 180 130"
           aria-hidden="true"
         >
-          <path d="M20 105 Q79 19 161 20 Q91 39 30 114Z" />
-          <path d="M24 22 Q105 31 158 112 Q92 60 17 31Z" />
+          <path d="M20 107 Q79 18 163 19 Q89 31 27 112Z" />
+          <path d="M22 21 Q107 30 160 113 Q91 52 18 27Z" />
         </svg>
         <div className="battle-fx-shockwave battle-fx-shockwave-a" />
         <div className="battle-fx-shockwave battle-fx-shockwave-b" />

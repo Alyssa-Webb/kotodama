@@ -317,6 +317,26 @@
   display: block;
   overflow: visible;
 }
+.enemy-damage-flash {
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+.enemy-damage-flash .enemy-shadow {
+  opacity: 0 !important;
+}
+.enemy-damage-flash-white [fill]:not([fill='none']) {
+  fill: var(--c-coin-shine) !important;
+}
+.enemy-damage-flash-white [stroke]:not([stroke='none']) {
+  stroke: var(--c-coin-shine) !important;
+}
+.enemy-damage-flash-red [fill]:not([fill='none']) {
+  fill: var(--c-danger) !important;
+}
+.enemy-damage-flash-red [stroke]:not([stroke='none']) {
+  stroke: var(--c-danger) !important;
+}
 .enemy-body {
   transform-origin: 50px 88px;
   will-change: transform;
@@ -398,11 +418,20 @@
 .enemy-hit {
   animation: enemy-hit 420ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
 }
+.enemy-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 180ms steps(1, end) both;
+}
+.enemy-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 180ms steps(1, end) both;
+}
 .enemy-attack {
   animation: enemy-attack 520ms cubic-bezier(0.5, 0, 0.2, 1) both;
 }
 .enemy-defeat {
   animation: enemy-defeat 620ms ease-in both;
+}
+.enemy-defeat .enemy-damage-flash-white {
+  animation: enemy-defeat-flash 620ms linear both;
 }
 
 @keyframes enemy-bob {
@@ -591,28 +620,87 @@
 }
 @keyframes enemy-hit {
   0% {
-    transform: scale(1);
-    opacity: 1;
+    transform: none;
   }
-  16% {
-    transform: translate(12%, -8%) rotate(11deg) scale(1.16, 0.84);
-    opacity: 0.55;
+  14% {
+    transform: translate(7%, -2%) rotate(4deg) scale(1.04, 0.96);
   }
-  34% {
-    transform: translate(14%, -9%) rotate(13deg) scale(0.9, 1.1);
-    opacity: 0.85;
+  30% {
+    transform: translate(8%, -2%) rotate(4deg) scale(0.98, 1.02);
   }
-  58% {
-    transform: translate(-6%, 2%) rotate(-5deg) scale(1.05, 0.96);
-    opacity: 1;
+  54% {
+    transform: translate(-2%, 0) rotate(-1deg) scale(1.01, 0.99);
   }
-  80% {
-    transform: translate(3%, -1%) rotate(2deg);
-    opacity: 1;
+  78% {
+    transform: translate(1%, 0) rotate(0.5deg);
   }
   100% {
     transform: none;
+  }
+}
+@keyframes enemy-hit-flash-white {
+  0%,
+  7% {
+    opacity: 0;
+  }
+  8%,
+  23% {
     opacity: 1;
+  }
+  24%,
+  40% {
+    opacity: 0;
+  }
+  41%,
+  57% {
+    opacity: 0.96;
+  }
+  58%,
+  74% {
+    opacity: 0;
+  }
+  75%,
+  89% {
+    opacity: 0.88;
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes enemy-hit-flash-red {
+  0%,
+  23% {
+    opacity: 0;
+  }
+  24%,
+  40% {
+    opacity: 0.94;
+  }
+  41%,
+  57% {
+    opacity: 0;
+  }
+  58%,
+  74% {
+    opacity: 0.88;
+  }
+  75%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes enemy-defeat-flash {
+  0% {
+    opacity: 0;
+  }
+  4%,
+  27% {
+    opacity: 1;
+  }
+  42%,
+  100% {
+    opacity: 0;
   }
 }
 @keyframes enemy-attack {
