@@ -28,7 +28,7 @@ test('golden path: first lesson, rewards, reviews, persistence', async ({ page }
   await page.getByRole('button', { name: 'Continue' }).click();
 
   // Yen earned, the next node is unlocked, the items are scheduled.
-  await expect(page.getByLabel(/^1[5-9] yen|^[2-9]\d yen/)).toBeVisible();
+  await expect(page.getByLabel(/^1[5-9]\d yen|^[2-9]\d\d yen/)).toBeVisible();
   await page.goto('./#/collection');
   await expect(page.locator('.spirit')).toHaveCount(5);
 
@@ -46,7 +46,7 @@ test('town, shop and import screens render', async ({ page }, info) => {
   await settle(page);
   await page.screenshot({ path: shot('town', info.project.name) });
   await page.goto('./#/shop');
-  await expect(page.getByRole('button', { name: 'Buy Kotatsu for 60 yen' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Buy Kotatsu for 600 yen' })).toBeDisabled();
   await settle(page);
   await page.screenshot({ path: shot('shop', info.project.name), fullPage: false });
   await page.goto('./#/packs');
