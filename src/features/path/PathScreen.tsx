@@ -1000,7 +1000,8 @@ function NodeMarker({
 
   if (kind === 'story') {
     const roofFill = done ? 'var(--c-gold)' : open ? 'var(--c-secondary)' : lockedStone;
-    const roofLip = done || open ? `color-mix(in srgb, ${roofFill} 58%, var(--c-hud-bg))` : lockedLip;
+    const roofLip =
+      done || open ? `color-mix(in srgb, ${roofFill} 58%, var(--c-hud-bg))` : lockedLip;
     return (
       <svg viewBox="0 0 88 88" className="node-marker-svg" aria-hidden="true">
         {current && <circle cx="44" cy="46" r="40" fill="var(--c-glow)" className="node-halo" />}
