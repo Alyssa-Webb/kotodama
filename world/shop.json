@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "consumables": [
+    {
+      "id": "kotatsu",
+      "name": "こたつ",
+      "en": "Kotatsu",
+      "effect": "Streak freeze: stays warm through one missed day. Hold up to 2.",
+      "price": 60,
+      "max": 2
+    },
+    {
+      "id": "kintsugi",
+      "name": "{金継|きんつ}ぎ",
+      "en": "Kintsugi",
+      "effect": "Mends a broken streak with gold within 48 hours. Hardcore also requires a Redemption Trial.",
+      "price": 150,
+      "pricePerStreakDay": 5
+    },
+    {
+      "id": "chochin",
+      "name": "{提灯|ちょうちん}",
+      "en": "Chōchin lantern",
+      "effect": "Hint: lights up one tile, letter or option.",
+      "price": 8
+    },
+    {
+      "id": "onigiri",
+      "name": "おにぎり",
+      "en": "Onigiri",
+      "effect": "Restores 1 heart.",
+      "price": 15
+    },
+    {
+      "id": "taiko",
+      "name": "{太鼓|たいこ}",
+      "en": "Taiko drum",
+      "effect": "Double XP for 15 minutes.",
+      "price": 50
+    },
+    {
+      "id": "maneki",
+      "name": "{招|まね}き{猫|ねこ}",
+      "en": "Maneki-neko",
+      "effect": "+25% koban for your next 3 lessons.",
+      "price": 70
+    },
+    {
+      "id": "daruma",
+      "name": "だるま",
+      "en": "Daruma",
+      "effect": "Extra life in a Rush round.",
+      "price": 20
+    },
+    {
+      "id": "sunadokei",
+      "name": "{砂時計|すなどけい}",
+      "en": "Hourglass",
+      "effect": "+10 seconds in a Rush round.",
+      "price": 25
+    },
+    {
+      "id": "omamori",
+      "name": "お{守|まも}り",
+      "en": "Omamori shield",
+      "effect": "Keeps one spirit from fading for 3 days.",
+      "price": 30
+    },
+    {
+      "id": "ema",
+      "name": "{絵馬|えま}",
+      "en": "Ema plaque",
+      "effect": "Write a wish to reroll one daily quest.",
+      "price": 20
+    }
+  ],
+  "charms": [
+    {
+      "id": "gakugyo",
+      "name": "{学業守|がくぎょうまも}り",
+      "en": "Study charm",
+      "perk": "+10% XP on reviews.",
+      "price": 200
+    },
+    {
+      "id": "goukaku",
+      "name": "{合格守|ごうかくまも}り",
+      "en": "Exam charm",
+      "perk": "Your first mistake in a boss fight costs no heart.",
+      "unlock": "Defeat 3 bosses"
+    },
+    {
+      "id": "mimi",
+      "name": "{耳守|みみまも}り",
+      "en": "Ear charm",
+      "perk": "+15% koban in listening exercises.",
+      "price": 250
+    },
+    {
+      "id": "fude",
+      "name": "{筆守|ふでまも}り",
+      "en": "Brush charm",
+      "perk": "Tracing exercises count double toward your kanji rank.",
+      "unlock": "Trace 50 kanji"
+    }
+  ]
+}

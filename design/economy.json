@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "xp": {
+    "perCorrect": 10,
+    "comboBonusEvery": 5,
+    "comboBonusXp": 5,
+    "dailyGoalOptions": [
+      { "minutes": 5, "xp": 50 },
+      { "minutes": 10, "xp": 100 },
+      { "minutes": 20, "xp": 200 }
+    ],
+    "defaultDailyGoalXp": 100
+  },
+  "kiai": { "fillAt": 5, "answers": 5, "multiplier": 2 },
+  "stars": { "threeStarMaxMistakes": 0, "twoStarMaxMistakes": 2 },
+  "earn": {
+    "lessonComplete": 10,
+    "lessonThreeStarBonus": 5,
+    "clearAllReviews": 15,
+    "dailyQuest": { "min": 10, "max": 20 },
+    "omikuji": { "daikichi": 50, "kichi": 25, "chukichi": 15, "shokichi": 10, "suekichi": 5 },
+    "rushPersonalBest": 10,
+    "bossDefeat": 100,
+    "bossDefeatTokens": 1,
+    "perfectLessonTokens": 1,
+    "clearReviewDebtTokens": 1,
+    "streakMilestones": [
+      { "days": 7, "koban": 50 },
+      { "days": 30, "koban": 150 },
+      { "days": 100, "koban": 500 },
+      { "days": 365, "koban": 1500 }
+    ],
+    "guardianDailyKoban": 1
+  },
+  "penalties": {
+    "reviewDebtKobanFactor": 0.5,
+    "hardcoreSpoilPerMissedDay": 0.1,
+    "kintsugiWindowHours": 48
+  },
+  "difficulty": {
+    "casual": {
+      "hearts": null,
+      "refill": "none",
+      "spoil": false,
+      "kintsugiTrial": false,
+      "kintsugi": true,
+      "onigiri": true,
+      "bossOncePerDay": false
+    },
+    "standard": {
+      "hearts": 5,
+      "refill": "daily",
+      "spoil": false,
+      "kintsugiTrial": false,
+      "kintsugi": true,
+      "onigiri": true,
+      "bossOncePerDay": false
+    },
+    "hardcore": {
+      "hearts": 5,
+      "refill": "hourly",
+      "spoil": true,
+      "kintsugiTrial": true,
+      "kintsugi": true,
+      "onigiri": true,
+      "bossOncePerDay": true
+    },
+    "ironman": {
+      "hearts": 3,
+      "refill": "hourly",
+      "spoil": true,
+      "kintsugiTrial": false,
+      "kintsugi": false,
+      "onigiri": false,
+      "bossOncePerDay": true
+    }
+  },
+  "hearts": { "refillMinutes": 60, "dojoReviewsPerHeart": 10 },
+  "redemptionTrial": { "questions": 20, "maxMistakes": 2 },
+  "boosts": {
+    "taikoMinutes": 15,
+    "taikoXpMultiplier": 2,
+    "manekiLessons": 3,
+    "manekiKobanBonus": 0.25
+  },
+  "streakFreezeMax": 2,
+  "gachapon": {
+    "cost": 1,
+    "pityAfter": 10,
+    "odds": [
+      { "rarity": "common", "weight": 70 },
+      { "rarity": "rare", "weight": 25 },
+      { "rarity": "legendary", "weight": 5 }
+    ]
+  }
+}

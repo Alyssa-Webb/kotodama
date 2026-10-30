@@ -51,7 +51,7 @@ describe('validatePack', () => {
     const n = p.units[1]!.nodes[0]!;
     (n.exercises[0] as { item: string }).item = 'w.nope';
     n.exercises[1]!.id = n.exercises[2]!.id;
-    p.units[1]!.nodes[1]!.introduces.push('w.mizu');
+    (p.units[1]!.nodes[1]!.introduces as string[]).push('w.mizu');
     const m = messages(p);
     expect(m).toMatch(/Unknown item "w.nope"/);
     expect(m).toMatch(/Duplicate exercise ID/);
