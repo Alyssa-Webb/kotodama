@@ -137,7 +137,7 @@
 /* Koto on his stage (shop stall / town podium): the counter cuts him off at the waist. */
 .koto-stage {
   position: relative;
-  height: 210px;
+  height: 164px;
   border-radius: 24px 28px 20px 26px;
   overflow: hidden;
   background: linear-gradient(180deg, var(--c-sky-top), var(--c-sky-bottom));
@@ -229,7 +229,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 62px;
+  /* A slim counter: enough to stand wares on without eating the page. */
+  height: 38px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -243,7 +244,7 @@
   box-shadow: inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 50%, transparent);
 }
 .koto-ware {
-  margin-top: -26px;
+  margin-top: -30px;
   animation: koto-ware-bob 2.4s ease-in-out infinite;
 }
 @keyframes koto-ware-bob {
@@ -262,9 +263,9 @@
 }
 .koto-stage-bubble {
   position: absolute;
-  left: 140px;
+  left: 118px;
   right: 12px;
-  top: 44px;
+  top: 40px;
   padding: var(--sp-2) var(--sp-3);
   border-radius: 18px 22px 16px 20px;
   background: var(--c-panel);
@@ -285,11 +286,12 @@
   border-right-color: var(--c-panel-edge);
 }
 .koto-stage-bubble .tour-ja {
-  font-size: var(--fs-md);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
 }
 .koto-stage-bubble .tour-en {
   margin: 0;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
 }
 @media (prefers-reduced-motion: reduce) {
   .koto-noren,

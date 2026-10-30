@@ -75,7 +75,7 @@ export function KotoSays({
         )}
       </div>
       <button className="koto-stage-koto" onClick={next} aria-label="Talk to Koto">
-        <Mascot outfit={outfit} pose={pose} size={132} facing="right" />
+        <Mascot outfit={outfit} pose={pose} size={108} facing="right" />
       </button>
       <div className="koto-counter" aria-hidden="true">
         {role === 'shop' ? (

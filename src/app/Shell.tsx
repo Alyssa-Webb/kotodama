@@ -106,42 +106,100 @@ export function TopStats() {
 }
 
 /**
- * Swipe left or right on the main tabs to move between them (like a pager). Only clear,
- * mostly-horizontal swipes count, never ones that start on inputs, sliders or scrollable rows.
+ * Swipe left or right on the main tabs to move between them, like a pager: the page follows the
+ * finger, slides off when released past the threshold (or springs back), and the next tab slides
+ * in from the matching side. Tapping a tab slides the same way. Only clear, mostly-horizontal
+ * drags count, never ones that start on inputs, sliders or scrollable rows. Motion is written to
+ * the element's style directly (transform/opacity only), so dragging never re-renders React.
  */
 function useTabSwipe() {
   const loc = useLocation();
   const navigate = useNavigate();
-  const start = useRef<{ x: number; y: number; t: number } | null>(null);
-  const [dir, setDir] = useState<'left' | 'right' | null>(null);
+  const main = useRef<HTMLElement>(null);
+  const drag = useRef<{ x: number; y: number; t: number; on: boolean } | null>(null);
   const index = TABS.findIndex((t) => t.to === loc.pathname);
+  // Which side the new page enters from: by tab order, for swipes and taps alike.
+  // (React's "adjust state while rendering" pattern: remember the last tab in state.)
+  const [prev, setPrev] = useState(index);
+  const [dir, setDir] = useState<'left' | 'right' | null>(null);
+  if (index >= 0 && index !== prev) {
+    setPrev(index);
+    setDir(prev >= 0 ? (index > prev ? 'left' : 'right') : null);
+  }
+
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const place = (dx: number) => {
+    const el = main.current;
+    if (!el) return;
+    el.style.transform = dx ? `translate3d(${dx}px,0,0)` : '';
+    el.style.opacity = dx ? String(1 - Math.min(0.35, Math.abs(dx) / window.innerWidth)) : '';
+  };
   const onTouchStart = (e: React.TouchEvent) => {
     const el = e.target as HTMLElement;
-    if (el.closest('input, textarea, select, canvas, [data-no-swipe], .pay, .tour')) return;
+    if (index < 0 || el.closest('input, textarea, select, canvas, [data-no-swipe], .pay, .tour'))
+      return;
     const t = e.touches[0]!;
-    start.current = { x: t.clientX, y: t.clientY, t: performance.now() };
+    drag.current = { x: t.clientX, y: t.clientY, t: performance.now(), on: false };
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    const d = drag.current;
+    if (!d || reduced()) return;
+    const t = e.touches[0]!;
+    const dx = t.clientX - d.x;
+    const dy = t.clientY - d.y;
+    if (!d.on) {
+      if (Math.abs(dy) > 14 && Math.abs(dy) > Math.abs(dx)) return void (drag.current = null);
+      if (Math.abs(dx) < 12 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+      d.on = true;
+    }
+    // Resist at the first and last tab.
+    const edge = (dx > 0 && index === 0) || (dx < 0 && index === TABS.length - 1);
+    place(edge ? dx * 0.25 : dx);
   };
   const onTouchEnd = (e: React.TouchEvent) => {
-    const s0 = start.current;
-    start.current = null;
-    if (!s0 || index < 0) return;
-    const t = e.changedTouches[0]!;
-    const dx = t.clientX - s0.x;
-    const dy = t.clientY - s0.y;
-    if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.6 || performance.now() - s0.t > 700)
-      return;
+    const d = drag.current;
+    drag.current = null;
+    if (!d || index < 0) return;
+    const dx = e.changedTouches[0]!.clientX - d.x;
+    const dy = e.changedTouches[0]!.clientY - d.y;
+    const fast = performance.now() - d.t < 300 && Math.abs(dx) > 40;
     const next = index + (dx < 0 ? 1 : -1);
-    if (next < 0 || next >= TABS.length) return;
-    setDir(dx < 0 ? 'left' : 'right');
+    const go =
+      (Math.abs(dx) > window.innerWidth * 0.28 || fast) &&
+      Math.abs(dx) > Math.abs(dy) * 1.2 &&
+      next >= 0 &&
+      next < TABS.length;
+    const el = main.current;
+    if (!go) {
+      if (el && d.on)
+        el.animate(
+          [
+            { transform: el.style.transform, opacity: el.style.opacity || '1' },
+            { transform: 'none', opacity: 1 },
+          ],
+          { duration: 220, easing: 'cubic-bezier(0.2, 0.9, 0.3, 1)' },
+        );
+      place(0);
+      return;
+    }
     haptic('tick');
-    navigate(TABS[next]!.to);
+    if (!el || reduced()) return void navigate(TABS[next]!.to);
+    // Finish the slide off-screen, then swap pages; the new one enters from the other side.
+    const out = el.animate(
+      [
+        { transform: el.style.transform || 'none', opacity: el.style.opacity || '1' },
+        { transform: `translate3d(${dx < 0 ? '-100%' : '100%'},0,0)`, opacity: 0.6 },
+      ],
+      { duration: 140, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards' },
+    );
+    out.onfinish = () => navigate(TABS[next]!.to);
   };
-  return { onTouchStart, onTouchEnd, dir };
+  return { main, onTouchStart, onTouchMove, onTouchEnd, dir };
 }
 
 export function Shell() {
   const loc = useLocation();
-  const swipe = useTabSwipe();
+  const { main, onTouchStart, onTouchMove, onTouchEnd, dir } = useTabSwipe();
   return (
     <div className="app">
       <header className="topbar">
@@ -155,10 +213,12 @@ export function Shell() {
         </NavLink>
       </header>
       <main
-        className={`main ${swipe.dir ? `main-from-${swipe.dir}` : ''}`}
+        ref={main}
+        className={`main ${dir ? `main-from-${dir}` : ''}`}
         key={loc.pathname}
-        onTouchStart={swipe.onTouchStart}
-        onTouchEnd={swipe.onTouchEnd}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <InstallGuide />
         <Notices />
