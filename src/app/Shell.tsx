@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import { haptic } from '../foundations/haptics/haptics';
 import { UpdatePrompt } from './UpdatePrompt';
@@ -194,6 +194,19 @@ function useTabSwipe() {
     );
     out.onfinish = () => navigate(TABS[next]!.to);
   };
+  // A tab slide brings the page in whole: every one-shot entrance inside it (ring pops, badge
+  // springs, card drops) jumps to its last frame so nothing shrinks or grows mid-slide, while
+  // idle loops (bobbing, swaying) keep running.
+  useLayoutEffect(() => {
+    const el = main.current;
+    if (!dir || !el) return;
+    for (const a of el.getAnimations({ subtree: true })) {
+      if (a.effect?.getComputedTiming().iterations === Infinity) continue;
+      if (a instanceof CSSAnimation && a.effect instanceof KeyframeEffect && a.effect.target === el)
+        continue;
+      a.finish();
+    }
+  }, [loc.pathname, dir]);
   return { main, onTouchStart, onTouchMove, onTouchEnd, dir };
 }
 

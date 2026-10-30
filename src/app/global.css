@@ -464,7 +464,7 @@ ruby rt {
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(14px) scale(0.98);
+    transform: translateY(10px);
   }
 }
 
@@ -1341,11 +1341,6 @@ label.field {
 }
 .main-from-right {
   animation: main-from-right 260ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
-}
-/* The page slides as one layer: its children skip their own entrance so nothing stutters. */
-.main-from-left > *,
-.main-from-right > * {
-  animation: none;
 }
 @keyframes main-from-left {
   from {
