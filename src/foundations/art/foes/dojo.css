@@ -1,0 +1,642 @@
+/* Dojo sparring trainees: chibi student samurai motion & combat states.
+ * Pure 2D transform + opacity animations only; respects prefers-reduced-motion.
+ */
+
+.trainee-bokken-root,
+.trainee-naginata-root,
+.trainee-senpai-root {
+  transform-origin: 50px 88px;
+  will-change: transform, opacity;
+}
+
+.trainee-bokken-shadow,
+.trainee-naginata-shadow,
+.trainee-senpai-shadow {
+  transform-origin: 50px 91px;
+  will-change: transform, opacity;
+}
+
+/* ---- IDLE: distinct martial rhythm for each trainee ---- */
+
+/* 1. Bokken first-year: alert kendo footwork bounce & subtle chudan sword poise */
+.trainee-bokken-idle .trainee-bokken-body {
+  transform-origin: 50px 88px;
+  animation: trainee-bokken-stance calc(var(--dur-celebrate, 900ms) * 1.9) ease-in-out infinite;
+}
+.trainee-bokken-idle .trainee-bokken-weapon {
+  transform-origin: 50px 66px;
+  animation: trainee-bokken-kamae calc(var(--dur-celebrate, 900ms) * 1.9) ease-in-out infinite;
+}
+.trainee-bokken-idle .trainee-bokken-ties {
+  transform-origin: 73px 23px;
+  animation: trainee-bokken-ties-flutter calc(var(--dur-celebrate, 900ms) * 1.6) ease-in-out infinite
+    alternate;
+}
+.trainee-bokken-shadow-idle {
+  animation: trainee-bokken-shadow-pulse calc(var(--dur-celebrate, 900ms) * 1.9) ease-in-out
+    infinite;
+}
+
+/* 2. Naginata trainee: poised polearm sway & rhythmic breathing */
+.trainee-naginata-idle .trainee-naginata-body {
+  transform-origin: 50px 88px;
+  animation: trainee-naginata-stance calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out infinite;
+}
+.trainee-naginata-idle .trainee-naginata-weapon {
+  transform-origin: 52px 66px;
+  animation: trainee-naginata-poise calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out infinite;
+}
+.trainee-naginata-idle .trainee-naginata-ties {
+  transform-origin: 74px 23px;
+  animation: trainee-naginata-ties-flutter calc(var(--dur-celebrate, 900ms) * 1.5) ease-in-out
+    infinite alternate;
+}
+.trainee-naginata-idle .trainee-naginata-ponytail {
+  transform-origin: 68px 18px;
+  animation: trainee-naginata-hair-sway calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out infinite
+    alternate;
+}
+.trainee-naginata-shadow-idle {
+  animation: trainee-naginata-shadow-pulse calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out
+    infinite;
+}
+
+/* 3. Senpai: calm, composed breathing, shoulder-rested bokken tap & topknot poise */
+.trainee-senpai-idle .trainee-senpai-body {
+  transform-origin: 50px 88px;
+  animation: trainee-senpai-stance calc(var(--dur-celebrate, 900ms) * 2.4) ease-in-out infinite;
+}
+.trainee-senpai-idle .trainee-senpai-weapon {
+  transform-origin: 66px 58px;
+  animation: trainee-senpai-shoulder-tap calc(var(--dur-celebrate, 900ms) * 2.4) ease-in-out
+    infinite;
+}
+.trainee-senpai-idle .trainee-senpai-ties {
+  transform-origin: 74px 22px;
+  animation: trainee-senpai-ties-flutter calc(var(--dur-celebrate, 900ms) * 1.8) ease-in-out
+    infinite alternate;
+}
+.trainee-senpai-idle .trainee-senpai-chonmage {
+  transform-origin: 50px 14px;
+  animation: trainee-senpai-topknot-nod calc(var(--dur-celebrate, 900ms) * 2.4) ease-in-out infinite;
+}
+.trainee-senpai-shadow-idle {
+  animation: trainee-senpai-shadow-pulse calc(var(--dur-celebrate, 900ms) * 2.4) ease-in-out
+    infinite;
+}
+
+/* ---- ENTER: smooth fade-in onto the dojo floor (never a pop) ---- */
+.trainee-bokken-enter,
+.trainee-naginata-enter,
+.trainee-senpai-enter {
+  animation: trainee-bokken-fade-enter var(--dur-celebrate, 900ms) cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+.trainee-bokken-shadow-enter,
+.trainee-naginata-shadow-enter,
+.trainee-senpai-shadow-enter {
+  animation: trainee-bokken-shadow-enter var(--dur-celebrate, 900ms) ease-out both;
+}
+
+/* ---- HIT: flinch back when struck ---- */
+.trainee-bokken-hit,
+.trainee-naginata-hit,
+.trainee-senpai-hit {
+  animation: trainee-bokken-hit-recoil var(--dur-base, 220ms) ease-out both;
+}
+
+/* ---- ATTACK: signature martial arts techniques toward lower-left player ---- */
+
+/* 1. Bokken: quick overhead men strike (jodan wind-up -> crisp vertical cut) */
+.trainee-bokken-attack .trainee-bokken-body {
+  transform-origin: 50px 88px;
+  animation: trainee-bokken-men-lunge 520ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+.trainee-bokken-attack .trainee-bokken-weapon {
+  transform-origin: 48px 62px;
+  animation: trainee-bokken-men-swing 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.trainee-bokken-slash-arc {
+  opacity: 0;
+  transform-origin: 36px 56px;
+  pointer-events: none;
+}
+.trainee-bokken-attack .trainee-bokken-slash-arc {
+  animation: trainee-bokken-slash-flash 520ms ease-out both;
+}
+
+/* 2. Naginata: sweeping low strike (sune-uchi / low arc sweep) */
+.trainee-naginata-attack .trainee-naginata-body {
+  transform-origin: 50px 88px;
+  animation: trainee-naginata-sweep-lunge 520ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+.trainee-naginata-attack .trainee-naginata-weapon {
+  transform-origin: 50px 68px;
+  animation: trainee-naginata-low-sweep 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.trainee-naginata-sweep-arc {
+  opacity: 0;
+  transform-origin: 46px 80px;
+  pointer-events: none;
+}
+.trainee-naginata-attack .trainee-naginata-sweep-arc {
+  animation: trainee-naginata-sweep-flash 520ms ease-out both;
+}
+
+/* 3. Senpai: fast double strike (nidan-waza: twin rapid slashes) */
+.trainee-senpai-attack .trainee-senpai-body {
+  transform-origin: 50px 88px;
+  animation: trainee-senpai-double-lunge 520ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+.trainee-senpai-attack .trainee-senpai-weapon {
+  transform-origin: 54px 60px;
+  animation: trainee-senpai-double-swing 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.trainee-senpai-slash-1,
+.trainee-senpai-slash-2 {
+  opacity: 0;
+  transform-origin: 38px 60px;
+  pointer-events: none;
+}
+.trainee-senpai-attack .trainee-senpai-slash-1 {
+  animation: trainee-senpai-slash-first 520ms ease-out both;
+}
+.trainee-senpai-attack .trainee-senpai-slash-2 {
+  animation: trainee-senpai-slash-second 520ms ease-out both;
+}
+
+/* ---- DEFEAT: drop to one knee and bow respectfully (rei), never die ---- */
+.enemy-trainee-bokken.enemy-defeat,
+.enemy-trainee-naginata.enemy-defeat,
+.enemy-trainee-senpai.enemy-defeat {
+  animation: trainee-bokken-rei-outer 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.trainee-bokken-defeat .trainee-bokken-body,
+.trainee-naginata-defeat .trainee-naginata-body,
+.trainee-senpai-defeat .trainee-senpai-body {
+  transform-origin: 50px 88px;
+  animation: trainee-bokken-drop-knee 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.trainee-bokken-defeat .trainee-bokken-upper,
+.trainee-naginata-defeat .trainee-naginata-upper,
+.trainee-senpai-defeat .trainee-senpai-upper {
+  transform-origin: 50px 70px;
+  animation: trainee-bokken-rei-bow 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.trainee-bokken-defeat .trainee-bokken-sweat,
+.trainee-naginata-defeat .trainee-naginata-sweat,
+.trainee-senpai-defeat .trainee-senpai-sweat {
+  transform-origin: 70px 34px;
+  animation: trainee-bokken-sweat-drop 560ms ease-out both;
+}
+
+/* ---- KEYFRAMES ---- */
+
+@keyframes trainee-bokken-stance {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.01, 0.99);
+  }
+  50% {
+    transform: translateY(-3.5px) scale(0.99, 1.02);
+  }
+}
+
+@keyframes trainee-bokken-kamae {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-1.5px) rotate(-3.5deg);
+  }
+}
+
+@keyframes trainee-bokken-ties-flutter {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(7deg);
+  }
+}
+
+@keyframes trainee-bokken-shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1.02);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleX(0.93);
+    opacity: 0.78;
+  }
+}
+
+@keyframes trainee-naginata-stance {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.015, 0.985);
+  }
+  50% {
+    transform: translateY(-3px) scale(0.985, 1.02);
+  }
+}
+
+@keyframes trainee-naginata-poise {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-1.5px);
+  }
+}
+
+@keyframes trainee-naginata-ties-flutter {
+  from {
+    transform: rotate(-6deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes trainee-naginata-hair-sway {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes trainee-naginata-shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1.03);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleX(0.94);
+    opacity: 0.8;
+  }
+}
+
+@keyframes trainee-senpai-stance {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.01, 0.99);
+  }
+  50% {
+    transform: translateY(-2.5px) scale(0.99, 1.015);
+  }
+}
+
+@keyframes trainee-senpai-shoulder-tap {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(3.5deg);
+  }
+  75% {
+    transform: rotate(-1.5deg);
+  }
+}
+
+@keyframes trainee-senpai-ties-flutter {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes trainee-senpai-topknot-nod {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-2.5deg);
+  }
+}
+
+@keyframes trainee-senpai-shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1.02);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleX(0.95);
+    opacity: 0.82;
+  }
+}
+
+@keyframes trainee-bokken-fade-enter {
+  0% {
+    transform: translateY(-10px) scale(0.9, 1.06);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(2px) scale(1.02, 0.98);
+    opacity: 0.82;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes trainee-bokken-shadow-enter {
+  0% {
+    transform: scale(0.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes trainee-bokken-hit-recoil {
+  0% {
+    transform: none;
+  }
+  35% {
+    transform: translateX(7px) rotate(2.5deg) scale(0.97, 1.03);
+  }
+  70% {
+    transform: translateX(-1.5px) rotate(-0.8deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* Bokken overhead men strike */
+@keyframes trainee-bokken-men-lunge {
+  0% {
+    transform: none;
+  }
+  24% {
+    transform: translate(4px, -7px) scale(0.96, 1.06) rotate(4deg);
+  }
+  50% {
+    transform: translate(-10px, 9px) scale(1.08, 0.93) rotate(-6deg);
+  }
+  72% {
+    transform: translate(-7px, 6px) scale(1.03, 0.97) rotate(-3deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes trainee-bokken-men-swing {
+  0% {
+    transform: none;
+  }
+  24% {
+    transform: translate(6px, -16px) rotate(46deg);
+  }
+  48% {
+    transform: translate(-12px, 10px) rotate(-38deg) scale(1.08);
+  }
+  70% {
+    transform: translate(-8px, 6px) rotate(-22deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes trainee-bokken-slash-flash {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translate(6px, -10px) scale(0.6) rotate(28deg);
+  }
+  44% {
+    opacity: 0.95;
+    transform: translate(-6px, 4px) scale(1.08) rotate(-8deg);
+  }
+  68% {
+    opacity: 0.45;
+    transform: translate(-10px, 8px) scale(1.12) rotate(-16deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-12px, 10px) scale(0.9);
+  }
+}
+
+/* Naginata sweeping low strike */
+@keyframes trainee-naginata-sweep-lunge {
+  0% {
+    transform: none;
+  }
+  25% {
+    transform: translate(6px, -3px) scale(1.04, 0.96) rotate(6deg);
+  }
+  52% {
+    transform: translate(-12px, 8px) scale(1.1, 0.9) rotate(-7deg);
+  }
+  76% {
+    transform: translate(-6px, 4px) scale(1.03, 0.97) rotate(-3deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes trainee-naginata-low-sweep {
+  0% {
+    transform: none;
+  }
+  25% {
+    transform: translate(8px, -4px) rotate(28deg);
+  }
+  50% {
+    transform: translate(-14px, 8px) rotate(-34deg) scale(1.06);
+  }
+  72% {
+    transform: translate(-8px, 5px) rotate(-18deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes trainee-naginata-sweep-flash {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translateX(12px) scaleX(0.5);
+  }
+  48% {
+    opacity: 0.95;
+    transform: translateX(-8px) scale(1.12, 1.05);
+  }
+  74% {
+    opacity: 0.4;
+    transform: translateX(-14px) scale(1.18, 0.92);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-18px) scale(0.9);
+  }
+}
+
+/* Senpai fast double strike (nidan-waza) */
+@keyframes trainee-senpai-double-lunge {
+  0% {
+    transform: none;
+  }
+  18% {
+    transform: translate(5px, -5px) scale(0.97, 1.04) rotate(5deg);
+  }
+  36% {
+    transform: translate(-10px, 7px) scale(1.07, 0.94) rotate(-6deg);
+  }
+  52% {
+    transform: translate(-4px, -2px) scale(0.98, 1.03) rotate(4deg);
+  }
+  70% {
+    transform: translate(-13px, 10px) scale(1.1, 0.92) rotate(-8deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes trainee-senpai-double-swing {
+  0% {
+    transform: none;
+  }
+  18% {
+    transform: translate(4px, -10px) rotate(24deg);
+  }
+  36% {
+    transform: translate(-14px, 8px) rotate(-42deg) scale(1.08);
+  }
+  52% {
+    transform: translate(2px, -8px) rotate(18deg);
+  }
+  70% {
+    transform: translate(-16px, 10px) rotate(-52deg) scale(1.1);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes trainee-senpai-slash-first {
+  0%,
+  20% {
+    opacity: 0;
+    transform: scale(0.6) rotate(16deg);
+  }
+  34% {
+    opacity: 0.95;
+    transform: translate(-6px, 4px) scale(1.06) rotate(-6deg);
+  }
+  52%,
+  100% {
+    opacity: 0;
+    transform: translate(-10px, 8px) scale(1.12);
+  }
+}
+
+@keyframes trainee-senpai-slash-second {
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-18deg);
+  }
+  68% {
+    opacity: 0.98;
+    transform: translate(-8px, 6px) scale(1.12) rotate(8deg);
+  }
+  92%,
+  100% {
+    opacity: 0;
+    transform: translate(-12px, 10px) scale(1.16);
+  }
+}
+
+/* Defeat: drop to one knee and bow (rei) */
+@keyframes trainee-bokken-rei-outer {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  35% {
+    transform: translateY(3px) scale(1.03, 0.96);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(4px) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes trainee-bokken-drop-knee {
+  0% {
+    transform: translateY(-4px) scale(1.02, 0.98);
+  }
+  45% {
+    transform: translateY(2px) scale(1.04, 0.95);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes trainee-bokken-rei-bow {
+  0% {
+    transform: translateY(-3px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(4px) rotate(-10deg);
+  }
+  100% {
+    transform: translateY(3px) rotate(-8deg);
+  }
+}
+
+@keyframes trainee-bokken-sweat-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.7);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(0) scale(1.05);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translateY(3px) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trainee-bokken-root,
+  .trainee-bokken-root *,
+  .trainee-naginata-root,
+  .trainee-naginata-root *,
+  .trainee-senpai-root,
+  .trainee-senpai-root *,
+  .enemy-trainee-bokken,
+  .enemy-trainee-naginata,
+  .enemy-trainee-senpai {
+    animation: none !important;
+  }
+}
