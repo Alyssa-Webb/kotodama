@@ -12,6 +12,13 @@ Owner direction (2026-10-30): the town is a main screen and the heart of the gam
 - **Memory drives the economy.** A building's output is multiplied by its staff's average retention (FSRS retrievability). Words you are forgetting make their buildings sputter, with grey smoke and a "needs review" lantern on them. Reviewing them in the Dojo restores production. The reviews you owe now have a visible, game-native cost, without turning it into nagging.
 - **Expansion is gated by learning, not by grinding.** New plots and districts unlock when a unit is restored (the existing `restoredBy`). Building levels cap at the number of mastered words in that category, so the only way to grow is to learn more Japanese. That is what makes it scale with endless content.
 
+## Spirits: variety, rarity and stations (owner request)
+
+- **Many spirit types**, each tied to a word category and an element of Japanese life: tea sprites (food and drink), lantern foxes (places), ink tanuki (verbs), bell kodama (greetings and phrases), wave koi (adjectives), cloud tengu (time and weather), and more as packs add categories. Data lives in `world/spirits.json`, with Gemini drawing each one in the chibi style.
+- **Rarity is rolled when a spirit is acquired** (common, rare, epic, legendary), using the same published-odds machinery as the gachapon, and seeded per save so it can't be rerolled by reloading. Rarity scales a spirit's effectiveness in town: output, speed, capacity and special perks. A spirit's level still comes from how well you know its word (FSRS), so a legendary spirit for a word you're forgetting still sputters.
+- **Stations and roles:** every building has role slots (brewer, cook, clerk, porter, greeter, scribe). Assigning spirits by drag and drop sets what the building produces and how much. Matching a spirit to a role that fits its category gives a bonus.
+- **Products and inventory:** buildings turn spirit labour into products (tea, bento, souvenirs, tickets, scrolls) held in a per-building inventory with a capacity. Products sell for koban automatically or fill resident requests, and some feed other buildings, forming production chains. Better spirits and roles mean more stock, faster restocks and higher-value products.
+
 ## Tycoon systems (in build order)
 
 1. **Buildings and income:** a plot grid per district, build and upgrade with koban, an income ledger (event-sourced like the existing ledger), idle accrual with a cap, a collect-all action. Data in `world/buildings.json` (cost curve, output, affinity, art id).
