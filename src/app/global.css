@@ -1195,12 +1195,7 @@ label.field {
   animation: bar-leading-shine calc(var(--dur-celebrate) * 1.4) ease-in-out infinite alternate;
 }
 .bar-gold > span {
-  background: linear-gradient(
-    180deg,
-    var(--c-coin-shine),
-    var(--c-glow) 46%,
-    var(--c-gold)
-  );
+  background: linear-gradient(180deg, var(--c-coin-shine), var(--c-glow) 46%, var(--c-gold));
 }
 .bar-indigo > span {
   background: linear-gradient(
@@ -1398,4 +1393,55 @@ label.field {
 /* The top bar already shows your money: no second copy beside a page title. */
 .main .row.spread:has(> h1) > .stat {
   display: none;
+}
+
+/* The active tab's badge is wide and tall enough for its icon and label. */
+.tab {
+  white-space: nowrap;
+}
+.tab.active::before {
+  inset: -8px -6px -2px;
+}
+
+/* Shop: a tight three-column grid so the whole stock fits in a short scroll. */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.shop-grid > .card {
+  padding: var(--sp-2);
+  gap: 4px !important;
+  text-align: center;
+  align-content: start;
+}
+.shop-grid .item-art,
+.shop-grid > .card > :first-child {
+  justify-self: center;
+}
+.shop-grid .big-ja {
+  font-size: var(--fs-sm);
+}
+.shop-grid strong {
+  font-size: var(--fs-sm);
+  line-height: 1.15;
+}
+.shop-grid .small.muted {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 11px;
+}
+.shop-grid .btn {
+  width: 100%;
+  padding-inline: 4px;
+}
+.shop-grid .price-ja {
+  font-size: 10px;
+}
+@media (max-width: 340px) {
+  .shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

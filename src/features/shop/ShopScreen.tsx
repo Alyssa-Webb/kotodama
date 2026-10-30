@@ -192,7 +192,7 @@ export function ShopScreen() {
         )}
       <section className="stack">
         <h2>Consumables</h2>
-        <div className="grid-2">
+        <div className="shop-grid">
           {shop.consumables.map((c) => {
             const price = priceOf(save, shop, c.id) ?? c.price;
             const held = stats.inventory(c.id);
@@ -201,7 +201,7 @@ export function ShopScreen() {
               (c.id === 'kintsugi' && !kintsugiAvailable(save, gctx()));
             return (
               <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
-                <ItemArt id={c.id} size={72} />
+                <ItemArt id={c.id} size={52} />
                 <div className="row spread">
                   <span className="big-ja">
                     <SpeakableJa text={c.name} />
@@ -231,10 +231,10 @@ export function ShopScreen() {
       </section>
       <section className="stack">
         <h2>Charms</h2>
-        <div className="grid-2">
+        <div className="shop-grid">
           {shop.charms.map((c) => (
             <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
-              <ItemArt id={c.id} size={72} />
+              <ItemArt id={c.id} size={52} />
               <span className="big-ja">
                 <SpeakableJa text={c.name} />
               </span>

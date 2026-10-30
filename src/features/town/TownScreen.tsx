@@ -96,14 +96,18 @@ function Building({ kind, lit, restored }: { kind: string; lit: boolean; restore
   );
 }
 
+/** Map symbols: instantly readable, no kanji a beginner can't read yet. */
 const ICON: Record<string, string> = {
-  station: '駅',
-  cafe: '茶',
-  shrine: '社',
-  shop: '店',
-  bath: '湯',
-  school: '学',
+  station: '🚉',
+  cafe: '☕',
+  shrine: '⛩️',
+  shop: '🛍️',
+  bath: '♨️',
+  school: '🏫',
 };
+/** Short map labels ("The Station" → "Station", "Shopping Street" → "Shops"). */
+const SHORT: Record<string, string> = { 'Shopping Street': 'Shops', 'Shrine Garden': 'Shrine' };
+const shortName = (en: string) => SHORT[en] ?? en.replace(/^The /, '');
 
 /** Placeholder town map (SVG): districts light up as their units are finished and dim when you miss days. */
 export function TownScreen() {
@@ -172,10 +176,10 @@ export function TownScreen() {
             style={{ left: `${s.district.x}%`, top: `${s.district.y}%` }}
           >
             <Building kind={s.district.icon} lit={s.lit} restored={s.restored} />
-            <span className="district-sign" lang="ja" aria-hidden="true">
-              {ICON[s.district.icon] ?? '家'}
+            <span className="district-sign" aria-hidden="true">
+              {ICON[s.district.icon] ?? '🏠'}
             </span>
-            <span className="district-name">{s.district.en}</span>
+            <span className="district-name">{shortName(s.district.en)}</span>
           </div>
         ))}
       </div>
@@ -183,7 +187,8 @@ export function TownScreen() {
         {states.map((s) => (
           <div key={s.district.id} className="card card-tight stack" style={{ gap: 'var(--sp-1)' }}>
             <strong>
-              <JaText text={s.district.name} /> {s.district.en}
+              <span aria-hidden="true">{ICON[s.district.icon] ?? '🏠'}</span>{' '}
+              {shortName(s.district.en)}
             </strong>
             <div className="bar bar-gold">
               <span style={{ width: `${s.progress * 100}%` }} />
