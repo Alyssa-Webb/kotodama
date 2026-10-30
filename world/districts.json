@@ -5,7 +5,10 @@
       "id": "station",
       "name": "{駅|えき}",
       "en": "The Station",
-      "restoredBy": { "packId": "kotodama-starter", "unitId": "u01" },
+      "restoredBy": {
+        "packId": "kotodama-starter",
+        "unitId": "u01"
+      },
       "icon": "station",
       "x": 18,
       "y": 70
@@ -14,7 +17,10 @@
       "id": "cafe",
       "name": "{喫茶店|きっさてん}",
       "en": "The Café",
-      "restoredBy": { "packId": "kotodama-starter", "unitId": "u02" },
+      "restoredBy": {
+        "packId": "kotodama-starter",
+        "unitId": "u02"
+      },
       "icon": "cafe",
       "x": 42,
       "y": 52
@@ -25,7 +31,11 @@
       "en": "Shrine Garden",
       "icon": "shrine",
       "x": 52,
-      "y": 22
+      "y": 22,
+      "restoredBy": {
+        "packId": "kotodama-starter",
+        "unitId": "u03"
+      }
     },
     {
       "id": "shopping",

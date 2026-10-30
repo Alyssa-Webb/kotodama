@@ -5,7 +5,7 @@
     "title": "First Steps",
     "version": 1,
     "level": "N5",
-    "description": "Your first kana and your first café visit: ten hiragana, polite basics, and ordering tea.",
+    "description": "From the dojo to the city market: hiragana and katakana, greetings on the road, and ordering tea.",
     "district": "café"
   },
   "items": [
@@ -78,6 +78,185 @@
       "text": "こ",
       "romaji": "ko",
       "meanings": ["ko"]
+    },
+    {
+      "id": "k.kata-a",
+      "kind": "kana",
+      "text": "ア",
+      "romaji": "a",
+      "meanings": ["a"]
+    },
+    {
+      "id": "k.kata-i",
+      "kind": "kana",
+      "text": "イ",
+      "romaji": "i",
+      "meanings": ["i"]
+    },
+    {
+      "id": "k.kata-u",
+      "kind": "kana",
+      "text": "ウ",
+      "romaji": "u",
+      "meanings": ["u"]
+    },
+    {
+      "id": "k.kata-e",
+      "kind": "kana",
+      "text": "エ",
+      "romaji": "e",
+      "meanings": ["e"]
+    },
+    {
+      "id": "k.kata-o",
+      "kind": "kana",
+      "text": "オ",
+      "romaji": "o",
+      "meanings": ["o"]
+    },
+    {
+      "id": "k.kata-ka",
+      "kind": "kana",
+      "text": "カ",
+      "romaji": "ka",
+      "meanings": ["ka"]
+    },
+    {
+      "id": "k.kata-ki",
+      "kind": "kana",
+      "text": "キ",
+      "romaji": "ki",
+      "meanings": ["ki"]
+    },
+    {
+      "id": "k.kata-ku",
+      "kind": "kana",
+      "text": "ク",
+      "romaji": "ku",
+      "meanings": ["ku"]
+    },
+    {
+      "id": "k.kata-ke",
+      "kind": "kana",
+      "text": "ケ",
+      "romaji": "ke",
+      "meanings": ["ke"]
+    },
+    {
+      "id": "k.kata-ko",
+      "kind": "kana",
+      "text": "コ",
+      "romaji": "ko",
+      "meanings": ["ko"]
+    },
+    {
+      "id": "p.konnichiwa",
+      "kind": "phrase",
+      "text": "こんにちは",
+      "romaji": "konnichiwa",
+      "register": "polite",
+      "meanings": ["Hello", "Good afternoon"],
+      "usage": "The everyday daytime greeting. The final は is read \"wa\"."
+    },
+    {
+      "id": "p.ohayou-gozaimasu",
+      "kind": "phrase",
+      "text": "おはようございます",
+      "romaji": "ohayou gozaimasu",
+      "register": "polite",
+      "meanings": ["Good morning"],
+      "usage": "Polite morning greeting."
+    },
+    {
+      "id": "p.konbanwa",
+      "kind": "phrase",
+      "text": "こんばんは",
+      "romaji": "konbanwa",
+      "register": "polite",
+      "meanings": ["Good evening"],
+      "usage": "Evening greeting. The final は is read \"wa\"."
+    },
+    {
+      "id": "p.sayounara",
+      "kind": "phrase",
+      "text": "さようなら",
+      "romaji": "sayounara",
+      "register": "polite",
+      "meanings": ["Goodbye"],
+      "usage": "A parting for someone you may not see again soon."
+    },
+    {
+      "id": "p.ki-wo-tsukete",
+      "kind": "phrase",
+      "text": "{気|き}をつけて",
+      "romaji": "ki o tsukete",
+      "register": "casual",
+      "meanings": ["Take care", "Be careful"],
+      "usage": "Said to someone setting off on a journey."
+    },
+    {
+      "id": "w.doko",
+      "kind": "word",
+      "text": "どこ",
+      "romaji": "doko",
+      "pos": "other",
+      "meanings": ["where"]
+    },
+    {
+      "id": "w.michi",
+      "kind": "word",
+      "text": "{道|みち}",
+      "romaji": "michi",
+      "pos": "noun",
+      "meanings": ["road", "way"]
+    },
+    {
+      "id": "w.kyouto",
+      "kind": "word",
+      "text": "{京都|きょうと}",
+      "romaji": "kyouto",
+      "pos": "noun",
+      "meanings": ["Kyoto"]
+    },
+    {
+      "id": "w.edo",
+      "kind": "word",
+      "text": "{江戸|えど}",
+      "romaji": "edo",
+      "pos": "noun",
+      "meanings": ["Edo", "old Tokyo"]
+    },
+    {
+      "id": "s.doko-kara",
+      "kind": "sentence",
+      "text": "どこから{来|き}ましたか。",
+      "register": "polite",
+      "meanings": ["Where did you come from?", "Where are you from?"],
+      "tiles": ["どこ", "から", "{来|き}ました", "か", "。"]
+    },
+    {
+      "id": "s.kyouto-kara",
+      "kind": "sentence",
+      "text": "{京都|きょうと}から{来|き}ました。",
+      "register": "polite",
+      "meanings": ["I came from Kyoto.", "I'm from Kyoto."],
+      "tiles": ["{京都|きょうと}", "から", "{来|き}ました", "。"]
+    },
+    {
+      "id": "s.doko-e",
+      "kind": "sentence",
+      "text": "どこへ{行|い}きますか。",
+      "register": "polite",
+      "meanings": ["Where are you going?", "Where are you headed?"],
+      "tiles": ["どこ", "へ", "{行|い}きます", "か", "。"]
+    },
+    {
+      "id": "s.edo-e",
+      "kind": "sentence",
+      "text": "{江戸|えど}へ{行|い}きます。",
+      "register": "polite",
+      "meanings": ["I'm going to Edo.", "I am going to Edo."],
+      "tiles": ["{江戸|えど}", "へ", "{行|い}きます", "。"]
     },
     {
       "id": "w.mizu",
@@ -378,6 +557,106 @@
   ],
   "dialogues": [
     {
+      "id": "d.road-traveller",
+      "title": "A traveller on the road",
+      "setting": "A bamboo road at dusk; a pilgrim with a straw hat walks the other way",
+      "lines": [
+        {
+          "speaker": "friend",
+          "text": "こんばんは。",
+          "en": "Good evening."
+        },
+        {
+          "speaker": "player",
+          "text": "こんばんは。",
+          "en": "Good evening.",
+          "choices": [
+            {
+              "text": "こんばんは。",
+              "correct": true,
+              "feedback": "Greet back with the same words."
+            },
+            {
+              "text": "おはようございます。",
+              "correct": false,
+              "feedback": "That's for the morning; the sun is setting."
+            },
+            {
+              "text": "さようなら。",
+              "correct": false,
+              "feedback": "That's goodbye, not hello."
+            }
+          ]
+        },
+        {
+          "speaker": "friend",
+          "text": "どこから{来|き}ましたか。",
+          "en": "Where have you come from?"
+        },
+        {
+          "speaker": "player",
+          "text": "{京都|きょうと}から{来|き}ました。",
+          "en": "I came from Kyoto.",
+          "choices": [
+            {
+              "text": "{京都|きょうと}から{来|き}ました。",
+              "correct": true,
+              "feedback": "Place, から (from), {来|き}ました (came)."
+            },
+            {
+              "text": "{京都|きょうと}へ{行|い}きます。",
+              "correct": false,
+              "feedback": "That says where you are going, not where you came from."
+            }
+          ]
+        },
+        {
+          "speaker": "friend",
+          "text": "どこへ{行|い}きますか。",
+          "en": "Where are you going?"
+        },
+        {
+          "speaker": "player",
+          "text": "{江戸|えど}へ{行|い}きます。",
+          "en": "I'm going to Edo.",
+          "choices": [
+            {
+              "text": "{江戸|えど}へ{行|い}きます。",
+              "correct": true,
+              "feedback": "Place, へ (to, read \"e\"), {行|い}きます (go)."
+            },
+            {
+              "text": "{江戸|えど}から{来|き}ました。",
+              "correct": false,
+              "feedback": "That says you came from Edo."
+            }
+          ]
+        },
+        {
+          "speaker": "friend",
+          "text": "{気|き}をつけて。",
+          "en": "Take care."
+        },
+        {
+          "speaker": "player",
+          "text": "ありがとうございます。さようなら。",
+          "en": "Thank you. Goodbye.",
+          "choices": [
+            {
+              "text": "ありがとうございます。さようなら。",
+              "correct": true,
+              "feedback": "Thanks and a polite goodbye."
+            },
+            {
+              "text": "いただきます。",
+              "correct": false,
+              "feedback": "That's for the start of a meal."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "d.cafe-order",
       "title": "Ordering at the café",
       "setting": "A small café by the station, mid-morning",
@@ -486,7 +765,7 @@
   "units": [
     {
       "id": "u01",
-      "title": "Kana Gate",
+      "title": "The Dojo: Kana Gate",
       "nodes": [
         {
           "id": "u01.n01",
@@ -705,6 +984,208 @@
           ]
         },
         {
+          "id": "u01.n04",
+          "kind": "lesson",
+          "title": "Katakana アイウエオ",
+          "introduces": ["k.kata-a", "k.kata-i", "k.kata-u", "k.kata-e", "k.kata-o"],
+          "teach": [
+            {
+              "note": {
+                "title": "The second script",
+                "body": "Katakana are the same sounds as hiragana in a sharper, straighter hand: ア a, イ i, ウ u, エ e, オ o. A samurai reads both."
+              }
+            },
+            {
+              "item": "k.kata-a"
+            },
+            {
+              "item": "k.kata-i"
+            },
+            {
+              "item": "k.kata-u"
+            },
+            {
+              "item": "k.kata-e"
+            },
+            {
+              "item": "k.kata-o"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u01.n04.e01",
+              "type": "choice",
+              "item": "k.kata-a",
+              "ask": "meaning",
+              "distractors": ["k.kata-i", "k.kata-u"]
+            },
+            {
+              "id": "u01.n04.e02",
+              "type": "choice",
+              "item": "k.kata-i",
+              "ask": "meaning",
+              "distractors": ["k.kata-a", "k.kata-e"]
+            },
+            {
+              "id": "u01.n04.e03",
+              "type": "listen",
+              "item": "k.kata-u",
+              "distractors": ["k.kata-a", "k.kata-o"]
+            },
+            {
+              "id": "u01.n04.e04",
+              "type": "choice",
+              "item": "k.kata-e",
+              "ask": "meaning",
+              "distractors": ["k.kata-i", "k.kata-o"]
+            },
+            {
+              "id": "u01.n04.e05",
+              "type": "listen",
+              "item": "k.kata-o",
+              "distractors": ["k.kata-u", "k.kata-e"]
+            },
+            {
+              "id": "u01.n04.e06",
+              "type": "match",
+              "items": ["k.kata-a", "k.kata-i", "k.kata-u", "k.kata-e", "k.kata-o"]
+            },
+            {
+              "id": "u01.n04.e07",
+              "type": "choice",
+              "item": "k.kata-u",
+              "ask": "meaning",
+              "distractors": ["k.kata-a", "k.kata-e"]
+            },
+            {
+              "id": "u01.n04.e08",
+              "type": "trace",
+              "item": "k.kata-a"
+            },
+            {
+              "id": "u01.n04.e09",
+              "type": "listen",
+              "item": "k.kata-i",
+              "distractors": ["k.kata-e", "k.kata-a"]
+            },
+            {
+              "id": "u01.n04.e10",
+              "type": "type",
+              "item": "k.kata-o",
+              "ask": "meaning"
+            },
+            {
+              "id": "u01.n04.e11",
+              "type": "trace",
+              "item": "k.kata-e"
+            }
+          ]
+        },
+        {
+          "id": "u01.n05",
+          "kind": "lesson",
+          "title": "Katakana カキクケコ",
+          "introduces": ["k.kata-ka", "k.kata-ki", "k.kata-ku", "k.kata-ke", "k.kata-ko"],
+          "teach": [
+            {
+              "note": {
+                "title": "Sharp k-sounds",
+                "body": "カ ka, キ ki, ク ku, ケ ke, コ ko. Compare them with か き く け こ: same sounds, straighter strokes."
+              }
+            },
+            {
+              "item": "k.kata-ka"
+            },
+            {
+              "item": "k.kata-ki"
+            },
+            {
+              "item": "k.kata-ku"
+            },
+            {
+              "item": "k.kata-ke"
+            },
+            {
+              "item": "k.kata-ko"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u01.n05.e01",
+              "type": "choice",
+              "item": "k.kata-ka",
+              "ask": "meaning",
+              "distractors": ["k.kata-ki", "k.kata-ko"]
+            },
+            {
+              "id": "u01.n05.e02",
+              "type": "choice",
+              "item": "k.kata-ki",
+              "ask": "meaning",
+              "distractors": ["k.kata-ka", "k.kata-ke"]
+            },
+            {
+              "id": "u01.n05.e03",
+              "type": "listen",
+              "item": "k.kata-ku",
+              "distractors": ["k.kata-ka", "k.kata-u"]
+            },
+            {
+              "id": "u01.n05.e04",
+              "type": "choice",
+              "item": "k.kata-ke",
+              "ask": "meaning",
+              "distractors": ["k.kata-ki", "k.kata-e"]
+            },
+            {
+              "id": "u01.n05.e05",
+              "type": "listen",
+              "item": "k.kata-ko",
+              "distractors": ["k.kata-o", "k.kata-ka"]
+            },
+            {
+              "id": "u01.n05.e06",
+              "type": "match",
+              "items": ["k.kata-ka", "k.kata-ki", "k.kata-ku", "k.kata-ke", "k.kata-ko"]
+            },
+            {
+              "id": "u01.n05.e07",
+              "type": "choice",
+              "item": "k.kata-ku",
+              "ask": "meaning",
+              "distractors": ["k.kata-u", "k.kata-ko"]
+            },
+            {
+              "id": "u01.n05.e08",
+              "type": "trace",
+              "item": "k.kata-ki"
+            },
+            {
+              "id": "u01.n05.e09",
+              "type": "listen",
+              "item": "k.kata-ke",
+              "distractors": ["k.kata-ki", "k.kata-ka"]
+            },
+            {
+              "id": "u01.n05.e10",
+              "type": "type",
+              "item": "k.kata-ko",
+              "ask": "meaning"
+            },
+            {
+              "id": "u01.n05.e11",
+              "type": "listen",
+              "item": "k.kata-ka",
+              "distractors": ["k.kata-ko", "k.kata-ki"]
+            },
+            {
+              "id": "u01.n05.e12",
+              "type": "trace",
+              "item": "k.kata-ku"
+            }
+          ]
+        },
+        {
           "id": "u01.n03",
           "kind": "checkpoint",
           "title": "Gate Trial",
@@ -736,13 +1217,13 @@
             {
               "id": "u01.n03.e05",
               "type": "listen",
-              "item": "k.o",
-              "distractors": ["k.ko", "k.u"]
+              "item": "k.kata-o",
+              "distractors": ["k.kata-ko", "k.kata-u"]
             },
             {
               "id": "u01.n03.e06",
               "type": "type",
-              "item": "k.ka",
+              "item": "k.kata-ka",
               "ask": "meaning"
             },
             {
@@ -788,12 +1269,17 @@
             {
               "id": "u01.n03.e14",
               "type": "choice",
-              "item": "k.i",
+              "item": "k.kata-ki",
               "ask": "meaning",
-              "distractors": ["k.ki", "k.e"]
+              "distractors": ["k.kata-i", "k.kata-ke"]
             },
             {
               "id": "u01.n03.e15",
+              "type": "match",
+              "items": ["k.kata-a", "k.kata-ka", "k.kata-e", "k.kata-ke"]
+            },
+            {
+              "id": "u01.n03.e16",
               "type": "trace",
               "item": "k.ko"
             }
@@ -802,8 +1288,438 @@
       ]
     },
     {
+      "id": "u03",
+      "title": "The Road",
+      "nodes": [
+        {
+          "id": "u03.n01",
+          "kind": "lesson",
+          "title": "Greetings on the road",
+          "introduces": ["p.konnichiwa", "p.ohayou-gozaimasu", "p.konbanwa", "p.sayounara"],
+          "teach": [
+            {
+              "note": {
+                "title": "Greet by the time of day",
+                "body": "おはようございます in the morning, こんにちは in the day, こんばんは in the evening. The は at the end of こんにちは and こんばんは is read \"wa\"."
+              }
+            },
+            {
+              "item": "p.ohayou-gozaimasu"
+            },
+            {
+              "item": "p.konnichiwa"
+            },
+            {
+              "item": "p.konbanwa"
+            },
+            {
+              "item": "p.sayounara"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u03.n01.e01",
+              "type": "choice",
+              "item": "p.konnichiwa",
+              "ask": "meaning",
+              "distractors": ["p.konbanwa", "p.sayounara"]
+            },
+            {
+              "id": "u03.n01.e02",
+              "type": "listen",
+              "item": "p.ohayou-gozaimasu",
+              "distractors": ["p.konnichiwa", "p.konbanwa"]
+            },
+            {
+              "id": "u03.n01.e03",
+              "type": "choice",
+              "item": "p.konbanwa",
+              "ask": "meaning",
+              "distractors": ["p.ohayou-gozaimasu", "p.konnichiwa"]
+            },
+            {
+              "id": "u03.n01.e04",
+              "type": "listen",
+              "item": "p.sayounara",
+              "distractors": ["p.konbanwa", "p.konnichiwa"]
+            },
+            {
+              "id": "u03.n01.e05",
+              "type": "match",
+              "items": ["p.ohayou-gozaimasu", "p.konnichiwa", "p.konbanwa", "p.sayounara"]
+            },
+            {
+              "id": "u03.n01.e06",
+              "type": "choice",
+              "item": "p.sayounara",
+              "ask": "meaning",
+              "distractors": ["p.konnichiwa", "p.ohayou-gozaimasu"]
+            },
+            {
+              "id": "u03.n01.e07",
+              "type": "listen",
+              "item": "p.konbanwa",
+              "distractors": ["p.konnichiwa", "p.sayounara"]
+            },
+            {
+              "id": "u03.n01.e08",
+              "type": "type",
+              "item": "p.konnichiwa",
+              "ask": "japanese"
+            },
+            {
+              "id": "u03.n01.e09",
+              "type": "choice",
+              "item": "p.ohayou-gozaimasu",
+              "ask": "meaning",
+              "distractors": ["p.konbanwa", "p.sayounara"]
+            },
+            {
+              "id": "u03.n01.e10",
+              "type": "listen",
+              "item": "p.konnichiwa",
+              "distractors": ["p.konbanwa", "p.ohayou-gozaimasu"]
+            }
+          ]
+        },
+        {
+          "id": "u03.n02",
+          "kind": "lesson",
+          "title": "Where are you from?",
+          "introduces": ["w.doko", "w.kyouto", "s.doko-kara", "s.kyouto-kara"],
+          "teach": [
+            {
+              "note": {
+                "title": "から means \"from\"",
+                "body": "Put から after a place: {京都|きょうと}から = from Kyoto. {来|き}ました means \"came\". Ask with どこ (where): どこから{来|き}ましたか。"
+              }
+            },
+            {
+              "item": "w.doko"
+            },
+            {
+              "item": "w.kyouto"
+            },
+            {
+              "item": "s.doko-kara"
+            },
+            {
+              "item": "s.kyouto-kara"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u03.n02.e01",
+              "type": "choice",
+              "item": "w.doko",
+              "ask": "meaning",
+              "distractors": ["w.kyouto", "w.michi"]
+            },
+            {
+              "id": "u03.n02.e02",
+              "type": "listen",
+              "item": "w.kyouto",
+              "distractors": ["w.doko", "w.edo"]
+            },
+            {
+              "id": "u03.n02.e03",
+              "type": "translate",
+              "item": "s.doko-kara",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u03.n02.e04",
+              "type": "tiles",
+              "item": "s.kyouto-kara"
+            },
+            {
+              "id": "u03.n02.e05",
+              "type": "listen",
+              "item": "s.doko-kara",
+              "distractors": ["s.kyouto-kara"]
+            },
+            {
+              "id": "u03.n02.e06",
+              "type": "match",
+              "items": ["w.doko", "w.kyouto", "p.konnichiwa", "p.sayounara"]
+            },
+            {
+              "id": "u03.n02.e07",
+              "type": "translate",
+              "item": "s.kyouto-kara",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u03.n02.e08",
+              "type": "tiles",
+              "item": "s.doko-kara"
+            },
+            {
+              "id": "u03.n02.e09",
+              "type": "type",
+              "item": "w.doko",
+              "ask": "japanese"
+            },
+            {
+              "id": "u03.n02.e10",
+              "type": "choice",
+              "item": "w.kyouto",
+              "ask": "meaning",
+              "distractors": ["w.doko", "w.michi"]
+            },
+            {
+              "id": "u03.n02.e11",
+              "type": "listen",
+              "item": "s.kyouto-kara",
+              "distractors": ["s.doko-kara"]
+            }
+          ]
+        },
+        {
+          "id": "u03.n03",
+          "kind": "lesson",
+          "title": "Where are you going?",
+          "introduces": ["w.michi", "w.edo", "s.doko-e", "s.edo-e", "p.ki-wo-tsukete"],
+          "teach": [
+            {
+              "note": {
+                "title": "へ means \"to\"",
+                "body": "へ after a place marks where you are headed. As a particle it is read \"e\": {江戸|えど}へ{行|い}きます = I am going to Edo. Travellers part with {気|き}をつけて (take care)."
+              }
+            },
+            {
+              "item": "w.michi"
+            },
+            {
+              "item": "w.edo"
+            },
+            {
+              "item": "s.doko-e"
+            },
+            {
+              "item": "s.edo-e"
+            },
+            {
+              "item": "p.ki-wo-tsukete"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u03.n03.e01",
+              "type": "choice",
+              "item": "w.michi",
+              "ask": "meaning",
+              "distractors": ["w.doko", "w.edo"]
+            },
+            {
+              "id": "u03.n03.e02",
+              "type": "listen",
+              "item": "w.edo",
+              "distractors": ["w.kyouto", "w.doko"]
+            },
+            {
+              "id": "u03.n03.e03",
+              "type": "translate",
+              "item": "s.doko-e",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u03.n03.e04",
+              "type": "tiles",
+              "item": "s.edo-e"
+            },
+            {
+              "id": "u03.n03.e05",
+              "type": "choice",
+              "item": "p.ki-wo-tsukete",
+              "ask": "meaning",
+              "distractors": ["p.sayounara", "p.konnichiwa"]
+            },
+            {
+              "id": "u03.n03.e06",
+              "type": "listen",
+              "item": "s.edo-e",
+              "distractors": ["s.kyouto-kara"]
+            },
+            {
+              "id": "u03.n03.e07",
+              "type": "match",
+              "items": ["w.michi", "w.edo", "w.kyouto", "w.doko"]
+            },
+            {
+              "id": "u03.n03.e08",
+              "type": "tiles",
+              "item": "s.doko-e"
+            },
+            {
+              "id": "u03.n03.e09",
+              "type": "translate",
+              "item": "s.edo-e",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u03.n03.e10",
+              "type": "listen",
+              "item": "p.ki-wo-tsukete",
+              "distractors": ["p.sayounara", "p.konbanwa"]
+            },
+            {
+              "id": "u03.n03.e11",
+              "type": "type",
+              "item": "w.michi",
+              "ask": "japanese"
+            },
+            {
+              "id": "u03.n03.e12",
+              "type": "choice",
+              "item": "w.edo",
+              "ask": "meaning",
+              "distractors": ["w.kyouto", "w.michi"]
+            },
+            {
+              "id": "u03.n03.e13",
+              "type": "listen",
+              "item": "s.doko-e",
+              "distractors": ["s.doko-kara"]
+            },
+            {
+              "id": "u03.n03.e14",
+              "type": "choice",
+              "item": "p.ki-wo-tsukete",
+              "ask": "meaning",
+              "distractors": ["p.konbanwa", "p.ohayou-gozaimasu"]
+            }
+          ]
+        },
+        {
+          "id": "u03.n04",
+          "kind": "story",
+          "title": "A traveller at dusk",
+          "introduces": [],
+          "teach": [
+            {
+              "note": {
+                "title": "Someone on the road",
+                "body": "A pilgrim stops to talk. Greet them, say where you came from and where you are going."
+              }
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u03.n04.e01",
+              "type": "reply",
+              "dialogue": "d.road-traveller"
+            }
+          ]
+        },
+        {
+          "id": "u03.n05",
+          "kind": "checkpoint",
+          "title": "Road Trial",
+          "introduces": [],
+          "exercises": [
+            {
+              "id": "u03.n05.e01",
+              "type": "listen",
+              "item": "p.konbanwa",
+              "distractors": ["p.konnichiwa", "p.sayounara"]
+            },
+            {
+              "id": "u03.n05.e02",
+              "type": "tiles",
+              "item": "s.kyouto-kara"
+            },
+            {
+              "id": "u03.n05.e03",
+              "type": "choice",
+              "item": "p.ohayou-gozaimasu",
+              "ask": "meaning",
+              "distractors": ["p.konbanwa", "p.konnichiwa"]
+            },
+            {
+              "id": "u03.n05.e04",
+              "type": "translate",
+              "item": "s.edo-e",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u03.n05.e05",
+              "type": "listen",
+              "item": "s.doko-kara",
+              "distractors": ["s.doko-e"]
+            },
+            {
+              "id": "u03.n05.e06",
+              "type": "match",
+              "items": ["w.doko", "w.michi", "w.edo", "w.kyouto"]
+            },
+            {
+              "id": "u03.n05.e07",
+              "type": "tiles",
+              "item": "s.doko-e"
+            },
+            {
+              "id": "u03.n05.e08",
+              "type": "type",
+              "item": "p.konnichiwa",
+              "ask": "japanese"
+            },
+            {
+              "id": "u03.n05.e09",
+              "type": "listen",
+              "item": "s.edo-e",
+              "distractors": ["s.kyouto-kara"]
+            },
+            {
+              "id": "u03.n05.e10",
+              "type": "choice",
+              "item": "p.ki-wo-tsukete",
+              "ask": "meaning",
+              "distractors": ["p.sayounara", "p.ohayou-gozaimasu"]
+            },
+            {
+              "id": "u03.n05.e11",
+              "type": "translate",
+              "item": "s.doko-kara",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u03.n05.e12",
+              "type": "listen",
+              "item": "w.michi",
+              "distractors": ["w.doko", "w.edo"]
+            },
+            {
+              "id": "u03.n05.e13",
+              "type": "tiles",
+              "item": "s.edo-e"
+            },
+            {
+              "id": "u03.n05.e14",
+              "type": "type",
+              "item": "w.doko",
+              "ask": "japanese"
+            },
+            {
+              "id": "u03.n05.e15",
+              "type": "choice",
+              "item": "p.sayounara",
+              "ask": "meaning",
+              "distractors": ["p.konnichiwa", "p.ki-wo-tsukete"]
+            },
+            {
+              "id": "u03.n05.e16",
+              "type": "translate",
+              "item": "s.kyouto-kara",
+              "direction": "toEnglish"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "u02",
-      "title": "The Café",
+      "title": "The City Market: Café",
       "nodes": [
         {
           "id": "u02.n01",

@@ -60,7 +60,7 @@ describe('answer-key bot', () => {
           expect(grade(q!, solve(q!)).correct, `${e.id} (${e.type})`).toBe(true);
           count++;
         }
-    expect(count).toBe(133);
+    expect(count).toBe(209);
   });
 });
 

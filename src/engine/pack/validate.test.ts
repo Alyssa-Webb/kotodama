@@ -14,7 +14,7 @@ describe('validatePack', () => {
     const r = validatePack(starter);
     expect(r.errors).toEqual([]);
     expect(r.ok).toBe(true);
-    expect(r.stats?.items.kana).toBe(10);
+    expect(r.stats?.items.kana).toBe(20);
     expect(r.stats?.voiceLines).toBeGreaterThan(50);
   });
 
@@ -89,10 +89,11 @@ describe('validatePack', () => {
 
   it('formats a paste-ready error list for ChatGPT', () => {
     const p = clone();
-    p.items.find((i) => i.id === 'w.mizu')!.text = '水';
+    const at = p.items.findIndex((i) => i.id === 'w.mizu');
+    p.items[at]!.text = '水';
     const text = formatErrorsForChatGPT(validatePack(p), 'First Steps');
     expect(text).toMatch(/^Kotodama rejected the pack "First Steps"/);
-    expect(text).toMatch(/1\. items\[10\]/);
+    expect(text).toContain(`1. items[${at}]`);
   });
 
   it('collects voice lines including filled patterns and dialogue', () => {
