@@ -8,7 +8,7 @@ import { Avatar } from '../avatar/Avatar';
 import './path.css';
 
 interface RegionInfo {
-  id: 'dojo' | 'bamboo' | 'village' | 'castle' | 'shrine' | 'capital';
+  id: 'dojo' | 'bamboo' | 'market' | 'castle' | 'shrine' | 'capital';
   en: string;
   ja: string;
   rt: string;
@@ -17,7 +17,7 @@ interface RegionInfo {
 const REGIONS: readonly RegionInfo[] = [
   { id: 'dojo', en: 'The Dojo', ja: '道場', rt: 'どうじょう' },
   { id: 'bamboo', en: 'Bamboo Thicket', ja: '竹藪', rt: 'たけやぶ' },
-  { id: 'village', en: 'City Market', ja: '市場', rt: 'いちば' },
+  { id: 'market', en: 'City Market', ja: '市場', rt: 'いちば' },
   { id: 'castle', en: 'Castle Town', ja: '城下町', rt: 'じょうかまち' },
   { id: 'shrine', en: 'Mountain Shrines', ja: '山の社', rt: 'やまのやしろ' },
   { id: 'capital', en: 'The Capital', ja: '都', rt: 'みやこ' },
@@ -251,8 +251,8 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
           opacity="0.6"
         />
 
-        {/* Region 3 (Village) & Region 4 (Castle): Winding river under the trail */}
-        {(region.id === 'village' || region.id === 'castle') && (
+        {/* Region 3 (Market) & Region 4 (Castle): Winding river under the trail */}
+        {(region.id === 'market' || region.id === 'castle') && (
           <g>
             <path
               d="M-20 258 C95 242, 145 288, 192 280 C248 272, 315 312, 420 296"
@@ -322,7 +322,7 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
         aria-hidden="true"
       >
         {/* Arched wooden Taiko Bridge where the trail crosses the river */}
-        {(region.id === 'village' || region.id === 'castle') && (
+        {(region.id === 'market' || region.id === 'castle') && (
           <g transform="translate(192 276)">
             <rect x="-36" y="-22" width="72" height="48" rx="16" fill="var(--c-lacquer)" />
             <rect x="-36" y="-26" width="72" height="46" rx="16" fill="var(--c-accent)" />
@@ -607,8 +607,8 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
           </g>
         )}
 
-        {/* ---------------- REGION 3: RICE FIELDS & VILLAGE ---------------- */}
-        {region.id === 'village' && (
+        {/* ---------------- REGION 3: CITY MARKET ---------------- */}
+        {region.id === 'market' && (
           <g>
             {/* Terraced Rice Paddies (left) */}
             <g transform="translate(68 188)">
