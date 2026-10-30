@@ -22,6 +22,7 @@ import { ModesScreen } from '../features/modes/ModesScreen';
 import { RushScreen } from '../features/modes/RushScreen';
 import { BossScreen } from '../features/boss/BossScreen';
 import { TrialScreen } from '../features/shop/TrialScreen';
+import { FxLayer } from '../foundations/fx/FxLayer';
 
 function FullScreen() {
   return (
@@ -113,6 +114,7 @@ export function App() {
   return (
     <Providers>
       <RouterProvider router={router} />
+      <FxLayer />
     </Providers>
   );
 }

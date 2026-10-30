@@ -109,7 +109,7 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
           }
         >
           <div className="stack" style={{ gap: 'var(--sp-2)', textAlign: 'left' }}>
-            <RewardRow label="XP" value={`+${done.r.xp}`} tone="accent" />
+            <RewardRow label="XP" value={`+${done.r.xp}`} count={done.r.xp} tone="accent" />
             {done.r.koban > 0 && (
               <RewardRow label="All reviews cleared" value={`+${done.r.koban} koban`} tone="gold" />
             )}

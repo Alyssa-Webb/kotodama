@@ -13,6 +13,7 @@ import { publishedOdds, pull } from '../../engine/gacha';
 import { cardIdsFor } from '../../engine/game';
 import { shopWordItem, useGame } from '../../foundations/store/gameStore';
 import { avatarParts, economy, shop } from '../../foundations/world';
+import { KobanIcon } from '../../foundations/art/icons';
 import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { useSave, useStats } from '../hooks';
@@ -112,7 +113,9 @@ export function ShopScreen() {
     <div className="stack">
       <div className="row spread">
         <h1>Shop</h1>
-        <span className="stat stat-koban">◎ {stats.koban}</span>
+        <span className="stat stat-koban">
+          <KobanIcon size={18} /> {stats.koban}
+        </span>
       </div>
       <p className="muted small">
         Everything is bought with koban earned by learning. Each item's name joins your reviews.
@@ -155,7 +158,7 @@ export function ShopScreen() {
                   onClick={() => purchase(c.id)}
                   aria-label={`Buy ${c.en} for ${price} koban`}
                 >
-                  ◎ {price}
+                  <KobanIcon size={18} /> {price}
                 </button>
               </div>
             );
@@ -180,7 +183,7 @@ export function ShopScreen() {
                   disabled={stats.koban < c.price}
                   onClick={() => buyCharm(c.id, c.price!)}
                 >
-                  ◎ {c.price}
+                  <KobanIcon size={18} /> {c.price}
                 </button>
               ) : (
                 <span className="muted tiny">{c.unlock}</span>

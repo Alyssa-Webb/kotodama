@@ -1,57 +1,150 @@
+.unit {
+  overflow: hidden;
+}
+.unit-banner {
+  margin: calc(var(--sp-5) * -1) calc(var(--sp-5) * -1) 0;
+  padding: var(--sp-4) var(--sp-5);
+  background: linear-gradient(
+    135deg,
+    var(--c-lacquer),
+    color-mix(in srgb, var(--c-lacquer) 70%, var(--c-ink))
+  );
+  color: var(--c-hud-ink);
+  border-bottom: 2px solid var(--c-panel-edge);
+}
+.unit-banner .eyebrow {
+  color: var(--c-glow);
+}
 .path-list {
+  position: relative;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: var(--sp-4) 0;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-4);
+  gap: var(--sp-5);
+}
+/* the road */
+.path-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  border-left: 6px dashed color-mix(in srgb, var(--c-panel-edge) 45%, transparent);
+  transform: translateX(-50%);
 }
 .path-node {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: var(--sp-4);
+  gap: var(--sp-3);
+  width: min(100%, 320px);
 }
-.path-node.alt {
-  padding-left: var(--sp-6);
+.path-node.pos-0 {
+  align-self: center;
+}
+.path-node.pos-1 {
+  align-self: center;
+  transform: translateX(22%);
+}
+.path-node.pos-2 {
+  align-self: center;
+}
+.path-node.pos-3 {
+  align-self: center;
+  transform: translateX(-22%);
 }
 .path-dot {
+  position: relative;
   flex: none;
   display: grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--fs-lg);
+  font-weight: 800;
+  font-size: var(--fs-xl);
   text-decoration: none;
-  background: var(--c-surface-alt);
+  background: radial-gradient(circle at 35% 30%, var(--c-panel), var(--c-surface-alt));
   color: var(--c-ink-muted);
-  border: 3px solid var(--c-border);
+  border: 4px solid var(--c-border);
+  box-shadow:
+    inset 0 -4px 0 color-mix(in srgb, var(--c-ink) 12%, transparent),
+    0 5px 0 color-mix(in srgb, var(--c-border) 80%, var(--c-ink));
+  transition: transform var(--dur-fast) var(--spring);
+}
+.path-dot:active {
+  transform: translateY(4px);
 }
 .path-node.open .path-dot {
-  background: var(--c-accent);
+  background: radial-gradient(
+    circle at 35% 30%,
+    color-mix(in srgb, var(--c-accent) 70%, var(--c-glow)),
+    var(--c-accent) 70%
+  );
   color: var(--c-accent-ink);
-  border-color: color-mix(in srgb, var(--c-accent) 60%, var(--c-ink));
-  box-shadow: 0 4px 0 color-mix(in srgb, var(--c-accent) 60%, var(--c-ink));
+  border-color: var(--c-panel-edge);
+  box-shadow:
+    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 25%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-accent) 50%, var(--c-ink));
+}
+.path-node.current .path-dot {
+  animation: node-glow calc(var(--dur-celebrate) * 1.8) ease-in-out infinite;
+}
+@keyframes node-glow {
+  50% {
+    box-shadow:
+      inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 25%, transparent),
+      0 6px 0 color-mix(in srgb, var(--c-accent) 50%, var(--c-ink)),
+      0 0 0 8px color-mix(in srgb, var(--c-glow) 35%, transparent),
+      0 0 30px var(--c-glow);
+    transform: scale(1.05);
+  }
 }
 .path-node.done .path-dot {
-  background: var(--c-gold-soft);
-  color: var(--c-gold);
-  border-color: var(--c-gold);
-  box-shadow: none;
+  background: radial-gradient(circle at 35% 30%, var(--c-glow), var(--c-gold) 75%);
+  color: var(--c-panel);
+  border-color: var(--c-panel-edge);
+  box-shadow:
+    inset 0 -5px 0 color-mix(in srgb, var(--c-ink) 20%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-gold) 50%, var(--c-ink));
+}
+.path-node.boss .path-dot {
+  width: 84px;
+  height: 84px;
+  font-size: var(--fs-2xl);
+  border-radius: 22px;
+  transform: rotate(45deg);
+}
+.path-node.boss .path-dot > span {
+  transform: rotate(-45deg);
+}
+.path-node.boss.open .path-dot {
+  background: radial-gradient(circle at 35% 30%, var(--c-secondary), var(--c-ink) 80%);
+  color: var(--c-glow);
+}
+.path-avatar {
+  position: absolute;
+  left: -54px;
+  bottom: 6px;
+  animation: boss-hover calc(var(--dur-celebrate) * 1.6) ease-in-out infinite;
 }
 .path-node .stars {
-  font-size: var(--fs-sm);
   margin: 0;
+  justify-content: flex-start;
+}
+.path-node .stars svg {
+  width: 16px;
+  height: 16px;
 }
 .path-node.locked strong {
   color: var(--c-ink-muted);
 }
-.card-link {
-  text-decoration: none;
-  color: inherit;
-}
-.home-hero h1 {
-  font-size: var(--fs-lg);
+.path-node > .stack {
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--c-panel) 85%, transparent);
 }

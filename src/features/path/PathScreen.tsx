@@ -4,6 +4,7 @@ import { isUnlocked } from '../../engine/game';
 import { bosses } from '../../foundations/world';
 import { useSave } from '../hooks';
 import { Stars } from '../lesson/common';
+import { Avatar } from '../avatar/Avatar';
 import './path.css';
 
 export function PathScreen() {
@@ -16,6 +17,9 @@ export function PathScreen() {
         .filter((p) => p.pack.pack.id !== 'shop-words')
         .map(({ pack, nodes }) => {
           const keys = nodes.map((n) => n.key);
+          const current = nodes.find(
+            (n) => !save.nodes[n.key] && isUnlocked(save, keys, n.key),
+          )?.key;
           return (
             <section key={pack.pack.id} className="stack">
               <p className="eyebrow">
@@ -23,7 +27,10 @@ export function PathScreen() {
               </p>
               {pack.units.map((unit) => (
                 <div key={unit.id} className="card stack unit">
-                  <h2>{unit.title}</h2>
+                  <div className="unit-banner">
+                    <span className="eyebrow">Unit {pack.units.indexOf(unit) + 1}</span>
+                    <h2>{unit.title}</h2>
+                  </div>
                   <ol className="path-list">
                     {nodes
                       .filter((n) => n.unit.id === unit.id)
@@ -50,8 +57,13 @@ export function PathScreen() {
                         return (
                           <li
                             key={n.key}
-                            className={`path-node ${done ? 'done' : ''} ${open ? 'open' : 'locked'} ${i % 2 ? 'alt' : ''}`}
+                            className={`path-node ${done ? 'done' : ''} ${open ? 'open' : 'locked'} ${n.key === current ? 'current' : ''} ${n.node.kind === 'checkpoint' ? 'boss' : ''} pos-${i % 4}`}
                           >
+                            {n.key === current && (
+                              <span className="path-avatar" aria-hidden="true">
+                                <Avatar size={46} />
+                              </span>
+                            )}
                             {open ? (
                               <Link
                                 to={href}

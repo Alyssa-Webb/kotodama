@@ -24,6 +24,21 @@ export const ColorSetSchema = z.object({
   fog: color,
   focus: color,
   shadow: color,
+  skyTop: color,
+  skyMid: color,
+  skyBottom: color,
+  mountainFar: color,
+  mountainNear: color,
+  glow: color,
+  panel: color,
+  panelEdge: color,
+  lacquer: color,
+  petal: color,
+  firefly: color,
+  skin: color,
+  coinShine: color,
+  hudInk: color,
+  hudBg: color,
 });
 
 export const ThemeTokensSchema = z.object({
@@ -40,6 +55,10 @@ export const ThemeTokensSchema = z.object({
     slow: z.number().nonnegative(),
     celebrate: z.number().nonnegative(),
     easing: z.string(),
+    spring: z.string(),
+    shake: z.number().nonnegative(),
+    stamp: z.number().nonnegative(),
+    countUp: z.number().nonnegative(),
   }),
 });
 export type ThemeTokens = z.infer<typeof ThemeTokensSchema>;
@@ -54,11 +73,28 @@ export const ANIMATION_SLOTS = [
   'streak.extend',
   'level.up',
   'mascot.idle',
+  'kiai.start',
+  'heart.lost',
+  'coin.earned',
+  'boss.hit',
+  'boss.attack',
 ] as const;
 export type AnimationSlot = (typeof ANIMATION_SLOTS)[number];
 
 export const FallbackAnimationSchema = z.enum(['pulse', 'shake', 'pop', 'rise', 'float', 'none']);
 export type FallbackAnimation = z.infer<typeof FallbackAnimationSchema>;
+
+export const ParticlesSchema = z.enum([
+  'none',
+  'sparks',
+  'ink',
+  'confetti',
+  'embers',
+  'coins',
+  'shards',
+  'petals',
+]);
+export type ParticlesKind = z.infer<typeof ParticlesSchema>;
 
 export const AnimationsSchema = z.object({
   version: z.number().int().positive(),
@@ -68,6 +104,11 @@ export const AnimationsSchema = z.object({
       /** Path under design/animations/ to a Lottie JSON file (optional). */
       lottie: z.string().optional(),
       fallback: FallbackAnimationSchema,
+      /** Particle burst played by the FX layer. */
+      particles: ParticlesSchema.default('none'),
+      /** Full-screen flash color. */
+      flash: z.enum(['none', 'gold', 'red', 'white']).default('none'),
+      shake: z.boolean().default(false),
     }),
   ),
 });

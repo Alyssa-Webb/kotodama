@@ -20,7 +20,8 @@ import { playSfx } from '../../foundations/audio/sfx';
 import { freshSeed, useSave, useStats } from '../hooks';
 import { Player } from '../lesson/Player';
 import { OutOfHearts, ResultCard, RewardRow } from '../lesson/common';
-import { Avatar } from '../avatar/Avatar';
+import { Mojibake } from '../../foundations/art/Mojibake';
+import { fx } from '../../foundations/fx/fx';
 
 export function BossScreen() {
   const { bossId = '' } = useParams();
@@ -34,6 +35,12 @@ export function BossScreen() {
   const { speak } = useJa();
   const navigate = useNavigate();
   const [phase, setPhase] = useState<'intro' | 'fight' | 'won' | 'lost'>('intro');
+  const [bossFx, setBossFx] = useState<'idle' | 'hit' | 'attack'>('idle');
+  const bossEl = useRef<HTMLDivElement>(null);
+  const react = (st: 'hit' | 'attack') => {
+    setBossFx(st);
+    window.setTimeout(() => setBossFx('idle'), 450);
+  };
   const [bs, setBs] = useState<BossState | null>(boss ? startBoss(boss) : null);
   const bsRef = useRef(bs);
   const exam = useRef(false);
@@ -118,6 +125,11 @@ export function BossScreen() {
     }
     commit(s);
     playSfx(won ? 'complete' : 'fail');
+    fx.banner(
+      won ? 'やった！' : '…',
+      won ? 'gold' : 'red',
+      won ? `${boss.en} defeated` : 'Retreat',
+    );
     setPhase(won ? 'won' : 'lost');
   };
 
@@ -132,6 +144,7 @@ export function BossScreen() {
       <div className="stack" style={{ maxWidth: 560, margin: '0 auto' }}>
         <div className="card stack center boss-card">
           <p className="eyebrow">Checkpoint boss</p>
+          <Mojibake size={180} />
           <SpeakableJa text={boss.name} className="display-ja" />
           <h1>{boss.en}</h1>
           <p className="muted">{boss.description}</p>
@@ -206,13 +219,16 @@ export function BossScreen() {
 
   return (
     <Player
+      hideGuide
       questions={questions}
       config={config}
       lanterns={0}
       onUseLantern={() => undefined}
       header={
         <div className="card card-tight row boss-hud" style={{ flexWrap: 'nowrap' }}>
-          <Avatar size={44} />
+          <div ref={bossEl}>
+            <Mojibake size={96} state={bossFx} hp={bs.hp / bs.max} />
+          </div>
           <div className="stack" style={{ flex: 1, gap: 'var(--sp-1)' }}>
             <div className="row spread">
               <strong>
@@ -246,6 +262,9 @@ export function BossScreen() {
           const nb = hit(boss, prev, s.combo);
           bsRef.current = nb;
           setBs(nb);
+          react('hit');
+          fx.slot('boss.hit', bossEl.current);
+          fx.text(`−${prev.hp - nb.hp}`, bossEl.current, 'dmg');
           if (nb.hp === 0) return { ...next, status: 'complete' };
           if (nb.phase !== prev.phase) {
             speak(boss.phases[nb.phase]!.taunt, { role: 'quiz' });
@@ -255,7 +274,17 @@ export function BossScreen() {
               queue: [...next.queue.slice(0, next.position), ...build(nb.phase, 30)],
             };
           }
-        } else if (save.charms.equipped === 'goukaku' && !exam.current && next.hearts !== null) {
+        }
+        if (!r.correct) {
+          react('attack');
+          fx.slot('boss.attack', bossEl.current);
+        }
+        if (
+          !r.correct &&
+          save.charms.equipped === 'goukaku' &&
+          !exam.current &&
+          next.hearts !== null
+        ) {
           exam.current = true; // Exam charm: the first mistake costs no heart
           next = {
             ...next,

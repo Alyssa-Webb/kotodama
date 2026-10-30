@@ -4,6 +4,7 @@ import { today } from '../../engine/game';
 import { AVATAR_SLOTS, type AvatarSlot } from '../../schema/world';
 import { useGame } from '../../foundations/store/gameStore';
 import { avatarParts, shop } from '../../foundations/world';
+import { KobanIcon } from '../../foundations/art/icons';
 import { JaText } from '../../foundations/japanese/Ja';
 import { Avatar } from './Avatar';
 import { useSave } from '../hooks';
@@ -145,7 +146,7 @@ export function AvatarScreen() {
                     disabled={koban < p.price}
                     onClick={() => buyPart(p.id, p.price!)}
                   >
-                    ◎ {p.price}
+                    <KobanIcon size={18} /> {p.price}
                   </button>
                 ) : (
                   <span className="muted tiny">{p.gacha ? 'Gachapon' : p.unlock}</span>

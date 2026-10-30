@@ -1,13 +1,83 @@
 {
-  "version": 1,
+  "version": 2,
   "slots": {
-    "answer.correct": { "fallback": "pulse" },
-    "answer.incorrect": { "fallback": "shake" },
-    "combo.up": { "fallback": "pop" },
-    "lesson.complete": { "fallback": "rise" },
-    "node.unlock": { "fallback": "pop" },
-    "streak.extend": { "fallback": "pop" },
-    "level.up": { "fallback": "rise" },
-    "mascot.idle": { "fallback": "float" }
+    "answer.correct": {
+      "fallback": "pulse",
+      "particles": "sparks",
+      "flash": "none",
+      "shake": false
+    },
+    "answer.incorrect": {
+      "fallback": "shake",
+      "particles": "ink",
+      "flash": "red",
+      "shake": true
+    },
+    "combo.up": {
+      "fallback": "pop",
+      "particles": "sparks",
+      "flash": "none",
+      "shake": false
+    },
+    "lesson.complete": {
+      "fallback": "rise",
+      "particles": "confetti",
+      "flash": "gold",
+      "shake": false
+    },
+    "node.unlock": {
+      "fallback": "pop",
+      "particles": "sparks",
+      "flash": "none",
+      "shake": false
+    },
+    "streak.extend": {
+      "fallback": "pop",
+      "particles": "embers",
+      "flash": "gold",
+      "shake": false
+    },
+    "level.up": {
+      "fallback": "rise",
+      "particles": "confetti",
+      "flash": "gold",
+      "shake": false
+    },
+    "mascot.idle": {
+      "fallback": "float",
+      "particles": "none",
+      "flash": "none",
+      "shake": false
+    },
+    "kiai.start": {
+      "fallback": "pop",
+      "particles": "embers",
+      "flash": "gold",
+      "shake": true
+    },
+    "heart.lost": {
+      "fallback": "shake",
+      "particles": "shards",
+      "flash": "red",
+      "shake": true
+    },
+    "coin.earned": {
+      "fallback": "pop",
+      "particles": "coins",
+      "flash": "none",
+      "shake": false
+    },
+    "boss.hit": {
+      "fallback": "shake",
+      "particles": "sparks",
+      "flash": "white",
+      "shake": true
+    },
+    "boss.attack": {
+      "fallback": "shake",
+      "particles": "ink",
+      "flash": "red",
+      "shake": true
+    }
   }
 }

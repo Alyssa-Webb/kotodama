@@ -27,6 +27,9 @@ export function themeCss(t: ThemeTokens): string {
     `--dur-slow: ${t.motion.slow}ms;`,
     `--dur-celebrate: ${t.motion.celebrate}ms;`,
     `--ease: ${t.motion.easing};`,
+    `--spring: ${t.motion.spring};`,
+    `--dur-shake: ${t.motion.shake}ms;`,
+    `--dur-stamp: ${t.motion.stamp}ms;`,
   ].join(' ');
   const light = colorVars(t.colors.light);
   const dark = colorVars(t.colors.dark);

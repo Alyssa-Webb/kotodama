@@ -5,7 +5,95 @@ import { useGame } from '../../foundations/store/gameStore';
 import { districts } from '../../foundations/world';
 import { JaText } from '../../foundations/japanese/Ja';
 import { useSave, useStats } from '../hooks';
+import { Scene } from '../../foundations/art/Scene';
 import './town.css';
+
+/** A placeholder building per district: roof style varies, windows glow when the district is lit. */
+function Building({ kind, lit, restored }: { kind: string; lit: boolean; restored: boolean }) {
+  const wall = restored ? 'var(--c-panel)' : 'var(--c-fog)';
+  const roof = restored
+    ? kind === 'shrine'
+      ? 'var(--c-lacquer)'
+      : kind === 'bath'
+        ? 'var(--c-secondary)'
+        : 'var(--c-ink)'
+    : 'var(--c-ink-muted)';
+  const win = lit ? 'var(--c-glow)' : 'var(--c-surface-alt)';
+  return (
+    <svg viewBox="0 0 64 64" className="building" aria-hidden="true">
+      {lit && (
+        <circle
+          cx="32"
+          cy="40"
+          r="30"
+          fill="var(--c-glow)"
+          opacity=".18"
+          className="lantern-glow"
+        />
+      )}
+      <rect
+        x="12"
+        y="30"
+        width="40"
+        height="26"
+        fill={wall}
+        stroke="var(--c-ink)"
+        strokeWidth="1.5"
+      />
+      {kind === 'shrine' ? (
+        <>
+          <path d="M4 30q28-14 56 0l-4 4q-24-10-48 0Z" fill={roof} />
+          <path d="M18 22q14-8 28 0l-2 3q-12-6-24 0Z" fill={roof} />
+        </>
+      ) : kind === 'station' ? (
+        <>
+          <path d="M6 30h52l-6-10H12Z" fill={roof} />
+          <rect
+            x="22"
+            y="12"
+            width="20"
+            height="8"
+            rx="2"
+            fill={wall}
+            stroke="var(--c-ink)"
+            strokeWidth="1.2"
+          />
+          <circle cx="32" cy="16" r="2.5" fill="var(--c-ink)" />
+        </>
+      ) : kind === 'bath' ? (
+        <>
+          <path d="M8 30q24-18 48 0Z" fill={roof} />
+          <path
+            d="M44 14v-8M48 14v-8"
+            stroke="var(--c-fog)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            className="drift"
+          />
+        </>
+      ) : (
+        <path d="M6 31 32 16l26 15Z" fill={roof} />
+      )}
+      <rect x="27" y="42" width="10" height="14" fill="var(--c-ink)" opacity=".8" />
+      <rect x="16" y="36" width="8" height="7" fill={win} stroke="var(--c-ink)" strokeWidth=".8" />
+      <rect x="40" y="36" width="8" height="7" fill={win} stroke="var(--c-ink)" strokeWidth=".8" />
+      {kind === 'cafe' && (
+        <path d="M14 46h36" stroke="var(--c-accent)" strokeWidth="3" strokeDasharray="4 2" />
+      )}
+      {lit && (
+        <ellipse
+          cx="32"
+          cy="34"
+          rx="3"
+          ry="3.6"
+          fill="var(--c-accent)"
+          className="sway"
+          style={{ transformOrigin: '32px 30px' }}
+        />
+      )}
+    </svg>
+  );
+}
 
 const ICON: Record<string, string> = {
   station: '駅',
@@ -42,9 +130,15 @@ export function TownScreen() {
         role="img"
         aria-label={`Town map: ${states.filter((s) => s.restored).length} of ${states.length} districts restored`}
       >
+        <Scene
+          className="town-scene"
+          height="100%"
+          awake={states.filter((d) => d.lit).length / Math.max(1, states.length)}
+          ambient={away === 0 && states.some((d) => d.lit) ? 'fireflies' : 'none'}
+        />
         <svg
           viewBox="0 0 100 100"
-          preserveAspectRatio="xMidYMid meet"
+          preserveAspectRatio="none"
           className="town-svg"
           aria-hidden="true"
         >
@@ -72,7 +166,8 @@ export function TownScreen() {
             className={`district ${s.restored ? 'restored' : ''} ${s.lit ? 'lit' : ''} ${!s.district.restoredBy ? 'locked' : ''}`}
             style={{ left: `${s.district.x}%`, top: `${s.district.y}%` }}
           >
-            <span className="district-icon" lang="ja" aria-hidden="true">
+            <Building kind={s.district.icon} lit={s.lit} restored={s.restored} />
+            <span className="district-sign" lang="ja" aria-hidden="true">
               {ICON[s.district.icon] ?? '家'}
             </span>
             <span className="district-name">{s.district.en}</span>

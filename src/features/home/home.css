@@ -1,0 +1,96 @@
+.card.home-hero {
+  padding: 0;
+  overflow: hidden;
+}
+.home-scene {
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.home-hero-guide {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+.speech {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  margin-top: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-panel);
+  border: 1.5px solid var(--c-panel-edge);
+  box-shadow: 0 6px 16px -8px var(--c-shadow);
+  animation: q-in var(--dur-slow) var(--spring) both;
+  animation-delay: 300ms;
+}
+.speech::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 16px;
+  border: 8px solid transparent;
+  border-left: 0;
+  border-right-color: var(--c-panel-edge);
+}
+.speech-ja {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  text-align: left;
+  min-height: 0;
+  padding: 0;
+}
+.home-hero-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5) var(--sp-5);
+}
+.home-hero-body h1 {
+  font-size: var(--fs-lg);
+}
+.ring-wrap {
+  flex: none;
+}
+.next-card {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--c-gold-soft) 60%, var(--c-panel)),
+    var(--c-panel)
+  );
+}
+.next-avatar {
+  flex: none;
+  width: 92px;
+  height: 100px;
+  display: grid;
+  place-items: end center;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 70%,
+    color-mix(in srgb, var(--c-glow) 40%, transparent),
+    transparent 70%
+  );
+}
+.play-btn {
+  min-height: 60px;
+  font-size: var(--fs-lg);
+  letter-spacing: 0.04em;
+}
+.tile-card.urgent {
+  border-color: var(--c-accent);
+  animation: urgent-pulse calc(var(--dur-celebrate) * 2) ease-in-out infinite;
+}
+@keyframes urgent-pulse {
+  50% {
+    box-shadow:
+      inset 0 0 0 4px var(--c-panel),
+      0 0 0 3px color-mix(in srgb, var(--c-accent) 35%, transparent),
+      0 0 24px color-mix(in srgb, var(--c-accent) 25%, transparent);
+  }
+}

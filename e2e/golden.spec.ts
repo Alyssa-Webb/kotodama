@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 import { playKanaLesson } from './helpers';
 
 const shot = (name: string, project: string) => `docs/screenshots/${project}-${name}.png`;
+/** Lets entrance animations settle so screenshots show the finished frame. */
+const settle = (page: import('@playwright/test').Page) => page.waitForTimeout(800);
 
 test('golden path: first lesson, rewards, reviews, persistence', async ({ page }, info) => {
   const errors: string[] = [];
@@ -11,6 +13,7 @@ test('golden path: first lesson, rewards, reviews, persistence', async ({ page }
   test.info().annotations.push({ type: 'errors', description: 'collected below' });
   await page.goto('./');
   await expect(page.getByRole('heading', { name: 'Wake your first spirit' })).toBeVisible();
+  await settle(page);
   await page.screenshot({ path: shot('home', info.project.name) });
 
   await page.getByRole('link', { name: 'Start your first lesson' }).click();
@@ -20,6 +23,7 @@ test('golden path: first lesson, rewards, reviews, persistence', async ({ page }
   await expect(page.getByText('XP', { exact: true })).toBeVisible();
   await expect(page.getByLabel('3 of 3 stars')).toBeVisible();
   await expect(page.getByText('Added to your reviews')).toBeVisible();
+  await settle(page);
   await page.screenshot({ path: shot('results', info.project.name) });
   await page.getByRole('button', { name: 'Continue' }).click();
 
@@ -39,12 +43,15 @@ test('golden path: first lesson, rewards, reviews, persistence', async ({ page }
 test('town, shop and import screens render', async ({ page }, info) => {
   await page.goto('./#/town');
   await expect(page.getByRole('img', { name: /Town map/ })).toBeVisible();
+  await settle(page);
   await page.screenshot({ path: shot('town', info.project.name) });
   await page.goto('./#/shop');
   await expect(page.getByRole('button', { name: 'Buy Kotatsu for 60 koban' })).toBeDisabled();
+  await settle(page);
   await page.screenshot({ path: shot('shop', info.project.name), fullPage: false });
   await page.goto('./#/packs');
   await expect(page.getByRole('heading', { name: 'Paste Lesson' })).toBeVisible();
+  await settle(page);
   await page.screenshot({ path: shot('import', info.project.name) });
 });
 
@@ -123,4 +130,20 @@ test('accessibility: no serious axe violations on home and a lesson', async ({ p
       .filter((v) => v.impact === 'serious' || v.impact === 'critical')
       .map((v) => `${v.id}: ${v.nodes[0]?.target}`),
   ).toEqual([]);
+});
+
+test('dark mode renders the game skin', async ({ page }, info) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('./');
+  await expect(page.getByRole('heading', { name: 'Wake your first spirit' })).toBeVisible();
+  const bg = await page.evaluate(() =>
+    getComputedStyle(document.documentElement).getPropertyValue('--c-bg').trim(),
+  );
+  expect(bg.toLowerCase()).not.toBe('#f6f1e7');
+  await settle(page);
+  await page.screenshot({ path: shot('home-dark', info.project.name) });
+  await page.goto('./#/lesson/kotodama-starter/u01.n01');
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await settle(page);
+  await page.screenshot({ path: shot('teach-dark', info.project.name) });
 });

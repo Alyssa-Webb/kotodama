@@ -24,7 +24,7 @@ import { SpeakableJa, RichText } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { freshSeed, useSave, useStats } from '../hooks';
 import { Player } from './Player';
-import { MistakeReview, OutOfHearts, ResultCard, RewardRow, Stars } from './common';
+import { MistakeReview, OutOfHearts, ResultCard, RewardRow } from './common';
 
 export function LessonScreen() {
   const { packId = '', nodeId = '' } = useParams();
@@ -110,7 +110,9 @@ export function LessonScreen() {
                 New {item.kind}
               </span>
               <SpeakableJa text={itemJapanese(item)} className="display-ja" role="teach" />
-              {item.romaji && <p className="muted">{item.romaji}</p>}
+              {item.romaji && item.romaji !== item.meanings[0] && (
+                <p className="muted">{item.romaji}</p>
+              )}
               <h2>{itemMeaning(item)}</h2>
               {item.meanings.length > 1 && (
                 <p className="muted small">Also: {item.meanings.slice(1).join(', ')}</p>
@@ -203,13 +205,32 @@ export function LessonScreen() {
   const failed = state.status !== 'complete';
   return (
     <div className="stack" style={{ maxWidth: 640, margin: '0 auto' }}>
-      <ResultCard title={failed ? 'Out of hearts' : ref.node.title} failed={failed}>
-        {!failed && <Stars n={summary.stars} />}
+      <ResultCard
+        title={failed ? 'Out of hearts' : ref.node.title}
+        failed={failed}
+        stars={summary.stars}
+      >
         <div className="stack" style={{ gap: 'var(--sp-2)', textAlign: 'left' }}>
-          <RewardRow label="XP" value={`+${result.reward.xp}`} tone="accent" />
-          <RewardRow label="Koban" value={`+${result.reward.koban}`} tone="gold" />
+          <RewardRow
+            label="XP"
+            value={`+${result.reward.xp}`}
+            count={result.reward.xp}
+            tone="accent"
+          />
+          <RewardRow
+            label="Koban"
+            value={`+${result.reward.koban}`}
+            count={result.reward.koban}
+            icon="koban"
+            tone="gold"
+          />
           {result.reward.tokens > 0 && (
-            <RewardRow label="Capsule token" value={`+${result.reward.tokens}`} tone="gold" />
+            <RewardRow
+              label="Capsule token"
+              value={`+${result.reward.tokens}`}
+              icon="token"
+              tone="gold"
+            />
           )}
           <RewardRow label="Accuracy" value={`${Math.round(summary.accuracy * 100)}%`} />
           <RewardRow label="Best combo" value={state.maxCombo} />

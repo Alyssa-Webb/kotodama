@@ -15,13 +15,11 @@ export function InstallGuide() {
   const ios = isIOS();
   const mac = isMacSafari();
   return (
-    <section
-      className="card card-indigo card-tight"
-      style={{ marginBottom: 'var(--sp-4)' }}
-      aria-label="Install Kotodama"
-    >
-      <div className="row spread">
-        <p style={{ fontWeight: 700 }}>Install Kotodama to keep your progress safe</p>
+    <section className="install-bar" aria-label="Install Kotodama">
+      <div className="row spread" style={{ flexWrap: 'nowrap' }}>
+        <p className="small" style={{ fontWeight: 800 }}>
+          Install Kotodama to keep your progress safe
+        </p>
         <button
           className="btn btn-small btn-ghost"
           onClick={() => setOpen((o) => !o)}
@@ -31,7 +29,7 @@ export function InstallGuide() {
         </button>
       </div>
       {open && (
-        <div className="stack small" style={{ marginTop: 'var(--sp-3)', gap: 'var(--sp-2)' }}>
+        <div className="stack small" style={{ marginTop: 'var(--sp-2)', gap: 'var(--sp-2)' }}>
           {ios && (
             <ol style={{ margin: 0, paddingLeft: '1.2em' }}>
               <li>Tap the Share button in Safari's toolbar.</li>

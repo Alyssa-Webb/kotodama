@@ -1,10 +1,17 @@
 /** Pieces shared by lesson-like screens: out-of-hearts gate, results, lesson review. */
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router';
 import type { Attempt } from '../../engine/lesson/session';
 import { DisplayText } from './shapes';
 import { JaText } from '../../foundations/japanese/Ja';
 import { Slot } from '../../foundations/slots/Slot';
+import { Scene } from '../../foundations/art/Scene';
+import { Guide } from '../../foundations/art/Guide';
+import { CapsuleIcon, HeartIcon, KobanIcon, StarIcon } from '../../foundations/art/icons';
+import { fx } from '../../foundations/fx/fx';
+import { tokens } from '../../foundations/theme/theme';
+import { prefersReducedMotion } from '../../foundations/platform';
+import { playSfx } from '../../foundations/audio/sfx';
 import { useStats } from '../hooks';
 
 export function OutOfHearts({ onBack }: { onBack: () => void }) {
@@ -12,11 +19,18 @@ export function OutOfHearts({ onBack }: { onBack: () => void }) {
   return (
     <div className="stack center" style={{ maxWidth: 480, margin: '0 auto' }}>
       <div className="card stack">
-        <p className="display-ja" lang="ja" aria-hidden="true">
-          ♡
-        </p>
+        <div style={{ margin: '0 auto' }}>
+          <Guide who="tetsu" mood="worried" size={110} />
+        </div>
+        <div className="row" style={{ justifyContent: 'center', gap: 2 }} aria-hidden="true">
+          {Array.from({ length: 5 }, (_, i) => (
+            <HeartIcon key={i} size={28} empty />
+          ))}
+        </div>
         <h1>Out of hearts</h1>
-        <p className="muted">Hardcore rules: hearts are shared across lessons.</p>
+        <p className="muted">
+          Hardcore rules: hearts are shared across lessons. Rest, or train to earn them back.
+        </p>
         {s.nextHeartMin !== null && <p>Next heart in {s.nextHeartMin} min.</p>}
         <Link className="btn btn-indigo btn-block" to="/reviews">
           Earn hearts in the Dojo (10 reviews = 1 heart)
@@ -32,55 +46,120 @@ export function OutOfHearts({ onBack }: { onBack: () => void }) {
   );
 }
 
-export function Stars({ n }: { n: number }) {
+export function Stars({ n, size = 44 }: { n: number; size?: number }) {
   return (
-    <p className="stars" aria-label={`${n} of 3 stars`}>
+    <div className="stars" aria-label={`${n} of 3 stars`} role="img">
       {[1, 2, 3].map((i) => (
-        <span key={i} className={i <= n ? '' : 'off'} aria-hidden="true">
-          ★
+        <span key={i} className="star">
+          <StarIcon size={size} on={i <= n} />
         </span>
       ))}
-    </p>
+    </div>
   );
 }
+
+/** Counts up from 0 to `to` (instant with reduced motion). */
+export function CountUp({ to, prefix = '' }: { to: number; prefix?: string }) {
+  const [v, setV] = useState(prefersReducedMotion() ? to : 0);
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - start) / tokens.motion.countUp);
+      setV(Math.round(to * (1 - (1 - k) ** 3)));
+      if (k < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [to]);
+  return (
+    <>
+      {prefix}
+      {v}
+    </>
+  );
+}
+
+const GRADE = { 3: '優', 2: '良', 1: '可', 0: '' } as const;
 
 export function ResultCard({
   title,
   children,
   failed,
+  stars,
 }: {
   title: string;
   children: ReactNode;
   failed?: boolean;
+  stars?: number;
 }) {
-  // Results replace a long, scrolled lesson screen: start at the top.
-  useEffect(() => window.scrollTo(0, 0), []);
+  const card = useRef<HTMLDivElement>(null);
+  // Results replace a long, scrolled lesson screen: start at the top, then celebrate.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (failed) return;
+    fx.slot('lesson.complete', card.current);
+    const t = window.setTimeout(() => {
+      fx.slot('coin.earned', card.current);
+      playSfx('coin');
+    }, tokens.motion.stamp * 1.5);
+    return () => window.clearTimeout(t);
+  }, [failed]);
   return (
-    <Slot
-      slot="lesson.complete"
-      fire={true}
-      className={`card result-hero stack ${failed ? '' : 'card-accent'}`}
-    >
-      <p className="eyebrow">{failed ? 'Lesson failed' : 'Complete'}</p>
-      <h1>{title}</h1>
-      {children}
-    </Slot>
+    <div ref={card}>
+      <Slot
+        slot="lesson.complete"
+        fire={true}
+        className={`card result-hero stack ${failed ? '' : 'card-accent'}`}
+      >
+        <Scene
+          className="result-scene"
+          height={120}
+          awake={failed ? 0.1 : 1}
+          ambient={failed ? 'none' : 'petals'}
+        />
+        <p className="eyebrow">{failed ? 'Lesson failed' : 'Complete'}</p>
+        <h1>{title}</h1>
+        {stars !== undefined && !failed && <Stars n={stars} />}
+        {stars !== undefined && !failed && GRADE[stars as 0 | 1 | 2 | 3] && (
+          <span className="hanko" lang="ja" aria-label={`Grade ${GRADE[stars as 0 | 1 | 2 | 3]}`}>
+            {GRADE[stars as 0 | 1 | 2 | 3]}
+          </span>
+        )}
+        {children}
+      </Slot>
+    </div>
   );
 }
+
+const ICON = {
+  xp: null,
+  koban: <KobanIcon size={22} />,
+  token: <CapsuleIcon size={22} />,
+  heart: <HeartIcon size={22} />,
+} as const;
 
 export function RewardRow({
   label,
   value,
   tone,
+  icon,
+  count,
 }: {
   label: string;
   value: string | number;
   tone?: 'gold' | 'accent' | 'success';
+  icon?: keyof typeof ICON;
+  count?: number;
 }) {
   return (
-    <div className="row spread">
+    <div className="reward-row">
       <span>{label}</span>
-      <span className={`pill ${tone ? `pill-${tone}` : ''}`}>{value}</span>
+      <span className={`reward-value ${tone ?? ''}`}>
+        {icon && ICON[icon]}
+        {count !== undefined ? <CountUp to={count} prefix="+" /> : value}
+      </span>
     </div>
   );
 }
