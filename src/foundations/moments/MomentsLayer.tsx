@@ -453,91 +453,350 @@ function GateSlice({ cut }: { cut: Cut }) {
   );
 }
 
+function serratedCrown(
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  lobes: number,
+  seed: number,
+): string {
+  const pts: string[] = [];
+  for (let i = 0; i < lobes; i++) {
+    const a0 = (i / lobes) * Math.PI * 2;
+    const aMid = ((i + 0.5) / lobes) * Math.PI * 2;
+    const a1 = ((i + 1) / lobes) * Math.PI * 2;
+    const wobble = 1 + Math.sin(seed * 3.7 + i * 2.3) * 0.08;
+    const tipR = (i % 2 === 0 ? 1.12 : 1.04) * wobble;
+    const valR = 0.8 * (1 + Math.cos(seed * 2.1 + i * 1.7) * 0.05);
+
+    const vx0 = cx + Math.cos(a0) * rx * valR;
+    const vy0 = cy + Math.sin(a0) * ry * valR;
+    const tx = cx + Math.cos(aMid) * rx * tipR;
+    const ty = cy + Math.sin(aMid) * ry * tipR - 3;
+    const vx1 = cx + Math.cos(a1) * rx * valR;
+    const vy1 = cy + Math.sin(a1) * ry * valR;
+
+    const c1x = cx + Math.cos(a0 + 0.22 / lobes * Math.PI * 2) * rx * (tipR * 0.98);
+    const c1y = cy + Math.sin(a0 + 0.22 / lobes * Math.PI * 2) * ry * (tipR * 0.98) - 2;
+    const c2x = cx + Math.cos(aMid + 0.28 / lobes * Math.PI * 2) * rx * (tipR * 0.96);
+    const c2y = cy + Math.sin(aMid + 0.28 / lobes * Math.PI * 2) * ry * (tipR * 0.96) - 2;
+
+    if (i === 0) pts.push(`M${vx0.toFixed(1)} ${vy0.toFixed(1)}`);
+    pts.push(
+      `Q${c1x.toFixed(1)} ${c1y.toFixed(1)} ${tx.toFixed(1)} ${ty.toFixed(1)}`,
+      `Q${c2x.toFixed(1)} ${c2y.toFixed(1)} ${vx1.toFixed(1)} ${vy1.toFixed(1)}`,
+    );
+  }
+  pts.push('Z');
+  return pts.join(' ');
+}
+
+function PointedLeaf({
+  x,
+  y,
+  len,
+  w,
+  angle,
+  tone,
+}: {
+  x: number;
+  y: number;
+  len: number;
+  w: number;
+  angle: number;
+  tone: string;
+}) {
+  const blade = `M0 0 C${-w * 0.95} ${-len * 0.28} ${-w * 1.05} ${-len * 0.62} ${-w * 0.42} ${-len * 0.78} L${-w * 0.58} ${-len * 0.76} C${-w * 0.28} ${-len * 0.9} -1.2 ${-len * 0.97} 0 ${-len} C1.2 ${-len * 0.97} ${w * 0.28} ${-len * 0.9} ${w * 0.58} ${-len * 0.76} L${w * 0.42} ${-len * 0.78} C${w * 1.05} ${-len * 0.62} ${w * 0.95} ${-len * 0.28} 0 0 Z`;
+  return (
+    <g transform={`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${angle.toFixed(1)})`}>
+      <path d={blade} transform="translate(0 3.5)" className="leaf-lip" />
+      <path d={blade} className={tone} />
+      <path
+        d={`M0 -3 L0 ${(-len * 0.82).toFixed(1)}`}
+        className="leaf-vein"
+      />
+      <ellipse
+        cx={(-w * 0.24).toFixed(1)}
+        cy={(-len * 0.52).toFixed(1)}
+        rx={(w * 0.26).toFixed(1)}
+        ry={(len * 0.18).toFixed(1)}
+        transform={`rotate(-12 ${(-w * 0.24).toFixed(1)} ${(-len * 0.52).toFixed(1)})`}
+        className="leaf-hi"
+      />
+    </g>
+  );
+}
+
+function LeafFan({
+  cx,
+  cy,
+  scale,
+  tilt,
+  tones,
+}: {
+  cx: number;
+  cy: number;
+  scale: number;
+  tilt: number;
+  tones: readonly [string, string, string];
+}) {
+  const angles = [-64, -34, -6, 24, 54];
+  const lengths = [38, 46, 52, 45, 36];
+  const widths = [12, 14, 15.5, 14, 12];
+  return (
+    <g>
+      {angles.map((a, i) => (
+        <PointedLeaf
+          key={i}
+          x={cx + (i - 2) * 5 * scale}
+          y={cy + Math.abs(i - 2) * 2.5 * scale}
+          len={lengths[i]! * scale}
+          w={widths[i]! * scale}
+          angle={tilt + a}
+          tone={tones[i % 3]!}
+        />
+      ))}
+    </g>
+  );
+}
+
 function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
-  const blobs =
+  const mounds: [number, number, number, number, number, string, string][] =
     depth === 'near'
       ? [
-          [62, 340, 108],
-          [184, 385, 114],
-          [68, 500, 118],
-          [162, 595, 128],
-          [42, 680, 138],
-          [194, 725, 122],
-          [112, 798, 148],
-          [232, 458, 96],
+          [56, 336, 92, 76, 11, 'leaf-b', 'leaf-a'],
+          [178, 378, 98, 82, 12, 'leaf-a', 'leaf-fresh'],
+          [226, 456, 86, 72, 10, 'leaf-b', 'leaf-a'],
+          [66, 492, 108, 88, 12, 'leaf-a', 'leaf-fresh'],
+          [164, 584, 116, 94, 13, 'leaf-b', 'leaf-a'],
+          [44, 668, 124, 98, 13, 'leaf-a', 'leaf-fresh'],
+          [194, 716, 112, 92, 12, 'leaf-b', 'leaf-a'],
+          [110, 796, 136, 106, 14, 'leaf-a', 'leaf-fresh'],
         ]
       : [
-          [76, 290, 96],
-          [188, 335, 102],
-          [82, 405, 96],
-          [172, 470, 106],
-          [58, 555, 108],
-          [202, 585, 98],
-          [124, 650, 108],
+          [70, 268, 88, 70, 10, 'leaf-deep', 'leaf-mid'],
+          [182, 316, 92, 74, 11, 'leaf-mid', 'leaf-b'],
+          [82, 392, 90, 74, 11, 'leaf-deep', 'leaf-mid'],
+          [176, 458, 98, 80, 12, 'leaf-mid', 'leaf-b'],
+          [58, 544, 102, 82, 12, 'leaf-deep', 'leaf-mid'],
+          [202, 578, 92, 76, 11, 'leaf-mid', 'leaf-b'],
+          [124, 648, 104, 86, 12, 'leaf-deep', 'leaf-mid'],
+          [168, 742, 108, 88, 12, 'leaf-mid', 'leaf-b'],
         ];
   const mx = (x: number) => (side === 'l' ? x : 260 - x);
   const dir = side === 'l' ? 1 : -1;
+  const fanTones: readonly [string, string, string] =
+    depth === 'near'
+      ? ['leaf-b', 'leaf-a', 'leaf-fresh']
+      : ['leaf-deep', 'leaf-mid', 'leaf-b'];
+
   return (
     <svg
       className={`m-bush m-bush-${side} m-bush-${depth}`}
       viewBox="0 0 260 844"
       preserveAspectRatio="xMidYMax slice"
     >
-      {/* Accent bamboo fronds peeking from behind the bush bank */}
-      {blobs.slice(0, 5).map(([x, y, r], i) => {
-        const cx = mx(x!) + dir * (r! * 0.72);
-        const cy = y! - r! * 0.35;
+      {/* Serrated outer bamboo-grass (sasa) & fern sprays jutting from the edge */}
+      {mounds.map(([x, y, rx, ry], i) => {
+        const cx = mx(x!) + dir * (rx! * 0.68);
+        const cy = y! - ry! * 0.28;
         return (
-          <g key={`frond-${i}`} className="leaf-b">
-            <path
-              d={`M${cx} ${cy} Q${cx + dir * 42} ${cy - 28} ${cx + dir * 70} ${cy - 6} Q${cx + dir * 36} ${cy + 10} ${cx} ${cy}Z`}
+          <g key={`frond-${i}`}>
+            <PointedLeaf
+              x={cx}
+              y={cy}
+              len={54}
+              w={13}
+              angle={dir * (48 + (i % 3) * 8)}
+              tone={depth === 'near' ? 'leaf-b' : 'leaf-mid'}
             />
-            <path
-              d={`M${cx} ${cy + 16} Q${cx + dir * 36} ${cy + 2} ${cx + dir * 58} ${cy + 24} Q${cx + dir * 28} ${cy + 30} ${cx} ${cy + 16}Z`}
+            <PointedLeaf
+              x={cx - dir * 8}
+              y={cy + 18}
+              len={46}
+              w={12}
+              angle={dir * (68 + (i % 2) * 7)}
+              tone={depth === 'near' ? 'leaf-a' : 'leaf-b'}
+            />
+            <PointedLeaf
+              x={cx - dir * 16}
+              y={cy - 14}
+              len={42}
+              w={11}
+              angle={dir * (26 + (i % 3) * 6)}
+              tone={depth === 'near' ? 'leaf-fresh' : 'leaf-mid'}
             />
           </g>
         );
       })}
-      {/* Molded foliage puffs: darker bottom lip + saturated body + top-left gloss */}
-      {blobs.map(([x, y, r], i) => {
+
+      {/* Woody branch stems peeking in lower crevices */}
+      {[
+        [94, 540, 132, 488],
+        [146, 675, 192, 622],
+        [72, 765, 118, 708],
+      ].map(([x1, y1, x2, y2], i) => (
+        <path
+          key={`twig-${i}`}
+          d={`M${mx(x1!)} ${y1} Q${mx((x1! + x2!) / 2)} ${y2! + 14} ${mx(x2!)} ${y2}`}
+          className="bush-twig"
+        />
+      ))}
+
+      {/* Layered serrated shrub crowns + clustered pointed leaf fans */}
+      {mounds.map(([x, y, rx, ry, lobes, baseTone, topTone], i) => {
         const cx = mx(x!);
+        const cy = y!;
+        const seed = i + (side === 'l' ? 1 : 7) + (depth === 'near' ? 0 : 13);
+        const mainPath = serratedCrown(cx, cy, rx!, ry!, lobes!, seed);
+        const crownCx = cx - rx! * 0.14;
+        const crownCy = cy - ry! * 0.18;
+        const innerPath = serratedCrown(
+          crownCx,
+          crownCy,
+          rx! * 0.68,
+          ry! * 0.62,
+          Math.max(8, lobes! - 2),
+          seed + 3,
+        );
         return (
-          <g key={i}>
-            <circle cx={cx} cy={y! + 14} r={r} className="leaf-lip" />
-            <circle cx={cx} cy={y} r={r} className={i % 2 ? 'leaf-a' : 'leaf-b'} />
-            <ellipse
-              cx={cx - r! * 0.28}
-              cy={y! - r! * 0.34}
-              rx={r! * 0.46}
-              ry={r! * 0.32}
-              transform={`rotate(${-18} ${cx - r! * 0.28} ${y! - r! * 0.34})`}
-              className="leaf-hi"
+          <g key={`mound-${i}`}>
+            {/* Deep bottom shade band */}
+            <path d={mainPath} transform="translate(0 13)" className="leaf-lip" />
+            {/* Main serrated foliage mass */}
+            <path d={mainPath} className={baseTone} />
+            {/* Second tiered foliage crown */}
+            <path d={innerPath} transform="translate(0 8)" className="leaf-lip" opacity="0.55" />
+            <path d={innerPath} className={topTone} />
+            {/* Soft top-left highlight */}
+            <path
+              d={`M${(cx - rx! * 0.56).toFixed(1)} ${(cy - ry! * 0.24).toFixed(1)} Q${(cx - rx! * 0.24).toFixed(1)} ${(cy - ry! * 0.62).toFixed(1)} ${(cx + rx! * 0.12).toFixed(1)} ${(cy - ry! * 0.44).toFixed(1)}`}
+              className="leaf-hi-arc"
+            />
+            {/* Clustered leaf fan crowning the shrub */}
+            <LeafFan
+              cx={cx + dir * (rx! * 0.08)}
+              cy={cy - ry! * 0.22}
+              scale={depth === 'near' ? 0.96 : 0.8}
+              tilt={dir * (i % 2 === 0 ? 12 : -8)}
+              tones={fanTones}
+            />
+            <LeafFan
+              cx={cx - dir * (rx! * 0.28)}
+              cy={cy + ry! * 0.18}
+              scale={depth === 'near' ? 0.82 : 0.68}
+              tilt={-dir * 18}
+              tones={fanTones}
             />
           </g>
         );
       })}
-      {/* Camellia / sakura blossoms nestled in the near bushes */}
-      {depth === 'near' &&
+
+      {/* Mid-layer buds & distant berry clusters for depth */}
+      {depth === 'mid' &&
         [
-          [138, 395],
-          [145, 555],
-          [92, 665],
-          [188, 705],
+          [126, 338],
+          [148, 492],
+          [96, 608],
         ].map(([x, y], i) => {
           const cx = mx(x!);
           return (
-            <g key={`fl-${i}`}>
-              <circle cx={cx} cy={y! + 3} r="14" fill="var(--c-lacquer)" opacity="0.45" />
-              <circle cx={cx - 6} cy={y! - 4} r="8" fill="var(--c-petal)" />
-              <circle cx={cx + 6} cy={y! - 4} r="8" fill="var(--c-petal)" />
-              <circle cx={cx - 4} cy={y! + 5} r="8" fill="var(--c-petal)" />
-              <circle cx={cx + 4} cy={y! + 5} r="8" fill="var(--c-petal)" />
-              <circle cx={cx} cy={y! - 7} r="8" fill="var(--c-petal)" />
-              <circle cx={cx} cy={y} r="5" fill="var(--c-glow)" />
-              <circle cx={cx - 1.5} cy={y! - 1.5} r="1.8" fill="var(--c-coin-shine)" />
+            <g key={`bud-${i}`}>
+              <circle cx={cx} cy={y! + 2} r="6.5" fill="var(--c-lacquer)" opacity="0.55" />
+              <circle cx={cx} cy={y} r="6" fill="var(--c-petal)" opacity="0.85" />
+              <circle cx={cx - 1.8} cy={y! - 1.8} r="2" fill="var(--c-coin-shine)" opacity="0.7" />
             </g>
           );
         })}
+
+      {/* Near-layer camellia/sakura blossoms + glossy red nanten berry clusters */}
+      {depth === 'near' && (
+        <>
+          {[
+            [134, 388],
+            [152, 548],
+            [88, 658],
+            [188, 704],
+          ].map(([x, y], i) => {
+            const cx = mx(x!);
+            const cy = y!;
+            return (
+              <g key={`fl-${i}`}>
+                {/* Dark blossom under-shadow */}
+                <circle cx={cx} cy={cy + 3.5} r="15" fill="var(--c-lacquer)" opacity="0.5" />
+                {/* Five notched sakura/tsubaki petals */}
+                {[0, 72, 144, 216, 288].map((deg) => (
+                  <path
+                    key={deg}
+                    d="M0 -2 C-6 -5 -8 -13 -3 -16 L0 -13 L3 -16 C8 -13 6 -5 0 -2 Z"
+                    transform={`translate(${cx} ${cy}) rotate(${deg})`}
+                    fill="var(--c-petal)"
+                  />
+                ))}
+                {/* Top-left petal highlight */}
+                <ellipse
+                  cx={cx - 5}
+                  cy={cy - 6}
+                  rx="4.2"
+                  ry="2"
+                  transform={`rotate(-28 ${cx - 5} ${cy - 6})`}
+                  fill="var(--c-coin-shine)"
+                  opacity="0.75"
+                />
+                {/* Golden stamen center */}
+                <circle cx={cx} cy={cy + 1} r="5.5" fill="var(--c-gold)" />
+                <circle cx={cx} cy={cy} r="5" fill="var(--c-glow)" />
+                <circle cx={cx - 1.6} cy={cy - 1.6} r="1.8" fill="var(--c-coin-shine)" />
+              </g>
+            );
+          })}
+
+          {/* Glossy red nanten berry clusters nestled among the leaves */}
+          {[
+            [82, 434],
+            [196, 512],
+            [132, 624],
+            [74, 748],
+            [162, 782],
+          ].map(([x, y], i) => {
+            const cx = mx(x!);
+            const cy = y!;
+            return (
+              <g key={`berry-${i}`}>
+                {[
+                  [-6, 2, 5.2],
+                  [5, 3, 5],
+                  [0, -4, 5.5],
+                  [-2, 6, 4.6],
+                ].map(([bx, by, br], j) => (
+                  <g key={j}>
+                    <circle
+                      cx={cx + bx!}
+                      cy={cy + by! + 2}
+                      r={br}
+                      fill="var(--c-lacquer)"
+                    />
+                    <circle
+                      cx={cx + bx!}
+                      cy={cy + by!}
+                      r={br}
+                      fill="var(--c-accent)"
+                    />
+                    <circle
+                      cx={cx + bx! - 1.5}
+                      cy={cy + by! - 1.5}
+                      r={br! * 0.34}
+                      fill="var(--c-coin-shine)"
+                      opacity="0.85"
+                    />
+                  </g>
+                ))}
+              </g>
+            );
+          })}
+        </>
+      )}
     </svg>
   );
 }
