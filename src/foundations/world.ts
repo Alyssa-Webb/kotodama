@@ -7,8 +7,8 @@ import spiritsJson from '../../world/spirits.json';
 import bossesJson from '../../world/bosses.json';
 import avatarJson from '../../world/avatar.json';
 import starterJson from '../../content/packs/kotodama-starter.json';
-import toysJson from '../../design/toys.json';
-import { ToysSchema } from '../schema/toys';
+import momentsJson from '../../design/moments.json';
+import { MomentsSchema } from '../schema/moments';
 import { EconomySchema } from '../schema/economy';
 import { AnimationsSchema } from '../schema/theme';
 import {
@@ -28,4 +28,4 @@ export const spirits = SpiritsSchema.parse(spiritsJson).species;
 export const bosses = BossesSchema.parse(bossesJson).bosses;
 export const avatarParts = AvatarSchema.parse(avatarJson).parts;
 export const starterPack = LessonPackSchema.parse(starterJson);
-export const toys = ToysSchema.parse(toysJson);
+export const momentsConfig = MomentsSchema.parse(momentsJson);

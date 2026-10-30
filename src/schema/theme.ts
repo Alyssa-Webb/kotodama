@@ -115,18 +115,17 @@ export const HAPTICS = [
 export const HapticSchema = z.enum(['none', ...HAPTICS]);
 export type HapticName = (typeof HAPTICS)[number];
 
-/** 3D plastic-toy effects played by the toy stage (src/foundations/toy). */
-export const ToyEffectSchema = z.enum([
+/** Full-screen 2D moments played by the moments layer (src/foundations/moments). */
+export const MomentSchema = z.enum([
   'none',
-  'stamp',
-  'crack',
-  'lanterns',
-  'hanabi',
+  'maru',
+  'batsu',
+  'sweep',
   'coins',
-  'shatter',
-  'stars',
+  'sunburst',
+  'slash',
 ]);
-export type ToyEffect = z.infer<typeof ToyEffectSchema>;
+export type MomentName = z.infer<typeof MomentSchema>;
 
 export const AnimationsSchema = z.object({
   version: z.number().int().positive(),
@@ -148,8 +147,8 @@ export const AnimationsSchema = z.object({
       shake: z.boolean().default(false),
       /** Haptic pattern fired with the slot. */
       haptic: HapticSchema.default('none'),
-      /** 3D toy effect fired with the slot (skipped with reduced motion). */
-      toy: ToyEffectSchema.default('none'),
+      /** 2D moment fired with the slot (skipped with reduced motion). */
+      moment: MomentSchema.default('none'),
     }),
   ),
 });

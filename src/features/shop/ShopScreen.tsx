@@ -17,9 +17,11 @@ import { KobanIcon } from '../../foundations/art/icons';
 import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { useSave, useStats } from '../hooks';
-import { ToyView } from '../../foundations/toy/ToyView';
-import { toy } from '../../foundations/toy/toy';
 import { centerOf, fx } from '../../foundations/fx/fx';
+import { moments } from '../../foundations/moments/moments';
+import { toSurface } from '../../engine/text/furigana';
+import { AvatarActor } from '../avatar/AvatarActor';
+import type { AvatarPart } from '../../schema/world';
 import type { ConsumableId } from '../../schema/world';
 
 const ERR: Record<PurchaseError, string> = {
@@ -41,15 +43,20 @@ export function ShopScreen() {
   const scheduler = useGame((s) => s.scheduler)!;
   const navigate = useNavigate();
   const [msg, setMsg] = useState<string | null>(null);
-  const [prize, setPrize] = useState<string | null>(null);
+  const [prize, setPrize] = useState<{ part: AvatarPart; duplicate: boolean } | null>(null);
+  const [avatarMood, setAvatarMood] = useState<'idle' | 'happy' | 'cheer'>('idle');
+  const [reaction, setReaction] = useState(0);
   const rules = economy.difficulty[save.settings.difficulty]!;
 
   const [opening, setOpening] = useState(false);
 
-  /** Every purchase is a moment: the toy leaps out of its card under a gold ring. */
-  const celebrate = (id: string, from: Element | null) => {
+  /** Every purchase is a moment: koban leave your purse, the item's badge flies to your avatar. */
+  const celebrate = (name: string, from: Element | null) => {
     fx.slot('purchase', from);
-    void toy.reveal(id, centerOf(from));
+    void moments.purchase(toSurface(name), centerOf(from)).then(() => {
+      setAvatarMood('happy');
+      setReaction((n) => n + 1);
+    });
   };
 
   const purchase = (id: ConsumableId, from: Element | null) => {
@@ -67,7 +74,7 @@ export function ShopScreen() {
       next = applyKintsugi(next, gctx(), false) ?? next;
     commit(next);
     playSfx('coin');
-    celebrate(id, from);
+    celebrate(shop.consumables.find((c) => c.id === id)?.name ?? id, from);
     setMsg(
       id === 'kintsugi' && rules.kintsugiTrial
         ? 'Kintsugi bought. Pass the Redemption Trial to mend your streak.'
@@ -81,7 +88,7 @@ export function ShopScreen() {
     if ('error' in r) return setMsg(ERR[r.error]);
     commit(r.save);
     playSfx('coin');
-    celebrate(id, from);
+    celebrate(shop.charms.find((c) => c.id === id)?.name ?? id, from);
     setMsg('Charm bought. Equip it on the Avatar screen.');
   };
 
@@ -113,17 +120,17 @@ export function ShopScreen() {
       },
     });
     // The pull is already saved; the capsule only decides when the player gets to see it.
-    const text = r.prize
-      ? `${r.prize.name}|${r.prize.en}|${r.prize.gacha}|${r.duplicate ? 'dup' : ''}`
-      : null;
+    const won = r.prize ? { part: r.prize, duplicate: r.duplicate } : null;
     setPrize(null);
     setOpening(true);
     playSfx('tap');
-    void toy.capsule(r.prize?.gacha ?? 'common', () => {
+    void moments.capsule(r.prize?.gacha ?? 'common', () => {
       playSfx('kiai');
       fx.slot('gacha.open');
-      setPrize(text);
+      setPrize(won);
       setOpening(false);
+      setAvatarMood('cheer');
+      setReaction((n) => n + 1);
     });
   };
 
@@ -131,6 +138,9 @@ export function ShopScreen() {
     <div className="stack">
       <div className="row spread">
         <h1>Shop</h1>
+        <span className="shop-avatar" aria-hidden="true">
+          <AvatarActor mood={avatarMood} reaction={reaction} size={54} />
+        </span>
         <span className="stat stat-koban">
           <KobanIcon size={18} /> {stats.koban}
         </span>
@@ -162,7 +172,6 @@ export function ShopScreen() {
               (c.id === 'kintsugi' && !kintsugiAvailable(save, gctx()));
             return (
               <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
-                <ToyView item={c.id} size={88} />
                 <div className="row spread">
                   <span className="big-ja">
                     <SpeakableJa text={c.name} />
@@ -189,7 +198,6 @@ export function ShopScreen() {
         <div className="grid-2">
           {shop.charms.map((c) => (
             <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
-              <ToyView item={c.id} size={88} />
               <span className="big-ja">
                 <SpeakableJa text={c.name} />
               </span>
@@ -240,14 +248,36 @@ export function ShopScreen() {
           </p>
         )}
         {prize && (
-          <p className="card card-accent card-tight center" role="status">
+          <div className="card card-accent card-tight stack center" role="status">
+            <AvatarActor
+              mood="cheer"
+              size={96}
+              equipped={{ ...save.avatar.equipped, [prize.part.slot]: prize.part.id }}
+            />
             <span className="big-ja">
-              <JaText text={prize.split('|')[0]!} />
+              <JaText text={prize.part.name} />
             </span>
-            <br />
-            {prize.split('|')[1]} · {prize.split('|')[2]}
-            {prize.split('|')[3] ? ' (duplicate)' : ' · new! Equip it on the Avatar screen.'}
-          </p>
+            <span>
+              {prize.part.en} · {prize.part.gacha}
+              {prize.duplicate ? ' (duplicate)' : ' · new!'}
+            </span>
+            {!prize.duplicate && save.avatar.equipped[prize.part.slot] !== prize.part.id && (
+              <button
+                className="btn btn-small btn-accent"
+                onClick={() =>
+                  commit({
+                    ...useGame.getState().save!,
+                    avatar: {
+                      ...save.avatar,
+                      equipped: { ...save.avatar.equipped, [prize.part.slot]: prize.part.id },
+                    },
+                  })
+                }
+              >
+                Wear it
+              </button>
+            )}
+          </div>
         )}
       </section>
     </div>

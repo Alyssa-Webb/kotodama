@@ -18,6 +18,7 @@ import { JaText, SpeakableJa, useJa, RichText } from '../../foundations/japanese
 import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
 import { Guide, type Mood } from '../../foundations/art/Guide';
+import { AvatarActor } from '../avatar/AvatarActor';
 import { FlameIcon, HeartIcon, LanternIcon } from '../../foundations/art/icons';
 import { useGame } from '../../foundations/store/gameStore';
 import { tokens } from '../../foundations/theme/theme';
@@ -46,6 +47,8 @@ export interface PlayerProps {
   onAnswered?: (s: SessionState, r: GradeResult) => SessionState | undefined;
   /** Hides the guide portrait (boss fights show the boss instead). */
   hideGuide?: boolean;
+  /** Boss fights: the avatar lunges at the boss on a correct answer instead of hopping. */
+  fighter?: boolean;
 }
 
 const PRAISE = ['Nice!', 'Correct!', 'Great!', 'Sharp!', 'Excellent!'];
@@ -66,6 +69,7 @@ export function Player({
   header,
   onAnswered,
   hideGuide,
+  fighter,
 }: PlayerProps) {
   const { speak } = useJa();
   const voiceMode = useGame((s) => s.save?.settings.voiceMode ?? 'alternate-lesson');
@@ -381,11 +385,12 @@ export function Player({
 
       {feedback?.auto ? null : feedback ? (
         <div className={`feedback ${feedback.result.correct ? 'good' : 'bad'}`} role="alert">
-          {!hideGuide && (
-            <span className="feedback-guide" aria-hidden="true">
-              <Guide who={guide} mood={feedback.result.correct ? 'happy' : 'worried'} size={52} />
-            </span>
-          )}
+          <span className="feedback-guide" aria-hidden="true">
+            <AvatarActor
+              mood={feedback.result.correct ? (fighter ? 'strike' : 'happy') : 'worried'}
+              size={52}
+            />
+          </span>
           <div className="stack" style={{ gap: 'var(--sp-1)', flex: 1, minWidth: 0 }}>
             <strong className="feedback-title">
               {feedback.result.correct
@@ -415,6 +420,9 @@ export function Player({
         </div>
       ) : (
         <div className="player-actions">
+          <span className="player-avatar" aria-hidden="true">
+            <AvatarActor mood={kiai ? 'cheer' : 'idle'} size={46} />
+          </span>
           <button
             className="btn btn-small hint-btn"
             disabled={

@@ -12,7 +12,7 @@ Read this first every session (and after any context compaction), together with 
 - **M5 World:** town districts, spirit stages from FSRS, bonsai, layered SVG avatar + equip screen, Mojibake boss battle (HP, phases, once per day in Hardcore).
 - **M6 Modes:** Kana Rush, Listening Rush, Dictation drill (timer, misses, ghost of best run, daruma/hourglass), lesson review of mistakes, trace (canvas, self-graded).
 - **Game-feel overhaul (owner request):** living ukiyo-e scene, reactive guides Akari/Tetsu, canvas FX layer (particles, flashes, shake, floating XP, 気合 banner), lacquer/gold game skin, stamped results, map path, boss art; all through tokens + animation slots (ADR 0006).
-- **Toy VX pass (ADR 0007):** lazy three.js toy stage (backdrop world + front effects layer, one loop), training-start gate (bushes part, fbm fog dissolves, lanterns light) into grove/shrine/dojo worlds that stay alive behind every training, 3D stamp/crack/lanterns/hanabi/coins/stars/shatter effects on animation slots, live 3D shop items, purchase reveal, tap-to-open gachapon capsule, boss shatter; frame-time governor + device tiers (per-device, not in the save); haptic vocabulary (Android patterns, iPhone switch ticks) with a Haptics setting and a 3D quality setting.
+- **2D moments + living avatar (ADR 0008, replaces the 3D pass of ADR 0007):** training gate (bushes part, mist clears, lanterns light, avatar walks in), red-ink 〇/✕ answer marks, sweeps, rays, koban arcs, boss katana slash, noren curtains before results, tap-to-open capsule; avatar with mood faces and hop/flinch/cheer/strike motion in every training, results, shop and gachapon try-on; haptic vocabulary with a Haptics setting.
 - **M7 Voice tooling:** voice-build (speaker/style by name, reading check vs furigana, 1.0×/0.75×, afconvert AAC, hashed names, manifest + credits, .jlpack to outbox), voice-audition (local page, writes voices.json), `Voice Audition.command`, `Voice Packs.command`. Not run for real: VOICEVOX not installed.
 - **Elo skill ratings** update from every answer (item difficulty from FSRS); dojo ranks and belt follow.
 - **Verification:** 118 unit tests, content-lint, 16 WebKit e2e tests (golden path, ChatGPT loop, backup/restore, axe, dark mode, offline).
@@ -32,7 +32,7 @@ Read this first every session (and after any context compaction), together with 
 
 ## Known issues
 
-- Toy VX not yet felt on a real iPhone/Android (haptics and governor need hardware); tools/authoring.test.ts fails only on Windows checkouts with CRLF line endings.
+- 2D moments and haptics not yet felt on a real iPhone/Android; tools/authoring.test.ts fails only on Windows checkouts with CRLF line endings.
 
 - Not deployed: creating the public GitHub repo needs the owner (permission was not granted overnight).
 - Trace exercises are self-graded (no stroke-order data bundled yet).

@@ -9,6 +9,8 @@ import { Scene } from '../../foundations/art/Scene';
 import { Guide } from '../../foundations/art/Guide';
 import { CapsuleIcon, HeartIcon, KobanIcon, StarIcon } from '../../foundations/art/icons';
 import { fx } from '../../foundations/fx/fx';
+import { moments } from '../../foundations/moments/moments';
+import { AvatarActor } from '../avatar/AvatarActor';
 import { tokens } from '../../foundations/theme/theme';
 import { prefersReducedMotion } from '../../foundations/platform';
 import { playSfx } from '../../foundations/audio/sfx';
@@ -56,7 +58,7 @@ export function Stars({
   celebrate?: boolean;
 }) {
   const els = useRef<(HTMLSpanElement | null)[]>([]);
-  // Each earned star lands as a chunky 3D toy with its own thud, one beat apart.
+  // Each earned star thuds in the same frame its stamp animation lands (lesson.css `stamp`).
   useEffect(() => {
     if (!celebrate) return;
     const timers = [1, 2, 3]
@@ -67,7 +69,7 @@ export function Stars({
             fx.slot('star.earn', els.current[i - 1]);
             playSfx('tap');
           },
-          tokens.motion.stamp + i * 280,
+          tokens.motion.stamp * (0.6 * (i - 1) + 0.55),
         ),
       );
     return () => timers.forEach((t) => window.clearTimeout(t));
@@ -120,22 +122,32 @@ export function ResultCard({
   stars?: number;
 }) {
   const card = useRef<HTMLDivElement>(null);
-  // Results replace a long, scrolled lesson screen: start at the top, then celebrate.
+  // Wins open behind the noren curtains; the celebration starts as they lift.
+  const [revealed, setRevealed] = useState(!!failed);
   useEffect(() => {
     window.scrollTo(0, 0);
     if (failed) return;
-    fx.slot('lesson.complete', card.current);
-    const t = window.setTimeout(() => {
-      fx.slot('coin.earned', card.current);
-      playSfx('coin');
-    }, tokens.motion.stamp * 1.5);
-    return () => window.clearTimeout(t);
+    let live = true;
+    let t = 0;
+    void moments.finish().then(() => {
+      if (!live) return;
+      setRevealed(true);
+      fx.slot('lesson.complete', card.current);
+      t = window.setTimeout(() => {
+        fx.slot('coin.earned', card.current);
+        playSfx('coin');
+      }, tokens.motion.stamp * 1.5);
+    });
+    return () => {
+      live = false;
+      window.clearTimeout(t);
+    };
   }, [failed]);
   return (
     <div ref={card}>
       <Slot
         slot="lesson.complete"
-        fire={true}
+        fire={revealed}
         className={`card result-hero stack ${failed ? '' : 'card-accent'}`}
       >
         <Scene
@@ -144,10 +156,13 @@ export function ResultCard({
           awake={failed ? 0.1 : 1}
           ambient={failed ? 'none' : 'petals'}
         />
+        <div className="result-avatar">
+          <AvatarActor mood={failed ? 'worried' : revealed ? 'cheer' : 'idle'} size={76} />
+        </div>
         <p className="eyebrow">{failed ? 'Lesson failed' : 'Complete'}</p>
         <h1>{title}</h1>
-        {stars !== undefined && !failed && <Stars n={stars} celebrate />}
-        {stars !== undefined && !failed && GRADE[stars as 0 | 1 | 2 | 3] && (
+        {stars !== undefined && !failed && revealed && <Stars n={stars} celebrate />}
+        {stars !== undefined && !failed && revealed && GRADE[stars as 0 | 1 | 2 | 3] && (
           <span className="hanko" lang="ja" aria-label={`Grade ${GRADE[stars as 0 | 1 | 2 | 3]}`}>
             {GRADE[stars as 0 | 1 | 2 | 3]}
           </span>

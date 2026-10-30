@@ -226,6 +226,7 @@ export function BossScreen() {
   return (
     <Player
       hideGuide
+      fighter
       questions={questions}
       config={config}
       lanterns={0}

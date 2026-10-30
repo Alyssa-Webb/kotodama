@@ -23,8 +23,9 @@ import { RushScreen } from '../features/modes/RushScreen';
 import { BossScreen } from '../features/boss/BossScreen';
 import { TrialScreen } from '../features/shop/TrialScreen';
 import { FxLayer } from '../foundations/fx/FxLayer';
-import { TrainingWorld } from '../foundations/toy/TrainingWorld';
-import { prewarmToys } from '../foundations/toy/toy';
+import { TrainingGate } from '../foundations/moments/TrainingGate';
+import { MomentsLayer } from '../foundations/moments/MomentsLayer';
+import { AvatarActor } from '../features/avatar/AvatarActor';
 import { haptic } from '../foundations/haptics/haptics';
 
 /** Every plastic button answers a press with a tick, in the same frame it squashes. */
@@ -42,7 +43,7 @@ function installPressTicks() {
 function FullScreen() {
   return (
     <div className="full-screen">
-      <TrainingWorld />
+      <TrainingGate />
       <Outlet />
     </div>
   );
@@ -95,7 +96,6 @@ export function App() {
 
   useEffect(() => {
     if (!ready) return;
-    prewarmToys();
     // Day rollover while the app stays open, and save before the app is backgrounded.
     const tick = window.setInterval(settle, 60_000);
     const onVis = () => (document.visibilityState === 'hidden' ? void flush() : settle());
@@ -132,6 +132,7 @@ export function App() {
   return (
     <Providers>
       <RouterProvider router={router} />
+      <MomentsLayer actor={(pose) => <AvatarActor mood={pose} size={120} />} />
       <FxLayer />
     </Providers>
   );

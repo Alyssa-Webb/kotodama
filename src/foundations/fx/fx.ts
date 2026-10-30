@@ -5,7 +5,7 @@
 import type { AnimationSlot, ParticlesKind } from '../../schema/theme';
 import { animations } from '../world';
 import { haptic } from '../haptics/haptics';
-import { toy } from '../toy/toy';
+import { moments } from '../moments/moments';
 
 export interface Point {
   x: number;
@@ -39,7 +39,7 @@ export function centerOf(el?: Element | null): Point {
 }
 
 export const fx = {
-  /** Plays a slot's haptic, 3D toy effect, particles, flash and shake from its data definition. */
+  /** Plays a slot's haptic, 2D moment, particles, flash and shake from its data definition. */
   slot(slot: AnimationSlot, at?: Point | Element | null, count?: number) {
     const def = animations.slots[slot];
     if (!def) return;
@@ -49,7 +49,7 @@ export const fx = {
         : ((at as Point | undefined) ?? centerOf());
     // Haptic first: it lands in the same frame as the tap that caused it.
     haptic(def.haptic);
-    if (def.toy !== 'none') toy.effect(def.toy, point);
+    moments.play(def.moment, point);
     if (def.particles !== 'none')
       emit({ kind: 'burst', particles: def.particles, at: point, ...(count ? { count } : {}) });
     if (def.flash !== 'none') emit({ kind: 'flash', color: def.flash });

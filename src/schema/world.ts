@@ -125,6 +125,19 @@ export const AvatarPartSchema = z.object({
   free: z.boolean().optional(),
   /** Present when the part can drop from the gachapon. */
   gacha: z.enum(['common', 'rare', 'legendary']).optional(),
+  /**
+   * Base parts only: where the face sits, so the avatar can change expression (happy, worried,
+   * cheering) by drawing a mood face over the neutral one.
+   */
+  face: z
+    .object({
+      skin: z.string(),
+      cx: z.number(),
+      eyeY: z.number(),
+      eyeDx: z.number(),
+      mouthY: z.number(),
+    })
+    .optional(),
 });
 export const AvatarSchema = z.object({
   version: z.number().int(),

@@ -1,0 +1,6 @@
+# 0008 — 2D moments replace the 3D toy stage; the avatar joins the game
+
+- Context: the owner tested the 3D pass (ADR 0007) and rejected it: the shop models lagged, the 3D stamp looked poor, and full-screen 2D animation reads better.
+- Decision: remove three.js and the toy stage entirely. Every moment is now SVG/DOM animated with CSS keyframes or the Web Animations API, touching only transform and opacity so it stays on the compositor: a training gate (layered bushes part, mist clears, lanterns light, the avatar walks in), the teacher's red-ink 〇/✕ marks for answers, light sweeps, rays, koban arcs, a katana slash for boss finishes, noren curtains over the results, and a 2D gachapon capsule you tap open. Slot data swaps `toy` for `moment` (design/animations.json v4); timings and scenes live in design/moments.json. The haptic vocabulary from ADR 0007 stays.
+- The player's avatar becomes a character: mood faces drawn from the base part's `face` data, plus hop, flinch, cheer, walk and strike motions. It stands in every training (and lunges in boss fights), cheers on results, catches purchases in the shop, and tries on gachapon prizes.
+- Consequences: no 3D chunk to download or precache, and no per-device quality setting. ADR 0007's rendering parts are superseded; its haptics decision stands.

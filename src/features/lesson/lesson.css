@@ -697,3 +697,17 @@
     calc(env(safe-area-inset-bottom) + var(--sp-4));
   min-height: 100dvh;
 }
+
+/* ---- the player's avatar on the training floor */
+.player-avatar {
+  flex: none;
+  margin: -18px -4px -4px 0;
+  pointer-events: none !important;
+}
+.result-avatar {
+  display: flex;
+  justify-content: center;
+  margin: -46px 0 -6px;
+  position: relative;
+  z-index: 1;
+}
