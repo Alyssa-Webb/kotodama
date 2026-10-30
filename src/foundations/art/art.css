@@ -243,3 +243,65 @@
   animation: art-flicker var(--dur-celebrate) ease-in-out infinite alternate;
   transform-origin: 50% 100%;
 }
+
+/* ---- shop item art (transform + opacity only) */
+.item-art {
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+.item-bob {
+  transform-origin: 40px 48px;
+  animation: item-bob calc(var(--dur-celebrate) * 3) ease-in-out infinite;
+}
+.item-sway {
+  transform-origin: 40px 14px;
+  animation: item-sway calc(var(--dur-celebrate) * 3.4) ease-in-out infinite alternate;
+}
+.item-wobble {
+  transform-origin: 40px 64px;
+  animation: item-wobble calc(var(--dur-celebrate) * 3.2) ease-in-out infinite;
+}
+.item-glint {
+  transform-origin: 50% 50%;
+  animation: item-glint calc(var(--dur-celebrate) * 2.2) ease-in-out infinite alternate;
+}
+@keyframes item-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(0.98, 1.02);
+  }
+}
+@keyframes item-sway {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(4deg);
+  }
+}
+@keyframes item-wobble {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-5deg) scale(1.02, 0.98);
+  }
+  75% {
+    transform: rotate(5deg) scale(1.02, 0.98);
+  }
+}
+@keyframes item-glint {
+  from {
+    opacity: 0.35;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}

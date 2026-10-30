@@ -89,15 +89,20 @@ const place = (at: Point, size: number): CSSProperties => ({
   height: size,
 });
 
-/** The teacher's red 〇: a brushed circle that overlaps itself where the brush lifts. */
+/** The teacher's red 〇: a glossy, chunky brushed circle that overlaps itself where the brush lifts. */
 function Maru({ at, onEnd }: { at: Point; onEnd: () => void }) {
   return (
     <svg
       className="m-maru"
-      style={place(at, 150)}
+      style={place(at, 156)}
       viewBox="0 0 100 100"
       onAnimationEnd={(e) => e.target === e.currentTarget && onEnd()}
     >
+      <path
+        className="m-stroke m-stroke-lip"
+        pathLength={1}
+        d="M58 15 C 84 19, 92 47, 84 67 C 74 91, 38 95, 20 77 C 4 61, 10 29, 34 18 C 44 14, 54 14, 62 17"
+      />
       <path
         className="m-stroke"
         pathLength={1}
@@ -108,21 +113,36 @@ function Maru({ at, onEnd }: { at: Point; onEnd: () => void }) {
         pathLength={1}
         d="M60 15 C 82 20, 88 44, 81 62 C 72 84, 40 88, 23 72"
       />
+      <path className="m-stroke m-stroke-hi" pathLength={1} d="M16 42 C 18 25, 32 14, 50 13" />
+      <circle cx="69" cy="11" r="3" className="m-splat" />
+      <circle cx="76" cy="16" r="1.8" className="m-splat" />
     </svg>
   );
 }
 
-/** The teacher's ✕, two quick strokes. Firm, not punishing. */
+/** The teacher's ✕, two quick glossy strokes. Firm, not punishing. */
 function Batsu({ at, onEnd }: { at: Point; onEnd: () => void }) {
   return (
     <svg
       className="m-batsu"
-      style={place(at, 120)}
+      style={place(at, 128)}
       viewBox="0 0 100 100"
       onAnimationEnd={(e) => e.target === e.currentTarget && onEnd()}
     >
+      <path className="m-stroke m-stroke-lip" pathLength={1} d="M22 23 C 40 43, 60 63, 80 85" />
       <path className="m-stroke" pathLength={1} d="M22 20 C 40 40, 60 60, 80 82" />
+      <path className="m-stroke m-stroke-hi" pathLength={1} d="M24 21 C 35 33, 45 43, 52 51" />
+      <path
+        className="m-stroke m-stroke-lip m-stroke-2"
+        pathLength={1}
+        d="M80 21 C 62 41, 42 63, 20 87"
+      />
       <path className="m-stroke m-stroke-2" pathLength={1} d="M80 18 C 62 38, 42 60, 20 84" />
+      <path
+        className="m-stroke m-stroke-hi m-stroke-2"
+        pathLength={1}
+        d="M78 19 C 67 31, 57 42, 48 52"
+      />
     </svg>
   );
 }
@@ -135,6 +155,7 @@ function Sunburst({ at, onEnd }: { at: Point; onEnd: () => void }) {
       style={place(at, size)}
       onAnimationEnd={(e) => e.target === e.currentTarget && onEnd()}
     >
+      <div className="m-sunburst-core" />
       <div className="m-rays" />
       <div className="m-rays m-rays-2" />
     </div>
@@ -149,8 +170,10 @@ function Slash({ at, onEnd }: { at: Point; onEnd: () => void }) {
       style={{ top: at.y }}
       onAnimationEnd={(e) => e.target === e.currentTarget && onEnd()}
     >
-      <div className="m-slash-line" />
       <div className="m-slash-glow" />
+      <div className="m-slash-edge" />
+      <div className="m-slash-line" />
+      <div className="m-slash-spark" />
     </div>
   );
 }
@@ -186,20 +209,31 @@ function Coins({
     let left = nodes.length;
     const anims = nodes.map((n, i) => {
       const spread = (i - (nodes.length - 1) / 2) * 22;
+      const tilt = (i % 2 === 0 ? 1 : -1) * (14 + (i % 3) * 8);
       const mid = {
         x: (a.x + b.x) / 2 + spread * 2.2,
         y: Math.min(a.y, b.y) - 90 - Math.abs(spread),
       };
       const anim = n.animate(
         [
-          { transform: `translate(${a.x}px, ${a.y}px) scale(0.3)`, opacity: 0 },
           {
-            transform: `translate(${a.x + spread}px, ${a.y - 30}px) scale(1.1)`,
+            transform: `translate(${a.x}px, ${a.y}px) scale(0.3) rotate(${-tilt}deg)`,
+            opacity: 0,
+          },
+          {
+            transform: `translate(${a.x + spread}px, ${a.y - 30}px) scale(1.15) rotate(${tilt}deg)`,
             opacity: 1,
             offset: 0.2,
           },
-          { transform: `translate(${mid.x}px, ${mid.y}px) scale(1)`, opacity: 1, offset: 0.55 },
-          { transform: `translate(${b.x}px, ${b.y}px) scale(0.55)`, opacity: 0.9 },
+          {
+            transform: `translate(${mid.x}px, ${mid.y}px) scale(1.02) rotate(${-tilt * 0.5}deg)`,
+            opacity: 1,
+            offset: 0.55,
+          },
+          {
+            transform: `translate(${b.x}px, ${b.y}px) scale(0.55) rotate(0deg)`,
+            opacity: 0.9,
+          },
         ],
         { duration: 720, delay: i * 45, easing: 'cubic-bezier(.45,.05,.55,.95)', fill: 'forwards' },
       );
@@ -216,7 +250,38 @@ function Coins({
   return (
     <div ref={ref} className="m-coins">
       {Array.from({ length: count }, (_, i) => (
-        <span key={i} className="m-coin" />
+        <span key={i} className="m-coin">
+          <svg viewBox="0 0 28 20" width="28" height="20" aria-hidden="true">
+            <ellipse
+              cx="14"
+              cy="11"
+              rx="12.5"
+              ry="8.2"
+              fill="color-mix(in srgb, var(--c-gold) 65%, var(--c-hud-bg))"
+            />
+            <ellipse cx="14" cy="9.2" rx="12.5" ry="8.2" fill="var(--c-glow)" />
+            <ellipse
+              cx="14"
+              cy="9.2"
+              rx="9.5"
+              ry="5.8"
+              fill="none"
+              stroke="var(--c-gold)"
+              strokeWidth="1.2"
+              opacity="0.7"
+            />
+            <rect x="11" y="7.2" width="6" height="4" rx="1" fill="var(--c-gold)" />
+            <ellipse
+              cx="9.5"
+              cy="5.8"
+              rx="3.8"
+              ry="1.6"
+              transform="rotate(-18 9.5 5.8)"
+              fill="var(--c-coin-shine)"
+              opacity="0.85"
+            />
+          </svg>
+        </span>
       ))}
     </div>
   );
@@ -228,41 +293,81 @@ function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
   const blobs =
     depth === 'near'
       ? [
-          [70, 520, 120],
-          [160, 610, 130],
-          [40, 690, 140],
-          [190, 730, 120],
-          [110, 800, 150],
-          [230, 470, 90],
+          [68, 500, 118],
+          [162, 595, 128],
+          [42, 680, 138],
+          [194, 725, 122],
+          [112, 798, 148],
+          [232, 458, 92],
         ]
       : [
-          [80, 420, 90],
-          [170, 480, 100],
-          [60, 560, 100],
-          [200, 590, 90],
+          [82, 405, 92],
+          [172, 470, 102],
+          [58, 555, 104],
+          [202, 585, 92],
         ];
+  const mx = (x: number) => (side === 'l' ? x : 260 - x);
+  const dir = side === 'l' ? 1 : -1;
   return (
     <svg
       className={`m-bush m-bush-${side} m-bush-${depth}`}
       viewBox="0 0 260 844"
       preserveAspectRatio="xMidYMax slice"
     >
-      {blobs.map(([x, y, r], i) => (
-        <g key={i}>
-          <circle
-            cx={side === 'l' ? x : 260 - x!}
-            cy={y}
-            r={r}
-            className={i % 2 ? 'leaf-a' : 'leaf-b'}
-          />
-          <circle
-            cx={(side === 'l' ? x! : 260 - x!) - r! * 0.3}
-            cy={y! - r! * 0.35}
-            r={r! * 0.45}
-            className="leaf-hi"
-          />
-        </g>
-      ))}
+      {/* Accent bamboo fronds peeking from behind the bush bank */}
+      {blobs.slice(0, 3).map(([x, y, r], i) => {
+        const cx = mx(x!) + dir * (r! * 0.72);
+        const cy = y! - r! * 0.35;
+        return (
+          <g key={`frond-${i}`} className="leaf-b">
+            <path
+              d={`M${cx} ${cy} Q${cx + dir * 42} ${cy - 28} ${cx + dir * 70} ${cy - 6} Q${cx + dir * 36} ${cy + 10} ${cx} ${cy}Z`}
+            />
+            <path
+              d={`M${cx} ${cy + 16} Q${cx + dir * 36} ${cy + 2} ${cx + dir * 58} ${cy + 24} Q${cx + dir * 28} ${cy + 30} ${cx} ${cy + 16}Z`}
+            />
+          </g>
+        );
+      })}
+      {/* Molded foliage puffs: darker bottom lip + saturated body + top-left gloss */}
+      {blobs.map(([x, y, r], i) => {
+        const cx = mx(x!);
+        return (
+          <g key={i}>
+            <circle cx={cx} cy={y! + 14} r={r} className="leaf-lip" />
+            <circle cx={cx} cy={y} r={r} className={i % 2 ? 'leaf-a' : 'leaf-b'} />
+            <ellipse
+              cx={cx - r! * 0.28}
+              cy={y! - r! * 0.34}
+              rx={r! * 0.46}
+              ry={r! * 0.32}
+              transform={`rotate(${-18} ${cx - r! * 0.28} ${y! - r! * 0.34})`}
+              className="leaf-hi"
+            />
+          </g>
+        );
+      })}
+      {/* Camellia / sakura blossoms nestled in the near bushes */}
+      {depth === 'near' &&
+        [
+          [145, 555],
+          [92, 665],
+          [188, 705],
+        ].map(([x, y], i) => {
+          const cx = mx(x!);
+          return (
+            <g key={`fl-${i}`}>
+              <circle cx={cx} cy={y! + 3} r="14" fill="var(--c-lacquer)" opacity="0.45" />
+              <circle cx={cx - 6} cy={y! - 4} r="8" fill="var(--c-petal)" />
+              <circle cx={cx + 6} cy={y! - 4} r="8" fill="var(--c-petal)" />
+              <circle cx={cx - 4} cy={y! + 5} r="8" fill="var(--c-petal)" />
+              <circle cx={cx + 4} cy={y! + 5} r="8" fill="var(--c-petal)" />
+              <circle cx={cx} cy={y! - 7} r="8" fill="var(--c-petal)" />
+              <circle cx={cx} cy={y} r="5" fill="var(--c-glow)" />
+              <circle cx={cx - 1.5} cy={y! - 1.5} r="1.8" fill="var(--c-coin-shine)" />
+            </g>
+          );
+        })}
     </svg>
   );
 }
@@ -270,10 +375,12 @@ function Bushes({ side, depth }: { side: 'l' | 'r'; depth: 'near' | 'mid' }) {
 function SceneArt({ scene }: { scene: GateScene }) {
   const bamboo = (x: number, h: number, w: number, k: number) => (
     <g
-      key={`b${x}`}
+      key={`b${x}-${k}`}
       className="m-bamboo"
       style={{ animationDelay: `${-k * 0.7}s`, transformOrigin: `${x}px 700px` }}
     >
+      {/* Stalk cylinder with right/bottom shade + left gloss highlight */}
+      <rect x={x} y={700 - h} width={w + 2} height={h} rx={(w + 2) / 2} className="stalk-node" />
       <rect
         x={x}
         y={700 - h}
@@ -282,82 +389,415 @@ function SceneArt({ scene }: { scene: GateScene }) {
         rx={w / 2}
         className={k % 2 ? 'stalk-a' : 'stalk-b'}
       />
-      {Array.from({ length: Math.floor(h / 70) }, (_, i) => (
-        <rect
-          key={i}
-          x={x - 1}
-          y={700 - h + 40 + i * 70}
-          width={w + 2}
-          height={4}
-          rx={2}
-          className="stalk-node"
-        />
+      <rect
+        x={x + 2}
+        y={700 - h + 8}
+        width={Math.max(2.5, w * 0.24)}
+        height={h - 16}
+        rx={1.5}
+        fill="var(--c-coin-shine)"
+        opacity="0.38"
+      />
+      {/* Molded bamboo nodes */}
+      {Array.from({ length: Math.floor(h / 68) }, (_, i) => (
+        <g key={i}>
+          <rect
+            x={x - 2}
+            y={700 - h + 38 + i * 68}
+            width={w + 5}
+            height="6.5"
+            rx="3.2"
+            className="stalk-node"
+          />
+          <rect
+            x={x - 2}
+            y={700 - h + 36 + i * 68}
+            width={w + 4}
+            height="4.5"
+            rx="2.2"
+            className="stalk-a"
+          />
+        </g>
       ))}
+      {/* Plump bamboo leaf clusters */}
       <path
-        d={`M${x + w / 2} ${720 - h} q 30 -10 52 6 q -30 2 -52 -6 z M${x + w / 2} ${740 - h} q -34 -6 -50 12 q 30 -2 50 -12 z`}
+        d={`M${x + w / 2} ${725 - h} C${x + w / 2 + 24} ${705 - h} ${x + w / 2 + 48} ${712 - h} ${x + w / 2 + 58} ${730 - h} C${x + w / 2 + 34} ${734 - h} ${x + w / 2 + 14} ${730 - h} ${x + w / 2} ${725 - h}Z`}
+        className="leaf-b"
+      />
+      <path
+        d={`M${x + w / 2} ${720 - h} C${x + w / 2 + 24} ${700 - h} ${x + w / 2 + 46} ${707 - h} ${x + w / 2 + 56} ${724 - h} C${x + w / 2 + 32} ${728 - h} ${x + w / 2 + 14} ${725 - h} ${x + w / 2} ${720 - h}Z`}
+        className="leaf-a"
+      />
+      <path
+        d={`M${x + w / 2} ${746 - h} C${x + w / 2 - 24} ${730 - h} ${x + w / 2 - 44} ${738 - h} ${x + w / 2 - 54} ${756 - h} C${x + w / 2 - 30} ${758 - h} ${x + w / 2 - 12} ${752 - h} ${x + w / 2} ${746 - h}Z`}
         className="leaf-a"
       />
     </g>
   );
+
+  const stoneLantern = (cx: number, y: number) => (
+    <g key={`toro-${cx}`} className="m-toro">
+      <rect
+        x={cx - 14}
+        y={y + 42}
+        width="28"
+        height="8"
+        rx="4"
+        fill="var(--c-hud-bg)"
+        opacity="0.4"
+      />
+      <rect x={cx - 13} y={y + 39} width="26" height="8" rx="4" fill="var(--c-fog)" />
+      <rect x={cx - 6} y={y + 22} width="12" height="19" rx="3" fill="var(--c-fog)" />
+      <rect x={cx - 11} y={y + 18} width="22" height="6" rx="3" fill="var(--c-fog)" />
+      <rect x={cx - 9} y={y + 6} width="18" height="13" rx="3" fill="var(--c-hud-bg)" />
+      <rect x={cx - 5.5} y={y + 8.5} width="11" height="8" rx="2" fill="var(--c-glow)" />
+      <path
+        d={`M${cx - 18} ${y + 8} Q${cx} ${y - 6} ${cx + 18} ${y + 8} Z`}
+        fill="color-mix(in srgb, var(--c-fog) 70%, var(--c-hud-bg))"
+      />
+      <path d={`M${cx - 17} ${y + 6} Q${cx} ${y - 7} ${cx + 17} ${y + 6} Z`} fill="var(--c-fog)" />
+      <circle cx={cx} cy={y - 5} r="3.5" fill="var(--c-fog)" />
+    </g>
+  );
+
   return (
     <svg className="m-scene" viewBox="0 0 390 844" preserveAspectRatio="xMidYMax slice">
       <defs>
         <linearGradient id="m-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" style={{ stopColor: 'var(--c-sky-top)' }} />
-          <stop offset="0.6" style={{ stopColor: 'var(--c-sky-mid)' }} />
+          <stop offset="0.55" style={{ stopColor: 'var(--c-sky-mid)' }} />
           <stop offset="1" style={{ stopColor: 'var(--c-sky-bottom)' }} />
         </linearGradient>
       </defs>
       <rect width="390" height="844" fill="url(#m-sky)" />
-      <circle cx="270" cy="250" r="56" className="m-sun" />
+
+      {/* Sun / Moon with outer toy halo rings & top-left shine */}
+      <circle cx="276" cy="224" r="92" className="m-sun-halo" />
+      <circle cx="276" cy="224" r="68" className="m-sun-halo" />
+      <circle cx="276" cy="224" r="50" className="m-sun" />
+      <ellipse
+        cx="258"
+        cy="204"
+        rx="16"
+        ry="8"
+        transform="rotate(-25 258 204)"
+        fill="var(--c-coin-shine)"
+        opacity="0.65"
+      />
+
+      {/* Molded toy clouds with bottom lips */}
+      <g className="m-cloud">
+        <path
+          d="M36 202 C36 188 50 182 62 188 C68 176 88 176 96 188 C108 184 120 190 120 202 Z"
+          fill="var(--c-sky-mid)"
+          opacity="0.55"
+        />
+        <path
+          d="M36 198 C36 184 50 178 62 184 C68 172 88 172 96 184 C108 180 120 186 120 198 Z"
+          fill="var(--c-hud-ink)"
+          opacity="0.75"
+        />
+        <path
+          d="M270 318 C270 306 282 302 292 306 C298 296 314 296 320 306 C330 304 340 308 340 318 Z"
+          fill="var(--c-hud-ink)"
+          opacity="0.6"
+        />
+      </g>
+
+      {/* Distant Mt. Fuji & rolling mountain ridges */}
       <path
-        d="M0 560 L70 470 L130 520 L210 420 L300 510 L390 450 L390 844 L0 844Z"
+        d="M55 540 C105 470 142 382 162 362 C172 354 184 354 194 362 C214 382 251 470 301 540 Z"
         className="m-mtn-far"
       />
-      <path d="M0 620 L90 560 L170 600 L260 540 L390 600 L390 844 L0 844Z" className="m-mtn-near" />
-      {[12, 58, 300, 352, 330].map((x, k) => bamboo(x, 420 + (k % 3) * 90, 14 + (k % 2) * 4, k))}
+      <path
+        d="M137 404 C148 384 156 368 162 362 C172 354 184 354 194 362 C200 368 208 384 219 404 C209 409 202 401 195 407 C188 400 182 409 178 404 C172 409 166 400 159 407 C152 401 145 409 137 404 Z"
+        fill="var(--c-hud-ink)"
+        opacity="0.88"
+      />
+      <path
+        d="M0 560 C48 495 95 488 138 518 C178 462 238 452 292 506 C330 472 364 468 390 486 V844 H0 Z"
+        className="m-mtn-far"
+        opacity="0.85"
+      />
+      <path
+        d="M0 622 C65 568 128 572 178 602 C228 552 298 548 390 596 V844 H0 Z"
+        className="m-mtn-near"
+      />
+
+      {/* Side framing bamboo stalks */}
+      {[10, 48, 312, 346, 372].map((x, k) => bamboo(x, 430 + (k % 3) * 85, 14 + (k % 2) * 4, k))}
+
+      {/* Ground clearing + perspective stepping-stone path */}
+      <path d="M0 684 Q195 658 390 684 V844 H0 Z" className="m-ground-lip" />
+      <path d="M0 692 Q195 666 390 692 V844 H0 Z" className="m-ground" />
+      <path d="M166 676 Q195 672 224 676 L286 844 H104 Z" className="m-path" />
+      {[
+        [195, 706, 22, 7],
+        [186, 732, 26, 8],
+        [204, 760, 30, 9],
+        [192, 792, 34, 10],
+      ].map(([cx, cy, rx, ry], i) => (
+        <g key={`st-${i}`}>
+          <ellipse cx={cx} cy={cy! + 3} rx={rx} ry={ry} fill="var(--c-hud-bg)" opacity="0.35" />
+          <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="var(--c-surface-alt)" />
+          <ellipse
+            cx={cx! - 5}
+            cy={cy! - 2}
+            rx={rx! * 0.45}
+            ry={ry! * 0.4}
+            fill="var(--c-hud-ink)"
+            opacity="0.45"
+          />
+        </g>
+      ))}
+
+      {/* SHRINE SCENE */}
       {scene === 'shrine' && (
         <g className="m-torii">
-          <rect x="128" y="470" width="14" height="230" rx="5" />
-          <rect x="248" y="470" width="14" height="230" rx="5" />
-          <rect x="112" y="500" width="166" height="13" rx="5" />
-          <path d="M96 462 Q195 444 294 462 L290 478 Q195 462 100 478Z" className="m-torii-top" />
+          {/* Stone steps */}
+          {[0, 1, 2].map((i) => (
+            <g key={`step-${i}`}>
+              <rect
+                x={124 - i * 8}
+                y={668 + i * 10}
+                width={142 + i * 16}
+                height="9"
+                rx="4"
+                fill="color-mix(in srgb, var(--c-fog) 65%, var(--c-hud-bg))"
+              />
+              <rect
+                x={124 - i * 8}
+                y={665 + i * 10}
+                width={142 + i * 16}
+                height="7"
+                rx="3.5"
+                fill="var(--c-surface-alt)"
+              />
+            </g>
+          ))}
+          {stoneLantern(84, 628)}
+          {stoneLantern(306, 628)}
+          {/* Pillar stone pedestals */}
+          <rect x="117" y="660" width="28" height="22" rx="6" fill="var(--c-hud-bg)" />
+          <rect x="245" y="660" width="28" height="22" rx="6" fill="var(--c-hud-bg)" />
+          {/* Main vermilion pillars with shade + gloss */}
+          <rect x="122" y="458" width="20" height="210" rx="8" fill="var(--c-lacquer)" />
+          <rect x="122" y="458" width="17" height="208" rx="7" fill="var(--c-accent)" />
+          <rect
+            x="125"
+            y="468"
+            width="4"
+            height="186"
+            rx="2"
+            fill="var(--c-coin-shine)"
+            opacity="0.38"
+          />
+          <rect x="248" y="458" width="20" height="210" rx="8" fill="var(--c-lacquer)" />
+          <rect x="248" y="458" width="17" height="208" rx="7" fill="var(--c-accent)" />
+          <rect
+            x="251"
+            y="468"
+            width="4"
+            height="186"
+            rx="2"
+            fill="var(--c-coin-shine)"
+            opacity="0.38"
+          />
+          {/* Lower crossbeam (nuki) */}
+          <rect x="102" y="497" width="186" height="17" rx="7" fill="var(--c-lacquer)" />
+          <rect x="102" y="493" width="186" height="14" rx="6" fill="var(--c-accent)" />
+          {/* Shimenawa sacred rope + paper shide */}
+          <path
+            d="M126 514 Q195 526 264 514"
+            stroke="color-mix(in srgb, var(--c-gold) 70%, var(--c-hud-bg))"
+            strokeWidth="8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M126 512 Q195 524 264 512"
+            stroke="var(--c-glow)"
+            strokeWidth="5.5"
+            strokeLinecap="round"
+            strokeDasharray="8 6"
+            fill="none"
+          />
+          {[152, 180, 210, 238].map((sx, i) => (
+            <path
+              key={i}
+              d={`M${sx} 516 l-4 8 h6 l-4 9 l7 -7 h-6 l4 -10Z`}
+              fill="var(--c-hud-ink)"
+            />
+          ))}
+          {/* Center shrine plaque */}
+          <rect x="181" y="466" width="28" height="36" rx="5" fill="var(--c-glow)" />
+          <rect x="184" y="469" width="22" height="30" rx="3.5" fill="var(--c-hud-bg)" />
+          <text
+            x="195"
+            y="490"
+            textAnchor="middle"
+            fill="var(--c-glow)"
+            fontSize="16"
+            fontWeight="900"
+            lang="ja"
+          >
+            言
+          </text>
+          {/* Curved kasagi top lintel */}
+          <path d="M88 456 Q195 436 302 456 L296 476 Q195 458 94 476 Z" fill="var(--c-lacquer)" />
+          <path d="M88 452 Q195 432 302 452 L297 468 Q195 450 93 468 Z" fill="var(--c-accent)" />
+          <path d="M84 446 Q195 424 306 446 L301 457 Q195 437 89 457 Z" className="m-torii-top" />
+          <path
+            d="M104 444 Q152 435 198 435"
+            stroke="var(--c-coin-shine)"
+            strokeWidth="2.8"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.45"
+          />
         </g>
       )}
+
+      {/* DOJO SCENE */}
       {scene === 'dojo' && (
         <g className="m-dojo">
-          <rect x="92" y="560" width="206" height="140" className="m-dojo-wall" />
-          {[0, 1, 2, 3, 4].map((i) => (
-            <rect key={i} x={104 + i * 38} y="578" width="30" height="104" className="m-shoji" />
-          ))}
-          <path d="M60 570 L120 500 L270 500 L330 570Z" className="m-dojo-roof" />
-          <rect x="150" y="482" width="90" height="22" rx="6" className="m-dojo-roof" />
-          <rect x="176" y="596" width="38" height="56" className="m-banner" />
-          <text x="195" y="634" className="m-banner-ja" textAnchor="middle" lang="ja">
+          {/* Stone foundation & wooden engawa veranda */}
+          <rect
+            x="74"
+            y="676"
+            width="242"
+            height="16"
+            rx="6"
+            fill="var(--c-hud-bg)"
+            opacity="0.55"
+          />
+          <rect
+            x="78"
+            y="666"
+            width="234"
+            height="14"
+            rx="5"
+            fill="color-mix(in srgb, var(--c-gold) 65%, var(--c-hud-bg))"
+          />
+          <rect x="78" y="663" width="234" height="10" rx="4" fill="var(--c-panel-edge)" />
+          {/* Main lacquered hall wall */}
+          <rect x="86" y="552" width="218" height="116" rx="6" className="m-dojo-wall" />
+          {/* Glowing shoji screens with lattice bars */}
+          {[0, 1, 2, 3, 4].map((i) => {
+            const sx = 98 + i * 40;
+            return (
+              <g key={i}>
+                <rect x={sx} y="568" width="34" height="96" rx="4" fill="var(--c-hud-bg)" />
+                <rect x={sx + 2} y="570" width="30" height="92" rx="3" className="m-shoji" />
+                <rect
+                  x={sx + 2}
+                  y="626"
+                  width="30"
+                  height="36"
+                  rx="3"
+                  fill="var(--c-glow)"
+                  opacity="0.35"
+                />
+                <path
+                  d={`M${sx + 17} 570 V662 M${sx + 2} 600 H${sx + 32} M${sx + 2} 630 H${sx + 32}`}
+                  stroke="var(--c-panel-edge)"
+                  strokeWidth="1.6"
+                  opacity="0.65"
+                />
+              </g>
+            );
+          })}
+          {/* Sweeping tiled roof + upper gable */}
+          <path
+            d="M46 566 Q110 532 120 496 H270 Q280 532 344 566 Q195 554 46 566 Z"
+            fill="var(--c-hud-bg)"
+          />
+          <path
+            d="M48 560 Q112 528 122 494 H268 Q278 528 342 560 Q195 548 48 560 Z"
+            className="m-dojo-roof"
+          />
+          <path d="M126 502 Q158 470 195 462 Q232 470 264 502 Z" className="m-dojo-roof" />
+          <rect x="142" y="476" width="106" height="22" rx="8" fill="var(--c-hud-bg)" />
+          <rect x="142" y="473" width="106" height="19" rx="8" className="m-dojo-roof" />
+          {/* Golden roof finials (shachihoko) & ridge trim */}
+          <circle cx="146" cy="470" r="6" fill="var(--c-glow)" />
+          <circle cx="244" cy="470" r="6" fill="var(--c-glow)" />
+          <rect x="164" y="471" width="62" height="4" rx="2" fill="var(--c-gold)" />
+          <path
+            d="M78 548 Q120 526 144 502"
+            stroke="var(--c-coin-shine)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.35"
+          />
+          {/* Ceremonial Dojo banner */}
+          <rect x="171" y="584" width="48" height="66" rx="6" fill="var(--c-gold)" />
+          <rect x="174" y="586" width="42" height="60" rx="4" className="m-banner" />
+          <text x="195" y="628" className="m-banner-ja" textAnchor="middle" lang="ja">
             道
           </text>
         </g>
       )}
-      {scene === 'grove' && [140, 196, 238].map((x, k) => bamboo(x, 360 + k * 50, 12, k + 3))}
-      <rect x="0" y="690" width="390" height="160" className="m-ground" />
-      {[0, 1, 2, 3, 4].map((i) => (
-        <g key={i} className="m-lantern" style={{ animationDelay: `${0.75 + i * 0.08}s` }}>
-          <line
-            x1={80 + i * 58}
-            y1="0"
-            x2={80 + i * 58}
-            y2={300 + (i % 2) * 24}
-            className="m-string"
-          />
-          <ellipse
-            cx={80 + i * 58}
-            cy={318 + (i % 2) * 24}
-            rx="15"
-            ry="19"
-            className="m-lantern-body"
-          />
+
+      {/* GROVE SCENE */}
+      {scene === 'grove' && (
+        <g>
+          {/* Deeper background bamboo stalks & stone lantern */}
+          {[96, 152, 228, 276].map((x, k) => (
+            <g key={`bg-b-${k}`} opacity="0.55">
+              {bamboo(x, 380 + (k % 3) * 45, 10, k + 6)}
+            </g>
+          ))}
+          {[132, 200, 248].map((x, k) => bamboo(x, 370 + k * 52, 13, k + 3))}
+          {stoneLantern(108, 632)}
+          {/* Golden firefly motes */}
+          {[
+            [156, 540, 3.5],
+            [232, 515, 2.8],
+            [182, 470, 3.2],
+            [254, 590, 2.6],
+          ].map(([cx, cy, r], i) => (
+            <circle key={`ff-${i}`} cx={cx} cy={cy} r={r} fill="var(--c-firefly)" opacity="0.85" />
+          ))}
         </g>
-      ))}
+      )}
+
+      {/* Overhead festooned lantern cord & glowing chōchin lanterns */}
+      <path d="M0 280 Q195 335 390 280" className="m-string" fill="none" />
+      {[0, 1, 2, 3, 4].map((i) => {
+        const lx = 76 + i * 59;
+        const ly = 316 + (i % 2) * 22;
+        return (
+          <g key={i} className="m-lantern" style={{ animationDelay: `${0.75 + i * 0.08}s` }}>
+            <line x1={lx} y1="0" x2={lx} y2={ly - 18} className="m-string" />
+            <circle cx={lx} cy={ly} r="28" className="m-lantern-halo" />
+            <ellipse cx={lx} cy={ly + 3} rx="16" ry="19" fill="var(--c-lacquer)" />
+            <ellipse cx={lx} cy={ly} rx="16" ry="19" className="m-lantern-body" />
+            <ellipse cx={lx} cy={ly} rx="9" ry="12" className="m-lantern-core" />
+            <ellipse
+              cx={lx - 6}
+              cy={ly - 7}
+              rx="4"
+              ry="2"
+              transform={`rotate(-25 ${lx - 6} ${ly - 7})`}
+              fill="var(--c-coin-shine)"
+              opacity="0.65"
+            />
+            <rect x={lx - 8} y={ly - 20} width="16" height="4.5" rx="2.2" fill="var(--c-hud-bg)" />
+            <rect x={lx - 8} y={ly + 17} width="16" height="4.5" rx="2.2" fill="var(--c-hud-bg)" />
+            <line
+              x1={lx}
+              y1={ly + 21.5}
+              x2={lx}
+              y2={ly + 29}
+              stroke="var(--c-glow)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+          </g>
+        );
+      })}
     </svg>
   );
 }
@@ -484,9 +924,13 @@ function Capsule({
     >
       <div className="m-capsule-rays" />
       <div className="m-capsule-body">
-        <span className="m-cap-top" />
+        <span className="m-cap-shadow" />
         <span className="m-cap-bottom" />
+        <span className="m-cap-top" />
+        <span className="m-cap-band" />
+        <span className="m-cap-btn" />
         <span className="m-cap-shine" />
+        <span className="m-cap-shine-2" />
       </div>
       {!open && <p className="m-capsule-hint">Tap to open!</p>}
     </div>

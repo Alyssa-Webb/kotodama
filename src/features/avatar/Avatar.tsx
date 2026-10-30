@@ -4,10 +4,10 @@ import { useSave } from '../hooks';
 import { dojoRank } from '../../engine/world';
 
 const BELT: Record<string, string> = {
-  kyu: 'var(--c-surface)',
+  kyu: 'var(--c-hud-ink)',
   mid: 'var(--c-secondary)',
   high: 'var(--c-accent)',
-  dan: 'var(--c-ink)',
+  dan: 'var(--c-hud-bg)',
 };
 
 export type AvatarMood = 'idle' | 'happy' | 'worried' | 'cheer' | 'focus';
@@ -16,29 +16,30 @@ export type AvatarMood = 'idle' | 'happy' | 'worried' | 'cheer' | 'focus';
 function Face({ face, mood }: { face: NonNullable<AvatarPart['face']>; mood: AvatarMood }) {
   if (mood === 'idle') return null;
   const { cx, eyeY, eyeDx, mouthY, skin } = face;
-  const ink = 'var(--c-ink)';
+  const ink = 'var(--c-hud-bg)';
   const l = cx - eyeDx;
   const r = cx + eyeDx;
   const cover = (
-    <ellipse
-      cx={cx}
-      cy={(eyeY + mouthY) / 2}
-      rx={eyeDx + 5}
-      ry={(mouthY - eyeY) / 2 + 5}
+    <rect
+      x={cx - eyeDx - 8}
+      y={eyeY - 7.5}
+      width={(eyeDx + 8) * 2}
+      height={mouthY - eyeY + 13}
+      rx="9"
       fill={skin}
     />
   );
   const blush = (
     <>
-      <ellipse cx={l - 3} cy={mouthY - 3} rx="3.4" ry="2" fill="var(--c-petal)" opacity="0.8" />
-      <ellipse cx={r + 3} cy={mouthY - 3} rx="3.4" ry="2" fill="var(--c-petal)" opacity="0.8" />
+      <ellipse cx={l - 3} cy={mouthY - 4} rx="4.4" ry="2.5" fill="var(--c-petal)" opacity="0.82" />
+      <ellipse cx={r + 3} cy={mouthY - 4} rx="4.4" ry="2.5" fill="var(--c-petal)" opacity="0.82" />
     </>
   );
   const arcEye = (x: number) => (
     <path
-      d={`M${x - 3} ${eyeY + 1} Q${x} ${eyeY - 3} ${x + 3} ${eyeY + 1}`}
+      d={`M${x - 3.6} ${eyeY + 1.2} Q${x} ${eyeY - 4} ${x + 3.6} ${eyeY + 1.2}`}
       stroke={ink}
-      strokeWidth="1.8"
+      strokeWidth="2.6"
       fill="none"
       strokeLinecap="round"
     />
@@ -48,12 +49,16 @@ function Face({ face, mood }: { face: NonNullable<AvatarPart['face']>; mood: Ava
       return (
         <g>
           {cover}
+          {blush}
           {arcEye(l)}
           {arcEye(r)}
-          {blush}
           <path
-            d={`M${cx - 5} ${mouthY - 1} Q${cx} ${mouthY + 6} ${cx + 5} ${mouthY - 1}Z`}
+            d={`M${cx - 5.5} ${mouthY - 1.5} C${cx - 5.5} ${mouthY + 5.5} ${cx + 5.5} ${mouthY + 5.5} ${cx + 5.5} ${mouthY - 1.5} Z`}
             fill={ink}
+          />
+          <path
+            d={`M${cx - 3.2} ${mouthY + 1.5} Q${cx} ${mouthY + 4.4} ${cx + 3.2} ${mouthY + 1.5}`}
+            fill="var(--c-accent)"
           />
         </g>
       );
@@ -61,16 +66,23 @@ function Face({ face, mood }: { face: NonNullable<AvatarPart['face']>; mood: Ava
       return (
         <g>
           {cover}
+          {blush}
           {arcEye(l)}
           {arcEye(r)}
-          {blush}
           <path
-            d={`M${cx - 6} ${mouthY - 2} Q${cx} ${mouthY + 8} ${cx + 6} ${mouthY - 2}Z`}
-            fill={ink}
+            d={`M${cx - 6.8} ${mouthY - 2.2} C${cx - 6.8} ${mouthY + 7.2} ${cx + 6.8} ${mouthY + 7.2} ${cx + 6.8} ${mouthY - 2.2} Z`}
+            fill="var(--c-lacquer)"
           />
           <path
-            d={`M${cx - 3} ${mouthY + 2.6} Q${cx} ${mouthY + 4.6} ${cx + 3} ${mouthY + 2.6}`}
-            fill="var(--c-accent)"
+            d={`M${cx - 5.2} ${mouthY - 2.2} H${cx + 5.2}`}
+            stroke="var(--c-hud-ink)"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <ellipse cx={cx} cy={mouthY + 2.6} rx="3.8" ry="2.2" fill="var(--c-accent)" />
+          <path
+            d={`M${l - 8} ${eyeY - 5} l1.2 2.4 2.4 1.2 -2.4 1.2 -1.2 2.4 -1.2 -2.4 -2.4 -1.2 2.4 -1.2Z M${r + 8} ${eyeY - 5} l1.2 2.4 2.4 1.2 -2.4 1.2 -1.2 2.4 -1.2 -2.4 -2.4 -1.2 2.4 -1.2Z`}
+            fill="var(--c-glow)"
           />
         </g>
       );
@@ -78,45 +90,70 @@ function Face({ face, mood }: { face: NonNullable<AvatarPart['face']>; mood: Ava
       return (
         <g>
           {cover}
-          <circle cx={l} cy={eyeY + 1} r="1.9" fill={ink} />
-          <circle cx={r} cy={eyeY + 1} r="1.9" fill={ink} />
-          <path
-            d={`M${l - 3} ${eyeY - 5} L${l + 2} ${eyeY - 3.5} M${r + 3} ${eyeY - 5} L${r - 2} ${eyeY - 3.5}`}
-            stroke={ink}
-            strokeWidth="1.4"
-            strokeLinecap="round"
+          <ellipse
+            cx={l - 3}
+            cy={mouthY - 4}
+            rx="3.8"
+            ry="2"
+            fill="var(--c-petal)"
+            opacity="0.45"
           />
+          <ellipse
+            cx={r + 3}
+            cy={mouthY - 4}
+            rx="3.8"
+            ry="2"
+            fill="var(--c-petal)"
+            opacity="0.45"
+          />
+          <circle cx={l} cy={eyeY + 0.5} r="2.8" fill={ink} />
+          <circle cx={r} cy={eyeY + 0.5} r="2.8" fill={ink} />
+          <circle cx={l - 0.8} cy={eyeY - 0.5} r="1" fill="var(--c-hud-ink)" />
+          <circle cx={r - 0.8} cy={eyeY - 0.5} r="1" fill="var(--c-hud-ink)" />
           <path
-            d={`M${cx - 4} ${mouthY + 1} q2 -2 4 0 t4 0`}
+            d={`M${l - 3.8} ${eyeY - 3.2} Q${l} ${eyeY - 4.8} ${l + 2.8} ${eyeY - 5.5} M${r + 3.8} ${eyeY - 3.2} Q${r} ${eyeY - 4.8} ${r - 2.8} ${eyeY - 5.5}`}
             stroke={ink}
-            strokeWidth="1.5"
+            strokeWidth="2.2"
             fill="none"
             strokeLinecap="round"
           />
           <path
-            d={`M${r + 9} ${eyeY - 6} q3 5 0 7 q-3 -2 0 -7z`}
-            fill="var(--c-secondary-soft)"
-            stroke="var(--c-secondary)"
-            strokeWidth="0.6"
+            d={`M${cx - 4.5} ${mouthY + 1.5} Q${cx - 2} ${mouthY - 1.2} ${cx} ${mouthY + 1.2} T${cx + 4.5} ${mouthY + 1.2}`}
+            stroke={ink}
+            strokeWidth="2.2"
+            fill="none"
+            strokeLinecap="round"
           />
+          <path
+            d={`M${r + 9.5} ${eyeY - 7} C${r + 13.5} ${eyeY - 1} ${r + 13} ${eyeY + 2.5} ${r + 9.5} ${eyeY + 2.5} C${r + 6} ${eyeY + 2.5} ${r + 5.5} ${eyeY - 1} ${r + 9.5} ${eyeY - 7}Z`}
+            fill="var(--c-secondary)"
+          />
+          <path
+            d={`M${r + 9.5} ${eyeY - 6} C${r + 12.2} ${eyeY - 1.2} ${r + 11.8} ${eyeY + 1.2} ${r + 9.5} ${eyeY + 1.2} C${r + 7.2} ${eyeY + 1.2} ${r + 6.8} ${eyeY - 1.2} ${r + 9.5} ${eyeY - 6}Z`}
+            fill="var(--c-secondary-soft)"
+          />
+          <circle cx={r + 8.6} cy={eyeY - 1} r="0.9" fill="var(--c-hud-ink)" />
         </g>
       );
     case 'focus':
       return (
         <g>
           {cover}
-          <circle cx={l} cy={eyeY} r="2.1" fill={ink} />
-          <circle cx={r} cy={eyeY} r="2.1" fill={ink} />
+          <circle cx={l} cy={eyeY + 0.5} r="3" fill={ink} />
+          <circle cx={r} cy={eyeY + 0.5} r="3" fill={ink} />
+          <circle cx={l - 0.9} cy={eyeY - 0.6} r="1.1" fill="var(--c-hud-ink)" />
+          <circle cx={r - 0.9} cy={eyeY - 0.6} r="1.1" fill="var(--c-hud-ink)" />
           <path
-            d={`M${l - 3.5} ${eyeY - 4.5} L${l + 2.5} ${eyeY - 2.5} M${r + 3.5} ${eyeY - 4.5} L${r - 2.5} ${eyeY - 2.5}`}
+            d={`M${l - 4} ${eyeY - 5.2} L${l + 3} ${eyeY - 2.6} M${r + 4} ${eyeY - 5.2} L${r - 3} ${eyeY - 2.6}`}
             stroke={ink}
-            strokeWidth="1.8"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
           <path
-            d={`M${cx - 4} ${mouthY} L${cx + 4} ${mouthY}`}
+            d={`M${cx - 4.2} ${mouthY + 0.5} Q${cx} ${mouthY - 1} ${cx + 4.5} ${mouthY - 0.5}`}
             stroke={ink}
-            strokeWidth="1.8"
+            strokeWidth="2.4"
+            fill="none"
             strokeLinecap="round"
           />
         </g>
@@ -157,16 +194,35 @@ export function Avatar({
             <g dangerouslySetInnerHTML={{ __html: part.svg }} />
             {slot === 'base' && part.face && <Face face={part.face} mood={mood} />}
             {slot === 'outfit' && (
-              <rect
-                x="31"
-                y="80"
-                width="38"
-                height="5"
-                rx="2"
-                fill={belt}
-                stroke="var(--c-border)"
-                strokeWidth="0.5"
-              />
+              <g>
+                <rect
+                  x="30"
+                  y="79.5"
+                  width="40"
+                  height="6.5"
+                  rx="3.2"
+                  fill={`color-mix(in srgb, ${belt} 62%, var(--c-hud-bg))`}
+                />
+                <rect x="30" y="78" width="40" height="6" rx="3" fill={belt} />
+                <rect
+                  x="46"
+                  y="77.5"
+                  width="8"
+                  height="7.5"
+                  rx="2.5"
+                  fill={`color-mix(in srgb, ${belt} 68%, var(--c-hud-bg))`}
+                />
+                <rect x="46.5" y="77" width="7" height="6.5" rx="2.2" fill={belt} />
+                <rect
+                  x="33"
+                  y="79"
+                  width="10"
+                  height="1.6"
+                  rx="0.8"
+                  fill="var(--c-coin-shine)"
+                  opacity="0.45"
+                />
+              </g>
             )}
           </g>
         );

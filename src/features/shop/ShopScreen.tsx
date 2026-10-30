@@ -14,6 +14,7 @@ import { buyCharm, cardIdsFor } from '../../engine/game';
 import { shopWordItem, useGame } from '../../foundations/store/gameStore';
 import { avatarParts, economy, shop } from '../../foundations/world';
 import { KobanIcon } from '../../foundations/art/icons';
+import { ItemArt } from '../../foundations/art/ItemArt';
 import { JaText, SpeakableJa } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { useSave, useStats } from '../hooks';
@@ -172,6 +173,7 @@ export function ShopScreen() {
               (c.id === 'kintsugi' && !kintsugiAvailable(save, gctx()));
             return (
               <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
+                <ItemArt id={c.id} size={72} />
                 <div className="row spread">
                   <span className="big-ja">
                     <SpeakableJa text={c.name} />
@@ -198,6 +200,7 @@ export function ShopScreen() {
         <div className="grid-2">
           {shop.charms.map((c) => (
             <div key={c.id} className="card card-tight stack" style={{ gap: 'var(--sp-2)' }}>
+              <ItemArt id={c.id} size={72} />
               <span className="big-ja">
                 <SpeakableJa text={c.name} />
               </span>

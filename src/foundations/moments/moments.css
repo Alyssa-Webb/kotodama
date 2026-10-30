@@ -18,21 +18,46 @@
 .m-stroke {
   fill: none;
   stroke: var(--c-accent);
-  stroke-width: 9;
+  stroke-width: 11;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation: m-draw 230ms cubic-bezier(0.6, 0, 0.3, 1) forwards;
 }
+.m-stroke-lip {
+  stroke: var(--c-lacquer);
+  stroke-width: 12;
+  opacity: 0.78;
+}
 .m-stroke-dry {
-  stroke-width: 3;
-  opacity: 0.6;
+  stroke-width: 3.5;
+  opacity: 0.65;
   animation-delay: 40ms;
+}
+.m-stroke-hi {
+  stroke: var(--c-coin-shine);
+  stroke-width: 3.2;
+  opacity: 0.72;
+  animation-delay: 25ms;
+}
+.m-splat {
+  fill: var(--c-accent);
+  transform-origin: center;
+  transform: scale(0);
+  animation: m-splat-pop 320ms 180ms cubic-bezier(0.2, 1.5, 0.4, 1) forwards;
 }
 .m-batsu .m-stroke {
   stroke: var(--c-danger);
-  stroke-width: 8;
+  stroke-width: 10;
   animation-duration: 130ms;
+}
+.m-batsu .m-stroke-lip {
+  stroke: var(--c-lacquer);
+  stroke-width: 11;
+}
+.m-batsu .m-stroke-hi {
+  stroke: var(--c-coin-shine);
+  stroke-width: 2.8;
 }
 .m-batsu .m-stroke-2 {
   animation-delay: 120ms;
@@ -42,37 +67,55 @@
     stroke-dashoffset: 0;
   }
 }
+@keyframes m-splat-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
 @keyframes m-mark {
   0% {
-    transform: scale(0.82) rotate(-8deg);
+    transform: scale(0.74) rotate(-12deg);
+    opacity: 0;
+  }
+  18% {
+    transform: scale(1.12) rotate(3deg);
     opacity: 1;
   }
-  30% {
-    transform: scale(1.06) rotate(0deg);
+  34% {
+    transform: scale(0.96) rotate(-1deg);
     opacity: 1;
   }
-  45% {
-    transform: scale(1);
+  48% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
   }
   75% {
     opacity: 1;
   }
   100% {
-    transform: scale(1.04);
+    transform: scale(1.06);
     opacity: 0;
   }
 }
 
-/* --- sweep: a band of light crosses the screen (combo, kiai) --- */
+/* --- sweep: a glossy prism band of light crosses the screen (combo, kiai) --- */
 .m-sweep {
   position: absolute;
   inset: -20% -60%;
   background: linear-gradient(
     105deg,
-    transparent 38%,
-    color-mix(in srgb, var(--c-glow) 55%, transparent) 48%,
-    color-mix(in srgb, white 70%, transparent) 50%,
-    color-mix(in srgb, var(--c-glow) 55%, transparent) 52%,
+    transparent 34%,
+    color-mix(in srgb, var(--c-accent) 28%, transparent) 41%,
+    color-mix(in srgb, var(--c-glow) 68%, transparent) 47%,
+    color-mix(in srgb, var(--c-coin-shine) 88%, transparent) 50%,
+    color-mix(in srgb, var(--c-glow) 68%, transparent) 53%,
+    transparent 56%,
+    color-mix(in srgb, var(--c-coin-shine) 52%, transparent) 58.5%,
     transparent 62%
   );
   mix-blend-mode: screen;
@@ -87,47 +130,67 @@
   }
 }
 
-/* --- sunburst: slow rotating rays behind a big win --- */
+/* --- sunburst: slow rotating golden rays behind a big win --- */
 .m-sunburst {
   position: absolute;
   border-radius: 50%;
   animation: m-burst 1700ms var(--ease) forwards;
-  -webkit-mask: radial-gradient(closest-side, black 10%, transparent 70%);
-  mask: radial-gradient(closest-side, black 10%, transparent 70%);
+  -webkit-mask: radial-gradient(closest-side, var(--c-hud-bg) 12%, transparent 72%);
+  mask: radial-gradient(closest-side, var(--c-hud-bg) 12%, transparent 72%);
+}
+.m-sunburst-core {
+  position: absolute;
+  inset: 28%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--c-coin-shine) 0%,
+    color-mix(in srgb, var(--c-glow) 75%, transparent) 45%,
+    transparent 72%
+  );
 }
 .m-rays {
   position: absolute;
   inset: 0;
   background: repeating-conic-gradient(
-    color-mix(in srgb, var(--c-glow) 70%, transparent) 0deg 7deg,
-    transparent 7deg 22.5deg
+    color-mix(in srgb, var(--c-glow) 78%, transparent) 0deg 8deg,
+    transparent 8deg 22.5deg
   );
   animation: m-spin 1700ms linear forwards;
 }
 .m-rays-2 {
-  opacity: 0.5;
+  opacity: 0.6;
+  background: repeating-conic-gradient(
+    color-mix(in srgb, var(--c-coin-shine) 70%, transparent) 0deg 5deg,
+    transparent 5deg 22.5deg
+  );
   transform: rotate(11deg);
   animation-direction: reverse;
 }
 @keyframes m-burst {
   0% {
-    transform: scale(0.4);
+    transform: scale(0.32);
     opacity: 0;
   }
-  25% {
-    opacity: 0.75;
+  20% {
+    transform: scale(1.04);
+    opacity: 0.85;
   }
-  70% {
-    opacity: 0.6;
+  35% {
+    transform: scale(0.98);
+    opacity: 0.78;
+  }
+  72% {
+    opacity: 0.65;
   }
   100% {
-    transform: scale(1.05);
+    transform: scale(1.08);
     opacity: 0;
   }
 }
 @keyframes m-spin {
   to {
-    rotate: 40deg;
+    transform: rotate(42deg);
   }
 }
 
@@ -140,15 +203,27 @@
   transform: rotate(-18deg);
   animation: m-slash-hold 900ms linear forwards;
 }
+.m-slash-edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--c-accent), var(--c-glow), transparent);
+  transform-origin: left center;
+  animation: m-cut 150ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
+  transform: scaleX(0);
+}
 .m-slash-line {
   position: absolute;
   left: 0;
   right: 0;
-  top: -2px;
-  height: 4px;
-  border-radius: 4px;
-  background: white;
-  box-shadow: 0 0 0 1px var(--c-glow);
+  top: -3px;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--c-coin-shine);
+  box-shadow: 0 0 0 2px var(--c-glow);
   transform-origin: left center;
   animation: m-cut 140ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
   transform: scaleX(0);
@@ -157,16 +232,30 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: -40px;
-  height: 80px;
+  top: -46px;
+  height: 92px;
   background: linear-gradient(
     180deg,
     transparent,
-    color-mix(in srgb, var(--c-glow) 60%, transparent),
+    color-mix(in srgb, var(--c-glow) 68%, transparent),
     transparent
   );
   opacity: 0;
   animation: m-flare 700ms 120ms var(--ease) forwards;
+}
+.m-slash-spark {
+  position: absolute;
+  left: 50%;
+  top: -28px;
+  width: 56px;
+  height: 56px;
+  margin-left: -28px;
+  background:
+    linear-gradient(90deg, transparent 43%, var(--c-coin-shine) 50%, transparent 57%),
+    linear-gradient(0deg, transparent 43%, var(--c-coin-shine) 50%, transparent 57%);
+  opacity: 0;
+  transform: scale(0.2) rotate(25deg);
+  animation: m-spark-pop 480ms 110ms cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
 }
 @keyframes m-cut {
   to {
@@ -184,7 +273,21 @@
   }
   100% {
     opacity: 0;
-    transform: scaleY(2.4);
+    transform: scaleY(2.5);
+  }
+}
+@keyframes m-spark-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(18deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.45) rotate(28deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4) rotate(45deg);
   }
 }
 @keyframes m-slash-hold {
@@ -203,51 +306,62 @@
 }
 .m-coin {
   position: absolute;
-  left: -13px;
-  top: -9px;
-  width: 26px;
-  height: 18px;
-  border-radius: 50%;
-  background: radial-gradient(
-    60% 50% at 40% 35%,
-    var(--c-coin-shine),
-    var(--c-glow) 55%,
-    color-mix(in srgb, var(--c-gold) 85%, black) 100%
-  );
-  box-shadow:
-    inset 0 -2px 0 color-mix(in srgb, var(--c-gold) 70%, black),
-    0 2px 4px rgba(0, 0, 0, 0.25);
+  left: -14px;
+  top: -10px;
+  width: 28px;
+  height: 20px;
+  display: block;
   opacity: 0;
-  will-change: transform;
+  will-change: transform, opacity;
+}
+.m-coin svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* --- purchase badge --- */
 .m-badge {
   position: absolute;
-  left: -42px;
-  top: -42px;
-  width: 84px;
-  height: 84px;
+  left: -44px;
+  top: -44px;
+  width: 88px;
+  height: 88px;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: radial-gradient(
-    70% 70% at 35% 30%,
-    color-mix(in srgb, var(--c-accent) 70%, white),
-    var(--c-lacquer)
+    70% 70% at 35% 28%,
+    color-mix(in srgb, var(--c-accent) 72%, var(--c-coin-shine)),
+    var(--c-accent) 58%,
+    var(--c-lacquer) 100%
   );
   box-shadow:
-    inset 0 0 0 3px var(--c-gold),
-    inset 0 -5px 0 color-mix(in srgb, var(--c-lacquer) 70%, black),
-    0 8px 18px -6px rgba(0, 0, 0, 0.45);
+    inset 0 0 0 4px var(--c-glow),
+    inset 0 -6px 0 color-mix(in srgb, var(--c-lacquer) 65%, var(--c-hud-bg)),
+    0 6px 0 color-mix(in srgb, var(--c-gold) 65%, var(--c-hud-bg)),
+    0 12px 20px -6px var(--c-shadow);
   color: var(--c-hud-ink);
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 900;
   font-size: 15px;
   line-height: 1.1;
   text-align: center;
-  padding: 8px;
-  will-change: transform;
+  padding: 10px;
+  will-change: transform, opacity;
+}
+.m-badge::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 10px;
+  width: 26px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--c-coin-shine);
+  opacity: 0.55;
+  transform: rotate(-24deg);
+  pointer-events: none;
 }
 
 /* ---------- training gate ---------- */
@@ -282,9 +396,13 @@
     transform: scale(1);
   }
 }
+.m-sun-halo {
+  fill: var(--c-glow);
+  opacity: 0.2;
+}
 .m-sun {
   fill: var(--c-glow);
-  opacity: 0.9;
+  opacity: 0.95;
 }
 .m-mtn-far {
   fill: var(--c-mountain-far);
@@ -292,112 +410,136 @@
 .m-mtn-near {
   fill: var(--c-mountain-near);
 }
+.m-ground-lip {
+  fill: color-mix(in srgb, var(--c-success) 42%, var(--c-hud-bg));
+}
 .m-ground {
-  fill: color-mix(in srgb, var(--c-success) 55%, var(--c-mountain-near));
+  fill: color-mix(in srgb, var(--c-success) 62%, var(--c-mountain-near));
+}
+.m-path {
+  fill: color-mix(in srgb, var(--c-panel-edge) 55%, var(--c-surface-alt));
+  opacity: 0.88;
 }
 .stalk-a {
-  fill: color-mix(in srgb, var(--c-success) 85%, white);
+  fill: color-mix(in srgb, var(--c-success) 82%, var(--c-coin-shine));
 }
 .stalk-b {
   fill: var(--c-success);
 }
 .stalk-node {
-  fill: color-mix(in srgb, var(--c-success) 60%, var(--c-ink));
+  fill: color-mix(in srgb, var(--c-success) 55%, var(--c-hud-bg));
+}
+.leaf-lip {
+  fill: color-mix(in srgb, var(--c-success) 45%, var(--c-hud-bg));
 }
 .leaf-a {
   fill: var(--c-success);
 }
 .leaf-b {
-  fill: color-mix(in srgb, var(--c-success) 70%, var(--c-ink));
+  fill: color-mix(in srgb, var(--c-success) 72%, var(--c-hud-bg));
 }
 .leaf-hi {
-  fill: color-mix(in srgb, var(--c-success) 60%, white);
-  opacity: 0.55;
+  fill: color-mix(in srgb, var(--c-success) 58%, var(--c-coin-shine));
+  opacity: 0.62;
 }
 .m-bamboo {
   animation: m-sway 2.6s ease-in-out infinite alternate;
 }
 @keyframes m-sway {
   from {
-    transform: rotate(-1.2deg);
+    transform: rotate(-1.4deg);
   }
   to {
-    transform: rotate(1.2deg);
+    transform: rotate(1.4deg);
   }
 }
-.m-torii rect {
-  fill: var(--c-accent);
-}
 .m-torii-top {
-  fill: var(--c-ink);
+  fill: var(--c-hud-bg);
 }
 .m-dojo-wall {
   fill: var(--c-lacquer);
 }
 .m-shoji {
   fill: var(--c-panel);
-  opacity: 0.92;
+  opacity: 0.95;
 }
 .m-dojo-roof {
-  fill: var(--c-ink);
+  fill: color-mix(in srgb, var(--c-hud-bg) 82%, var(--c-secondary));
 }
 .m-banner {
-  fill: var(--c-surface);
+  fill: var(--c-hud-ink);
 }
 .m-banner-ja {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 900;
-  fill: var(--c-ink);
+  fill: var(--c-hud-bg);
 }
 .m-string {
-  stroke: var(--c-ink);
-  stroke-width: 1;
-  opacity: 0.5;
+  stroke: var(--c-hud-bg);
+  stroke-width: 1.6;
+  opacity: 0.55;
 }
 .m-lantern-body {
-  fill: color-mix(in srgb, var(--c-accent) 80%, var(--c-ink));
+  fill: var(--c-accent);
 }
-.m-lantern {
-  animation: m-light 400ms ease forwards;
+.m-lantern-core {
+  fill: var(--c-glow);
+  opacity: 0;
 }
-@keyframes m-light {
-  to {
-    filter: none;
-  }
+.m-lantern-halo {
+  fill: var(--c-glow);
+  opacity: 0;
 }
-.m-lantern .m-lantern-body {
-  transition: fill 200ms;
-}
-.m-gate .m-lantern .m-lantern-body {
-  animation: m-glow 300ms ease forwards;
+.m-gate .m-lantern .m-lantern-core {
+  animation: m-lantern-on 340ms ease forwards;
   animation-delay: inherit;
 }
-@keyframes m-glow {
+.m-gate .m-lantern .m-lantern-halo {
+  animation: m-halo-on 420ms ease forwards;
+  animation-delay: inherit;
+}
+@keyframes m-lantern-on {
   to {
-    fill: var(--c-glow);
+    opacity: 0.92;
+  }
+}
+@keyframes m-halo-on {
+  to {
+    opacity: 0.32;
   }
 }
 
-/* Mist: soft white banks that drift apart and thin out. */
+/* Mist: soft layered cloud banks that drift apart and thin out. */
 .m-mist {
   position: absolute;
   left: -30%;
   right: -30%;
-  height: 46%;
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    color-mix(in srgb, var(--c-fog) 30%, white) 0%,
-    color-mix(in srgb, var(--c-fog) 30%, white) 35%,
-    transparent 70%
-  );
+  height: 48%;
+  background:
+    radial-gradient(
+      36% 42% at 36% 46%,
+      color-mix(in srgb, var(--c-hud-ink) 88%, var(--c-fog)) 0%,
+      transparent 72%
+    ),
+    radial-gradient(
+      42% 46% at 64% 54%,
+      color-mix(in srgb, var(--c-hud-ink) 82%, var(--c-fog)) 0%,
+      transparent 72%
+    ),
+    radial-gradient(
+      52% 50% at 50% 50%,
+      color-mix(in srgb, var(--c-fog) 38%, var(--c-hud-ink)) 0%,
+      color-mix(in srgb, var(--c-fog) 28%, var(--c-hud-ink)) 38%,
+      transparent 72%
+    );
   opacity: 0.95;
   animation: m-mist var(--gate-ms) cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 .m-mist-1 {
-  top: 30%;
+  top: 28%;
 }
 .m-mist-2 {
-  top: 52%;
+  top: 50%;
   animation-name: m-mist-2;
 }
 @keyframes m-mist {
@@ -408,7 +550,7 @@
   }
   80%,
   100% {
-    transform: translateX(-35%) scale(1.3);
+    transform: translateX(-38%) scale(1.32);
     opacity: 0;
   }
 }
@@ -416,11 +558,11 @@
   0%,
   15% {
     transform: translateX(0) scale(1);
-    opacity: 0.9;
+    opacity: 0.92;
   }
   85%,
   100% {
-    transform: translateX(35%) scale(1.3);
+    transform: translateX(38%) scale(1.32);
     opacity: 0;
   }
 }
@@ -445,7 +587,7 @@
   animation-name: m-part-r;
 }
 .m-bush-mid {
-  opacity: 0.9;
+  opacity: 0.92;
   animation: m-part-l var(--gate-ms) cubic-bezier(0.5, 0, 0.2, 1.2) forwards;
   animation-delay: calc(var(--gate-ms) * -0.06);
 }
@@ -458,7 +600,7 @@
     transform: translateX(0) rotate(0deg);
   }
   16% {
-    transform: translateX(2%) rotate(1deg);
+    transform: translateX(2.5%) rotate(1.2deg);
   }
   62%,
   100% {
@@ -471,7 +613,7 @@
     transform: translateX(0) rotate(0deg);
   }
   16% {
-    transform: translateX(-2%) rotate(-1deg);
+    transform: translateX(-2.5%) rotate(-1.2deg);
   }
   62%,
   100% {
@@ -531,15 +673,31 @@
   display: flex;
 }
 .m-noren {
+  position: relative;
   flex: 1;
   height: 100%;
-  margin: 0 -1px;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--c-secondary) 85%, black),
-    var(--c-secondary) 30%
-  );
-  box-shadow: inset -2px 0 0 color-mix(in srgb, var(--c-secondary) 60%, black);
+  margin: 0 2px;
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  background:
+    linear-gradient(
+      180deg,
+      var(--c-hud-bg) 0,
+      var(--c-hud-bg) 14px,
+      var(--c-gold) 14px,
+      var(--c-gold) 19px,
+      transparent 19px
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-secondary) 75%, var(--c-hud-bg)),
+      var(--c-secondary) 28%,
+      var(--c-secondary) 92%,
+      color-mix(in srgb, var(--c-secondary) 60%, var(--c-hud-bg)) 92%
+    );
+  box-shadow:
+    inset 2px 0 0 color-mix(in srgb, var(--c-hud-ink) 22%, transparent),
+    inset -3px 0 0 color-mix(in srgb, var(--c-secondary) 55%, var(--c-hud-bg)),
+    inset 0 -10px 0 color-mix(in srgb, var(--c-secondary) 52%, var(--c-hud-bg));
   transform-origin: 50% 0;
   transform: translateY(-102%);
   animation: m-noren var(--finish-ms) cubic-bezier(0.5, 0, 0.2, 1) forwards;
@@ -548,25 +706,28 @@
   place-items: center;
 }
 .m-noren-crest {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 4px solid color-mix(in srgb, var(--c-surface) 85%, transparent);
-  opacity: 0.6;
+  border: 4px solid color-mix(in srgb, var(--c-hud-ink) 85%, transparent);
+  box-shadow:
+    inset 0 0 0 4px color-mix(in srgb, var(--c-secondary) 85%, transparent),
+    inset 0 0 0 8px color-mix(in srgb, var(--c-hud-ink) 65%, transparent);
+  opacity: 0.75;
 }
 @keyframes m-noren {
   0% {
     transform: translateY(-102%) skewX(0deg);
   }
   22% {
-    transform: translateY(0) skewX(-3deg);
+    transform: translateY(0) skewX(-3.5deg) scaleY(1.02);
   }
   30% {
-    transform: translateY(0) skewX(2deg);
+    transform: translateY(0) skewX(2.2deg) scaleY(0.99);
   }
   36%,
   58% {
-    transform: translateY(0) skewX(0deg);
+    transform: translateY(0) skewX(0deg) scaleY(1);
   }
   90%,
   100% {
@@ -577,40 +738,54 @@
   position: absolute;
   left: 50%;
   top: 44%;
+  width: min(50vw, 240px);
+  height: min(50vw, 240px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(
+    65% 65% at 35% 28%,
+    color-mix(in srgb, var(--c-accent) 75%, var(--c-coin-shine)),
+    var(--c-accent) 60%,
+    var(--c-lacquer) 100%
+  );
+  box-shadow:
+    inset 0 0 0 6px var(--c-glow),
+    inset 0 -10px 0 var(--c-lacquer),
+    0 10px 0 color-mix(in srgb, var(--c-hud-bg) 75%, transparent);
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: min(42vw, 220px);
+  font-size: min(30vw, 148px);
   line-height: 1;
-  color: var(--c-panel);
-  text-shadow: 0 6px 0 color-mix(in srgb, var(--c-secondary) 50%, black);
-  transform: translate(-50%, -50%) scale(1.4);
+  color: var(--c-hud-ink);
+  text-shadow: 0 5px 0 var(--c-lacquer);
+  transform: translate(-50%, -50%) scale(1.6) rotate(-10deg);
   opacity: 0;
-  clip-path: inset(0 100% 0 0);
-  animation: m-brush var(--finish-ms) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: m-brush var(--finish-ms) cubic-bezier(0.3, 1.3, 0.3, 1) forwards;
 }
 @keyframes m-brush {
   0%,
   20% {
     opacity: 0;
-    clip-path: inset(0 100% 0 0);
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.65) rotate(-12deg);
   }
-  24% {
+  28% {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(0.92) rotate(3deg);
   }
-  38% {
-    clip-path: inset(0 0 0 0);
-    transform: translate(-50%, -50%) scale(1);
+  36% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.04) rotate(-1deg);
   }
+  44%,
   56% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.02);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
   }
-  66%,
+  68%,
   100% {
     opacity: 0;
-    clip-path: inset(0 0 0 0);
-    transform: translate(-50%, -70%) scale(1);
+    transform: translate(-50%, -72%) scale(0.92) rotate(4deg);
   }
 }
 
@@ -621,7 +796,7 @@
   pointer-events: auto;
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--c-hud-bg) 55%, transparent);
+  background: color-mix(in srgb, var(--c-hud-bg) 62%, transparent);
   animation: m-fade-in 200ms ease;
   --cap: var(--c-accent);
 }
@@ -638,8 +813,8 @@
 }
 .m-capsule-body {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 164px;
+  height: 164px;
   animation:
     m-drop 520ms cubic-bezier(0.5, 0, 0.75, 0) both,
     m-land 520ms 520ms cubic-bezier(0.2, 1.6, 0.4, 1) both,
@@ -650,17 +825,23 @@
 }
 @keyframes m-drop {
   from {
-    transform: translateY(-80vh) rotate(-30deg);
+    transform: translateY(-80vh) rotate(-30deg) scale(0.9, 1.1);
   }
   to {
-    transform: translateY(0) scale(1.18, 0.8) rotate(0deg);
+    transform: translateY(0) scale(1.22, 0.76) rotate(0deg);
   }
 }
 @keyframes m-land {
-  from {
-    transform: scale(1.18, 0.8);
+  0% {
+    transform: scale(1.22, 0.76);
   }
-  to {
+  45% {
+    transform: translateY(-18px) scale(0.92, 1.08);
+  }
+  75% {
+    transform: translateY(0) scale(1.06, 0.94);
+  }
+  100% {
     transform: scale(1);
   }
 }
@@ -670,17 +851,27 @@
     transform: rotate(0deg);
   }
   20% {
-    transform: rotate(-9deg);
+    transform: rotate(-10deg) translateY(-3px);
   }
   40% {
-    transform: rotate(7deg);
+    transform: rotate(8deg) translateY(-2px);
   }
   55% {
-    transform: rotate(-3deg);
+    transform: rotate(-4deg);
   }
   65% {
     transform: rotate(0deg);
   }
+}
+.m-cap-shadow {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: -14px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-shadow);
+  transition: opacity 250ms;
 }
 .m-cap-top,
 .m-cap-bottom {
@@ -692,44 +883,91 @@
 }
 .m-cap-top {
   top: 0;
-  border-radius: 75px 75px 0 0;
+  border-radius: 82px 82px 0 0;
   background: radial-gradient(
-    70% 80% at 35% 30%,
-    color-mix(in srgb, var(--cap) 50%, white),
-    var(--cap) 60%,
-    color-mix(in srgb, var(--cap) 70%, black)
+    70% 80% at 35% 28%,
+    color-mix(in srgb, var(--cap) 55%, var(--c-coin-shine)),
+    var(--cap) 62%,
+    color-mix(in srgb, var(--cap) 65%, var(--c-hud-bg))
   );
-  box-shadow: inset 0 -6px 0 color-mix(in srgb, var(--cap) 60%, black);
+  box-shadow: inset 0 -8px 0 color-mix(in srgb, var(--cap) 58%, var(--c-hud-bg));
 }
 .m-cap-bottom {
   bottom: 0;
-  border-radius: 0 0 75px 75px;
+  border-radius: 0 0 82px 82px;
   background: radial-gradient(
-    80% 70% at 40% 20%,
-    white,
-    var(--c-surface) 60%,
-    color-mix(in srgb, var(--c-surface) 70%, var(--c-ink))
+    80% 70% at 38% 22%,
+    var(--c-hud-ink),
+    var(--c-surface) 62%,
+    color-mix(in srgb, var(--c-surface) 65%, var(--c-hud-bg))
   );
+  box-shadow: inset 0 -10px 0 color-mix(in srgb, var(--c-border) 68%, var(--c-hud-bg));
+}
+.m-cap-band {
+  position: absolute;
+  left: -3px;
+  right: -3px;
+  top: calc(50% - 7px);
+  height: 14px;
+  border-radius: 999px;
+  background: var(--c-gold);
+  box-shadow: inset 0 -4px 0 color-mix(in srgb, var(--c-gold) 62%, var(--c-hud-bg));
+  transition:
+    transform 320ms ease,
+    opacity 220ms ease;
+}
+.m-cap-btn {
+  position: absolute;
+  left: calc(50% - 14px);
+  top: calc(50% - 14px);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--c-coin-shine);
+  box-shadow:
+    inset 0 -4px 0 var(--c-gold),
+    0 0 0 4px var(--c-hud-bg);
+  transition:
+    transform 320ms ease,
+    opacity 220ms ease;
 }
 .m-cap-shine {
   position: absolute;
-  left: 30px;
-  top: 22px;
-  width: 34px;
-  height: 18px;
+  left: 26px;
+  top: 20px;
+  width: 42px;
+  height: 22px;
   border-radius: 50%;
-  background: white;
-  opacity: 0.7;
-  transform: rotate(-25deg);
+  background: var(--c-coin-shine);
+  opacity: 0.78;
+  transform: rotate(-28deg);
+  transition: opacity 200ms;
+}
+.m-cap-shine-2 {
+  position: absolute;
+  left: 20px;
+  top: 48px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-coin-shine);
+  opacity: 0.65;
   transition: opacity 200ms;
 }
 .m-open .m-cap-top {
-  transform: translate(-30px, -110px) rotate(-40deg);
+  transform: translate(-34px, -116px) rotate(-42deg);
 }
 .m-open .m-cap-bottom {
-  transform: translate(26px, 90px) rotate(30deg);
+  transform: translate(30px, 96px) rotate(32deg);
 }
-.m-open .m-cap-shine {
+.m-open .m-cap-band,
+.m-open .m-cap-btn {
+  transform: scale(1.3);
+  opacity: 0;
+}
+.m-open .m-cap-shine,
+.m-open .m-cap-shine-2,
+.m-open .m-cap-shadow {
   opacity: 0;
 }
 .m-capsule-rays {
@@ -738,11 +976,11 @@
   height: 160vmax;
   border-radius: 50%;
   background: repeating-conic-gradient(
-    color-mix(in srgb, var(--cap) 75%, white) 0deg 6deg,
-    transparent 6deg 20deg
+    color-mix(in srgb, var(--cap) 75%, var(--c-coin-shine)) 0deg 7deg,
+    transparent 7deg 20deg
   );
-  -webkit-mask: radial-gradient(closest-side, black 5%, transparent 60%);
-  mask: radial-gradient(closest-side, black 5%, transparent 60%);
+  -webkit-mask: radial-gradient(closest-side, var(--c-hud-bg) 5%, transparent 60%);
+  mask: radial-gradient(closest-side, var(--c-hud-bg) 5%, transparent 60%);
   opacity: 0;
   transform: scale(0.2);
 }
@@ -772,11 +1010,11 @@
 }
 .m-capsule-hint {
   position: absolute;
-  top: calc(50% + 100px);
+  top: calc(50% + 108px);
   color: var(--c-hud-ink);
   font-weight: 800;
   font-size: var(--fs-lg);
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 0 var(--c-hud-bg);
   animation: m-fade-in 300ms 1100ms both;
 }
 

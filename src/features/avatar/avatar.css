@@ -1,4 +1,4 @@
-/* The avatar character: every move is transform-only, anchored at the feet. */
+/* The avatar character: every move is transform/opacity-only, anchored at the feet. */
 .avatar-actor {
   position: relative;
   display: inline-block;
@@ -16,155 +16,312 @@
 }
 .avatar-shadow {
   position: absolute;
-  left: 22%;
-  right: 22%;
+  left: 20%;
+  right: 20%;
   bottom: 2%;
-  height: 6%;
+  height: 6.5%;
   border-radius: 50%;
   background: var(--c-shadow);
   z-index: -1;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
 }
 
 .avatar-actor[data-mood='idle'] .avatar-motion {
-  animation: av-breathe 2.8s ease-in-out infinite;
+  animation: av-breathe 2.6s ease-in-out infinite;
 }
-.avatar-actor[data-mood='walk'] .avatar-motion {
-  animation: av-walk 360ms ease-in-out infinite;
-}
-.avatar-actor[data-mood='happy'] .avatar-motion {
-  animation:
-    av-hop 560ms cubic-bezier(0.3, 0, 0.3, 1),
-    av-breathe 2.8s 560ms ease-in-out infinite;
-}
-.avatar-actor[data-mood='cheer'] .avatar-motion {
-  animation:
-    av-cheer 900ms cubic-bezier(0.3, 0, 0.3, 1),
-    av-bounce 1.1s 900ms ease-in-out infinite;
-}
-.avatar-actor[data-mood='worried'] .avatar-motion {
-  animation:
-    av-flinch 520ms cubic-bezier(0.2, 0.8, 0.3, 1),
-    av-breathe 2.8s 520ms ease-in-out infinite;
-}
-.avatar-actor[data-mood='strike'] .avatar-motion {
-  animation:
-    av-strike 520ms cubic-bezier(0.5, 0, 0.2, 1),
-    av-breathe 2.8s 520ms ease-in-out infinite;
-}
-.avatar-actor[data-mood='happy'] .avatar-shadow,
-.avatar-actor[data-mood='cheer'] .avatar-shadow {
-  animation: av-shadow 560ms cubic-bezier(0.3, 0, 0.3, 1);
+.avatar-actor[data-mood='idle'] .avatar-shadow {
+  animation: av-shadow-idle 2.6s ease-in-out infinite;
 }
 
+.avatar-actor[data-mood='walk'] .avatar-motion {
+  animation: av-walk 400ms ease-in-out infinite;
+}
+.avatar-actor[data-mood='walk'] .avatar-shadow {
+  animation: av-shadow-walk 200ms ease-in-out infinite;
+}
+
+.avatar-actor[data-mood='happy'] .avatar-motion {
+  animation:
+    av-hop 620ms cubic-bezier(0.28, 0, 0.24, 1),
+    av-breathe 2.6s 620ms ease-in-out infinite;
+}
+.avatar-actor[data-mood='happy'] .avatar-shadow {
+  animation:
+    av-shadow-hop 620ms cubic-bezier(0.28, 0, 0.24, 1),
+    av-shadow-idle 2.6s 620ms ease-in-out infinite;
+}
+
+.avatar-actor[data-mood='cheer'] .avatar-motion {
+  animation:
+    av-cheer 920ms cubic-bezier(0.28, 0, 0.24, 1),
+    av-bounce 960ms 920ms ease-in-out infinite;
+}
+.avatar-actor[data-mood='cheer'] .avatar-shadow {
+  animation:
+    av-shadow-cheer 920ms cubic-bezier(0.28, 0, 0.24, 1),
+    av-shadow-bounce 960ms 920ms ease-in-out infinite;
+}
+
+.avatar-actor[data-mood='worried'] .avatar-motion {
+  animation:
+    av-flinch 580ms cubic-bezier(0.2, 0.8, 0.3, 1),
+    av-breathe 2.6s 580ms ease-in-out infinite;
+}
+.avatar-actor[data-mood='worried'] .avatar-shadow {
+  animation:
+    av-shadow-flinch 580ms cubic-bezier(0.2, 0.8, 0.3, 1),
+    av-shadow-idle 2.6s 580ms ease-in-out infinite;
+}
+
+.avatar-actor[data-mood='strike'] .avatar-motion {
+  animation:
+    av-strike 560ms cubic-bezier(0.45, 0, 0.2, 1),
+    av-breathe 2.6s 560ms ease-in-out infinite;
+}
+.avatar-actor[data-mood='strike'] .avatar-shadow {
+  animation:
+    av-shadow-strike 560ms cubic-bezier(0.45, 0, 0.2, 1),
+    av-shadow-idle 2.6s 560ms ease-in-out infinite;
+}
+
+/* Idle: soft squash-and-stretch breathing */
 @keyframes av-breathe {
   0%,
   100% {
-    transform: scale(1, 1);
+    transform: translateY(0) scale(1.015, 0.985);
   }
   50% {
-    transform: scale(1.015, 0.985);
+    transform: translateY(-1.5%) scale(0.985, 1.022);
   }
 }
+@keyframes av-shadow-idle {
+  0%,
+  100% {
+    transform: scaleX(1.03);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleX(0.95);
+    opacity: 0.8;
+  }
+}
+
+/* Walk: jaunty two-step waddle with mid-stride hop */
 @keyframes av-walk {
   0%,
   100% {
-    transform: translateY(0) rotate(-3deg);
+    transform: translateY(1%) scale(1.06, 0.94) rotate(-5.5deg);
+  }
+  25% {
+    transform: translateY(-9%) scale(0.94, 1.06) rotate(0deg);
   }
   50% {
-    transform: translateY(-6%) rotate(3deg);
+    transform: translateY(1%) scale(1.06, 0.94) rotate(5.5deg);
+  }
+  75% {
+    transform: translateY(-9%) scale(0.94, 1.06) rotate(0deg);
   }
 }
-/* anticipation squash → stretch up → land squash → settle */
+@keyframes av-shadow-walk {
+  0%,
+  100% {
+    transform: scaleX(1.06);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleX(0.82);
+    opacity: 0.65;
+  }
+}
+
+/* Happy: anticipation squash → stretch launch → apex hang → land squash → rebound → settle */
 @keyframes av-hop {
   0% {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
-  15% {
-    transform: scale(1.1, 0.86);
+  14% {
+    transform: translateY(2%) scale(1.15, 0.83);
   }
-  45% {
-    transform: translateY(-28%) scale(0.94, 1.08);
+  40% {
+    transform: translateY(-30%) scale(0.9, 1.12) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-33%) scale(0.95, 1.05) rotate(2deg);
   }
   72% {
-    transform: translateY(0) scale(1.12, 0.88);
+    transform: translateY(1%) scale(1.16, 0.84);
   }
   86% {
-    transform: scale(0.97, 1.03);
+    transform: translateY(-6%) scale(0.96, 1.05);
+  }
+  94% {
+    transform: translateY(0) scale(1.03, 0.97);
   }
   100% {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
 }
-@keyframes av-cheer {
-  0% {
-    transform: scale(1);
-  }
-  10% {
-    transform: scale(1.12, 0.84);
-  }
-  35% {
-    transform: translateY(-42%) scale(0.92, 1.1) rotate(-8deg);
-  }
-  55% {
-    transform: translateY(0) scale(1.14, 0.86);
-  }
-  70% {
-    transform: translateY(-20%) scale(0.96, 1.05) rotate(8deg);
-  }
-  88% {
-    transform: translateY(0) scale(1.06, 0.94);
-  }
+@keyframes av-shadow-hop {
+  0%,
   100% {
     transform: scale(1);
+    opacity: 0.95;
+  }
+  14% {
+    transform: scale(1.14, 1.05);
+    opacity: 1;
+  }
+  45% {
+    transform: scale(0.55);
+    opacity: 0.42;
+  }
+  72% {
+    transform: scale(1.16, 1.06);
+    opacity: 1;
+  }
+  86% {
+    transform: scale(0.88);
+    opacity: 0.78;
+  }
+}
+
+/* Cheer: deep crouch → high star jump → land squash → second hop → rhythmic victory bounce */
+@keyframes av-cheer {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  11% {
+    transform: translateY(2%) scale(1.17, 0.81);
+  }
+  34% {
+    transform: translateY(-44%) scale(0.88, 1.14) rotate(-9deg);
+  }
+  54% {
+    transform: translateY(1%) scale(1.17, 0.83) rotate(0deg);
+  }
+  72% {
+    transform: translateY(-25%) scale(0.92, 1.09) rotate(8deg);
+  }
+  88% {
+    transform: translateY(1%) scale(1.09, 0.91) rotate(0deg);
+  }
+  95% {
+    transform: translateY(-3%) scale(0.98, 1.03);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes av-shadow-cheer {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  11%,
+  54% {
+    transform: scale(1.16);
+    opacity: 1;
+  }
+  34% {
+    transform: scale(0.48);
+    opacity: 0.35;
+  }
+  72% {
+    transform: scale(0.68);
+    opacity: 0.55;
   }
 }
 @keyframes av-bounce {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1.05, 0.95);
   }
-  50% {
-    transform: translateY(-6%);
+  45% {
+    transform: translateY(-10%) scale(0.96, 1.05);
   }
 }
+@keyframes av-shadow-bounce {
+  0%,
+  100% {
+    transform: scale(1.05);
+    opacity: 0.95;
+  }
+  45% {
+    transform: scale(0.84);
+    opacity: 0.68;
+  }
+}
+
+/* Worried: recoil flinch → rapid shiver → droopy settle */
 @keyframes av-flinch {
   0% {
     transform: none;
   }
-  18% {
-    transform: translateX(-9%) rotate(-10deg) scale(0.96, 1.02);
+  16% {
+    transform: translateX(-11%) translateY(2%) scale(1.09, 0.9) rotate(-11deg);
   }
-  36% {
-    transform: translateX(5%) rotate(5deg);
+  34% {
+    transform: translateX(7%) scale(0.96, 1.04) rotate(6deg);
   }
-  54% {
-    transform: translateX(-3%) rotate(-3deg);
+  50% {
+    transform: translateX(-5%) scale(1.04, 0.96) rotate(-4.5deg);
+  }
+  66% {
+    transform: translateX(3%) scale(0.98, 1.02) rotate(2.5deg);
+  }
+  82% {
+    transform: translateX(-1.5%) translateY(1%) scale(1.02, 0.98) rotate(-1deg);
   }
   100% {
     transform: none;
   }
 }
+@keyframes av-shadow-flinch {
+  16% {
+    transform: translateX(-10%) scaleX(1.1);
+  }
+  34% {
+    transform: translateX(6%) scaleX(0.96);
+  }
+  50% {
+    transform: translateX(-4%);
+  }
+}
+
+/* Strike: wind-up coil back → explosive forward lunge → impact hold → spring recovery */
 @keyframes av-strike {
   0% {
     transform: none;
   }
-  25% {
-    transform: translateX(-10%) scale(1.06, 0.94) rotate(-6deg);
+  22% {
+    transform: translateX(-14%) translateY(2%) scale(1.12, 0.87) rotate(-8deg);
   }
-  45% {
-    transform: translateX(34%) scale(0.94, 1.04) rotate(10deg);
+  44% {
+    transform: translateX(38%) translateY(-8%) scale(0.88, 1.1) rotate(12deg);
   }
-  70% {
-    transform: translateX(12%) rotate(3deg);
+  58% {
+    transform: translateX(32%) translateY(-2%) scale(1.06, 0.95) rotate(8deg);
+  }
+  80% {
+    transform: translateX(-4%) scale(1.04, 0.96) rotate(-2deg);
   }
   100% {
     transform: none;
   }
 }
-@keyframes av-shadow {
-  45% {
-    transform: scale(0.6);
-    opacity: 0.5;
+@keyframes av-shadow-strike {
+  22% {
+    transform: translateX(-12%) scaleX(1.1);
+  }
+  44% {
+    transform: translateX(34%) scaleX(0.75);
+    opacity: 0.65;
+  }
+  58% {
+    transform: translateX(28%) scaleX(1.05);
+    opacity: 0.9;
   }
 }
 
