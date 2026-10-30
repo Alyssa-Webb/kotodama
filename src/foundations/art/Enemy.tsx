@@ -9,12 +9,12 @@ export const ENEMY_KINDS = ['inkling', 'glitchling', 'kasa-obake', 'kitsune', 'k
 export type EnemyKind = (typeof ENEMY_KINDS)[number];
 export type EnemyState = 'idle' | 'hit' | 'attack' | 'defeat' | 'enter';
 
-const INK = 'var(--c-hud-bg)';
-const CREAM = 'var(--c-hud-ink)';
-const SHINE = 'var(--c-coin-shine)';
+export const INK = 'var(--c-hud-bg)';
+export const CREAM = 'var(--c-hud-ink)';
+export const SHINE = 'var(--c-coin-shine)';
 
 /** Shared two-eye expression helper for two-eyed yokai (inkling, kitsune, kappa). */
-function spiralEyePath(cx: number, cy: number, dir: 1 | -1 = 1): string {
+export function spiralEyePath(cx: number, cy: number, dir: 1 | -1 = 1): string {
   return [
     `M ${cx} ${cy}`,
     `C ${cx + dir * 1.8} ${cy - 1.8}, ${cx + dir * 3} ${cy + 1.2}, ${cx} ${cy + 2.6}`,
@@ -25,7 +25,11 @@ function spiralEyePath(cx: number, cy: number, dir: 1 | -1 = 1): string {
 }
 
 /** Shared two-row damage flash wrapper (white surface flash + red danger flash). */
-function YokaiDamageFlash({ renderSilhouette }: { renderSilhouette: (fill: string) => ReactNode }) {
+export function YokaiDamageFlash({
+  renderSilhouette,
+}: {
+  renderSilhouette: (fill: string) => ReactNode;
+}) {
   return (
     <>
       <g className="enemy-damage-flash enemy-damage-flash-white" fill="var(--c-surface)">
@@ -38,7 +42,7 @@ function YokaiDamageFlash({ renderSilhouette }: { renderSilhouette: (fill: strin
   );
 }
 
-function YokaiEyes({
+export function YokaiEyes({
   state,
   x1,
   x2,
