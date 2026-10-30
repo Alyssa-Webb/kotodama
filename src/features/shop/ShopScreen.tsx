@@ -176,7 +176,7 @@ export function ShopScreen() {
           <YenIcon size={18} /> {stats.yen}
         </span>
       </div>
-      <KotoSays lines={koto.shop} outfit="shopkeeper" />
+      <KotoSays lines={koto.shop} outfit="shopkeeper" role="shop" />
       <p className="muted small">
         Everything is bought with yen earned by learning. Each item's name joins your reviews.
       </p>

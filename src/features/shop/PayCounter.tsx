@@ -53,7 +53,7 @@ export function PayCounter({
       setDone(true);
       haptic('pop');
       playSfx('coin');
-      speak('ありがとうございます', { role: 'teach' });
+      speak('ありがとうございます', { role: 'koto' });
       window.setTimeout(onPaid, 700);
     }
   };
@@ -61,7 +61,7 @@ export function PayCounter({
     if (done || sum + d > balance) return;
     haptic('tick');
     playSfx('tap');
-    speak(yenFurigana(d), { role: 'teach' });
+    speak(yenFurigana(d), { role: 'koto' });
     settle([...tray, d]);
   };
 
@@ -78,7 +78,7 @@ export function PayCounter({
             <p className="eyebrow">{item}</p>
             <button
               className="pay-price"
-              onClick={() => speak(yenFurigana(price), { role: 'teach' })}
+              onClick={() => speak(yenFurigana(price), { role: 'koto' })}
               aria-label={`Price ${price} yen, tap to hear it`}
             >
               ¥{price.toLocaleString('en-US')}

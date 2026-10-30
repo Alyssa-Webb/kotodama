@@ -75,7 +75,7 @@ export function Tour() {
 
   useEffect(() => {
     if (!open) return;
-    speak(stop.ja, { role: 'teach' });
+    speak(stop.ja, { role: 'koto' });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
       else if (e.key === 'ArrowRight' || e.key === 'Enter') go(1);

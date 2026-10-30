@@ -134,21 +134,167 @@
   }
 }
 
-/* Koto in a role (shop counter, mayor's desk). */
-.koto-says {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--sp-2);
+/* Koto on his stage (shop stall / town podium): the counter cuts him off at the waist. */
+.koto-stage {
+  position: relative;
+  height: 210px;
+  border-radius: 24px 28px 20px 26px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--c-sky-top), var(--c-sky-bottom));
+  box-shadow: 0 6px 0 color-mix(in srgb, var(--c-panel-edge) 60%, var(--c-ink));
 }
-.koto-says-koto {
+.koto-stage-back {
+  position: absolute;
+  inset: 0;
+}
+.koto-awning {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 34px;
+  background: repeating-linear-gradient(90deg, var(--c-accent) 0 28px, var(--c-panel) 28px 56px);
+  border-radius: 0 0 50% 50% / 0 0 18px 18px;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--c-accent) 60%, var(--c-ink));
+}
+.koto-noren {
+  position: absolute;
+  right: 16px;
+  top: 30px;
+  width: 46px;
+  height: 66px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--c-panel);
+  background: var(--c-secondary);
+  border-radius: 0 0 8px 8px;
+  transform-origin: 50% 0;
+  animation: koto-sway 3.2s ease-in-out infinite alternate;
+}
+.koto-hall {
+  position: absolute;
+  left: 50%;
+  bottom: 48px;
+  width: 260px;
+  height: 110px;
+  translate: -50% 0;
+  background:
+    linear-gradient(180deg, var(--c-ink) 0 26px, transparent 26px),
+    linear-gradient(
+      180deg,
+      var(--c-lacquer),
+      color-mix(in srgb, var(--c-lacquer) 70%, var(--c-ink))
+    );
+  clip-path: polygon(0 24%, 12% 0, 88% 0, 100% 24%, 94% 24%, 94% 100%, 6% 100%, 6% 24%);
+  opacity: 0.85;
+}
+.koto-lanterns {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 14px;
+  height: 22px;
+  background:
+    radial-gradient(9px 11px at 10% 60%, var(--c-glow) 70%, transparent 72%),
+    radial-gradient(9px 11px at 37% 60%, var(--c-glow) 70%, transparent 72%),
+    radial-gradient(9px 11px at 63% 60%, var(--c-glow) 70%, transparent 72%),
+    radial-gradient(9px 11px at 90% 60%, var(--c-glow) 70%, transparent 72%);
+  animation: koto-sway 2.6s ease-in-out infinite alternate;
+}
+@keyframes koto-sway {
+  from {
+    transform: rotate(-2deg);
+  }
+  to {
+    transform: rotate(2deg);
+  }
+}
+.koto-stage-koto {
   appearance: none;
   border: 0;
   background: none;
   padding: 0;
-  flex: none;
+  position: absolute;
+  left: 10px;
+  bottom: 6px;
   cursor: pointer;
   touch-action: manipulation;
 }
-.koto-says-bubble {
-  margin-bottom: var(--sp-3);
+/* The counter in front of Koto, with his wares on it. */
+.koto-counter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 0 12px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-panel-edge) 80%, var(--c-panel)) 0 10px,
+    color-mix(in srgb, var(--c-panel-edge) 70%, var(--c-ink)) 10px
+  );
+  box-shadow: inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 50%, transparent);
+}
+.koto-ware {
+  margin-top: -26px;
+  animation: koto-ware-bob 2.4s ease-in-out infinite;
+}
+@keyframes koto-ware-bob {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+.koto-podium-seal {
+  margin: 14px auto 0;
+  padding: 2px 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--c-panel);
+  border: 2px solid var(--c-panel);
+  border-radius: 6px;
+}
+.koto-stage-bubble {
+  position: absolute;
+  left: 140px;
+  right: 12px;
+  top: 44px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 18px 22px 16px 20px;
+  background: var(--c-panel);
+  border: 2px solid var(--c-panel-edge);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--c-panel-edge) 60%, var(--c-ink));
+  animation: tour-pop 360ms cubic-bezier(0.2, 1.4, 0.4, 1) 120ms both;
+}
+.koto-stage-shop .koto-stage-bubble {
+  right: 70px;
+}
+.koto-stage-bubble::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 22px;
+  border: 10px solid transparent;
+  border-left: 0;
+  border-right-color: var(--c-panel-edge);
+}
+.koto-stage-bubble .tour-ja {
+  font-size: var(--fs-md);
+}
+.koto-stage-bubble .tour-en {
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+@media (prefers-reduced-motion: reduce) {
+  .koto-noren,
+  .koto-lanterns,
+  .koto-ware {
+    animation: none;
+  }
 }

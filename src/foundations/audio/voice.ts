@@ -9,7 +9,8 @@ import { lineKey } from '../../engine/pack/lines';
 import { toReading } from '../../engine/text/furigana';
 import { audioContext } from './sfx';
 
-export type Guide = 'akari' | 'tetsu';
+/** Akari and Tetsu teach; Koto is the chibi mascot (a cute, high, bouncy voice). */
+export type Guide = 'akari' | 'tetsu' | 'koto';
 
 export interface VoiceSource {
   manifest?: VoiceManifest;
@@ -45,7 +46,7 @@ const FEMALE = /kyoko|o-ren|oren|haruka|nanami|ayumi|mizuki|female|女性/i;
 const MALE = /otoya|hattori|ichiro|keita|male|男性/i;
 
 function deviceVoice(guide: Guide): SpeechSynthesisVoice | undefined {
-  const pref = guide === 'akari' ? FEMALE : MALE;
+  const pref = guide === 'tetsu' ? MALE : FEMALE;
   return (
     jaVoices.find((v) => pref.test(v.name)) ?? jaVoices.find((v) => v.localService) ?? jaVoices[0]
   );
@@ -166,7 +167,11 @@ export async function speak(text: string, opts: SpeakOptions): Promise<'pack' | 
   if (v) u.voice = v;
   u.rate = plan.rate;
   // Without a distinct male device voice, a lower pitch keeps Tetsu recognizable.
-  u.pitch = opts.guide === 'tetsu' && !(v && MALE.test(v.name)) ? 0.75 : 1;
+  // Koto: a chibi mascot voice (high and quick); Tetsu: lower when no male device voice exists.
+  if (opts.guide === 'koto') {
+    u.pitch = 1.8;
+    u.rate = Math.min(1.1, plan.rate * 1.25);
+  } else u.pitch = opts.guide === 'tetsu' && !(v && MALE.test(v.name)) ? 0.75 : 1;
   u.onend = u.onerror = () => {
     if (speaking === u) speaking = null;
   };

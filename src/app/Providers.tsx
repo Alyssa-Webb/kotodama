@@ -26,11 +26,15 @@ export function Providers({ children }: { children: ReactNode }) {
 
   const say = useCallback(
     (text: string, opts?: { role?: string; slow?: boolean }) => {
-      const guide = pickGuide(voiceMode, {
-        lessonIndex: lessonCount,
-        lineIndex: lineCounter++,
-        ...(opts?.role ? { role: opts.role } : { role: 'quiz' }),
-      });
+      // Koto always speaks in his own voice; everything else follows the Voice setting.
+      const guide =
+        opts?.role === 'koto'
+          ? 'koto'
+          : pickGuide(voiceMode, {
+              lessonIndex: lessonCount,
+              lineIndex: lineCounter++,
+              ...(opts?.role ? { role: opts.role } : { role: 'quiz' }),
+            });
       void speak(text, { guide, slow: opts?.slow ?? slow });
     },
     [voiceMode, lessonCount, slow],
