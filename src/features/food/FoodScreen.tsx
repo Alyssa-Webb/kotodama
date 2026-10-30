@@ -4,6 +4,7 @@
  * Better meals unlock as you level up; prices are what they cost in Japan.
  */
 import { useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router';
 import { eatMeal, heartsNow, maxHearts, playerLevel, type EatError } from '../../engine/game';
 import { yenFurigana } from '../../engine/text/yen';
@@ -12,7 +13,7 @@ import { useGame } from '../../foundations/store/gameStore';
 import { economy, meals } from '../../foundations/world';
 import { Guide } from '../../foundations/art/Guide';
 import { MealArt } from '../../foundations/art/MealArt';
-import { JaText, UiJa, useJa } from '../../foundations/japanese/Ja';
+import { JaText, useJa } from '../../foundations/japanese/Ja';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
@@ -86,7 +87,8 @@ function Order({ meal, onClose }: { meal: Meal; onClose: () => void }) {
     say('ありがとうございました！', 'Thank you very much! Enjoy your meal.');
   };
 
-  return (
+  // Portalled to <body> so no transformed ancestor can pull the sheet off-screen.
+  return createPortal(
     <div className="food-order" role="dialog" aria-modal="true" aria-label={`Ordering ${meal.en}`}>
       <div className="food-order-card">
         <div className="food-vendor">
@@ -161,7 +163,8 @@ function Order({ meal, onClose }: { meal: Meal; onClose: () => void }) {
           onPaid={eat}
         />
       )}
-    </div>
+    </div>,
+    document.body,
   );
 }
 
@@ -207,7 +210,10 @@ export function FoodScreen() {
             >
               <span className="food-stall-vendor">{m.vendor}</span>
               <MealArt id={m.id} size={56} />
-              <UiJa text={m.name} className="shop-name" />
+              {/* Plain text, not a button: a button inside the stall button swallowed taps. */}
+              <span className="shop-name">
+                <JaText text={m.name} />
+              </span>
               <strong>{m.en}</strong>
               <span className="food-stall-heal">+{m.heal} HP</span>
               <span className="food-stall-price">

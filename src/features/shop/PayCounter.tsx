@@ -5,6 +5,7 @@
  * the fewest pieces when you are stuck. Pieces you can't afford are disabled.
  */
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   fewestPieces,
   yenFurigana,
@@ -65,7 +66,8 @@ export function PayCounter({
     settle([...tray, d]);
   };
 
-  return (
+  // Portalled to <body> so no transformed ancestor can pull this full-screen sheet off-screen.
+  return createPortal(
     <div className="pay" role="dialog" aria-modal="true" aria-label={`Pay for ${item}`}>
       <div className="pay-card">
         <div className="pay-head">
@@ -139,6 +141,7 @@ export function PayCounter({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
