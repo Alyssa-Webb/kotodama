@@ -1315,6 +1315,8 @@ function Gate({
                     clipPath: `polygon(${half === 'upper' ? cut.sideA : cut.sideB})`,
                     '--nx': cut.normal[0],
                     '--ny': cut.normal[1],
+                    '--tx': cut.dir[0],
+                    '--ty': cut.dir[1],
                     '--spin': cut.angle > 0 ? 1 : -1,
                   } as CSSProperties)
                 : { clipPath: 'none' }

@@ -15,6 +15,8 @@ export interface Cut {
   sideB: string;
   /** Unit normal in % space pointing to side A, for the halves' push-apart motion. */
   normal: Pt;
+  /** Unit direction of the swipe as the player made it: the torn-off half follows the hand. */
+  dir: Pt;
   center: Pt;
   /** Blade angle in degrees (SVG rotate). */
   angle: number;
@@ -66,24 +68,42 @@ function clipToBox(a: Pt, b: Pt): [Pt, Pt] {
 const side = (p: Pt, a: Pt, n: Pt) => (p[0] - a[0]) * n[0] + (p[1] - a[1]) * n[1];
 const fmt = (p: Pt) => `${p[0].toFixed(2)}% ${p[1].toFixed(2)}%`;
 
-/** One half: the jagged edge, then the box corners on that side walked back to the start. */
-function half(points: Pt[], n: Pt, sign: 1 | -1, center: Pt): string {
+/** Position along the box outline, clockwise from the top-left corner (0–4, one per edge). */
+function perimeter(p: Pt): number {
+  const [x0, y0] = BOX[0]!;
+  const [x1, y1] = BOX[2]!;
+  const w = x1 - x0;
+  const h = y1 - y0;
+  const e = 1e-6;
+  if (Math.abs(p[1] - y0) < e) return (p[0] - x0) / w;
+  if (Math.abs(p[0] - x1) < e) return 1 + (p[1] - y0) / h;
+  if (Math.abs(p[1] - y1) < e) return 2 + (x1 - p[0]) / w;
+  return 3 + (y1 - p[1]) / h;
+}
+
+/**
+ * One half: the jagged edge, then that side's box corners walked along the outline from the
+ * cut's end back to its start (the way round that stays on this side), so the polygon never
+ * crosses itself.
+ */
+function half(points: Pt[], n: Pt, sign: 1 | -1): string {
   const start = points[0]!;
   const end = points[points.length - 1]!;
-  const angleOf = (p: Pt) => Math.atan2(p[1] - center[1], p[0] - center[0]);
   const corners = BOX.filter((c) => sign * side(c, start, n) > 0);
-  // Walk from the cut's end around that side's corners back to its start.
-  const a0 = angleOf(end);
-  const turn = (p: Pt) => {
-    const d = angleOf(p) - a0;
-    const t = sign * (d < 0 ? d + Math.PI * 2 : d);
-    return t < 0 ? t + Math.PI * 2 : t;
-  };
-  corners.sort((p, q) => turn(p) - turn(q));
+  const pe = perimeter(end);
+  const ps = perimeter(start);
+  const cw = (p: Pt) => (perimeter(p) - pe + 4) % 4;
+  const ccw = (p: Pt) => (pe - perimeter(p) + 4) % 4;
+  // This side's corners all lie on one arc between the cut's two ends: walk that arc.
+  const arc = (ps - pe + 4) % 4;
+  const order = corners.every((c) => cw(c) < arc) ? cw : ccw;
+  corners.sort((p, q) => order(p) - order(q));
   return [...points, ...corners].map(fmt).join(', ');
 }
 
 export function cutFromSwipe(from: Pt, to: Pt, seed = 1): Cut {
+  const sw = Math.hypot(to[0] - from[0], to[1] - from[1]);
+  const dir: Pt = sw > 1e-6 ? [(to[0] - from[0]) / sw, (to[1] - from[1]) / sw] : [1, 0];
   let a = from;
   let b = to;
   // Keep the cut running left to right so "side A" is consistently the upper half.
@@ -100,19 +120,18 @@ export function cutFromSwipe(from: Pt, to: Pt, seed = 1): Cut {
   let normal: Pt = [uy, -ux];
   if (normal[1] > 0) normal = [-uy, ux];
   const r = rng(seed);
-  const steps = Math.max(10, Math.round(total / 5));
+  const steps = Math.max(20, Math.round(total / 2.5));
   const points: Pt[] = [p0];
   for (let i = 1; i < steps; i++) {
     const t = i / steps + (r() - 0.5) * (0.6 / steps);
-    // Small irregular nicks: mostly gentle, the odd deeper notch, alternating sides.
-    const amp = (i % 2 ? 1 : -1) * (0.8 + r() * 1.6) * (r() < 0.18 ? 1.8 : 1);
+    // Fine torn-paper fibres, alternating sides: a clean rip, not a hacked edge.
+    const amp = (i % 2 ? 1 : -1) * (0.2 + r() * 0.3);
     points.push([p0[0] + dx * t + normal[0] * amp, p0[1] + dy * t + normal[1] * amp]);
   }
   points.push(p1);
   const center: Pt = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
-  const mid: Pt = [(p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2];
-  const scraps = Array.from({ length: 9 }, (_, i) => {
-    const t = (i + 0.6) / 9.4;
+  const scraps = Array.from({ length: 5 }, (_, i) => {
+    const t = (i + 0.6) / 5.4;
     const out = i % 2 ? -1 : 1;
     const push = 50 + r() * 40;
     return {
@@ -126,9 +145,10 @@ export function cutFromSwipe(from: Pt, to: Pt, seed = 1): Cut {
   });
   return {
     points,
-    sideA: half(points, normal, 1, mid),
-    sideB: half(points, normal, -1, mid),
+    sideA: half(points, normal, 1),
+    sideB: half(points, normal, -1),
     normal,
+    dir,
     center,
     angle: (Math.atan2(dy, dx) * 180) / Math.PI,
     scraps,

@@ -22,8 +22,16 @@ describe('cutFromSwipe', () => {
       const cross = (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]);
       return Math.abs(cross) / Math.hypot(b[0] - a[0], b[1] - a[1]);
     });
-    expect(Math.max(...offLine)).toBeGreaterThan(0.5);
+    expect(Math.max(...offLine)).toBeGreaterThan(0.2);
     expect(Math.max(...offLine)).toBeLessThan(6);
+  });
+
+  it('closes each half round its own corners in outline order (never self-crossing)', () => {
+    const c = cutFromSwipe([10, 62], [90, 37]);
+    const corners = (poly: string) => poly.split(', ').slice(c.points.length);
+    // The cut ends on the right edge: the top half goes up the right side, then left.
+    expect(corners(c.sideA)).toEqual(['115.00% -15.00%', '-15.00% -15.00%']);
+    expect(corners(c.sideB)).toEqual(['115.00% 115.00%', '-15.00% 115.00%']);
   });
 
   it('shares the exact jagged edge between both halves', () => {

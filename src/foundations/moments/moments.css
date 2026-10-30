@@ -606,16 +606,16 @@
   will-change: transform;
 }
 .m-bush-piece.m-bush-upper {
-  transform-origin: 35% 42%;
-  animation: m-slice-upper var(--gate-ms) cubic-bezier(0.32, 0, 0.2, 1) both;
+  transform-origin: 50% 40%;
+  animation: m-slice-upper var(--gate-ms) linear both;
 }
 .m-bush-piece.m-bush-lower {
-  transform-origin: 65% 68%;
-  animation: m-slice-lower var(--gate-ms) cubic-bezier(0.32, 0, 0.2, 1) both;
+  transform-origin: 50% 70%;
+  animation: m-slice-lower var(--gate-ms) linear both;
 }
+/* Both depths split as one sheet (no stagger), so the torn edge never doubles up. */
 .m-bush-piece.m-bush-mid {
   opacity: 0.92;
-  animation-delay: calc(var(--gate-ms) * 0.045);
 }
 .m-bush {
   position: absolute;
@@ -630,59 +630,44 @@
 .m-bush-r {
   right: -6%;
 }
-/* The halves push apart along the cut's normal (--nx, --ny from the swipe), spinning away. */
+/* A pack rip: the halves crack open along the cut, then the top half is flung off the way the
+   hand swiped (--tx, --ty) while the bottom half drops away. One-way motion, no settle-back.
+   The gate timeline starts at 20% (the blade's impact frame), so the rip lives in 20–62%. */
 @keyframes m-slice-upper {
   0%,
-  12% {
+  20% {
     transform: translate(0, 0) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1);
   }
-  16% {
-    transform: translate(calc(var(--nx) * -1.6%), calc(var(--ny) * -1.6%))
-      rotate(calc(var(--spin) * -0.7deg));
+  25% {
+    transform: translate(calc(var(--nx) * 2.5%), calc(var(--ny) * 2.5%))
+      rotate(calc(var(--spin) * -1deg));
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.5);
   }
-  23% {
-    transform: translate(calc(var(--nx) * 9%), calc(var(--ny) * 9%))
-      rotate(calc(var(--spin) * 2.4deg));
-  }
-  60% {
-    transform: translate(calc(var(--nx) * 86%), calc(var(--ny) * 86%))
-      rotate(calc(var(--spin) * 15deg));
-  }
-  78% {
-    transform: translate(calc(var(--nx) * 76%), calc(var(--ny) * 76%))
-      rotate(calc(var(--spin) * 11.5deg));
-  }
-  92%,
+  62%,
   100% {
-    transform: translate(calc(var(--nx) * 80%), calc(var(--ny) * 80%))
-      rotate(calc(var(--spin) * 13deg));
+    transform: translate(
+        calc(var(--nx) * 70% + var(--tx) * 55%),
+        calc(var(--ny) * 70% + var(--ty) * 55%)
+      )
+      rotate(calc(var(--spin) * -16deg));
   }
 }
 @keyframes m-slice-lower {
   0%,
-  12% {
+  20% {
     transform: translate(0, 0) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1);
   }
-  16% {
-    transform: translate(calc(var(--nx) * 1.6%), calc(var(--ny) * 1.6%))
-      rotate(calc(var(--spin) * 0.7deg));
+  25% {
+    transform: translate(calc(var(--nx) * -1.5%), calc(var(--ny) * -1.5%))
+      rotate(calc(var(--spin) * 0.6deg));
+    animation-timing-function: cubic-bezier(0.6, 0, 0.95, 0.6);
   }
-  23% {
-    transform: translate(calc(var(--nx) * -9%), calc(var(--ny) * -9%))
-      rotate(calc(var(--spin) * -2.4deg));
-  }
-  60% {
-    transform: translate(calc(var(--nx) * -82%), calc(var(--ny) * -82%))
-      rotate(calc(var(--spin) * -15deg));
-  }
-  78% {
-    transform: translate(calc(var(--nx) * -72%), calc(var(--ny) * -72%))
-      rotate(calc(var(--spin) * -11.5deg));
-  }
-  92%,
+  62%,
   100% {
-    transform: translate(calc(var(--nx) * -76%), calc(var(--ny) * -76%))
-      rotate(calc(var(--spin) * -13deg));
+    transform: translate(calc(var(--nx) * -55% + var(--tx) * 8%), calc(var(--ny) * -55% + 30%))
+      rotate(calc(var(--spin) * 7deg));
   }
 }
 
@@ -715,14 +700,14 @@
   pointer-events: none;
 }
 .m-swipe-trail polyline {
+  /* The tear following the finger: a crisp white hairline, like a pack's foil ripping. */
   fill: none;
-  stroke: var(--c-coin-shine);
-  stroke-width: 1.4;
+  stroke: var(--c-hud-ink);
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.85;
+  opacity: 0.95;
   vector-effect: non-scaling-stroke;
-  stroke-width: 5px;
+  stroke-width: 2.5px;
 }
 .m-swipe-hint {
   position: absolute;
@@ -792,7 +777,8 @@
   stroke-width: 4.6;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.42;
+  /* The rip reads as a clean white tear: the wide glows stay off. */
+  opacity: 0;
 }
 .m-cut-glow-mid {
   fill: none;
@@ -800,12 +786,12 @@
   stroke-width: 2.4;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.8;
+  opacity: 0;
 }
 .m-cut-seam {
   fill: none;
-  stroke: var(--c-coin-shine);
-  stroke-width: 1.1;
+  stroke: var(--c-hud-ink);
+  stroke-width: 0.6;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -813,13 +799,17 @@
   transform-origin: -64px 0;
   animation: m-blade-trail var(--gate-ms) linear both;
 }
+.m-blade-wake-outer,
+.m-blade-wake-mid,
+.m-blade-wake-jagged {
+  /* Off: the rip is a thin white tear, not a glowing zigzag. */
+  visibility: hidden;
+}
 .m-blade-wake-outer {
   fill: color-mix(in srgb, var(--c-glow) 75%, var(--c-accent));
-  opacity: 0.35;
 }
 .m-blade-wake-mid {
   fill: var(--c-glow);
-  opacity: 0.72;
 }
 .m-blade-wake-jagged {
   fill: none;
@@ -833,8 +823,8 @@
   animation: m-blade-streak var(--gate-ms) linear both;
 }
 .m-blade-streak-glow {
-  fill: var(--c-glow);
-  opacity: 0.85;
+  fill: var(--c-hud-ink);
+  opacity: 0.35;
 }
 .m-blade-streak-core {
   fill: var(--c-coin-shine);
