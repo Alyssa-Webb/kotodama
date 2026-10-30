@@ -11,3 +11,4 @@ content/inbox/*
 content/outbox/*
 !content/outbox/.gitkeep
 tools/.voice-cache
+.claude

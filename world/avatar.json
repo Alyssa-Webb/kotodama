@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "parts": [
+    {
+      "id": "base-traveler",
+      "slot": "base",
+      "name": "{旅人|たびびと}",
+      "en": "Traveler",
+      "svg": "<ellipse cx=\"50\" cy=\"112\" rx=\"26\" ry=\"5\" fill=\"var(--c-shadow)\"/><rect x=\"34\" y=\"58\" width=\"32\" height=\"48\" rx=\"14\" fill=\"var(--c-ink-muted)\"/><circle cx=\"50\" cy=\"38\" r=\"20\" fill=\"#f1d3b6\"/><path d=\"M30 34 Q50 10 70 34 Q66 22 50 20 Q34 22 30 34Z\" fill=\"var(--c-ink)\"/><circle cx=\"43\" cy=\"40\" r=\"2.2\" fill=\"var(--c-ink)\"/><circle cx=\"57\" cy=\"40\" r=\"2.2\" fill=\"var(--c-ink)\"/><path d=\"M45 48 Q50 51 55 48\" stroke=\"var(--c-ink)\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/>",
+      "free": true
+    },
+    {
+      "id": "outfit-travel",
+      "slot": "outfit",
+      "name": "{旅|たび}の{服|ふく}",
+      "en": "Travel clothes",
+      "svg": "<path d=\"M33 62 Q50 56 67 62 L70 104 Q50 110 30 104Z\" fill=\"var(--c-secondary)\"/><path d=\"M44 60 L50 76 L56 60\" stroke=\"var(--c-surface)\" stroke-width=\"2\" fill=\"none\"/>",
+      "free": true
+    },
+    {
+      "id": "outfit-yukata",
+      "slot": "outfit",
+      "name": "{浴衣|ゆかた}",
+      "en": "Yukata",
+      "svg": "<path d=\"M32 62 Q50 56 68 62 L70 106 Q50 110 30 106Z\" fill=\"var(--c-secondary-soft)\"/><path d=\"M42 60 L56 84 M58 60 L46 76\" stroke=\"var(--c-secondary)\" stroke-width=\"3\"/><rect x=\"31\" y=\"82\" width=\"38\" height=\"7\" fill=\"var(--c-accent)\"/><circle cx=\"40\" cy=\"96\" r=\"3\" fill=\"var(--c-secondary)\"/><circle cx=\"60\" cy=\"72\" r=\"3\" fill=\"var(--c-secondary)\"/>",
+      "price": 120
+    },
+    {
+      "id": "outfit-jinbei",
+      "slot": "outfit",
+      "name": "{甚平|じんべい}",
+      "en": "Jinbei",
+      "svg": "<path d=\"M32 62 Q50 56 68 62 L68 92 L32 92Z\" fill=\"var(--c-success)\"/><rect x=\"34\" y=\"92\" width=\"14\" height=\"14\" fill=\"var(--c-success)\"/><rect x=\"52\" y=\"92\" width=\"14\" height=\"14\" fill=\"var(--c-success)\"/><path d=\"M44 60 L56 80\" stroke=\"var(--c-surface)\" stroke-width=\"2\"/>",
+      "price": 100
+    },
+    {
+      "id": "outfit-hakama",
+      "slot": "outfit",
+      "name": "{袴|はかま}",
+      "en": "Hakama",
+      "svg": "<path d=\"M33 62 Q50 56 67 62 L66 80 L34 80Z\" fill=\"var(--c-surface)\"/><path d=\"M32 80 L68 80 L74 108 L26 108Z\" fill=\"var(--c-ink)\"/><path d=\"M50 82 L50 108\" stroke=\"var(--c-ink-muted)\" stroke-width=\"1.5\"/>",
+      "price": 300
+    },
+    {
+      "id": "headgear-kasa",
+      "slot": "headgear",
+      "name": "{笠|かさ}",
+      "en": "Straw kasa",
+      "svg": "<path d=\"M18 30 L50 8 L82 30 Q50 36 18 30Z\" fill=\"var(--c-gold)\"/><path d=\"M50 8 L50 32\" stroke=\"var(--c-gold-soft)\" stroke-width=\"1\"/>",
+      "price": 80
+    },
+    {
+      "id": "headgear-tenugui",
+      "slot": "headgear",
+      "name": "{手|て}ぬぐい",
+      "en": "Tenugui headband",
+      "svg": "<path d=\"M30 30 Q50 22 70 30 L70 36 Q50 28 30 36Z\" fill=\"var(--c-secondary)\"/><path d=\"M70 32 L80 26 L78 38Z\" fill=\"var(--c-secondary)\"/>",
+      "price": 60
+    },
+    {
+      "id": "headgear-kitsune",
+      "slot": "headgear",
+      "name": "{狐面|きつねめん}",
+      "en": "Kitsune mask",
+      "svg": "<path d=\"M62 18 L74 8 L76 26 Q80 40 68 46 L60 30Z\" fill=\"var(--c-surface)\" stroke=\"var(--c-accent)\" stroke-width=\"1.5\"/><path d=\"M66 30 L72 28\" stroke=\"var(--c-accent)\" stroke-width=\"2\"/>",
+      "unlock": "Trace 100 kanji"
+    },
+    {
+      "id": "headgear-hachimaki",
+      "slot": "headgear",
+      "name": "{鉢巻|はちまき}",
+      "en": "Hachimaki",
+      "svg": "<rect x=\"29\" y=\"27\" width=\"42\" height=\"6\" rx=\"2\" fill=\"var(--c-surface)\"/><circle cx=\"50\" cy=\"30\" r=\"4\" fill=\"var(--c-accent)\"/>",
+      "unlock": "30-day streak"
+    },
+    {
+      "id": "held-sensu",
+      "slot": "held",
+      "name": "{扇子|せんす}",
+      "en": "Folding fan",
+      "svg": "<path d=\"M74 78 L64 62 Q74 54 86 60Z\" fill=\"var(--c-accent-soft)\" stroke=\"var(--c-accent)\" stroke-width=\"1.5\"/>",
+      "price": 90,
+      "gacha": "common"
+    },
+    {
+      "id": "held-fude",
+      "slot": "held",
+      "name": "{筆|ふで}",
+      "en": "Calligraphy brush",
+      "svg": "<rect x=\"72\" y=\"58\" width=\"4\" height=\"26\" rx=\"2\" transform=\"rotate(20 74 70)\" fill=\"var(--c-gold)\"/><path d=\"M78 82 Q76 92 70 90Z\" fill=\"var(--c-ink)\"/>",
+      "price": 120
+    },
+    {
+      "id": "held-bangasa",
+      "slot": "held",
+      "name": "{番傘|ばんがさ}",
+      "en": "Paper umbrella",
+      "svg": "<path d=\"M60 40 Q80 22 98 40Z\" fill=\"var(--c-accent)\"/><path d=\"M79 40 L76 92\" stroke=\"var(--c-ink)\" stroke-width=\"2\"/>",
+      "price": 150,
+      "gacha": "rare"
+    },
+    {
+      "id": "held-taiyaki",
+      "slot": "held",
+      "name": "たい{焼|や}き",
+      "en": "Taiyaki",
+      "svg": "<path d=\"M68 78 Q78 68 90 76 L96 70 L96 84 L90 80 Q78 88 68 78Z\" fill=\"var(--c-gold)\"/><circle cx=\"74\" cy=\"76\" r=\"1.5\" fill=\"var(--c-ink)\"/>",
+      "price": 80,
+      "gacha": "common"
+    },
+    {
+      "id": "companion-mameshiba",
+      "slot": "companion",
+      "name": "{豆柴|まめしば}",
+      "en": "Mame-shiba",
+      "svg": "<ellipse cx=\"18\" cy=\"104\" rx=\"11\" ry=\"8\" fill=\"#d9a066\"/><circle cx=\"12\" cy=\"94\" r=\"7\" fill=\"#d9a066\"/><path d=\"M7 88 L9 82 L12 88Z M13 88 L16 82 L18 89Z\" fill=\"#d9a066\"/><circle cx=\"10\" cy=\"94\" r=\"1.2\" fill=\"var(--c-ink)\"/>",
+      "gacha": "common"
+    },
+    {
+      "id": "companion-tanuki",
+      "slot": "companion",
+      "name": "{狸|たぬき}",
+      "en": "Tanuki",
+      "svg": "<ellipse cx=\"18\" cy=\"104\" rx=\"11\" ry=\"9\" fill=\"#8a6f55\"/><circle cx=\"14\" cy=\"92\" r=\"7\" fill=\"#8a6f55\"/><ellipse cx=\"14\" cy=\"93\" rx=\"5\" ry=\"2.5\" fill=\"var(--c-ink)\"/>",
+      "gacha": "rare"
+    },
+    {
+      "id": "companion-buncho",
+      "slot": "companion",
+      "name": "{文鳥|ぶんちょう}",
+      "en": "Java sparrow",
+      "svg": "<ellipse cx=\"82\" cy=\"20\" rx=\"7\" ry=\"5\" fill=\"var(--c-fog)\"/><circle cx=\"77\" cy=\"17\" r=\"3.5\" fill=\"var(--c-ink)\"/><path d=\"M74 18 L71 19 L74 20Z\" fill=\"var(--c-accent)\"/>",
+      "gacha": "rare"
+    },
+    {
+      "id": "companion-kodama",
+      "slot": "companion",
+      "name": "{木霊|こだま}",
+      "en": "Kodama",
+      "svg": "<ellipse cx=\"16\" cy=\"102\" rx=\"8\" ry=\"11\" fill=\"var(--c-surface)\" stroke=\"var(--c-fog)\"/><circle cx=\"13\" cy=\"98\" r=\"1.5\" fill=\"var(--c-ink)\"/><circle cx=\"19\" cy=\"98\" r=\"1.5\" fill=\"var(--c-ink)\"/>",
+      "unlock": "Defeat Mojibake",
+      "gacha": "legendary"
+    },
+    {
+      "id": "title-kana-master",
+      "slot": "title",
+      "name": "{仮名|かな}の{達人|たつじん}",
+      "en": "Kana Master",
+      "svg": "",
+      "unlock": "Complete Kana Gate with three stars"
+    },
+    {
+      "id": "title-night-owl",
+      "slot": "title",
+      "name": "{夜更|よふ}かし",
+      "en": "Night Owl",
+      "svg": "",
+      "unlock": "Finish a lesson after midnight"
+    },
+    {
+      "id": "title-mojibake-slayer",
+      "slot": "title",
+      "name": "{鬼退治|おにたいじ}",
+      "en": "Ogre Slayer",
+      "svg": "",
+      "unlock": "Defeat a boss"
+    }
+  ]
+}

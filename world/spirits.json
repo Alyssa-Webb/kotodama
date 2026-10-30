@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "species": [
+    { "id": "glyph-sprite", "name": "Glyph sprite", "kinds": ["kana"], "hue": 8 },
+    {
+      "id": "food-spirit",
+      "name": "Food spirit",
+      "kinds": ["word"],
+      "tags": ["food", "drink"],
+      "hue": 36
+    },
+    { "id": "word-creature", "name": "Word creature", "kinds": ["word"], "hue": 200 },
+    { "id": "twin-spirit", "name": "Twin spirit", "kinds": ["phrase"], "hue": 330 },
+    { "id": "shapeshifter", "name": "Shape-shifter", "kinds": ["pattern"], "hue": 270 },
+    { "id": "echo-spirit", "name": "Echo spirit", "kinds": ["sentence"], "hue": 150 }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "bosses": [
+    {
+      "id": "mojibake",
+      "name": "{文字化|もじば}け",
+      "en": "Mojibake",
+      "description": "A beast of garbled text that scrambles every sign in the café.",
+      "hp": 12,
+      "checkpoint": { "packId": "kotodama-starter", "nodeId": "u02.n07" },
+      "phases": [
+        {
+          "below": 1,
+          "name": "Garbled glyphs",
+          "types": ["choice", "listen", "situation"],
+          "taunt": "これは{何|なん}ですか？",
+          "tauntEn": "What is THIS?"
+        },
+        {
+          "below": 0.6,
+          "name": "Scrambled words",
+          "types": ["tiles", "fill", "match", "pattern", "register"],
+          "taunt": "{水|みず}をください！",
+          "tauntEn": "Water, please!"
+        },
+        {
+          "below": 0.25,
+          "name": "Final static",
+          "types": ["type", "dictation", "translate"],
+          "taunt": "すみません…",
+          "tauntEn": "Excuse me…"
+        }
+      ],
+      "loot": { "title": "title-mojibake-slayer", "cosmetic": "companion-kodama" }
+    },
+    {
+      "id": "wasure-oni",
+      "name": "{忘|わす}れ{鬼|おに}",
+      "en": "Wasure-oni",
+      "description": "The forgetting ogre, built entirely from your weakest items.",
+      "hp": 15,
+      "phases": [
+        {
+          "below": 1,
+          "name": "Fog of forgetting",
+          "types": ["choice", "type", "listen"],
+          "taunt": "はじめまして。",
+          "tauntEn": "Nice to meet you (again)."
+        }
+      ],
+      "loot": {}
+    },
+    {
+      "id": "hayakuchi-kitsune",
+      "name": "{早口狐|はやくちぎつね}",
+      "en": "Hayakuchi-kitsune",
+      "description": "The fast-talking fox: listening battles at 1.25× speed.",
+      "hp": 15,
+      "phases": [
+        {
+          "below": 1,
+          "name": "Rapid fire",
+          "types": ["listen", "dictation"],
+          "taunt": "いらっしゃいませ！",
+          "tauntEn": "Welcome!"
+        }
+      ],
+      "loot": {}
+    },
+    {
+      "id": "keigo-tengu",
+      "name": "{敬語天狗|けいごてんぐ}",
+      "en": "Keigo-tengu",
+      "description": "The stickler for manners: casual-to-polite register duels.",
+      "hp": 15,
+      "phases": [
+        {
+          "below": 1,
+          "name": "Etiquette duel",
+          "types": ["register", "situation"],
+          "taunt": "ありがとう？",
+          "tauntEn": "Just 'thanks'?"
+        }
+      ],
+      "loot": {}
+    }
+  ]
+}

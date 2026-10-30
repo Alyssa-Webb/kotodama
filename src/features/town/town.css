@@ -1,0 +1,85 @@
+.town-map {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, var(--c-surface) 0, var(--c-surface-alt) 100%);
+}
+.town-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.town-road {
+  fill: none;
+  stroke: var(--c-border);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 1 3;
+}
+.bonsai-trunk {
+  fill: var(--c-ink-muted);
+}
+.bonsai-leaf {
+  fill: var(--c-success);
+}
+.district {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+.district.restored {
+  filter: none;
+  opacity: 1;
+}
+.district-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(40px, 11vw, 64px);
+  height: clamp(40px, 11vw, 64px);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  border: 2px solid var(--c-border);
+  font-family: var(--font-display);
+  font-size: clamp(var(--fs-md), 4vw, var(--fs-xl));
+}
+.district.lit .district-icon {
+  border-color: var(--c-gold);
+  box-shadow: 0 0 18px var(--c-gold);
+  color: var(--c-accent);
+}
+.district.locked .district-icon {
+  border-style: dashed;
+}
+.district-name {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  background: color-mix(in srgb, var(--c-surface) 80%, transparent);
+  padding: 0 4px;
+  border-radius: var(--r-sm);
+  white-space: nowrap;
+}
+.spirit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  text-align: center;
+}
+.spirit svg {
+  width: 56px;
+  height: 56px;
+}
+.spirit.fading svg {
+  opacity: 0.45;
+}
+.spirit.lost svg {
+  opacity: 0.15;
+  filter: blur(1px);
+}

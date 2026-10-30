@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "districts": [
+    {
+      "id": "station",
+      "name": "{駅|えき}",
+      "en": "The Station",
+      "restoredBy": { "packId": "kotodama-starter", "unitId": "u01" },
+      "icon": "station",
+      "x": 18,
+      "y": 70
+    },
+    {
+      "id": "cafe",
+      "name": "{喫茶店|きっさてん}",
+      "en": "The Café",
+      "restoredBy": { "packId": "kotodama-starter", "unitId": "u02" },
+      "icon": "cafe",
+      "x": 42,
+      "y": 52
+    },
+    {
+      "id": "shrine",
+      "name": "{神社|じんじゃ}",
+      "en": "Shrine Garden",
+      "icon": "shrine",
+      "x": 52,
+      "y": 22
+    },
+    {
+      "id": "shopping",
+      "name": "{商店街|しょうてんがい}",
+      "en": "Shopping Street",
+      "icon": "shop",
+      "x": 76,
+      "y": 60
+    },
+    {
+      "id": "bathhouse",
+      "name": "{銭湯|せんとう}",
+      "en": "The Bathhouse",
+      "icon": "bath",
+      "x": 84,
+      "y": 30
+    },
+    {
+      "id": "school",
+      "name": "{学校|がっこう}",
+      "en": "The School",
+      "icon": "school",
+      "x": 20,
+      "y": 30
+    }
+  ]
+}

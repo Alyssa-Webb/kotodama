@@ -12,6 +12,7 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}/kotodama/`,
     trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
   },
   projects: [
     { name: 'iphone', use: { ...devices['iPhone 15'], browserName: 'webkit' } },
