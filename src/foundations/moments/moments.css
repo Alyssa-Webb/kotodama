@@ -430,17 +430,49 @@
   fill: color-mix(in srgb, var(--c-success) 55%, var(--c-hud-bg));
 }
 .leaf-lip {
-  fill: color-mix(in srgb, var(--c-success) 45%, var(--c-hud-bg));
+  fill: color-mix(in srgb, var(--c-success) 42%, var(--c-hud-bg));
+}
+.leaf-deep {
+  fill: color-mix(in srgb, var(--c-success) 54%, var(--c-hud-bg));
+}
+.leaf-mid {
+  fill: color-mix(in srgb, var(--c-success) 68%, var(--c-secondary));
 }
 .leaf-a {
   fill: var(--c-success);
 }
 .leaf-b {
-  fill: color-mix(in srgb, var(--c-success) 72%, var(--c-hud-bg));
+  fill: color-mix(in srgb, var(--c-success) 76%, var(--c-hud-bg));
+}
+.leaf-fresh {
+  fill: color-mix(in srgb, var(--c-success) 74%, var(--c-glow));
 }
 .leaf-hi {
-  fill: color-mix(in srgb, var(--c-success) 58%, var(--c-coin-shine));
-  opacity: 0.62;
+  fill: color-mix(in srgb, var(--c-success) 52%, var(--c-coin-shine));
+  opacity: 0.68;
+}
+.leaf-hi-arc {
+  fill: none;
+  stroke: color-mix(in srgb, var(--c-success) 46%, var(--c-coin-shine));
+  stroke-width: 7;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+.leaf-vein {
+  fill: none;
+  stroke: color-mix(in srgb, var(--c-success) 48%, var(--c-hud-bg));
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0.65;
+}
+.bush-twig {
+  fill: none;
+  stroke: color-mix(in srgb, var(--c-gold) 45%, var(--c-hud-bg));
+  stroke-width: 9;
+  stroke-linecap: round;
+}
+.m-bush-mid .leaf-lip {
+  fill: color-mix(in srgb, var(--c-success) 32%, var(--c-hud-bg));
 }
 .m-bamboo {
   animation: m-sway 2.6s ease-in-out infinite alternate;
