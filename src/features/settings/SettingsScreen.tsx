@@ -176,6 +176,15 @@ export function SettingsScreen() {
           />{' '}
           Haptics
         </label>
+        <label className="row">
+          <input
+            type="checkbox"
+            style={{ width: 24, minHeight: 24 }}
+            checked={st.countYen}
+            onChange={(e) => set('countYen', e.target.checked)}
+          />{' '}
+          Count out yen at the shop (practice money)
+        </label>
         <p className="muted small">
           Until a pack is voiced on the Mac, your device's Japanese voice reads every line.
         </p>

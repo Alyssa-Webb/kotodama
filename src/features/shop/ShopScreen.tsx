@@ -24,6 +24,8 @@ import { buildReel } from '../../engine/gachaReel';
 import { toSurface } from '../../engine/text/furigana';
 import { AvatarActor } from '../avatar/AvatarActor';
 import { KotoSays } from '../tour/KotoSays';
+import { PayCounter } from './PayCounter';
+import { yenFurigana } from '../../engine/text/yen';
 import type { AvatarPart } from '../../schema/world';
 import type { ConsumableId } from '../../schema/world';
 
@@ -54,6 +56,16 @@ export function ShopScreen() {
   const rules = economy.difficulty[save.settings.difficulty]!;
 
   const [opening, setOpening] = useState(false);
+  // Checkout: count out the exact yen before a purchase goes through (setting: countYen).
+  const [paying, setPaying] = useState<{
+    item: string;
+    price: number;
+    pay: () => void;
+  } | null>(null);
+  const checkout = (item: string, price: number, pay: () => void) => {
+    if (!save.settings.countYen || stats.yen < price) return pay();
+    setPaying({ item, price, pay });
+  };
 
   /** Every purchase is a moment: yen leave your purse, the item's badge flies to your avatar. */
   const celebrate = (name: string, from: Element | null) => {
@@ -142,6 +154,19 @@ export function ShopScreen() {
 
   return (
     <div className="stack">
+      {paying && (
+        <PayCounter
+          item={paying.item}
+          price={paying.price}
+          balance={stats.yen}
+          onCancel={() => setPaying(null)}
+          onPaid={() => {
+            const pay = paying.pay;
+            setPaying(null);
+            pay();
+          }}
+        />
+      )}
       <div className="row spread">
         <h1>Shop</h1>
         <span className="shop-avatar" aria-hidden="true">
@@ -191,11 +216,17 @@ export function ShopScreen() {
                 <button
                   className="btn btn-small btn-gold"
                   disabled={disabled || stats.yen < price}
-                  onClick={(e) => purchase(c.id, e.currentTarget.closest('.card'))}
+                  onClick={(e) => {
+                    const card = e.currentTarget.closest('.card');
+                    checkout(c.en, price, () => purchase(c.id, card));
+                  }}
                   aria-label={`Buy ${c.en} for ${price} yen`}
                 >
-                  <YenIcon size={18} /> {price}
+                  ¥{price.toLocaleString('en-US')}
                 </button>
+                <span className="small price-ja" lang="ja">
+                  <JaText text={yenFurigana(price)} />
+                </span>
               </div>
             );
           })}
@@ -218,9 +249,12 @@ export function ShopScreen() {
                 <button
                   className="btn btn-small btn-gold"
                   disabled={stats.yen < c.price}
-                  onClick={(e) => charm(c.id, e.currentTarget.closest('.card'))}
+                  onClick={(e) => {
+                    const card = e.currentTarget.closest('.card');
+                    checkout(c.en, c.price!, () => charm(c.id, card));
+                  }}
                 >
-                  <YenIcon size={18} /> {c.price}
+                  ¥{c.price.toLocaleString('en-US')}
                 </button>
               ) : (
                 <span className="muted tiny">{c.unlock}</span>

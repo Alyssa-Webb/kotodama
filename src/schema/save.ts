@@ -31,6 +31,8 @@ export const SettingsSchema = z.object({
   soundEffects: z.boolean().default(true),
   /** Vibration on taps and big moments (light ticks on iPhone, full patterns on Android). */
   haptics: z.boolean().default(true),
+  /** Shop checkout: count out real coins and notes (off = pay instantly). */
+  countYen: z.boolean().default(true),
   respectSilentSwitch: z.boolean().default(false),
   rolloverHour: z.number().int().min(0).max(23).default(4),
   installGuideDismissed: z.boolean().default(false),
