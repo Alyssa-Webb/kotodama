@@ -2,15 +2,14 @@
 
 ## 1. Status
 
-- **Live link:** not live yet. Creating the public GitHub repository was blocked by a permission check overnight, so one double-click from you publishes it (step 1 below). It will then be at **https://alyssa-webb.github.io/kotodama/**
+- **Live link:** **https://alyssa-webb.github.io/kotodama/** (repository: https://github.com/Alyssa-Webb/kotodama, shared with KenLinz, write access). Every push to `main` deploys automatically.
 - **What works (run and checked in Safari's engine):** the full core loop. Lessons with 14 exercise types and voice, FSRS reviews, streaks with the 04:00 day rollover, Hardcore hearts, koban, shop, gachapon, town, spirits, avatar, the Mojibake boss, Kana/Listening Rush, pasting a ChatGPT pack, the Learner Report, backup/restore, offline play, dark mode. 118 unit tests and 16 end-to-end tests pass.
-- **What's next:** publish, install VOICEVOX and voice the starter pack, then ask ChatGPT for your first real unit.
+- **What's next:** install VOICEVOX and voice the starter pack, then ask ChatGPT for your first real unit.
 
 ## 2. Needs you
 
-1. **Publish (about 2 minutes).** In Finder, open `Downloads/kotodama` and double-click **Publish to GitHub.command**. It uses your existing GitHub sign-in (Alyssa-Webb), creates the public `kotodama` repository, pushes, and turns on hosting. If macOS says it can't be opened, right-click it → **Open** → **Open**.
-   - Note: commits carry the email in your git settings (your Gmail address), which GitHub shows publicly. To hide it first, turn on "Keep my email addresses private" at https://github.com/settings/emails.
-2. **Check hosting is on.** Open https://github.com/Alyssa-Webb/kotodama/settings/pages. **Source** should say **GitHub Actions** (the script sets it; set it by hand if not). Watch the deploy at https://github.com/Alyssa-Webb/kotodama/actions. About 2 minutes later, open https://alyssa-webb.github.io/kotodama/
+1. **Done:** published and hosting is on. KenLinz must accept the invitation emailed by GitHub (or at https://github.com/Alyssa-Webb/kotodama/invitations).
+2. **Install the app.** iPhone: open https://alyssa-webb.github.io/kotodama/ in Safari → **Share** → **Add to Home Screen**. Mac: Safari → **File → Add to Dock**.
 3. **Install VOICEVOX (free).** Download VOICEVOX for Mac from https://voicevox.hiroshiba.jp/, open it, and leave it running.
 4. **Pick the voices.** Double-click **Voice Audition.command**. A page opens with sample lines in each candidate voice. Press **Choose for akari** and **Choose for tetsu** on the ones you like.
 5. **Voice the starter pack.** Double-click **Voice Packs.command**. It writes `content/outbox/kotodama-starter-v1.jlpack`. AirDrop it to your iPhone, then in Kotodama open **More → Packs & Backup → Choose file** and pick it. Until then the app uses your device's Japanese voice.
@@ -18,8 +17,8 @@
 
 ## 3. Morning launch kit
 
-1. **Publish (once).** Double-click `Publish to GitHub.command` (step 1 above).
-2. **Turn on hosting (if step 1 didn't).** https://github.com/Alyssa-Webb/kotodama/settings/pages → **Source: GitHub Actions**. Live at https://alyssa-webb.github.io/kotodama/
+1. **Publish (once).** Done: https://github.com/Alyssa-Webb/kotodama (if it ever needs redoing, `Publish to GitHub.command` does it).
+2. **Hosting.** Done: https://github.com/Alyssa-Webb/kotodama/settings/pages → Source: GitHub Actions. Live at https://alyssa-webb.github.io/kotodama/
 3. **iPhone.** Open https://alyssa-webb.github.io/kotodama/ in Safari → **Share** → **Add to Home Screen**. Always launch it from the icon: a Safari tab keeps separate progress.
 4. **Mac.** Open the address in Safari → **File → Add to Dock**.
 5. **Voices (once).** Install VOICEVOX from https://voicevox.hiroshiba.jp/ and leave it open. Node.js is already installed on this Mac (v24).
@@ -46,7 +45,6 @@ Screenshots (Safari engine, iPhone 15 size): [contact sheet](docs/screenshots/ip
 
 ## 5. Known issues and decisions
 
-- Not deployed yet (needs step 1).
 - Voice pipeline not run against a real VOICEVOX engine yet; the device voice (Web Speech) reads everything until you voice a pack.
 - Tracing is self-graded: no stroke-order data (KanjiVG) bundled yet.
 - Not yet built from the plan: daily quests, omikuji, seasons and ghost-code trading (all v1.1 in the plan), town decorations and app-theme purchases, Lighthouse CI, Storybook.
