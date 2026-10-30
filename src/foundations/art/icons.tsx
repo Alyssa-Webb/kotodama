@@ -210,6 +210,14 @@ export const TabShop = () => (
     <path d="M5 13v7h14v-7" />
   </svg>
 );
+export const TabTown = () => (
+  <svg {...tab()}>
+    <path d="M3 10 12 4l9 6" />
+    <path d="M5 9v11h14V9" />
+    <path d="M10 20v-5h4v5" />
+    <path d="M2 10.5h20" />
+  </svg>
+);
 export const TabMore = () => (
   <svg {...tab()}>
     <rect x="5" y="3" width="14" height="18" rx="2" />

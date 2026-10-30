@@ -331,3 +331,23 @@
     animation: none !important;
   }
 }
+
+/* The Me page: your avatar on a little stage, tap to make it hop. */
+.avatar-stage {
+  background:
+    radial-gradient(60% 40% at 50% 92%, var(--c-shadow), transparent 70%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--c-sky-mid) 35%, var(--c-panel)),
+      var(--c-panel)
+    );
+}
+.avatar-stage-actor {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0 auto;
+  cursor: pointer;
+  touch-action: manipulation;
+}

@@ -5,20 +5,24 @@
 .home-scene {
   border-radius: var(--r-lg) var(--r-lg) 0 0;
 }
+.home-stage {
+  position: relative;
+}
 .home-hero-guide {
   position: absolute;
-  top: var(--sp-3);
   left: var(--sp-3);
-  display: flex;
-  align-items: flex-start;
-  gap: var(--sp-2);
+  bottom: -4px;
+  line-height: 0;
+  transform-origin: 50% 100%;
 }
 .speech {
-  position: relative;
+  position: absolute;
+  left: calc(var(--sp-3) + 124px);
+  right: var(--sp-3);
+  bottom: 70px;
   display: flex;
   flex-direction: column;
-  max-width: 200px;
-  margin-top: var(--sp-3);
+  max-width: 210px;
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-panel);

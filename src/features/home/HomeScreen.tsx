@@ -49,20 +49,22 @@ export function HomeScreen() {
   return (
     <div className="stack">
       <section className="card home-hero" aria-label="Today">
-        <Scene
-          className="home-scene"
-          height={230}
-          awake={save.lessonCount ? awake : 0.2}
-          ambient="petals"
-        />
-        <div className="home-hero-guide">
-          <Slot slot="mascot.idle" fire={true}>
+        {/* The guide stands on the scene's ground with the greeting beside her, instead of
+            floating over an empty sky. */}
+        <div className="home-stage">
+          <Scene
+            className="home-scene"
+            height={196}
+            awake={save.lessonCount ? awake : 0.2}
+            ambient="petals"
+          />
+          <div className="home-hero-guide">
             <Guide
               who={save.lessonCount % 2 ? 'tetsu' : 'akari'}
               mood={s.todayXp >= s.goal ? 'cheer' : 'idle'}
-              size={104}
+              size={124}
             />
-          </Slot>
+          </div>
           <div className="speech">
             <SpeakableJa text={hello.ja} role="teach" className="speech-ja" />
             <span className="small">{hello.en}</span>

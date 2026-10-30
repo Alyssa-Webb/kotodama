@@ -6,7 +6,7 @@ import { useGame } from '../../foundations/store/gameStore';
 import { avatarParts, shop } from '../../foundations/world';
 import { KobanIcon } from '../../foundations/art/icons';
 import { JaText } from '../../foundations/japanese/Ja';
-import { Avatar } from './Avatar';
+import { AvatarActor } from './AvatarActor';
 import { useSave } from '../hooks';
 
 const LABEL: Record<AvatarSlot, string> = {
@@ -25,6 +25,7 @@ export function AvatarScreen() {
   const commit = useGame((s) => s.commit);
   const gctx = useGame((s) => s.ctx);
   const [slot, setSlot] = useState<AvatarSlot>('outfit');
+  const [poke, setPoke] = useState(0);
   const koban = balanceOf(save.ledger, 'koban');
   const parts = avatarParts.filter((p) => p.slot === slot);
   const title = avatarParts.find((p) => p.id === save.avatar.equipped.title);
@@ -48,10 +49,14 @@ export function AvatarScreen() {
   return (
     <div className="stack">
       <h1>Avatar</h1>
-      <section className="card stack center">
-        <div style={{ margin: '0 auto' }}>
-          <Avatar size={140} />
-        </div>
+      <section className="card stack center avatar-stage">
+        <button
+          className="avatar-stage-actor"
+          onClick={() => setPoke((n) => n + 1)}
+          aria-label="Your avatar (tap to wave)"
+        >
+          <AvatarActor mood={poke ? 'happy' : 'idle'} reaction={poke} size={150} />
+        </button>
         {title && (
           <p className="pill pill-gold" style={{ alignSelf: 'center' }}>
             <JaText text={title.name} /> · {title.en}

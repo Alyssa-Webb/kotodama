@@ -205,8 +205,8 @@ ruby rt {
   bottom: calc(env(safe-area-inset-bottom) + var(--sp-2));
   z-index: 10;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  max-width: 560px;
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 600px;
   margin: 0 auto;
   padding: 4px;
   border-radius: var(--r-lg);
@@ -695,4 +695,27 @@ label.field {
   border-radius: var(--r-md);
   background: var(--c-secondary-soft);
   border: 1.5px solid color-mix(in srgb, var(--c-secondary) 30%, transparent);
+}
+
+/* Avatar tab: your own avatar, cropped to head and shoulders. */
+.tab-avatar {
+  display: block;
+  width: 26px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.tab-avatar svg {
+  display: block;
+  margin-top: -2px;
+  width: 26px;
+  height: auto;
+  transform: scale(1.7);
+  transform-origin: 50% 22%;
+}
+.top-more {
+  margin-left: var(--sp-1);
+  color: var(--c-hud-ink);
+  min-height: 40px;
+  min-width: 40px;
 }

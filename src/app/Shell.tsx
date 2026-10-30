@@ -13,14 +13,26 @@ import {
   TabMore,
   TabPath,
   TabShop,
+  TabTown,
 } from '../foundations/art/icons';
+import { Avatar } from '../features/avatar/Avatar';
+
+/** The avatar tab shows your own chibi avatar's head and shoulders. */
+function TabAvatar() {
+  return (
+    <span className="tab-avatar" aria-hidden="true">
+      <Avatar size={26} mood="happy" />
+    </span>
+  );
+}
 
 const TABS = [
   { to: '/', label: 'Home', icon: <TabHome /> },
+  { to: '/town', label: 'Town', icon: <TabTown /> },
   { to: '/path', label: 'Path', icon: <TabPath /> },
   { to: '/reviews', label: 'Dojo', icon: <TabDojo /> },
   { to: '/shop', label: 'Shop', icon: <TabShop /> },
-  { to: '/more', label: 'More', icon: <TabMore /> },
+  { to: '/avatar', label: 'Me', icon: <TabAvatar /> },
 ];
 
 /** A HUD counter that bumps when its value goes up. */
@@ -94,6 +106,9 @@ export function Shell() {
           <span>Kotodama</span>
         </a>
         <TopStats />
+        <NavLink className="btn btn-ghost icon-btn top-more" to="/more" aria-label="More">
+          <TabMore />
+        </NavLink>
       </header>
       <main className="main" key={loc.pathname}>
         <InstallGuide />
