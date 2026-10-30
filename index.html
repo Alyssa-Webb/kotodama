@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Kotodama 言霊</title>
+    <meta name="description" content="Learn Japanese as a hardcore game. Offline, free, forever." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="%KOTO_BG_LIGHT%" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="%KOTO_BG_DARK%" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Kotodama" />
+    <link rel="apple-touch-icon" href="/kotodama/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/kotodama/icons/seal.svg" />
+    <style>
+      /* Pre-paint background only, so there is no white flash before tokens load. */
+      html {
+        background: %KOTO_BG_LIGHT%;
+        color: %KOTO_INK_LIGHT%;
+      }
+      @media (prefers-color-scheme: dark) {
+        html {
+          background: %KOTO_BG_DARK%;
+          color: %KOTO_INK_DARK%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Kotodama needs JavaScript to run.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

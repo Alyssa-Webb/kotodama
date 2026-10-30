@@ -1,0 +1,15 @@
+dist
+node_modules
+coverage
+playwright-report
+test-results
+public
+docs/screenshots
+lesson-pack.schema.json
+package-lock.json
+PLAN.md
+CLAUDE.md
+KICKOFF.md
+AUTHORING.md
+content/inbox
+content/outbox

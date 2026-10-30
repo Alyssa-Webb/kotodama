@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "slots": {
+    "answer.correct": { "fallback": "pulse" },
+    "answer.incorrect": { "fallback": "shake" },
+    "combo.up": { "fallback": "pop" },
+    "lesson.complete": { "fallback": "rise" },
+    "node.unlock": { "fallback": "pop" },
+    "streak.extend": { "fallback": "pop" },
+    "level.up": { "fallback": "rise" },
+    "mascot.idle": { "fallback": "float" }
+  }
+}
