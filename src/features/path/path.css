@@ -1,4 +1,4 @@
-/* Illustrated Chibi Journey Map: one continuous full-bleed saga trail (Dojo -> Bamboo Forest -> Rice Fields -> Castle Town -> Mountain Shrines -> Capital). */
+/* Illustrated Chibi Journey Map: one continuous full-bleed saga trail (Dojo -> Bamboo Thicket -> City Market -> Castle Town -> Mountain Shrines -> Capital). */
 
 .journey-map {
   position: relative;
@@ -41,8 +41,10 @@
 .unit.region-dojo {
   background-image: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--c-gold-soft) 52%, var(--c-surface-alt)) 0%,
-    color-mix(in srgb, var(--c-success-soft) 55%, var(--c-panel)) 52%,
+    color-mix(in srgb, var(--c-gold-soft) 76%, var(--c-panel-edge)) 0%,
+    color-mix(in srgb, var(--c-gold-soft) 74%, var(--c-surface-alt)) 28%,
+    color-mix(in srgb, var(--c-gold-soft) 68%, var(--c-panel)) 62%,
+    color-mix(in srgb, var(--c-gold-soft) 64%, var(--c-surface-alt)) 84%,
     color-mix(in srgb, var(--c-success-soft) 68%, var(--c-surface-alt)) 100%
   );
 }
@@ -60,7 +62,9 @@
   background-image: linear-gradient(
     180deg,
     color-mix(in srgb, var(--c-success-soft) 54%, var(--c-gold-soft)) 0%,
-    color-mix(in srgb, var(--c-gold-soft) 58%, var(--c-panel)) 50%,
+    color-mix(in srgb, var(--c-accent-soft) 68%, var(--c-gold-soft)) 18%,
+    color-mix(in srgb, var(--c-accent-soft) 62%, var(--c-panel)) 50%,
+    color-mix(in srgb, var(--c-gold-soft) 66%, var(--c-accent-soft)) 82%,
     color-mix(in srgb, var(--c-secondary-soft) 58%, var(--c-surface-alt)) 100%
   );
 }
@@ -157,6 +161,14 @@
   animation-delay: calc(var(--dur-celebrate) * -1.8);
 }
 
+.region-dojo .noren-flap {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-gold) 72%, var(--c-hud-bg)),
+    var(--c-panel-edge)
+  );
+}
+
 .region-bamboo .noren-flap {
   background: linear-gradient(
     180deg,
@@ -165,7 +177,14 @@
   );
 }
 
-.region-market .noren-flap,
+.region-market .noren-flap {
+  background: linear-gradient(
+    180deg,
+    var(--c-lacquer),
+    var(--c-accent)
+  );
+}
+
 .region-castle .noren-flap {
   background: linear-gradient(
     180deg,
