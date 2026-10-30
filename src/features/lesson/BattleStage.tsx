@@ -20,6 +20,9 @@ export function BattleStage({ state }: { state: SessionState }) {
   const [shown, setShown] = useState(view.enemy);
   const [walking, setWalking] = useState(true);
   const seen = useRef(state.attempts.length);
+  const root = useRef<HTMLDivElement>(null);
+  // One-shot attack effects, keyed so each answer replays them.
+  const [fx, setFx] = useState<{ id: number; kind: 'slash' | 'finisher' | 'impact' } | null>(null);
 
   // The first enemy appears as the avatar walks up the road.
   useEffect(() => {
@@ -36,20 +39,41 @@ export function BattleStage({ state }: { state: SessionState }) {
     seen.current = state.attempts.length;
     const timers: number[] = [];
     const later = (ms: number, f: () => void) => timers.push(window.setTimeout(f, ms));
+    const id = state.attempts.length;
     if (view.last === 'attacked') {
       setFoe('attack');
-      setHero('worried');
+      // The enemy's blow lands as its lunge peaks.
+      later(220, () => {
+        setFx({ id, kind: 'impact' });
+        root.current?.animate(
+          [
+            { transform: 'translate(0, 0)' },
+            { transform: 'translate(-5px, 2px)' },
+            { transform: 'translate(4px, -2px)' },
+            { transform: 'translate(-3px, 1px)' },
+            { transform: 'translate(0, 0)' },
+          ],
+          { duration: 380, easing: 'ease-out' },
+        );
+        setHero('worried');
+        haptic('double');
+      });
       later(560, () => setFoe('idle'));
     } else if (view.last === 'hit') {
       setHero('strike');
       later(160, () => {
+        setFx({ id, kind: 'slash' });
         setFoe('hit');
-        haptic('tap');
+        haptic('thud');
       });
       later(620, () => setFoe('idle'));
     } else if (view.last === 'finish') {
       setHero('strike');
-      later(160, () => setFoe('defeat'));
+      later(160, () => {
+        setFx({ id, kind: 'finisher' });
+        setFoe('defeat');
+        haptic('heartbeat');
+      });
       // Walk on to the next enemy.
       later(820, () => {
         if (view.defeated >= view.enemies) {
@@ -77,7 +101,7 @@ export function BattleStage({ state }: { state: SessionState }) {
   const hp = current ? view.hp : 0;
   const maxHp = current ? view.maxHp : 1;
   return (
-    <div className={`battle ${walking ? 'battle-walking' : ''}`} aria-hidden="true">
+    <div ref={root} className={`battle ${walking ? 'battle-walking' : ''}`} aria-hidden="true">
       <div className="battle-road" />
       {!(allDown && foe !== 'defeat') && (
         <div className="battle-foe">
@@ -93,6 +117,23 @@ export function BattleStage({ state }: { state: SessionState }) {
             size={64}
           />
         </div>
+      )}
+      {fx && (
+        <span
+          key={fx.id}
+          className={`battle-fx battle-fx-${fx.kind}`}
+          onAnimationEnd={() => setFx(null)}
+        >
+          {fx.kind !== 'impact' && (
+            <svg viewBox="0 0 100 100" className="battle-arc">
+              <path d="M18 80 Q 30 18 86 22" pathLength={1} />
+              {fx.kind === 'finisher' && <path d="M14 30 Q 70 34 84 86" pathLength={1} />}
+            </svg>
+          )}
+          <span className="battle-dmg">
+            {fx.kind === 'impact' ? '−1 ♥' : fx.kind === 'finisher' ? 'KO!' : '−1'}
+          </span>
+        </span>
       )}
       <div className="battle-hero">
         <AvatarActor mood={hero} facing="back" size={70} reaction={state.attempts.length} />

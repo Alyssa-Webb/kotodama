@@ -86,3 +86,104 @@
     animation: none !important;
   }
 }
+
+/* ---- attack effects (Claude placeholders; Gemini polishes) */
+.battle-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: battle-fx-life 620ms linear both;
+}
+@keyframes battle-fx-life {
+  to {
+    opacity: 0.999;
+  }
+}
+.battle-arc {
+  position: absolute;
+  left: calc(64% - 55px);
+  top: 4px;
+  width: 110px;
+  height: 110px;
+  overflow: visible;
+}
+.battle-arc path {
+  fill: none;
+  stroke: var(--c-coin-shine);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    battle-arc 260ms cubic-bezier(0.6, 0, 0.3, 1) forwards,
+    battle-fade 620ms ease both;
+}
+.battle-arc path + path {
+  animation-delay: 110ms, 110ms;
+}
+.battle-fx-finisher .battle-arc path {
+  stroke: var(--c-glow);
+  stroke-width: 9;
+}
+@keyframes battle-arc {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes battle-fade {
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.battle-dmg {
+  position: absolute;
+  left: 64%;
+  top: 30px;
+  translate: -50% 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--fs-lg);
+  color: var(--c-coin-shine);
+  text-shadow: 0 2px 0 color-mix(in srgb, var(--c-ink) 70%, transparent);
+  animation: battle-dmg 620ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.battle-fx-finisher .battle-dmg {
+  color: var(--c-glow);
+  font-size: var(--fs-xl);
+}
+.battle-fx-impact .battle-dmg {
+  left: 32%;
+  top: auto;
+  bottom: 70px;
+  color: var(--c-danger);
+}
+@keyframes battle-dmg {
+  from {
+    transform: translateY(10px) scale(0.5);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-14px) scale(1);
+    opacity: 0;
+  }
+}
+/* The enemy's blow: a red vignette and a jolt of the whole road. */
+.battle-fx-impact {
+  background: radial-gradient(
+    70% 80% at 32% 90%,
+    color-mix(in srgb, var(--c-danger) 45%, transparent),
+    transparent 70%
+  );
+  animation: battle-fade 520ms ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .battle-fx * {
+    animation: none !important;
+  }
+}
