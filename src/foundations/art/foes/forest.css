@@ -1,0 +1,1067 @@
+/* Bamboo Thicket forest yokai animations (transform + opacity only).
+ * Class names are prefixed by foe id: kodama-*, bake-danuki-*, karasu-tengu-*.
+ */
+
+.kodama,
+.bake-danuki,
+.karasu-tengu {
+  transform-origin: 50px 88px;
+  will-change: transform, opacity;
+}
+
+.kodama-body,
+.bake-danuki-body,
+.karasu-tengu-body {
+  transform-origin: 50px 88px;
+  will-change: transform, opacity;
+}
+
+.kodama-shadow,
+.bake-danuki-shadow,
+.karasu-tengu-shadow {
+  transform-origin: 50px 92px;
+  will-change: transform, opacity;
+}
+
+/* ==========================================================================
+ * 1. KODAMA (木霊): tree spirit — rattling head tilt & ripple of echo rings
+ * ========================================================================== */
+
+.kodama-head {
+  transform-origin: 50px 54px;
+  will-change: transform;
+}
+
+.kodama-sapling {
+  transform-origin: 50px 18px;
+  will-change: transform;
+}
+
+.kodama-arm-l {
+  transform-origin: 33px 64px;
+  will-change: transform;
+}
+
+.kodama-arm-r {
+  transform-origin: 67px 64px;
+  will-change: transform;
+}
+
+.kodama-orb-1 {
+  transform-origin: 16px 34px;
+  will-change: transform, opacity;
+}
+
+.kodama-orb-2 {
+  transform-origin: 84px 28px;
+  will-change: transform, opacity;
+}
+
+.kodama-echo-ring {
+  transform-origin: 48px 48px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Idle: gentle forest breathing + signature head tilt and rattle */
+.kodama.kodama-idle .kodama-body,
+.enemy-kodama.enemy-idle .kodama-body {
+  animation: kodama-idle-bob calc(var(--dur-celebrate, 900ms) * 2.4) ease-in-out infinite;
+}
+
+.kodama.kodama-idle .kodama-shadow,
+.enemy-kodama.enemy-idle .kodama-shadow {
+  animation: kodama-shadow-pulse calc(var(--dur-celebrate, 900ms) * 2.4) ease-in-out infinite;
+}
+
+.kodama.kodama-idle .kodama-head {
+  animation: kodama-head-rattle calc(var(--dur-celebrate, 900ms) * 3.2) ease-in-out infinite;
+}
+
+.kodama.kodama-idle .kodama-sapling {
+  animation: kodama-sapling-sway calc(var(--dur-celebrate, 900ms) * 2.2) ease-in-out infinite
+    alternate;
+}
+
+.kodama.kodama-idle .kodama-arm-l {
+  animation: kodama-arm-sway calc(var(--dur-celebrate, 900ms) * 2) ease-in-out infinite alternate;
+}
+
+.kodama.kodama-idle .kodama-arm-r {
+  animation: kodama-arm-sway calc(var(--dur-celebrate, 900ms) * 2)
+    calc(var(--dur-celebrate, 900ms) * -1) ease-in-out infinite alternate;
+}
+
+.kodama .kodama-orb-1 {
+  animation: kodama-orb-drift calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out infinite alternate;
+}
+
+.kodama .kodama-orb-2 {
+  animation: kodama-orb-drift calc(var(--dur-celebrate, 900ms) * 2.5)
+    calc(var(--dur-celebrate, 900ms) * -1.1) ease-in-out infinite alternate;
+}
+
+/* Enter: ghostly woodland fade-in */
+.kodama.kodama-enter .kodama-body {
+  animation: kodama-enter-fade var(--dur-celebrate, 900ms) cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.kodama.kodama-enter .kodama-shadow {
+  animation: kodama-enter-shadow var(--dur-celebrate, 900ms) ease-out both;
+}
+
+/* Hit: startled rattle wince + damage flash */
+.kodama.kodama-hit .kodama-body {
+  animation: kodama-hit-recoil var(--dur-base, 220ms) ease-out both;
+}
+
+.kodama.kodama-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+
+.kodama.kodama-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
+}
+
+/* Attack: head rattle + ripple of concentric echo rings toward lower-left player */
+.kodama.kodama-attack .kodama-body {
+  animation: kodama-attack-lunge var(--dur-stamp, 520ms) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.kodama.kodama-attack .kodama-head {
+  animation: kodama-attack-rattle var(--dur-stamp, 520ms) ease-in-out both;
+}
+
+.kodama.kodama-attack .kodama-echo-ring-1 {
+  animation: kodama-echo-ripple var(--dur-stamp, 520ms) ease-out both;
+}
+
+.kodama.kodama-attack .kodama-echo-ring-2 {
+  animation: kodama-echo-ripple var(--dur-stamp, 520ms) 70ms ease-out both;
+}
+
+.kodama.kodama-attack .kodama-echo-ring-3 {
+  animation: kodama-echo-ripple var(--dur-stamp, 520ms) 140ms ease-out both;
+}
+
+/* Defeat: head droops & spirit dissolves back into the ancient tree */
+.kodama.kodama-defeat .kodama-body {
+  animation: kodama-defeat-fade 600ms ease-in both;
+}
+
+.kodama.kodama-defeat .kodama-shadow {
+  animation: kodama-defeat-shadow 600ms ease-in both;
+}
+
+@keyframes kodama-idle-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.01, 0.99);
+  }
+  50% {
+    transform: translateY(-3px) scale(0.99, 1.02);
+  }
+}
+
+@keyframes kodama-shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1.02);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scaleX(0.92);
+    opacity: 0.74;
+  }
+}
+
+@keyframes kodama-head-rattle {
+  0%,
+  18%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  32% {
+    transform: rotate(13deg) translateY(-1px);
+  }
+  37% {
+    transform: rotate(7deg);
+  }
+  42% {
+    transform: rotate(15deg);
+  }
+  47% {
+    transform: rotate(8deg);
+  }
+  52% {
+    transform: rotate(13deg);
+  }
+  72% {
+    transform: rotate(11deg);
+  }
+}
+
+@keyframes kodama-sapling-sway {
+  from {
+    transform: rotate(-7deg);
+  }
+  to {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes kodama-arm-sway {
+  from {
+    transform: rotate(-5deg) translateY(0.5px);
+  }
+  to {
+    transform: rotate(7deg) translateY(-1.5px);
+  }
+}
+
+@keyframes kodama-orb-drift {
+  from {
+    transform: translateY(3px) scale(0.9);
+    opacity: 0.55;
+  }
+  to {
+    transform: translateY(-5px) scale(1.08);
+    opacity: 0.95;
+  }
+}
+
+@keyframes kodama-enter-fade {
+  0% {
+    transform: translateY(-12px) scale(0.86, 1.1);
+    opacity: 0;
+  }
+  45% {
+    transform: translateY(2px) scale(1.03, 0.97) rotate(-4deg);
+    opacity: 0.65;
+  }
+  75% {
+    transform: translateY(-2px) scale(0.99, 1.01) rotate(3deg);
+    opacity: 0.92;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes kodama-enter-shadow {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes kodama-hit-recoil {
+  0% {
+    transform: none;
+  }
+  35% {
+    transform: translate(7px, -2px) rotate(6deg) scale(0.95, 1.05);
+  }
+  70% {
+    transform: translate(-2px, 1px) rotate(-3deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes kodama-attack-lunge {
+  0% {
+    transform: none;
+  }
+  22% {
+    transform: translate(5px, -5px) scale(1.06, 0.94) rotate(6deg);
+  }
+  50% {
+    transform: translate(-12px, 12px) scale(1.12, 1.06) rotate(-8deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes kodama-attack-rattle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(16deg);
+  }
+  35% {
+    transform: rotate(-18deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+  65% {
+    transform: rotate(-14deg);
+  }
+  80% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes kodama-echo-ripple {
+  0% {
+    transform: translate(0, 0) scale(0.35);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.92;
+  }
+  85% {
+    transform: translate(-24px, 18px) scale(1.45);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(-28px, 21px) scale(1.65);
+    opacity: 0;
+  }
+}
+
+@keyframes kodama-defeat-fade {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(3px) scale(1.06, 0.9) rotate(12deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(24px) scale(0.76, 0.62) rotate(-16deg);
+    opacity: 0;
+  }
+}
+
+@keyframes kodama-defeat-shadow {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(0.35);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+ * 2. BAKE-DANUKI (化け狸): shape-shifting tanuki — smoke puff & belly-drum
+ * ========================================================================== */
+
+.bake-danuki-belly {
+  transform-origin: 50px 71px;
+  will-change: transform;
+}
+
+.bake-danuki-leaf {
+  transform-origin: 50px 18px;
+  will-change: transform;
+}
+
+.bake-danuki-tail {
+  transform-origin: 64px 78px;
+  will-change: transform;
+}
+
+.bake-danuki-arm-l {
+  transform-origin: 27px 62px;
+  will-change: transform;
+}
+
+.bake-danuki-arm-r {
+  transform-origin: 73px 62px;
+  will-change: transform;
+}
+
+.bake-danuki-smoke,
+.bake-danuki-drum-wave {
+  transform-origin: 50px 68px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Idle: jovial belly bounce, wagging striped tail, magic leaf twitch */
+.bake-danuki.bake-danuki-idle .bake-danuki-body,
+.enemy-bake-danuki.enemy-idle .bake-danuki-body {
+  animation: bake-danuki-idle-bounce calc(var(--dur-celebrate, 900ms) * 2) ease-in-out infinite;
+}
+
+.bake-danuki.bake-danuki-idle .bake-danuki-shadow,
+.enemy-bake-danuki.enemy-idle .bake-danuki-shadow {
+  animation: bake-danuki-shadow-pulse calc(var(--dur-celebrate, 900ms) * 2) ease-in-out infinite;
+}
+
+.bake-danuki.bake-danuki-idle .bake-danuki-belly {
+  animation: bake-danuki-belly-jiggle calc(var(--dur-celebrate, 900ms) * 2) ease-in-out infinite;
+}
+
+.bake-danuki.bake-danuki-idle .bake-danuki-leaf {
+  animation: bake-danuki-leaf-wiggle calc(var(--dur-celebrate, 900ms) * 2.4) ease-in-out infinite
+    alternate;
+}
+
+.bake-danuki.bake-danuki-idle .bake-danuki-tail {
+  animation: bake-danuki-tail-wag calc(var(--dur-celebrate, 900ms) * 1.9) ease-in-out infinite
+    alternate;
+}
+
+.bake-danuki.bake-danuki-idle .bake-danuki-arm-l {
+  animation: bake-danuki-arm-sway calc(var(--dur-celebrate, 900ms) * 2) ease-in-out infinite
+    alternate;
+}
+
+.bake-danuki.bake-danuki-idle .bake-danuki-arm-r {
+  animation: bake-danuki-arm-sway calc(var(--dur-celebrate, 900ms) * 2)
+    calc(var(--dur-celebrate, 900ms) * -1) ease-in-out infinite alternate;
+}
+
+/* Enter: ghostly smoke-shimmer fade-in */
+.bake-danuki.bake-danuki-enter .bake-danuki-body {
+  animation: bake-danuki-enter-fade var(--dur-celebrate, 900ms) cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.bake-danuki.bake-danuki-enter .bake-danuki-shadow {
+  animation: bake-danuki-enter-shadow var(--dur-celebrate, 900ms) ease-out both;
+}
+
+/* Hit: belly squash wince + damage flash */
+.bake-danuki.bake-danuki-hit .bake-danuki-body {
+  animation: bake-danuki-hit-recoil var(--dur-base, 220ms) ease-out both;
+}
+
+.bake-danuki.bake-danuki-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+
+.bake-danuki.bake-danuki-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
+}
+
+/* Attack: hara-tsuzumi belly-drum + billowing smoke puffs toward lower-left */
+.bake-danuki.bake-danuki-attack .bake-danuki-body {
+  animation: bake-danuki-attack-lunge var(--dur-stamp, 520ms) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.bake-danuki.bake-danuki-attack .bake-danuki-belly {
+  animation: bake-danuki-belly-drum var(--dur-stamp, 520ms) ease-in-out both;
+}
+
+.bake-danuki.bake-danuki-attack .bake-danuki-arm-l {
+  animation: bake-danuki-drum-l var(--dur-stamp, 520ms) ease-in-out both;
+}
+
+.bake-danuki.bake-danuki-attack .bake-danuki-arm-r {
+  animation: bake-danuki-drum-r var(--dur-stamp, 520ms) ease-in-out both;
+}
+
+.bake-danuki.bake-danuki-attack .bake-danuki-drum-wave {
+  animation: bake-danuki-wave-burst var(--dur-stamp, 520ms) ease-out both;
+}
+
+.bake-danuki.bake-danuki-attack .bake-danuki-smoke-1 {
+  animation: bake-danuki-smoke-puff-1 var(--dur-stamp, 520ms) ease-out both;
+}
+
+.bake-danuki.bake-danuki-attack .bake-danuki-smoke-2 {
+  animation: bake-danuki-smoke-puff-2 var(--dur-stamp, 520ms) 55ms ease-out both;
+}
+
+.bake-danuki.bake-danuki-attack .bake-danuki-smoke-3 {
+  animation: bake-danuki-smoke-puff-3 var(--dur-stamp, 520ms) 110ms ease-out both;
+}
+
+/* Defeat: tumbles onto round rump in a poof and fades */
+.bake-danuki.bake-danuki-defeat .bake-danuki-body {
+  animation: bake-danuki-defeat-tumble 600ms ease-in both;
+}
+
+.bake-danuki.bake-danuki-defeat .bake-danuki-shadow {
+  animation: bake-danuki-defeat-shadow 600ms ease-in both;
+}
+
+@keyframes bake-danuki-idle-bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.03, 0.97);
+  }
+  50% {
+    transform: translateY(-4px) scale(0.98, 1.03);
+  }
+}
+
+@keyframes bake-danuki-shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1.04);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scaleX(0.91);
+    opacity: 0.74;
+  }
+}
+
+@keyframes bake-danuki-belly-jiggle {
+  0%,
+  100% {
+    transform: scale(1.03, 0.97);
+  }
+  50% {
+    transform: translateY(-1.5px) scale(0.97, 1.04);
+  }
+}
+
+@keyframes bake-danuki-leaf-wiggle {
+  from {
+    transform: rotate(-8deg) scale(0.98, 1.02);
+  }
+  to {
+    transform: rotate(10deg) scale(1.02, 0.98);
+  }
+}
+
+@keyframes bake-danuki-tail-wag {
+  from {
+    transform: rotate(-8deg);
+  }
+  to {
+    transform: rotate(11deg);
+  }
+}
+
+@keyframes bake-danuki-arm-sway {
+  from {
+    transform: rotate(-5deg) translateY(1px);
+  }
+  to {
+    transform: rotate(7deg) translateY(-2px);
+  }
+}
+
+@keyframes bake-danuki-enter-fade {
+  0% {
+    transform: translateY(-10px) scale(0.82, 1.12);
+    opacity: 0;
+  }
+  45% {
+    transform: translateY(3px) scale(1.06, 0.94);
+    opacity: 0.68;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bake-danuki-enter-shadow {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bake-danuki-hit-recoil {
+  0% {
+    transform: none;
+  }
+  35% {
+    transform: translate(7px, 2px) scale(1.08, 0.91) rotate(4deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes bake-danuki-attack-lunge {
+  0% {
+    transform: none;
+  }
+  20% {
+    transform: translate(5px, -4px) scale(1.06, 0.94);
+  }
+  48% {
+    transform: translate(-12px, 12px) scale(1.14, 1.06) rotate(-5deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes bake-danuki-belly-drum {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.16, 0.88);
+  }
+  42% {
+    transform: scale(0.92, 1.12);
+  }
+  60% {
+    transform: scale(1.18, 0.86);
+  }
+  78% {
+    transform: scale(0.96, 1.05);
+  }
+}
+
+@keyframes bake-danuki-drum-l {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25%,
+  60% {
+    transform: translate(11px, 5px) rotate(-28deg);
+  }
+  42% {
+    transform: translate(3px, -2px) rotate(10deg);
+  }
+}
+
+@keyframes bake-danuki-drum-r {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25%,
+  60% {
+    transform: translate(-3px, -2px) rotate(-10deg);
+  }
+  42%,
+  75% {
+    transform: translate(-11px, 5px) rotate(28deg);
+  }
+}
+
+@keyframes bake-danuki-wave-burst {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.95;
+  }
+  85% {
+    transform: translate(-20px, 14px) scale(1.38);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(-24px, 17px) scale(1.52);
+    opacity: 0;
+  }
+}
+
+@keyframes bake-danuki-smoke-puff-1 {
+  0% {
+    transform: translate(0, 0) scale(0.3);
+    opacity: 0;
+  }
+  22% {
+    opacity: 0.92;
+  }
+  85% {
+    transform: translate(-24px, 16px) scale(1.35);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-28px, 19px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes bake-danuki-smoke-puff-2 {
+  0% {
+    transform: translate(0, 0) scale(0.25);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.88;
+  }
+  85% {
+    transform: translate(-18px, 22px) scale(1.28);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(-22px, 25px) scale(1.42);
+    opacity: 0;
+  }
+}
+
+@keyframes bake-danuki-smoke-puff-3 {
+  0% {
+    transform: translate(0, 0) scale(0.28);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  85% {
+    transform: translate(-28px, 9px) scale(1.25);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-32px, 12px) scale(1.38);
+    opacity: 0;
+  }
+}
+
+@keyframes bake-danuki-defeat-tumble {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  28% {
+    transform: translateY(3px) scale(1.1, 0.86) rotate(8deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(25px) scale(0.82, 0.68) rotate(22deg);
+    opacity: 0;
+  }
+}
+
+@keyframes bake-danuki-defeat-shadow {
+  0% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+ * 3. KARASU-TENGU (烏天狗): hovering crow-tengu — wing hover & hauchiwa gust
+ * ========================================================================== */
+
+.karasu-tengu-wing-l {
+  transform-origin: 34px 56px;
+  will-change: transform;
+}
+
+.karasu-tengu-wing-r {
+  transform-origin: 66px 56px;
+  will-change: transform;
+}
+
+.karasu-tengu-fan {
+  transform-origin: 73px 58px;
+  will-change: transform;
+}
+
+.karasu-tengu-feet {
+  transform-origin: 50px 80px;
+  will-change: transform;
+}
+
+.karasu-tengu-gust {
+  transform-origin: 52px 58px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Idle: hovers on its wings while the ground shadow shrinks in sync */
+.karasu-tengu.karasu-tengu-idle .karasu-tengu-body,
+.enemy-karasu-tengu.enemy-idle .karasu-tengu-body {
+  animation: karasu-tengu-hover calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out infinite;
+}
+
+.karasu-tengu.karasu-tengu-idle .karasu-tengu-shadow,
+.enemy-karasu-tengu.enemy-idle .karasu-tengu-shadow {
+  animation: karasu-tengu-shadow-shrink calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out infinite;
+}
+
+.karasu-tengu.karasu-tengu-idle .karasu-tengu-wing-l {
+  animation: karasu-tengu-flap-l calc(var(--dur-celebrate, 900ms) * 1.05) ease-in-out infinite
+    alternate;
+}
+
+.karasu-tengu.karasu-tengu-idle .karasu-tengu-wing-r {
+  animation: karasu-tengu-flap-r calc(var(--dur-celebrate, 900ms) * 1.05) ease-in-out infinite
+    alternate;
+}
+
+.karasu-tengu.karasu-tengu-idle .karasu-tengu-fan {
+  animation: karasu-tengu-fan-sway calc(var(--dur-celebrate, 900ms) * 2.1) ease-in-out infinite
+    alternate;
+}
+
+/* Enter: swooping ghostly descent from the canopy */
+.karasu-tengu.karasu-tengu-enter .karasu-tengu-body {
+  animation: karasu-tengu-enter-swoop var(--dur-celebrate, 900ms) cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+.karasu-tengu.karasu-tengu-enter .karasu-tengu-shadow {
+  animation: karasu-tengu-enter-shadow var(--dur-celebrate, 900ms) ease-out both;
+}
+
+/* Hit: mid-air flinch + damage flash */
+.karasu-tengu.karasu-tengu-hit .karasu-tengu-body {
+  animation: karasu-tengu-hit-recoil var(--dur-base, 220ms) ease-out both;
+}
+
+.karasu-tengu.karasu-tengu-hit .enemy-damage-flash-white {
+  animation: enemy-hit-flash-white 160ms steps(1, end) both;
+}
+
+.karasu-tengu.karasu-tengu-hit .enemy-damage-flash-red {
+  animation: enemy-hit-flash-red 160ms steps(1, end) both;
+}
+
+/* Attack: sweeping hauchiwa feather-fan slash + gale wind gusts toward lower-left */
+.karasu-tengu.karasu-tengu-attack .karasu-tengu-body {
+  animation: karasu-tengu-attack-swoop var(--dur-stamp, 520ms) cubic-bezier(0.34, 1.56, 0.64, 1)
+    both;
+}
+
+.karasu-tengu.karasu-tengu-attack .karasu-tengu-fan {
+  animation: karasu-tengu-fan-slash var(--dur-stamp, 520ms) cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.karasu-tengu.karasu-tengu-attack .karasu-tengu-wing-l {
+  animation: karasu-tengu-wing-flare-l var(--dur-stamp, 520ms) ease-out both;
+}
+
+.karasu-tengu.karasu-tengu-attack .karasu-tengu-wing-r {
+  animation: karasu-tengu-wing-flare-r var(--dur-stamp, 520ms) ease-out both;
+}
+
+.karasu-tengu.karasu-tengu-attack .karasu-tengu-gust-1 {
+  animation: karasu-tengu-gust-sweep var(--dur-stamp, 520ms) ease-out both;
+}
+
+.karasu-tengu.karasu-tengu-attack .karasu-tengu-gust-2 {
+  animation: karasu-tengu-gust-sweep var(--dur-stamp, 520ms) 65ms ease-out both;
+}
+
+.karasu-tengu.karasu-tengu-attack .karasu-tengu-gust-3 {
+  animation: karasu-tengu-gust-sweep var(--dur-stamp, 520ms) 130ms ease-out both;
+}
+
+/* Defeat: wings fold & tengu drops from its hover */
+.karasu-tengu.karasu-tengu-defeat .karasu-tengu-body {
+  animation: karasu-tengu-defeat-drop 600ms ease-in both;
+}
+
+.karasu-tengu.karasu-tengu-defeat .karasu-tengu-shadow {
+  animation: karasu-tengu-defeat-shadow 600ms ease-in both;
+}
+
+@keyframes karasu-tengu-hover {
+  0%,
+  100% {
+    transform: translateY(-2px) scale(1.01, 0.99);
+  }
+  50% {
+    transform: translateY(-10px) scale(0.99, 1.02);
+  }
+}
+
+@keyframes karasu-tengu-shadow-shrink {
+  0%,
+  100% {
+    transform: scale(0.92, 0.9);
+    opacity: 0.78;
+  }
+  50% {
+    transform: scale(0.62, 0.65);
+    opacity: 0.42;
+  }
+}
+
+@keyframes karasu-tengu-flap-l {
+  from {
+    transform: rotate(-8deg) scaleY(0.96);
+  }
+  to {
+    transform: rotate(16deg) scaleY(1.04);
+  }
+}
+
+@keyframes karasu-tengu-flap-r {
+  from {
+    transform: rotate(8deg) scaleY(0.96);
+  }
+  to {
+    transform: rotate(-16deg) scaleY(1.04);
+  }
+}
+
+@keyframes karasu-tengu-fan-sway {
+  from {
+    transform: rotate(-6deg);
+  }
+  to {
+    transform: rotate(9deg);
+  }
+}
+
+@keyframes karasu-tengu-enter-swoop {
+  0% {
+    transform: translateY(-18px) scale(0.84, 1.12);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-3px) scale(1.03, 0.97);
+    opacity: 0.72;
+  }
+  100% {
+    transform: translateY(-2px) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes karasu-tengu-enter-shadow {
+  0% {
+    transform: scale(0.25);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.92, 0.9);
+    opacity: 0.78;
+  }
+}
+
+@keyframes karasu-tengu-hit-recoil {
+  0% {
+    transform: translateY(-4px);
+  }
+  35% {
+    transform: translate(8px, -7px) rotate(6deg);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes karasu-tengu-attack-swoop {
+  0% {
+    transform: translateY(-4px);
+  }
+  24% {
+    transform: translate(7px, -12px) scale(1.06, 0.95) rotate(6deg);
+  }
+  52% {
+    transform: translate(-14px, 10px) scale(1.14, 1.06) rotate(-8deg);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes karasu-tengu-fan-slash {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  24% {
+    transform: rotate(-32deg) scale(1.08);
+  }
+  52% {
+    transform: translate(-14px, 8px) rotate(48deg) scale(1.16);
+  }
+}
+
+@keyframes karasu-tengu-wing-flare-l {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  24% {
+    transform: rotate(22deg) scale(1.1);
+  }
+  52% {
+    transform: rotate(-16deg) scale(1.05);
+  }
+}
+
+@keyframes karasu-tengu-wing-flare-r {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  24% {
+    transform: rotate(-22deg) scale(1.1);
+  }
+  52% {
+    transform: rotate(16deg) scale(1.05);
+  }
+}
+
+@keyframes karasu-tengu-gust-sweep {
+  0% {
+    transform: translate(8px, -6px) scale(0.45);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.95;
+  }
+  85% {
+    transform: translate(-26px, 20px) scale(1.38);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(-32px, 24px) scale(1.52);
+    opacity: 0;
+  }
+}
+
+@keyframes karasu-tengu-defeat-drop {
+  0% {
+    transform: translateY(-4px) scale(1);
+    opacity: 1;
+  }
+  28% {
+    transform: translateY(2px) scale(1.06, 0.9) rotate(-8deg);
+    opacity: 0.92;
+  }
+  100% {
+    transform: translateY(26px) scale(0.78, 0.66) rotate(18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes karasu-tengu-defeat-shadow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(0.35);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kodama,
+  .kodama *,
+  .bake-danuki,
+  .bake-danuki *,
+  .karasu-tengu,
+  .karasu-tengu * {
+    animation: none !important;
+  }
+}
