@@ -476,7 +476,10 @@ export function RokurokubiArt({ state }: { state: EnemyState }): ReactNode {
         {/* Floating night-lantern spirit wisp */}
         <g className="rokurokubi-wisp">
           <path d="M86 25 C90 30 90 36 86 38 C82 36 82 30 86 25 Z" fill={kimonoShade} />
-          <path d="M86 23 C89.5 28 89.5 33.5 86 35.5 C82.5 33.5 82.5 28 86 23 Z" fill="var(--c-glow)" />
+          <path
+            d="M86 23 C89.5 28 89.5 33.5 86 35.5 C82.5 33.5 82.5 28 86 23 Z"
+            fill="var(--c-glow)"
+          />
           <circle cx="86" cy="31" r="1.8" fill={SHINE} />
         </g>
 
@@ -554,8 +557,18 @@ export function RokurokubiArt({ state }: { state: EnemyState }): ReactNode {
 
             {/* Golden blossom kanzashi hairpin with dangling shidare drops */}
             <g className="rokurokubi-kanzashi">
-              <path d="M47 18 L63 8" stroke="var(--c-gold)" strokeWidth="3.2" strokeLinecap="round" />
-              <path d="M47 17 L63 7" stroke="var(--c-glow)" strokeWidth="2.2" strokeLinecap="round" />
+              <path
+                d="M47 18 L63 8"
+                stroke="var(--c-gold)"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M47 17 L63 7"
+                stroke="var(--c-glow)"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+              />
               <circle cx="61" cy="9.5" r="4.5" fill={kimonoShade} />
               <circle cx="61" cy="8" r="4.5" fill="var(--c-petal)" />
               <circle cx="61" cy="8" r="1.8" fill="var(--c-glow)" />
@@ -734,7 +747,12 @@ export function BakenekoArt({ state }: { state: EnemyState }): ReactNode {
           <ellipse cx="23" cy="60" rx="7.5" ry="5.5" fill={furShade} />
           <ellipse cx="23" cy="57.5" rx="7.5" ry="5.2" fill={CREAM} />
           <circle cx="22" cy="58" r="2.4" fill="var(--c-petal)" />
-          <path d="M16 55 L13 53 M16 58 L12.5 57.5 M17 61 L14 62" stroke={CREAM} strokeWidth="2.2" strokeLinecap="round" />
+          <path
+            d="M16 55 L13 53 M16 58 L12.5 57.5 M17 61 L14 62"
+            stroke={CREAM}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
         </g>
 
         {/* Right paw balancing a ceramic lamp-oil dish (abura-zara) with flickering flame */}
@@ -745,7 +763,10 @@ export function BakenekoArt({ state }: { state: EnemyState }): ReactNode {
           <ellipse cx="83" cy="54" rx="10.5" ry="4" fill="var(--c-accent)" />
           <ellipse cx="83" cy="53.5" rx="7.5" ry="2.5" fill="var(--c-glow)" />
           <g className="bakeneko-flame">
-            <path d="M83 41 C87.5 46.5 87.5 52 83 53 C78.5 52 78.5 46.5 83 41 Z" fill="var(--c-glow)" />
+            <path
+              d="M83 41 C87.5 46.5 87.5 52 83 53 C78.5 52 78.5 46.5 83 41 Z"
+              fill="var(--c-glow)"
+            />
             <circle cx="83" cy="49" r="2.3" fill={SHINE} />
           </g>
         </g>
@@ -783,10 +804,7 @@ export function BakenekoArt({ state }: { state: EnemyState }): ReactNode {
         />
 
         {/* Edo tenugui cotton towel draped on head with knotted ends on the right */}
-        <path
-          d="M25 27 C27 17 37 13 50 13 C63 13 73 17 75 27 Q50 23 25 27 Z"
-          fill={haoriShade}
-        />
+        <path d="M25 27 C27 17 37 13 50 13 C63 13 73 17 75 27 Q50 23 25 27 Z" fill={haoriShade} />
         <path
           d="M25 24.5 C27 15 37 11 50 11 C63 11 73 15 75 24.5 Q50 20.5 25 24.5 Z"
           fill={CREAM}
@@ -857,8 +875,14 @@ export function BakenekoArt({ state }: { state: EnemyState }): ReactNode {
         renderSilhouette={(fill) => (
           <g className="enemy-body bakeneko-body">
             <g className="bakeneko-tail">
-              <path d="M58 78 C74 79 89 67 89 45 C89 38 81 37 79 44 C77 52 71 63 58 69 Z" fill={fill} />
-              <path d="M60 80 C77 85 95 77 95 58 C95 51 87 51 85 57 C82 64 74 71 60 71 Z" fill={fill} />
+              <path
+                d="M58 78 C74 79 89 67 89 45 C89 38 81 37 79 44 C77 52 71 63 58 69 Z"
+                fill={fill}
+              />
+              <path
+                d="M60 80 C77 85 95 77 95 58 C95 51 87 51 85 57 C82 64 74 71 60 71 Z"
+                fill={fill}
+              />
             </g>
             <ellipse cx="39" cy="88" rx="8" ry="4.5" fill={fill} />
             <ellipse cx="61" cy="88" rx="8" ry="4.5" fill={fill} />
@@ -879,4 +903,3 @@ export function BakenekoArt({ state }: { state: EnemyState }): ReactNode {
     </g>
   );
 }
-

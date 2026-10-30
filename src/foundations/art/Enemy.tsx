@@ -4,7 +4,7 @@
  */
 import type { ReactNode } from 'react';
 import './art.css';
-import { ChochinObakeArt, NopperaboArt } from './foes/CityYokai';
+import { BakenekoArt, ChochinObakeArt, NopperaboArt } from './foes/CityYokai';
 import { TraineeBokkenArt, TraineeSenpaiArt } from './foes/DojoFoes';
 import { BakeDanukiArt, KarasuTenguArt, KodamaArt } from './foes/ForestYokai';
 
@@ -21,6 +21,7 @@ export const ENEMY_KINDS = [
   'trainee-senpai',
   'chochin-obake',
   'nopperabo',
+  'bakeneko',
 ] as const;
 export type EnemyKind = (typeof ENEMY_KINDS)[number];
 export type EnemyState = 'idle' | 'hit' | 'attack' | 'defeat' | 'enter';
@@ -1218,6 +1219,9 @@ export function Enemy({
       break;
     case 'nopperabo':
       content = <NopperaboArt state={state} />;
+      break;
+    case 'bakeneko':
+      content = <BakenekoArt state={state} />;
       break;
   }
 
