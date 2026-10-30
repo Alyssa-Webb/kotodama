@@ -23,8 +23,13 @@ async function visibleText(page: Page, selector: string): Promise<string> {
 export async function answerKanaQuestion(page: Page): Promise<boolean> {
   const card = page.locator('.question');
   if (!(await card.isVisible().catch(() => false))) return false;
-  const showText = page.getByRole('button', { name: "Can't listen now? Show text" });
-  if (await showText.isVisible().catch(() => false)) await showText.click();
+  // Listening questions can't be read off the page any more (that gave the answer away), so
+  // the e2e learner takes the ungraded "can't listen now" skip, like a player on a train.
+  const skip = page.getByRole('button', { name: "Can't listen now? Skip" });
+  if (await skip.isVisible().catch(() => false)) {
+    await skip.click();
+    return true;
+  }
   const instruction = await visibleText(page, '.question .eyebrow');
 
   if (instruction === 'Match the pairs') {
