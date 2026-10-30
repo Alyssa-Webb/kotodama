@@ -15,6 +15,7 @@ import { Rng } from './rng';
 import { answer, startSession, summarize, type SessionConfig } from './lesson/session';
 import {
   applyKintsugi,
+  applyTestGrant,
   buy,
   buyCharm,
   changeDifficulty,
@@ -433,5 +434,20 @@ describe('review fixes (regressions)', () => {
     const s = playLesson(newSave(T0, 'UTC', 1, economy), T0);
     const card = s.cards['k.a#main']!;
     expect(card.dueAt - T0).toBeLessThan(3 * 24 * H);
+  });
+});
+
+describe('testing token grant', () => {
+  it('grants the configured tokens exactly once, to new and existing saves', () => {
+    const c = { ...ctx(T0), economy: { ...economy, testing: { grantTokens: 5 } } };
+    const s0 = newSave(T0, 'UTC', 1, economy);
+    const s1 = applyTestGrant(s0, c);
+    expect(balanceOf(s1.ledger, 'token')).toBe(balanceOf(s0.ledger, 'token') + 5);
+    expect(applyTestGrant(s1, c)).toBe(s1);
+  });
+  it('does nothing once the grant is set to 0 for launch', () => {
+    const c = { ...ctx(T0), economy: { ...economy, testing: { grantTokens: 0 } } };
+    const s0 = newSave(T0, 'UTC', 1, economy);
+    expect(applyTestGrant(s0, c)).toBe(s0);
   });
 });

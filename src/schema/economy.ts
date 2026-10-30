@@ -83,6 +83,11 @@ export const EconomySchema = z.object({
     hitDamage: z.number().int().positive(),
   }),
   charms: z.object({ gakugyoReviewXp: z.number().positive(), mimiListeningKoban: nonneg }),
+  /**
+   * Testing only: a one-time grant added to every save (new or existing) on load. Set to 0
+   * before launch.
+   */
+  testing: z.object({ grantTokens: z.number().int().nonnegative() }).default({ grantTokens: 0 }),
   gachapon: z.object({
     cost: z.number().int().positive(),
     pityAfter: z.number().int().positive(),

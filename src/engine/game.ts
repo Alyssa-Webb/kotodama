@@ -165,6 +165,18 @@ export interface SettleNotice {
  * Hardcore koban spoil, daily heart refills and the daily counters. Idempotent within a day;
  * a clock that moves backwards (time-zone change westward) is ignored.
  */
+/** Testing only: grants `economy.testing.grantTokens` capsule tokens once per save. */
+export function applyTestGrant(s: SaveState, c: Ctx): SaveState {
+  const n = c.economy.testing.grantTokens;
+  if (n <= 0 || s.ledger.some((e) => e.reason === 'test-grant')) return s;
+  return {
+    ...s,
+    ledger: append(s.ledger, c.now, today(s, c), [
+      { asset: 'token', amount: n, reason: 'test-grant' },
+    ]),
+  };
+}
+
 export function settleDay(s: SaveState, c: Ctx): { save: SaveState; notices: SettleNotice[] } {
   const day = today(s, c);
   const last = s.streak.lastProcessedDay ?? day;

@@ -127,6 +127,7 @@
     "manekiKobanBonus": 0.25
   },
   "streakFreezeMax": 2,
+  "testing": { "grantTokens": 5 },
   "gachapon": {
     "cost": 1,
     "pityAfter": 10,

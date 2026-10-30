@@ -4,7 +4,7 @@
  */
 import { create } from 'zustand';
 import type { Clock } from '../../engine/clock';
-import { newSave, settleDay, type Ctx, type SettleNotice } from '../../engine/game';
+import { applyTestGrant, newSave, settleDay, type Ctx, type SettleNotice } from '../../engine/game';
 import { createScheduler, type Scheduler } from '../../engine/memory/scheduler';
 import { PackIndex } from '../../engine/pack/index';
 import { migrateSave } from '../../engine/save/migrate';
@@ -160,6 +160,8 @@ export const useGame = create<GameState>((set, get) => ({
         if (!m.ok) throw new Error(`Could not read your saved progress: ${m.error}`);
         save = m.save;
       }
+      const loaded = save;
+      save = applyTestGrant(save, { now: clock.now(), timeZone: clock.timeZone(), economy });
       const settled = settleDay(save, { now: clock.now(), timeZone: clock.timeZone(), economy });
       wireVoices(repos, packs);
       set({
@@ -173,7 +175,7 @@ export const useGame = create<GameState>((set, get) => ({
         ready: true,
         error: null,
       });
-      if (raw === undefined || settled.save !== save) await repos.profile.save(settled.save);
+      if (raw === undefined || settled.save !== loaded) await repos.profile.save(settled.save);
     } catch (e) {
       set({ error: e instanceof Error ? e.message : String(e), ready: false });
     }
