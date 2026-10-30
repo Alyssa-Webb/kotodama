@@ -1,0 +1,361 @@
+/* ---------- gachapon case reel (transform + opacity only) ---------- */
+.m-case {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  --tint: var(--c-surface);
+}
+.m-case-rare {
+  --tint: var(--c-secondary);
+}
+.m-case-legendary {
+  --tint: var(--c-glow);
+}
+.m-case-dim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    80% 60% at 50% 45%,
+    color-mix(in srgb, var(--c-hud-bg) 55%, transparent),
+    color-mix(in srgb, var(--c-hud-bg) 92%, transparent)
+  );
+  animation: m-case-in 260ms ease both;
+}
+@keyframes m-case-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The window the strip races through, with a lacquer frame and soft edge fades. */
+.m-case-window {
+  position: relative;
+  width: 100%;
+  height: calc(var(--card) * 1.42);
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-lacquer) 80%, black),
+    var(--c-lacquer) 45%,
+    color-mix(in srgb, var(--c-lacquer) 70%, black)
+  );
+  border-block: 4px solid var(--c-gold);
+  -webkit-mask: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
+  mask: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
+  animation: m-case-window 420ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes m-case-window {
+  from {
+    transform: scaleY(0.05);
+    opacity: 0;
+  }
+}
+.m-case-strip {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: flex;
+  gap: var(--gap);
+  margin-top: calc(var(--card) * -0.6);
+  will-change: transform;
+}
+.m-case-card {
+  position: relative;
+  flex: none;
+  width: var(--card);
+  height: calc(var(--card) * 1.2);
+  display: grid;
+  place-items: center;
+  border-radius: 14px 18px 12px 16px;
+  background: radial-gradient(
+    80% 70% at 40% 30%,
+    color-mix(in srgb, var(--c-panel) 92%, white),
+    var(--c-panel)
+  );
+  box-shadow: inset 0 -6px 0 color-mix(in srgb, var(--c-panel) 70%, var(--c-ink));
+  --r: var(--c-ink-muted);
+}
+.m-r-rare {
+  --r: var(--c-secondary);
+}
+.m-r-legendary {
+  --r: var(--c-glow);
+}
+.m-case-art svg {
+  display: block;
+  width: calc(var(--card) * 0.68);
+  height: auto;
+}
+.m-case-bar {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 6px;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--r);
+}
+.m-r-legendary .m-case-bar {
+  height: 8px;
+  background: linear-gradient(90deg, var(--c-glow), var(--c-coin-shine), var(--c-glow));
+}
+.m-case-marker {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  margin-left: -2px;
+  border-radius: 4px;
+  background: var(--c-gold);
+}
+.m-case-marker::before,
+.m-case-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: 10px solid transparent;
+}
+.m-case-marker::before {
+  top: -2px;
+  border-top-color: var(--c-gold);
+}
+.m-case-marker::after {
+  bottom: -2px;
+  border-bottom-color: var(--c-gold);
+}
+
+.m-case-title,
+.m-case-collect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0;
+  color: var(--c-hud-ink);
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+.m-case-title {
+  top: calc(50% - var(--card) * 1.3);
+  font-size: var(--fs-lg);
+  opacity: 0.7;
+}
+.m-case-collect {
+  top: calc(50% + var(--card) * 1.05);
+  font-size: var(--fs-md);
+  animation:
+    m-case-in 300ms ease both,
+    m-hint-bob 1.4s ease-in-out infinite;
+}
+
+/* ---------- the reveal ---------- */
+.m-case-rays,
+.m-case-shock {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.m-case-rays {
+  width: 170vmax;
+  height: 170vmax;
+  margin: -85vmax 0 0 -85vmax;
+  background: repeating-conic-gradient(
+    color-mix(in srgb, var(--tint) 70%, transparent) 0deg 5deg,
+    transparent 5deg 18deg
+  );
+  -webkit-mask: radial-gradient(closest-side, black 6%, transparent 62%);
+  mask: radial-gradient(closest-side, black 6%, transparent 62%);
+}
+.m-case-shock {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border: 6px solid var(--tint);
+}
+.m-case-reveal .m-case-win {
+  z-index: 2;
+  animation: m-win-pop 620ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+@keyframes m-win-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.32) rotate(-4deg);
+  }
+  100% {
+    transform: scale(1.18) rotate(0deg);
+  }
+}
+.m-case-reveal .m-case-card:not(.m-case-win) {
+  opacity: 0.35;
+  transition: opacity 300ms ease;
+}
+.m-case-reveal .m-case-title {
+  opacity: 1;
+  font-size: var(--fs-xl);
+  color: var(--tint);
+  animation: m-title-slam 520ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+@keyframes m-title-slam {
+  from {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Common: a clean pop and one ring. */
+.m-case-common.m-case-reveal .m-case-shock-1 {
+  animation: m-shock 600ms ease-out both;
+}
+/* Rare: a blue light pillar, rays and two rings. */
+.m-case-rare.m-case-reveal .m-case-rays {
+  animation: m-case-rays 1800ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-shock-1 {
+  animation: m-shock 700ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-shock-2 {
+  animation: m-shock 800ms 160ms ease-out both;
+}
+.m-case-rare.m-case-reveal .m-case-window::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -40vh;
+  width: calc(var(--card) * 1.2);
+  height: 120vh;
+  margin-left: calc(var(--card) * -0.6);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--c-secondary) 60%, white),
+    transparent
+  );
+  opacity: 0;
+  animation: m-pillar 1200ms ease-out both;
+}
+/* Legendary: the screen drops to black, gold rays spin up, two big shockwaves, a shake. */
+.m-case-legendary.m-case-reveal .m-case-dim {
+  animation: m-legend-dim 1600ms ease both;
+}
+.m-case-legendary.m-case-reveal .m-case-rays {
+  animation: m-case-rays 2600ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-shock-1 {
+  animation: m-shock-big 900ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-shock-2 {
+  animation: m-shock-big 1100ms 220ms ease-out both;
+}
+.m-case-legendary.m-case-reveal .m-case-window {
+  animation: m-legend-shake 520ms ease both;
+}
+.m-case-legendary.m-case-reveal .m-case-title {
+  font-size: calc(var(--fs-xl) * 1.4);
+  letter-spacing: 0.06em;
+}
+/* While a legendary crawls to its stop the frame glows gold, before anyone knows why. */
+.m-case-legendary.m-case-spin .m-case-marker {
+  animation: m-marker-pulse 700ms 4200ms ease-in-out infinite both;
+}
+
+@keyframes m-shock {
+  from {
+    transform: scale(0.4);
+    opacity: 0.95;
+  }
+  to {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
+@keyframes m-shock-big {
+  from {
+    transform: scale(0.4);
+    opacity: 1;
+  }
+  to {
+    transform: scale(14);
+    opacity: 0;
+  }
+}
+@keyframes m-case-rays {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.55;
+    transform: scale(1) rotate(70deg);
+  }
+}
+@keyframes m-pillar {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  25% {
+    opacity: 0.9;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1.6);
+  }
+}
+@keyframes m-legend-dim {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes m-legend-shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-6px, 3px);
+  }
+  40% {
+    transform: translate(5px, -4px);
+  }
+  60% {
+    transform: translate(-3px, 2px);
+  }
+  80% {
+    transform: translate(2px, -1px);
+  }
+}
+@keyframes m-marker-pulse {
+  50% {
+    transform: scaleX(2.2);
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-case * {
+    animation: none !important;
+  }
+}

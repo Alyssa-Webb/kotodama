@@ -26,6 +26,7 @@ import { FxLayer } from '../foundations/fx/FxLayer';
 import { TrainingGate } from '../foundations/moments/TrainingGate';
 import { MomentsLayer } from '../foundations/moments/MomentsLayer';
 import { AvatarActor } from '../features/avatar/AvatarActor';
+import { PartPreview } from '../features/avatar/PartPreview';
 import { haptic } from '../foundations/haptics/haptics';
 
 /** Every plastic button answers a press with a tick, in the same frame it squashes. */
@@ -132,7 +133,10 @@ export function App() {
   return (
     <Providers>
       <RouterProvider router={router} />
-      <MomentsLayer actor={(pose) => <AvatarActor mood={pose} size={120} />} />
+      <MomentsLayer
+        actor={(pose) => <AvatarActor mood={pose} size={120} />}
+        part={(id) => <PartPreview id={id} />}
+      />
       <FxLayer />
     </Providers>
   );

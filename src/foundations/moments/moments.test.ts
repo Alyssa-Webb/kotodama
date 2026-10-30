@@ -14,18 +14,21 @@ describe('moments bus', () => {
     noMotion(false);
     await expect(moments.gate('grove')).resolves.toBeUndefined();
     const opened = vi.fn();
-    await moments.capsule('rare', opened);
-    expect(opened).toHaveBeenCalledOnce();
+    await moments.openCase({ items: [{ id: 'x', rarity: 'rare' }], win: 0, landing: 0.5 }, opened);
+    expect(opened).toHaveBeenCalledWith('rare');
   });
 
-  it('skips every moment for reduced motion, but still opens the capsule', async () => {
+  it('skips every moment for reduced motion, but still reveals the prize', async () => {
     noMotion(true);
     const seen: MomentEvent[] = [];
     const off = onMoment((e) => seen.push(e));
     await moments.finish();
     moments.play('maru', { x: 0, y: 0 });
     const opened = vi.fn();
-    await moments.capsule('common', opened);
+    await moments.openCase(
+      { items: [{ id: 'x', rarity: 'common' }], win: 0, landing: 0.5 },
+      opened,
+    );
     off();
     expect(seen).toEqual([]);
     expect(opened).toHaveBeenCalledOnce();

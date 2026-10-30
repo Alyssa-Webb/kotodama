@@ -7,6 +7,7 @@
 import type { MomentName } from '../../schema/theme';
 import type { GateScene } from '../../schema/moments';
 import type { Rarity } from '../../engine/gacha';
+import type { Reel } from '../../engine/gachaReel';
 import { prefersReducedMotion } from '../platform';
 
 export interface Point {
@@ -18,7 +19,7 @@ export type MomentEvent =
   | { kind: 'slot'; name: Exclude<MomentName, 'none'>; at: Point }
   | { kind: 'gate'; scene: GateScene; done: () => void }
   | { kind: 'finish'; done: () => void }
-  | { kind: 'capsule'; rarity: Rarity; onOpen: () => void; done: () => void }
+  | { kind: 'case'; reel: Reel; onReveal: (rarity: Rarity) => void; done: () => void }
   | { kind: 'purchase'; label: string; from: Point; done: () => void };
 
 type Listener = (e: MomentEvent) => void;
@@ -53,12 +54,16 @@ export const moments = {
   /** Purchase: the item's badge pops out of its card and flies to your avatar. */
   purchase: (label: string, from: Point) =>
     waitFor((done) => ({ kind: 'purchase', label, from, done })),
-  /** Gachapon capsule. `onOpen` fires on the pop (immediately when animations are off). */
-  capsule(rarity: Rarity, onOpen: () => void): Promise<void> {
+  /**
+   * Case opening: the reel spins past the marker and stops on the prize. `onReveal` fires as
+   * the prize is revealed (immediately when animations are off).
+   */
+  openCase(reel: Reel, onReveal: (rarity: Rarity) => void): Promise<void> {
+    const rarity = reel.items[reel.win]?.rarity ?? 'common';
     if (!canPlay()) {
-      onOpen();
+      onReveal(rarity);
       return Promise.resolve();
     }
-    return new Promise((resolve) => emit({ kind: 'capsule', rarity, onOpen, done: resolve }));
+    return new Promise((resolve) => emit({ kind: 'case', reel, onReveal, done: resolve }));
   },
 };

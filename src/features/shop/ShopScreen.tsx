@@ -20,6 +20,7 @@ import { playSfx } from '../../foundations/audio/sfx';
 import { useSave, useStats } from '../hooks';
 import { centerOf, fx } from '../../foundations/fx/fx';
 import { moments } from '../../foundations/moments/moments';
+import { buildReel } from '../../engine/gachaReel';
 import { toSurface } from '../../engine/text/furigana';
 import { AvatarActor } from '../avatar/AvatarActor';
 import type { AvatarPart } from '../../schema/world';
@@ -35,6 +36,8 @@ const ERR: Record<PurchaseError, string> = {
   'hearts-full': 'Your hearts are already full.',
   'already-owned': 'You already own this.',
 };
+
+const gachaPool = avatarParts.filter((p) => p.gacha);
 
 export function ShopScreen() {
   const save = useSave();
@@ -125,14 +128,15 @@ export function ShopScreen() {
     setPrize(null);
     setOpening(true);
     playSfx('tap');
-    void moments.capsule(r.prize?.gacha ?? 'common', () => {
-      playSfx('kiai');
-      fx.slot('gacha.open');
+    // The case reel plays the reveal's sound and FX; the shop just shows what you won.
+    const reveal = () => {
       setPrize(won);
       setOpening(false);
       setAvatarMood('cheer');
       setReaction((n) => n + 1);
-    });
+    };
+    if (!r.prize) return reveal();
+    void moments.openCase(buildReel(economy, gachaPool, r.prize, r.rngState), reveal);
   };
 
   return (

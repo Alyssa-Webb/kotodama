@@ -16,6 +16,8 @@ import type { Rarity } from '../../engine/gacha';
 import { momentsConfig } from '../world';
 import { haptic } from '../haptics/haptics';
 import { onMoment, type MomentEvent, type Point } from './moments';
+import { CaseReel } from './CaseOpening';
+import type { Reel } from '../../engine/gachaReel';
 import { cutFromSwipe, DEFAULT_SWIPE, isSwipe, type Cut, type Pt } from './cut';
 
 /** The blade's impact frame in the gate timeline (design: 10–22% of --gate-ms is the stroke). */
@@ -28,7 +30,14 @@ export type ActorPose = 'walk' | 'happy' | 'cheer' | 'idle';
 type Item = MomentEvent & { id: number };
 let nextId = 1;
 
-export function MomentsLayer({ actor }: { actor: (pose: ActorPose) => ReactNode }) {
+export function MomentsLayer({
+  actor,
+  part,
+}: {
+  actor: (pose: ActorPose) => ReactNode;
+  /** Draws a gacha prize (an avatar part) for the case reel. */
+  part: (id: string) => ReactNode;
+}) {
   const [items, setItems] = useState<Item[]>([]);
   // A layout effect subscribes before any screen's effects run, so a training opened directly
   // by URL still gets its gate.
@@ -55,9 +64,16 @@ export function MomentsLayer({ actor }: { actor: (pose: ActorPose) => ReactNode 
             return <Gate key={m.id} scene={m.scene} actor={actor} done={m.done} onEnd={end} />;
           case 'finish':
             return <Finish key={m.id} done={m.done} onEnd={end} />;
-          case 'capsule':
+          case 'case':
             return (
-              <Capsule key={m.id} rarity={m.rarity} onOpen={m.onOpen} done={m.done} onEnd={end} />
+              <CaseMoment
+                key={m.id}
+                reel={m.reel}
+                part={part}
+                onReveal={m.onReveal}
+                done={m.done}
+                onEnd={end}
+              />
             );
           case 'purchase':
             return <Purchase key={m.id} label={m.label} from={m.from} done={m.done} onEnd={end} />;
@@ -1112,6 +1128,42 @@ function Finish({ done, onEnd }: { done: () => void; onEnd: () => void }) {
 }
 
 // ---------- gachapon ----------
+
+/** The capsule drops and pops (tap), then the case reel spins and reveals the prize. */
+function CaseMoment({
+  reel,
+  part,
+  onReveal,
+  done,
+  onEnd,
+}: {
+  reel: Reel;
+  part: (id: string) => ReactNode;
+  onReveal: (rarity: Rarity) => void;
+  done: () => void;
+  onEnd: () => void;
+}) {
+  const [stage, setStage] = useState<'capsule' | 'reel'>('capsule');
+  return stage === 'capsule' ? (
+    // The capsule never shows the rarity: that is the reel's job.
+    <Capsule
+      rarity="common"
+      onOpen={() => window.setTimeout(() => setStage('reel'), 450)}
+      done={() => undefined}
+      onEnd={() => undefined}
+    />
+  ) : (
+    <CaseReel
+      reel={reel}
+      part={part}
+      onReveal={onReveal}
+      onCollect={() => {
+        done();
+        onEnd();
+      }}
+    />
+  );
+}
 
 function Capsule({
   rarity,
