@@ -1119,3 +1119,7 @@ label.field {
 .main .row.spread:has(> h1) > :not(h1) {
   align-self: flex-end;
 }
+/* The top bar already shows your money: no second copy beside a page title. */
+.main .row.spread:has(> h1) > .stat {
+  display: none;
+}

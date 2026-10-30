@@ -51,8 +51,8 @@ export function ShopScreen() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState<string | null>(null);
   const [prize, setPrize] = useState<{ part: AvatarPart; duplicate: boolean } | null>(null);
-  const [avatarMood, setAvatarMood] = useState<'idle' | 'happy' | 'cheer'>('idle');
-  const [reaction, setReaction] = useState(0);
+  const [, setAvatarMood] = useState<'idle' | 'happy' | 'cheer'>('idle');
+  const [, setReaction] = useState(0);
   const rules = economy.difficulty[save.settings.difficulty]!;
 
   const [opening, setOpening] = useState(false);
@@ -169,9 +169,6 @@ export function ShopScreen() {
       )}
       <div className="row spread">
         <h1>Shop</h1>
-        <span className="shop-avatar" aria-hidden="true">
-          <AvatarActor mood={avatarMood} reaction={reaction} size={54} />
-        </span>
         <span className="stat stat-yen">
           <YenIcon size={18} /> {stats.yen}
         </span>
