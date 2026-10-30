@@ -23,7 +23,7 @@ Read this first every session (and after any context compaction), together with 
 
 ## Next
 
-- Owner: publish (Publish to GitHub.command), install VOICEVOX, run Voice Audition and Voice Packs.
+- Owner: install VOICEVOX, run Voice Audition and Voice Packs.
 - Daily quests, omikuji, seasons (v1.1 in the plan); KanjiVG stroke data for graded tracing; Lighthouse CI; Storybook.
 
 ## Decisions
@@ -33,7 +33,6 @@ Read this first every session (and after any context compaction), together with 
 ## Known issues
 
 - 2D moments and haptics not yet felt on a real iPhone/Android; tools/authoring.test.ts fails only on Windows checkouts with CRLF line endings.
-
-- Not deployed: creating the public GitHub repo needs the owner (permission was not granted overnight).
+- Live at https://alyssa-webb.github.io/kotodama/ (repo Alyssa-Webb/kotodama, KenLinz invited with write access).
 - Trace exercises are self-graded (no stroke-order data bundled yet).
 - Real-iPhone checks (silent switch, home-screen install, airplane mode) not done: needs the owner's device.

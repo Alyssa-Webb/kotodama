@@ -89,7 +89,11 @@ export async function answerKanaQuestion(page: Page): Promise<boolean> {
 
 export async function continueIfFeedback(page: Page) {
   const cont = page.locator('.feedback').getByRole('button', { name: 'Continue' });
-  if (await cont.isVisible().catch(() => false)) await cont.click();
+  if (await cont.isVisible().catch(() => false)) {
+    await cont.click();
+    // wait for the next question to replace the feedback before reading the screen again
+    await expect(page.locator('.feedback')).toBeHidden();
+  }
 }
 
 /** Plays the open lesson to its results screen. */
