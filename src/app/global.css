@@ -190,6 +190,9 @@ ruby rt {
 }
 
 .stat {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -212,10 +215,42 @@ ruby rt {
   color: var(--c-ink);
   border: 2px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
   min-height: 34px;
+  transform-origin: center center;
   box-shadow:
     inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 75%, transparent),
     inset 0 -2px 0 color-mix(in srgb, var(--c-panel-edge) 35%, transparent),
     0 4px 0 color-mix(in srgb, var(--c-hud-bg) 75%, var(--c-ink));
+}
+.stat::before,
+.stat::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+.stat::before {
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 50% 35%,
+    color-mix(in srgb, var(--c-glow) 65%, transparent),
+    color-mix(in srgb, var(--c-coin-shine) 40%, transparent) 72%
+  );
+}
+.stat::after {
+  top: -30%;
+  bottom: -30%;
+  left: 0;
+  width: 48%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--c-coin-shine) 92%, transparent),
+    color-mix(in srgb, var(--c-glow) 75%, transparent),
+    transparent
+  );
+  transform: translateX(-170%) skewX(-24deg);
 }
 .stat-yen {
   border-radius: 20px 16px 18px 22px;
@@ -223,15 +258,186 @@ ruby rt {
 .stat-hearts {
   border-radius: 16px 20px 22px 16px;
 }
+.stat-streak {
+  border-radius: 22px 16px 20px 15px;
+}
 .stat svg {
   flex: none;
+  transform-origin: center center;
 }
-.stat.bump {
-  animation: stat-bump var(--dur-slow) var(--spring);
+/* Juicy count-up pop with a sweeping glint when a counter rises. */
+.stat.bump,
+.bump {
+  animation: stat-bump calc(var(--dur-slow) * 1.15) var(--spring);
+}
+.stat.bump::before {
+  animation: stat-flash-up calc(var(--dur-slow) * 1.1) var(--ease);
+}
+.stat.bump::after {
+  animation: stat-glint calc(var(--dur-slow) * 1.25) var(--ease);
+}
+.stat.bump svg {
+  animation: stat-icon-bump calc(var(--dur-slow) * 1.15) var(--spring);
+}
+.stat-hearts.bump::before {
+  background: radial-gradient(
+    circle at 50% 35%,
+    color-mix(in srgb, var(--c-success-soft) 80%, var(--c-glow)),
+    transparent 75%
+  );
+}
+.stat-streak.bump::before {
+  background: radial-gradient(
+    circle at 50% 35%,
+    color-mix(in srgb, var(--c-glow) 78%, var(--c-accent-soft)),
+    transparent 75%
+  );
+}
+/* Matching drop recoil + crimson flash when a counter decreases. */
+.stat.dip,
+.dip {
+  animation: stat-dip calc(var(--dur-slow) * 1.15) var(--ease);
+}
+.stat.dip::before {
+  background: radial-gradient(
+    circle at 50% 45%,
+    color-mix(in srgb, var(--c-danger) 55%, transparent),
+    color-mix(in srgb, var(--c-danger-soft) 80%, transparent) 74%
+  );
+  animation: stat-flash-down calc(var(--dur-slow) * 1.1) var(--ease);
+}
+.stat.dip::after {
+  inset: -20% 0;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--c-danger) 48%, transparent),
+    transparent
+  );
+  transform: translateY(-110%);
+  animation: stat-drain var(--dur-slow) var(--ease);
+}
+.stat.dip svg {
+  animation: stat-icon-dip calc(var(--dur-slow) * 1.1) var(--spring);
 }
 @keyframes stat-bump {
-  40% {
-    transform: scale(1.26) rotate(-4deg);
+  0% {
+    transform: translateY(3px) scale(0.88, 1.12);
+  }
+  34% {
+    transform: translateY(-5px) scale(1.26, 1.3) rotate(-4deg);
+  }
+  62% {
+    transform: translateY(1.5px) scale(0.95, 1.03) rotate(2deg);
+  }
+  82% {
+    transform: translateY(-1.5px) scale(1.05) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+@keyframes stat-glint {
+  0% {
+    transform: translateX(-170%) skewX(-24deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.95;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(260%) skewX(-24deg);
+    opacity: 0;
+  }
+}
+@keyframes stat-flash-up {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  32% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+@keyframes stat-icon-bump {
+  0% {
+    transform: scale(0.9);
+  }
+  38% {
+    transform: translateY(-3px) scale(1.28) rotate(-12deg);
+  }
+  72% {
+    transform: translateY(1px) scale(0.96) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+@keyframes stat-dip {
+  0% {
+    transform: translateY(-1px) scale(1.04);
+  }
+  22% {
+    transform: translate3d(-5px, 4px, 0) scale(0.9, 0.84) rotate(-4.5deg);
+  }
+  44% {
+    transform: translate3d(4px, 2.5px, 0) scale(0.93, 0.96) rotate(3.5deg);
+  }
+  66% {
+    transform: translate3d(-3px, 1px, 0) scale(0.97, 0.95) rotate(-2deg);
+  }
+  84% {
+    transform: translate3d(1.5px, 0, 0) scale(1.01) rotate(0.8deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+}
+@keyframes stat-flash-down {
+  0% {
+    opacity: 0.92;
+    transform: scale(1.04);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+@keyframes stat-drain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
+@keyframes stat-icon-dip {
+  0% {
+    transform: scale(1);
+  }
+  32% {
+    transform: translateY(2.5px) scale(0.8) rotate(-14deg);
+  }
+  68% {
+    transform: translateY(-1px) scale(1.04) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
   }
 }
 
@@ -936,35 +1142,105 @@ label.field {
   position: absolute;
   inset: 0 auto 0 0;
   border-radius: inherit;
+  overflow: hidden;
+  transform-origin: left center;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--c-accent) 75%, var(--c-glow)),
-    var(--c-accent)
+    color-mix(in srgb, var(--c-accent) 68%, var(--c-coin-shine)),
+    var(--c-accent) 58%,
+    color-mix(in srgb, var(--c-accent) 78%, var(--c-lacquer))
   );
-  box-shadow: inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 45%, transparent);
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 52%, transparent),
+    inset 0 -2px 0 color-mix(in srgb, var(--c-lacquer) 38%, transparent);
+  animation: bar-fill-in var(--dur-slow) var(--spring) both;
+  transition:
+    transform var(--dur-slow) var(--spring),
+    opacity var(--dur-base) var(--ease);
+}
+.bar > span::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 18%,
+    color-mix(in srgb, var(--c-coin-shine) 68%, transparent) 46%,
+    color-mix(in srgb, var(--c-glow) 60%, transparent) 56%,
+    transparent 82%
+  );
+  transform: translateX(-140%);
+  animation: bar-shimmer calc(var(--dur-celebrate) * 2.8) var(--ease) infinite;
 }
 .bar > span::after {
   content: '';
   position: absolute;
   right: 0;
   top: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translate(40%, -50%);
+  width: 18px;
+  height: 18px;
+  transform: translate(36%, -50%);
   border-radius: 50%;
-  background: var(--c-glow);
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    var(--c-coin-shine) 0 32%,
+    var(--c-glow) 58%,
+    transparent 74%
+  );
   box-shadow: 0 0 12px 3px var(--c-glow);
-  opacity: 0.85;
+  opacity: 0.92;
+  animation: bar-leading-shine calc(var(--dur-celebrate) * 1.4) ease-in-out infinite alternate;
 }
 .bar-gold > span {
-  background: linear-gradient(180deg, var(--c-glow), var(--c-gold));
+  background: linear-gradient(
+    180deg,
+    var(--c-coin-shine),
+    var(--c-glow) 46%,
+    var(--c-gold)
+  );
 }
 .bar-indigo > span {
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--c-secondary) 72%, var(--c-coin-shine)),
-    var(--c-secondary)
+    color-mix(in srgb, var(--c-secondary) 70%, var(--c-coin-shine)),
+    var(--c-secondary) 60%,
+    color-mix(in srgb, var(--c-secondary) 78%, var(--c-ink))
   );
+}
+@keyframes bar-fill-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes bar-shimmer {
+  0%,
+  45% {
+    transform: translateX(-140%);
+    opacity: 0;
+  }
+  58% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(160%);
+    opacity: 0;
+  }
+}
+@keyframes bar-leading-shine {
+  from {
+    transform: translate(36%, -50%) scale(0.88);
+    opacity: 0.75;
+  }
+  to {
+    transform: translate(36%, -50%) scale(1.18);
+    opacity: 1;
+  }
 }
 
 .ring {

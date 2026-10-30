@@ -37,7 +37,7 @@ const TABS = [
   { to: '/avatar', label: 'Me', icon: <TabAvatar /> },
 ];
 
-/** A HUD counter that bumps when its value goes up. */
+/** A HUD counter that bumps when its value goes up and dips when it goes down. */
 function Stat({
   value,
   className,
@@ -53,14 +53,21 @@ function Stat({
 }) {
   const prev = useRef(value);
   const [bump, setBump] = useState(0);
+  const [dip, setDip] = useState(0);
   useEffect(() => {
-    if (value > prev.current) setBump((b) => b + 1);
+    if (value > prev.current) {
+      setBump((b) => b + 1);
+      setDip(0);
+    } else if (value < prev.current) {
+      setDip((d) => d + 1);
+      setBump(0);
+    }
     prev.current = value;
   }, [value]);
   return (
     <span
-      key={bump}
-      className={`stat ${className} ${bump ? 'bump' : ''}`}
+      key={`${bump}-${dip}`}
+      className={`stat ${className} ${bump ? 'bump' : dip ? 'dip' : ''}`}
       aria-label={label}
       title={title}
     >
