@@ -715,3 +715,38 @@
     animation: none !important;
   }
 }
+
+/* ---- food street dish art (steam wisps; transform + opacity only) */
+.meal-art {
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+.meal-steam {
+  transform-origin: 40px 20px;
+  animation: meal-steam calc(var(--dur-celebrate) * 2.6) ease-in-out infinite;
+}
+.meal-steam-2 {
+  animation-delay: calc(var(--dur-celebrate) * -1.3);
+}
+@keyframes meal-steam {
+  0% {
+    opacity: 0;
+    transform: translateY(3px) scale(0.92);
+  }
+  45% {
+    opacity: 0.72;
+    transform: translateY(-2px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-7px) scale(1.06);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .meal-art,
+  .meal-art * {
+    animation: none !important;
+  }
+}
+
