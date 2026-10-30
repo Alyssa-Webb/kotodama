@@ -10,11 +10,12 @@ import {
   currentQuestion,
   kiaiActive,
   progress,
+  skip,
   startSession,
   type SessionConfig,
   type SessionState,
 } from '../../engine/lesson/session';
-import { JaText, SpeakableJa, useJa, RichText } from '../../foundations/japanese/Ja';
+import { SpeakableJa, useJa, RichText } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
 import { Guide, type Mood } from '../../foundations/art/Guide';
@@ -82,7 +83,6 @@ export function Player({
     auto: boolean;
   } | null>(null);
   const [hints, setHints] = useState(0);
-  const [showAudioText, setShowAudioText] = useState(false);
   const [mood, setMood] = useState<Mood>('idle');
   const started = useRef(0);
   const submitRef = useRef<(() => void) | null>(null);
@@ -110,7 +110,6 @@ export function Player({
     if (questionKey < 0) return;
     started.current = performance.now();
     setHints(0);
-    setShowAudioText(false);
     setMood('idle');
     const audio = currentQuestion(state)?.prompt.audio;
     if (audio) speak(audio);
@@ -122,7 +121,7 @@ export function Player({
       if (!q || feedback) return;
       const result = grade(q, a);
       const ms = performance.now() - started.current;
-      let next = answer(state, config, result, ms, hints + (showAudioText ? 1 : 0));
+      let next = answer(state, config, result, ms, hints);
       const override = onAnswered?.(next, result);
       if (override) next = override;
       const kiaiStarted = result.correct && !kiaiActive(state) && kiaiActive(next);
@@ -160,8 +159,15 @@ export function Player({
         }, tokens.motion.slow * 1.5);
       }
     },
-    [q, feedback, state, config, hints, showAudioText, onAnswered, speak, onFinish],
+    [q, feedback, state, config, hints, onAnswered, speak, onFinish],
   );
+
+  const skipQuestion = useCallback(() => {
+    if (feedback) return;
+    const s = skip(state);
+    setState(s);
+    if (s.status !== 'playing') onFinish(s);
+  }, [feedback, state, onFinish]);
 
   const next = useCallback(() => {
     setFeedback(null);
@@ -298,17 +304,17 @@ export function Player({
               </button>
             </div>
           )}
-          {q.prompt.audio && !q.prompt.ja && q.shape !== 'trace' && (
+          {/* Showing the text would give a listening answer away, so this skips the question
+              instead (ungraded; rush and boss rounds can't skip). */}
+          {q.prompt.audio && !q.prompt.ja && q.shape !== 'trace' && !hideGuide && !header && (
             <div className="center">
-              {showAudioText ? (
-                <span className="big-ja">
-                  <JaText text={q.prompt.audio} />
-                </span>
-              ) : (
-                <button className="btn btn-ghost btn-small" onClick={() => setShowAudioText(true)}>
-                  Can't listen now? Show text
-                </button>
-              )}
+              <button
+                className="btn btn-ghost btn-small"
+                onClick={skipQuestion}
+                disabled={!!feedback}
+              >
+                Can't listen now? Skip
+              </button>
             </div>
           )}
           {q.prompt.ja && (

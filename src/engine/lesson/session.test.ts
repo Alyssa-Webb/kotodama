@@ -7,6 +7,7 @@ import {
   answer,
   kiaiActive,
   progress,
+  skip,
   startSession,
   summarize,
   type SessionConfig,
@@ -130,5 +131,28 @@ describe('lessonReward', () => {
       koban: 0,
       events: [],
     });
+  });
+});
+
+describe("skip (can't listen now)", () => {
+  it('drops the question without grading: no heart, combo, XP or attempt', () => {
+    const c = config(3);
+    let s = startSession([q(1), q(2), q(3)], c);
+    s = answer(s, c, ok, 1000);
+    const before = s;
+    s = skip(s);
+    expect(s.total).toBe(2);
+    expect(s.attempts).toHaveLength(1);
+    expect(s).toMatchObject({ hearts: 3, combo: before.combo, xp: before.xp, position: 1 });
+    expect(s.queue.map((x) => x.exerciseId)).toEqual(['e1', 'e3']);
+    s = answer(s, c, ok, 1000);
+    expect(s.status).toBe('complete');
+    expect(progress(s)).toBe(1);
+  });
+  it('completes the lesson when the last question is skipped', () => {
+    const c = config();
+    const s = skip(startSession([q(1)], c));
+    expect(s.status).toBe('complete');
+    expect(summarize(s, c).outcomes).toHaveLength(0);
   });
 });

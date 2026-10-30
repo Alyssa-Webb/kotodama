@@ -16,12 +16,10 @@ export interface VoiceSource {
   loadBlob(file: string): Promise<Blob | undefined>;
 }
 
-const MAX_QUEUE = 3;
 let jaVoices: SpeechSynthesisVoice[] = [];
 const sources: VoiceSource[] = [];
 const decoded = new Map<string, AudioBuffer>();
 let current: AudioBufferSourceNode | null = null;
-let queued = 0;
 
 function refreshVoices() {
   if (typeof speechSynthesis === 'undefined') return;
@@ -97,15 +95,25 @@ async function packClip(
   return undefined;
 }
 
+let generation = 0;
+let last: { text: string; at: number } | null = null;
+// Chrome garbage-collects a speaking utterance unless something holds it (onend never fires).
+let speaking: SpeechSynthesisUtterance | null = null;
+
 export function stopVoice() {
+  generation++;
   try {
     current?.stop();
   } catch {
     /* already stopped */
   }
   current = null;
-  if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
-  queued = 0;
+  if (
+    typeof speechSynthesis !== 'undefined' &&
+    (speechSynthesis.speaking || speechSynthesis.pending)
+  )
+    speechSynthesis.cancel();
+  speaking = null;
 }
 
 export interface SpeakOptions {
@@ -113,12 +121,31 @@ export interface SpeakOptions {
   slow?: boolean;
 }
 
+/**
+ * Device-voice pacing. Speech engines rush short items, so single kana and short words get a
+ * slower rate and a sentence ending (。), which makes the voice finish the sound instead of
+ * clipping it.
+ */
+export function speechPlan(reading: string, slow: boolean): { text: string; rate: number } {
+  const len = [...reading.replace(/[\s。、！？!?.,]/g, '')].length;
+  const base = len <= 2 ? 0.62 : len <= 6 ? 0.72 : 0.8;
+  const text = /[。！？!?]$/.test(reading) ? reading : `${reading}。`;
+  return { text, rate: slow ? base * 0.72 : base };
+}
+
 /** Speaks a Japanese line (furigana markup allowed). Resolves when playback starts or fails. */
 export async function speak(text: string, opts: SpeakOptions): Promise<'pack' | 'device' | 'none'> {
   if (!text) return 'none';
+  // The same line asked for twice in a burst (re-render, double tap) plays once.
+  const now = performance.now();
+  if (last && last.text === text && now - last.at < 450) return 'none';
+  last = { text, at: now };
   stopVoice();
+  const mine = generation;
   try {
     const buf = await packClip(text, opts.guide, !!opts.slow);
+    // A newer line started while this one was loading: drop this one instead of overlapping.
+    if (mine !== generation) return 'none';
     const ac = audioContext();
     if (buf && ac) {
       const node = ac.createBufferSource();
@@ -131,18 +158,25 @@ export async function speak(text: string, opts: SpeakOptions): Promise<'pack' | 
   } catch {
     /* fall through to the device voice */
   }
-  if (typeof speechSynthesis === 'undefined') return 'none';
-  if (queued >= MAX_QUEUE) speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(toReading(text).replace(/\{\{[^}]+\}\}/g, 'なになに'));
+  if (typeof speechSynthesis === 'undefined' || mine !== generation) return 'none';
+  const plan = speechPlan(toReading(text).replace(/\{\{[^}]+\}\}/g, 'なになに'), !!opts.slow);
+  const u = new SpeechSynthesisUtterance(plan.text);
   u.lang = 'ja-JP';
   const v = deviceVoice(opts.guide);
   if (v) u.voice = v;
-  u.rate = opts.slow ? 0.65 : 0.9;
+  u.rate = plan.rate;
   // Without a distinct male device voice, a lower pitch keeps Tetsu recognizable.
-  u.pitch = opts.guide === 'tetsu' && !(v && MALE.test(v.name)) ? 0.7 : 1;
-  u.onend = u.onerror = () => (queued = Math.max(0, queued - 1));
-  queued++;
-  speechSynthesis.speak(u);
+  u.pitch = opts.guide === 'tetsu' && !(v && MALE.test(v.name)) ? 0.75 : 1;
+  u.onend = u.onerror = () => {
+    if (speaking === u) speaking = null;
+  };
+  speaking = u;
+  // Safari and Chrome drop or delay an utterance queued in the same tick as cancel().
+  window.setTimeout(() => {
+    if (mine !== generation) return;
+    speechSynthesis.resume();
+    speechSynthesis.speak(u);
+  }, 40);
   return 'device';
 }
 

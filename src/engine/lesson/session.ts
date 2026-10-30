@@ -142,6 +142,23 @@ export function answer(
   };
 }
 
+/**
+ * "Can't listen now": drops the current question without grading it. No heart, combo, XP or
+ * review rating changes, and the lesson total shrinks so progress stays honest.
+ */
+export function skip(s: SessionState): SessionState {
+  const q = currentQuestion(s);
+  if (!q) return s;
+  const queue = s.queue.filter((_, i) => i !== s.position);
+  const firstPass = !s.retried.includes(q.exerciseId);
+  return {
+    ...s,
+    queue,
+    total: firstPass ? Math.max(0, s.total - 1) : s.total,
+    status: s.position >= queue.length ? 'complete' : 'playing',
+  };
+}
+
 /** True while the Kiai bonus applies to the next answer. */
 export const kiaiActive = (s: SessionState): boolean => s.kiaiLeft > 0;
 
