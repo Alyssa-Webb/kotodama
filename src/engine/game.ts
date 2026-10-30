@@ -3,6 +3,7 @@
  * returns a new state; nothing here touches storage, the DOM or the wall clock.
  */
 import type { Difficulty, Economy } from '../schema/economy';
+import type { Meal } from '../schema/meals';
 import type { Item } from '../schema/pack';
 import { SAVE_VERSION, SettingsSchema, type SaveState, type Settings } from '../schema/save';
 import type { ConsumableId, Shop } from '../schema/world';
@@ -186,6 +187,36 @@ export interface SettleNotice {
  * Hardcore yen spoil, daily heart refills and the daily counters. Idempotent within a day;
  * a clock that moves backwards (time-zone change westward) is ignored.
  */
+export type EatError = 'locked' | 'not-enough-yen' | 'hp-full' | 'no-hp';
+
+/**
+ * Eats a town meal: pays its yen and heals up to its `heal` (never above max HP). Meals unlock
+ * by player level, so better food comes as you grow.
+ */
+export function eatMeal(
+  s: SaveState,
+  c: Ctx,
+  meal: Meal,
+): { save: SaveState; healed: number } | { error: EatError } {
+  const max = maxHearts(s, c.economy);
+  if (max === null) return { error: 'no-hp' };
+  if (playerLevel(s, c.economy) < meal.level) return { error: 'locked' };
+  if (balanceOf(s.ledger, 'yen') < meal.price) return { error: 'not-enough-yen' };
+  const have = Math.min(max, Math.max(0, balanceOf(s.ledger, 'heart')));
+  if (have >= max) return { error: 'hp-full' };
+  const healed = Math.min(meal.heal, max - have);
+  return {
+    healed,
+    save: {
+      ...s,
+      ledger: append(s.ledger, c.now, today(s, c), [
+        { asset: 'yen', amount: -meal.price, reason: 'meal', ref: meal.id },
+        { asset: 'heart', amount: healed, reason: 'meal', ref: meal.id },
+      ]),
+    },
+  };
+}
+
 /** Testing only: grants `economy.testing.grantTokens` capsule tokens once per save. */
 export function applyTestGrant(s: SaveState, c: Ctx): SaveState {
   const n = c.economy.testing.grantTokens;

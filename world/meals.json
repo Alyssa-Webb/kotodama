@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "meals": [
+    {
+      "id": "onigiri",
+      "name": "おにぎり",
+      "en": "Rice ball",
+      "price": 150,
+      "heal": 15,
+      "level": 1,
+      "vendor": "Konbini"
+    },
+    {
+      "id": "misoshiru",
+      "name": "みそ{汁|しる}",
+      "en": "Miso soup",
+      "price": 200,
+      "heal": 20,
+      "level": 1,
+      "vendor": "Konbini"
+    },
+    {
+      "id": "dango",
+      "name": "だんご",
+      "en": "Sweet rice dumplings",
+      "price": 300,
+      "heal": 28,
+      "level": 2,
+      "vendor": "Tea house"
+    },
+    {
+      "id": "gyudon",
+      "name": "{牛丼|ぎゅうどん}",
+      "en": "Beef rice bowl",
+      "price": 450,
+      "heal": 40,
+      "level": 3,
+      "vendor": "Gyudon shop"
+    },
+    {
+      "id": "udon",
+      "name": "うどん",
+      "en": "Udon noodles",
+      "price": 600,
+      "heal": 50,
+      "level": 3,
+      "vendor": "Noodle stand"
+    },
+    {
+      "id": "ramen",
+      "name": "ラーメン",
+      "en": "Ramen",
+      "price": 950,
+      "heal": 70,
+      "level": 4,
+      "vendor": "Ramen shop"
+    },
+    {
+      "id": "tonkatsu",
+      "name": "とんかつ{定食|ていしょく}",
+      "en": "Pork cutlet set meal",
+      "price": 1200,
+      "heal": 90,
+      "level": 5,
+      "vendor": "Set-meal diner"
+    },
+    {
+      "id": "sushi",
+      "name": "すし",
+      "en": "Sushi set",
+      "price": 2000,
+      "heal": 130,
+      "level": 7,
+      "vendor": "Sushi counter"
+    },
+    {
+      "id": "kaiseki",
+      "name": "{懐石|かいせき}",
+      "en": "Kaiseki course",
+      "price": 8000,
+      "heal": 400,
+      "level": 10,
+      "vendor": "Ryokan"
+    }
+  ]
+}

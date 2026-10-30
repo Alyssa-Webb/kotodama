@@ -1085,3 +1085,37 @@ label.field {
     animation: none;
   }
 }
+
+/* Page titles: a prominent banner of their own, clear of the avatar and currency bar. */
+.main h1 {
+  position: relative;
+  display: block;
+  margin: var(--sp-3) 0 var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  text-align: center;
+  font-size: calc(var(--fs-xl) * 1.15);
+  line-height: 1.15;
+  color: var(--c-hud-ink);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-lacquer) 85%, white),
+    var(--c-lacquer)
+  );
+  border-radius: 14px 18px 12px 16px;
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 35%, transparent),
+    0 5px 0 color-mix(in srgb, var(--c-lacquer) 60%, var(--c-ink));
+  text-shadow: 0 2px 0 color-mix(in srgb, var(--c-ink) 45%, transparent);
+}
+.main h1 ruby rt {
+  color: color-mix(in srgb, var(--c-hud-ink) 80%, transparent);
+}
+/* A title row (title + avatar/currency) stacks: the banner gets the full width. */
+.main .row.spread:has(> h1) {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-2);
+}
+.main .row.spread:has(> h1) > :not(h1) {
+  align-self: flex-end;
+}

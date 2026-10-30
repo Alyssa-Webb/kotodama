@@ -15,6 +15,7 @@ import { SettingsScreen } from '../features/settings/SettingsScreen';
 import { PacksScreen } from '../features/packs/PacksScreen';
 import { ShopScreen } from '../features/shop/ShopScreen';
 import { TownScreen } from '../features/town/TownScreen';
+import { FoodScreen } from '../features/food/FoodScreen';
 import { CollectionScreen } from '../features/collection/CollectionScreen';
 import { AvatarScreen } from '../features/avatar/AvatarScreen';
 import { CreditsScreen } from '../features/credits/CreditsScreen';
@@ -63,6 +64,7 @@ const router = createHashRouter([
       { path: 'settings', element: <SettingsScreen /> },
       { path: 'packs', element: <PacksScreen /> },
       { path: 'town', element: <TownScreen /> },
+      { path: 'food', element: <FoodScreen /> },
       { path: 'collection', element: <CollectionScreen /> },
       { path: 'avatar', element: <AvatarScreen /> },
       { path: 'credits', element: <CreditsScreen /> },

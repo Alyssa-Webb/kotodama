@@ -19,6 +19,7 @@ import {
   buy,
   buyCharm,
   damageFor,
+  eatMeal,
   loseHearts,
   maxHearts,
   playerLevel,
@@ -483,5 +484,32 @@ describe('save migration v1 → v2 (koban → yen)', () => {
     expect(r.save.saveVersion).toBe(2);
     expect(balanceOf(r.save.ledger, 'yen')).toBe(420);
     expect(balanceOf(r.save.ledger, 'token')).toBe(2);
+  });
+});
+
+describe('meals heal HP', () => {
+  const meal = {
+    id: 'ramen',
+    name: 'ラーメン',
+    en: 'Ramen',
+    price: 950,
+    heal: 70,
+    level: 1,
+    vendor: 'x',
+  };
+  it('costs real yen and heals up to max HP, never above', () => {
+    let s = loseHearts(giveYen(newSave(T0, 'UTC', 1, economy), 200), ctx(T0), 50, 't'); // ¥2000, 50 HP
+    const r = eatMeal(s, ctx(T0), meal);
+    if ('error' in r) throw new Error(r.error);
+    expect(r.healed).toBe(50);
+    expect(heartsNow(r.save, ctx(T0))).toBe(100);
+    expect(balanceOf(r.save.ledger, 'yen')).toBe(2000 - 950);
+    s = r.save;
+    expect(eatMeal(s, ctx(T0), meal)).toEqual({ error: 'hp-full' });
+  });
+  it('is locked until your level is high enough, and needs the yen', () => {
+    const hurt = loseHearts(newSave(T0, 'UTC', 1, economy), ctx(T0), 30, 't');
+    expect(eatMeal(hurt, ctx(T0), { ...meal, level: 5 })).toEqual({ error: 'locked' });
+    expect(eatMeal(hurt, ctx(T0), meal)).toEqual({ error: 'not-enough-yen' });
   });
 });

@@ -121,6 +121,9 @@ export function TownScreen() {
         <JaText text="{言霊町|ことだまちょう}" /> Kotodama Town
       </h1>
       <KotoSays lines={koto.town} outfit="mayor" role="town" />
+      <Link className="btn btn-accent btn-block" to="/food">
+        Food Street: order a meal to heal
+      </Link>
       {away > 0 && (
         <p className="banner">
           You were away {away} day(s): the lanterns went dark. Meet today's goal to light them

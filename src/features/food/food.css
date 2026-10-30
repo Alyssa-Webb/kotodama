@@ -1,0 +1,107 @@
+/* Food Street (structure by Claude; Gemini can restyle). */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+.food-stall {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.food-stall.locked {
+  opacity: 0.55;
+  cursor: default;
+}
+.food-stall-vendor {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-muted);
+}
+.food-stall-heal {
+  font-weight: 900;
+  color: var(--c-success);
+}
+.food-stall-price {
+  font-weight: 900;
+}
+.food-order {
+  position: fixed;
+  inset: 0;
+  z-index: 105;
+  display: grid;
+  place-items: end center;
+  padding: var(--sp-3);
+  background: color-mix(in srgb, var(--c-hud-bg) 65%, transparent);
+  animation: pay-in 220ms ease both;
+}
+.food-order-card {
+  width: 100%;
+  max-width: 520px;
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: 24px 28px 20px 26px;
+  background: var(--c-panel);
+  border: 2px solid var(--c-panel-edge);
+  box-shadow: 0 8px 0 color-mix(in srgb, var(--c-panel-edge) 60%, var(--c-ink));
+  animation: pay-up 380ms cubic-bezier(0.2, 1.3, 0.4, 1) both;
+}
+.food-vendor {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-2);
+}
+.food-say {
+  position: relative;
+  flex: 1;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 16px 20px 14px 18px;
+  background: var(--c-surface);
+  border: 2px solid var(--c-panel-edge);
+  margin-bottom: var(--sp-4);
+}
+.food-say-ja {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-lg);
+}
+.food-say-en {
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+.food-choice {
+  justify-content: flex-start;
+  font-size: var(--fs-lg);
+}
+.food-eaten {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+.food-plate {
+  width: 90px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(60% 60% at 50% 40%, var(--c-surface), var(--c-panel-edge));
+  animation: food-plate 700ms cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+@keyframes food-plate {
+  from {
+    transform: scale(0.4) rotate(-20deg);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .food-order,
+  .food-order-card,
+  .food-plate {
+    animation: none;
+  }
+}

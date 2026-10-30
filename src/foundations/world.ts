@@ -11,6 +11,8 @@ import momentsJson from '../../design/moments.json';
 import { MomentsSchema } from '../schema/moments';
 import kotoJson from '../../world/koto.json';
 import { KotoSchema } from '../schema/koto';
+import mealsJson from '../../world/meals.json';
+import { MealsSchema } from '../schema/meals';
 import { EconomySchema } from '../schema/economy';
 import { AnimationsSchema } from '../schema/theme';
 import {
@@ -32,3 +34,4 @@ export const avatarParts = AvatarSchema.parse(avatarJson).parts;
 export const starterPack = LessonPackSchema.parse(starterJson);
 export const momentsConfig = MomentsSchema.parse(momentsJson);
 export const koto = KotoSchema.parse(kotoJson);
+export const meals = MealsSchema.parse(mealsJson).meals;
