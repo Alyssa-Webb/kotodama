@@ -102,6 +102,127 @@
 .ring-wrap {
   flex: none;
 }
+.ring {
+  position: relative;
+  isolation: isolate;
+  background: conic-gradient(
+    from 0deg,
+    var(--c-accent) 0%,
+    color-mix(in srgb, var(--c-accent) 62%, var(--c-glow)) calc(max(0, var(--p) - 7) * 1%),
+    var(--c-glow) calc(max(0, var(--p) - 1.5) * 1%),
+    var(--c-coin-shine) calc(var(--p) * 1%),
+    color-mix(in srgb, var(--c-ink) 15%, transparent) calc(var(--p) * 1% + 0.35%)
+  );
+  animation: ring-fill-in calc(var(--dur-slow) * 1.35) var(--spring) both;
+  transition:
+    transform var(--dur-slow) var(--spring),
+    opacity var(--dur-base) var(--ease);
+}
+/* Sweeping golden sheen along the goal ring track. */
+.ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in srgb, var(--c-coin-shine) 58%, transparent) 32deg,
+    color-mix(in srgb, var(--c-glow) 45%, transparent) 52deg,
+    transparent 84deg
+  );
+  opacity: 0;
+  animation: ring-sheen calc(var(--dur-celebrate) * 3.2) var(--ease) infinite;
+}
+/* Leading shine bead riding the tip of the goal progress arc. */
+.ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 6px,
+    var(--c-coin-shine) 0 3.5px,
+    var(--c-glow) 4px 7.5px,
+    color-mix(in srgb, var(--c-glow) 38%, transparent) 8px 12px,
+    transparent 13px
+  );
+  opacity: clamp(0, var(--p), 1);
+  transform: rotate(calc(var(--p) * 3.6deg));
+  transition:
+    transform var(--dur-slow) var(--spring),
+    opacity var(--dur-base) var(--ease);
+}
+.ring > div {
+  position: relative;
+  z-index: 1;
+  animation: ring-badge-pop calc(var(--dur-slow) * 1.2) var(--spring) 120ms both;
+}
+.ring > div::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 14px;
+  width: 18px;
+  height: 5px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--c-coin-shine) 65%, transparent);
+  transform: rotate(-16deg);
+  pointer-events: none;
+}
+@keyframes ring-fill-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.84) rotate(-28deg);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.05) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+@keyframes ring-sheen {
+  0%,
+  35% {
+    transform: rotate(-20deg) scale(0.99);
+    opacity: 0;
+  }
+  55% {
+    opacity: 0.72;
+  }
+  100% {
+    transform: rotate(340deg) scale(1.01);
+    opacity: 0;
+  }
+}
+@keyframes ring-badge-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.78);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring,
+  .ring::before,
+  .ring::after,
+  .ring > div {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 
 /* Next lesson card: carved wooden ema (shrine wish plaque) with hanging cord pin. */
 .next-card {

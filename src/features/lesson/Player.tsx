@@ -245,13 +245,59 @@ export function Player({
                 </span>
               ))
             ) : (
-              <span className="hp-bar" title={`${state.hearts} / ${hpMax ?? state.hearts} HP`}>
+              <span
+                className={`hp-bar${
+                  (hpMax ? state.hearts! / hpMax : 1) < 0.25 ? ' hp-low' : ''
+                }${
+                  state.hearts! < (config.hearts ?? state.hearts!) &&
+                  (!feedback || !feedback.result.correct)
+                    ? ` hp-drop ${state.hearts! % 2 ? 'hp-odd' : 'hp-even'}`
+                    : state.hearts! > (config.hearts ?? state.hearts!) - state.heartsLost
+                      ? ' hp-heal'
+                      : ''
+                }`}
+                title={`${state.hearts} / ${hpMax ?? state.hearts} HP`}
+              >
                 <HeartIcon size={18} />
+                <span key={`crack-${state.hearts}`} className="hp-heart-crack" aria-hidden="true">
+                  <svg viewBox="0 0 18 18" width="18" height="18">
+                    <path
+                      d="M9.5 2.2 L7.1 7.2 L10.7 9.2 L6.7 15.4"
+                      fill="none"
+                      stroke="var(--c-hud-bg)"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M9.5 2.2 L7.1 7.2 L10.7 9.2 L6.7 15.4"
+                      fill="none"
+                      stroke="var(--c-coin-shine)"
+                      strokeWidth="1.1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
                 <span className="hp-track">
+                  <span
+                    className="hp-chip"
+                    style={{ transform: `scaleX(${hpMax ? state.hearts! / hpMax : 1})` }}
+                    aria-hidden="true"
+                  />
                   <span
                     className="hp-fill"
                     style={{ transform: `scaleX(${hpMax ? state.hearts! / hpMax : 1})` }}
                   />
+                  <span key={`fx-${state.hearts}`} className="hp-track-fx" aria-hidden="true">
+                    <span className="hp-flash" />
+                    <span className="hp-shimmer" />
+                  </span>
+                </span>
+                <span key={`sp-${state.hearts}`} className="hp-sparkles" aria-hidden="true">
+                  <span className="hp-sparkle hp-s1" />
+                  <span className="hp-sparkle hp-s2" />
+                  <span className="hp-sparkle hp-s3" />
                 </span>
                 <b>{state.hearts}</b>
               </span>
