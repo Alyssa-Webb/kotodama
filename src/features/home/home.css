@@ -1,349 +1,434 @@
-/* Home hero: carved shrine diorama stage with scalloped noren apron and chunky lacquer base. */
+/* Home screen: compact Dojo Gate & Traveler's Camp stage, filling shrine lantern goal,
+   roadside signpost for the next lesson, and 2x2 world tiles.
+   Performance: animate ONLY transform and opacity, no section-scaling entrances, minimal idle loops. */
+
+.home-screen {
+  gap: var(--sp-3);
+  /* No entrance animation that scales whole sections */
+  animation: none !important;
+}
+
+/* ---------------- HERO CARD: DOJO GATE & TRAVELER'S CAMP ---------------- */
+
 .card.home-hero {
   padding: 0;
   overflow: hidden;
-  border-radius: 34px 28px 30px 26px / 28px 34px 26px 30px;
+  border-radius: 30px 26px 28px 24px / 26px 30px 24px 28px;
   border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
   box-shadow:
-    inset 0 0 0 4px color-mix(in srgb, var(--c-panel-edge) 28%, transparent),
-    0 8px 0 color-mix(in srgb, var(--c-lacquer) 62%, var(--c-ink)),
-    0 18px 34px -12px var(--c-shadow);
+    inset 0 0 0 3px color-mix(in srgb, var(--c-panel-edge) 24%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-lacquer) 62%, var(--c-ink)),
+    0 14px 26px -12px var(--c-shadow);
+  animation: none;
 }
+
 .card.home-hero::before {
   display: none;
 }
-.home-scene {
-  border-radius: 31px 25px 0 0 / 25px 31px 0 0;
-}
+
 .home-stage {
   position: relative;
+  height: 158px;
+  overflow: hidden;
   border-bottom: 3px solid var(--c-panel-edge);
-  box-shadow: 0 3px 0 color-mix(in srgb, var(--c-lacquer) 50%, transparent);
+  background: var(--c-sky-bottom);
 }
+
+.home-diorama {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .home-hero-guide {
   position: absolute;
-  left: var(--sp-3);
-  bottom: -4px;
+  left: 6px;
+  bottom: -6px;
+  z-index: 2;
   line-height: 0;
-  transform-origin: 50% 100%;
+  pointer-events: none;
 }
+
+/* Chibi speech bubble beside Koto (pops in gently as a small element; no continuous loop) */
 .speech {
   position: absolute;
-  left: calc(var(--sp-3) + 122px);
-  right: var(--sp-3);
-  bottom: 68px;
+  left: 108px;
+  right: 56px;
+  bottom: 14px;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  max-width: 212px;
+  gap: 1px;
+  max-width: 224px;
   padding: var(--sp-2) var(--sp-3);
-  border-radius: 22px 26px 24px 8px / 20px 24px 22px 8px;
+  border-radius: 20px 24px 22px 8px / 18px 22px 20px 8px;
   background:
     radial-gradient(
       70% 55% at 25% 20%,
-      color-mix(in srgb, var(--c-coin-shine) 80%, transparent),
+      color-mix(in srgb, var(--c-coin-shine) 78%, transparent),
       transparent 70%
     ),
     var(--c-panel);
   border: 2px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
   box-shadow:
     inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 80%, transparent),
-    0 4px 0 color-mix(in srgb, var(--c-panel-edge) 70%, var(--c-ink)),
-    0 8px 18px -6px var(--c-shadow);
-  animation:
-    q-in var(--dur-slow) var(--spring) 300ms both,
-    speech-bob calc(var(--dur-celebrate) * 3.6) ease-in-out 900ms infinite alternate;
+    0 4px 0 color-mix(in srgb, var(--c-panel-edge) 68%, var(--c-ink));
+  transform-origin: 0% 80%;
+  animation: home-small-pop var(--dur-slow) var(--spring) 120ms both;
 }
-@keyframes speech-bob {
-  from {
-    transform: translateY(0) rotate(-1deg);
-  }
-  to {
-    transform: translateY(-4px) rotate(1deg);
-  }
-}
+
 .speech::before {
   content: '';
   position: absolute;
   left: -9px;
-  top: 16px;
+  bottom: 12px;
   border: 8px solid transparent;
   border-left: 0;
   border-right-color: color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
 }
+
 .speech-ja {
   font-family: var(--font-display);
-  font-size: var(--fs-lg);
-  font-weight: 700;
+  font-size: var(--fs-md);
+  font-weight: 800;
   text-align: left;
   min-height: 0;
   padding: 0;
+  line-height: 1.25;
 }
+
+/* Compact Today summary bar below the diorama (no box-inside-box banner on h1) */
 .home-hero-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
-  padding: var(--sp-4) var(--sp-5) var(--sp-5);
-  background:
-    radial-gradient(
-      55% 75% at 88% 50%,
-      color-mix(in srgb, var(--c-glow) 22%, transparent),
-      transparent 70%
-    ),
-    linear-gradient(
-      180deg,
-      var(--c-panel),
-      color-mix(in srgb, var(--c-surface-alt) 65%, var(--c-panel))
-    );
+  padding: var(--sp-3) var(--sp-4);
+  background: linear-gradient(
+    180deg,
+    var(--c-panel),
+    color-mix(in srgb, var(--c-surface-alt) 58%, var(--c-panel))
+  );
 }
-.home-hero-body h1 {
+
+.home-today-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+/* Override .main h1 lacquer banner so h1 inside .home-hero-body is clean typography, not a box in a box */
+.main .home-hero-body h1 {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
+  text-align: left;
+  color: var(--c-ink);
   font-size: var(--fs-lg);
+  line-height: 1.2;
 }
+
+/* ---------------- TODAY'S GOAL: FILLING SHRINE LANTERN ---------------- */
+
 .ring-wrap {
   flex: none;
 }
+
 .ring {
   position: relative;
-  isolation: isolate;
-  background: conic-gradient(
-    from 0deg,
-    var(--c-accent) 0%,
-    color-mix(in srgb, var(--c-accent) 62%, var(--c-glow)) calc(max(0, var(--p) - 7) * 1%),
-    var(--c-glow) calc(max(0, var(--p) - 1.5) * 1%),
-    var(--c-coin-shine) calc(var(--p) * 1%),
-    color-mix(in srgb, var(--c-ink) 15%, transparent) calc(var(--p) * 1% + 0.35%)
-  );
-  animation: ring-fill-in calc(var(--dur-slow) * 1.35) var(--spring) both;
-  transition:
-    transform var(--dur-slow) var(--spring),
-    opacity var(--dur-base) var(--ease);
+  width: 82px;
+  height: 90px;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  display: grid;
+  place-items: center;
 }
-/* Sweeping golden sheen along the goal ring track. */
-.ring::before {
-  content: '';
+
+.goal-lantern-svg {
   position: absolute;
   inset: 0;
-  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
   pointer-events: none;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    color-mix(in srgb, var(--c-coin-shine) 58%, transparent) 32deg,
-    color-mix(in srgb, var(--c-glow) 45%, transparent) 52deg,
-    transparent 84deg
-  );
-  opacity: 0;
-  animation: ring-sheen calc(var(--dur-celebrate) * 3.2) var(--ease) infinite;
 }
-/* Leading shine bead riding the tip of the goal progress arc. */
-.ring::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 6px,
-    var(--c-coin-shine) 0 3.5px,
-    var(--c-glow) 4px 7.5px,
-    color-mix(in srgb, var(--c-glow) 38%, transparent) 8px 12px,
-    transparent 13px
-  );
-  opacity: clamp(0, var(--p), 1);
-  transform: rotate(calc(var(--p) * 3.6deg));
-  transition:
-    transform var(--dur-slow) var(--spring),
-    opacity var(--dur-base) var(--ease);
-}
+
+/* High-contrast percentage pill centered on the shrine lantern */
 .ring > div {
   position: relative;
   z-index: 1;
-  animation: ring-badge-pop calc(var(--dur-slow) * 1.2) var(--spring) 120ms both;
-}
-.ring > div::after {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 14px;
-  width: 18px;
-  height: 5px;
+  width: auto;
+  height: auto;
+  min-width: 44px;
+  padding: 2px 8px;
   border-radius: var(--r-pill);
-  background: color-mix(in srgb, var(--c-coin-shine) 65%, transparent);
-  transform: rotate(-16deg);
-  pointer-events: none;
-}
-@keyframes ring-fill-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.84) rotate(-28deg);
-  }
-  65% {
-    opacity: 1;
-    transform: scale(1.05) rotate(4deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-@keyframes ring-sheen {
-  0%,
-  35% {
-    transform: rotate(-20deg) scale(0.99);
-    opacity: 0;
-  }
-  55% {
-    opacity: 0.72;
-  }
-  100% {
-    transform: rotate(340deg) scale(1.01);
-    opacity: 0;
-  }
-}
-@keyframes ring-badge-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0.78);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.06);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ring,
-  .ring::before,
-  .ring::after,
-  .ring > div {
-    animation: none !important;
-    transition: none !important;
-  }
+  background: var(--c-panel);
+  color: var(--c-ink);
+  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
+  font-size: var(--fs-xs);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.25;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--c-hud-bg) 75%, var(--c-ink));
+  animation: home-small-pop var(--dur-slow) var(--spring) 160ms both;
 }
 
-/* Next lesson card: carved wooden ema (shrine wish plaque) with hanging cord pin. */
+/* ---------------- NEXT LESSON: ROADSIDE WOODEN SIGNPOST ---------------- */
+
 .next-card {
-  padding-top: calc(var(--sp-5) + 6px);
-  border-radius: 32px 32px 24px 24px / 38px 38px 20px 20px;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4) var(--sp-4);
+  border-radius: 26px 22px 24px 20px / 22px 26px 20px 24px;
   border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
   background:
     radial-gradient(
-      70% 50% at 22% 16%,
-      color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
+      68% 50% at 18% 15%,
+      color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
       transparent 70%
     ),
     linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--c-gold-soft) 72%, var(--c-panel)),
-      var(--c-panel) 65%,
-      color-mix(in srgb, var(--c-surface-alt) 80%, var(--c-panel))
+      165deg,
+      color-mix(in srgb, var(--c-gold-soft) 65%, var(--c-panel)),
+      var(--c-panel) 62%,
+      color-mix(in srgb, var(--c-surface-alt) 72%, var(--c-panel))
     );
   box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 85%, transparent),
-    inset 0 -4px 0 color-mix(in srgb, var(--c-panel-edge) 35%, transparent),
-    inset 0 0 0 4px var(--c-panel),
-    inset 0 0 0 6px color-mix(in srgb, var(--c-panel-edge) 42%, transparent),
-    0 8px 0 color-mix(in srgb, var(--c-gold) 62%, var(--c-ink)),
-    0 16px 30px -12px var(--c-shadow);
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 80%, transparent),
+    inset 0 -3px 0 color-mix(in srgb, var(--c-panel-edge) 32%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-gold) 58%, var(--c-ink)),
+    0 12px 24px -12px var(--c-shadow);
+  animation: none;
 }
-/* Hanging brass ring & vermilion cord knot at top center of the ema plaque */
-.next-card::before {
-  inset: 8px auto auto 50%;
-  width: 36px;
-  height: 12px;
-  transform: translateX(-50%);
-  border-radius: var(--r-pill);
-  background: radial-gradient(
-    circle at 50% 50%,
-    var(--c-hud-bg) 0 3px,
-    var(--c-panel-edge) 3.2px 6px,
-    var(--c-accent) 6.2px 8.5px,
-    transparent 9px
-  );
-  opacity: 0.95;
+
+.next-signpost-row {
+  align-items: center;
+  gap: var(--sp-3);
 }
+
+/* Avatar stands directly beside the signpost on a soft ground shadow (no inner box around avatar) */
 .next-avatar {
+  position: relative;
   flex: none;
-  width: 92px;
-  height: 100px;
+  width: 72px;
+  height: 84px;
   display: grid;
   place-items: end center;
-  border-radius: 52% 48% 48% 52% / 48% 52% 52% 48%;
-  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 65%, transparent);
-  background: radial-gradient(
-    circle at 50% 65%,
-    color-mix(in srgb, var(--c-glow) 45%, transparent),
-    color-mix(in srgb, var(--c-gold-soft) 50%, var(--c-panel)) 72%
-  );
-  box-shadow:
-    inset 0 2px 6px var(--c-shadow),
-    0 3px 0 color-mix(in srgb, var(--c-panel-edge) 50%, transparent);
+  background: none;
+  border: 0;
+  box-shadow: none;
 }
-/* Big candy-like "Play" toy button */
-.play-btn {
-  min-height: 64px;
+
+.next-avatar::before {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 48px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--c-shadow);
+  pointer-events: none;
+}
+
+.next-signpost-copy {
+  flex: 1;
+}
+
+.next-signpost-copy h2 {
   font-size: var(--fs-lg);
-  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.signpost-arrow-svg {
+  flex: none;
+  width: 40px;
+  height: 48px;
+}
+
+/* Tactile primary play button */
+.play-btn {
+  min-height: 54px;
+  font-size: var(--fs-md);
+  letter-spacing: 0.03em;
   border-radius: var(--r-pill);
   box-shadow:
     inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
-    inset 0 -4px 0 color-mix(in srgb, var(--c-ink) 18%, transparent),
-    0 7px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
-    0 14px 24px -6px var(--c-shadow);
+    inset 0 -3px 0 color-mix(in srgb, var(--c-ink) 16%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
+    0 10px 18px -6px var(--c-shadow);
 }
 
-/* World destination signboards (Dojo, Town, Arcade, Spirits): hanging wooden plaques. */
+/* ---------------- WORLD DESTINATION TILES (COMPACT 2x2 GRID) ---------------- */
+
+.grid-2.home-tiles {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-3);
+}
+
+/* Disable global .grid-2 > * scaling entrance on home tiles for zero lag */
+.grid-2.home-tiles > .tile-card {
+  animation: none;
+}
+
 .tile-card {
-  padding-top: calc(var(--sp-5) + 4px);
-  border-radius: 28px 18px 26px 20px / 20px 28px 18px 26px;
-  transform-origin: 50% 8px;
-  animation:
-    card-pop var(--dur-slow) var(--spring) both,
-    sign-sway calc(var(--dur-celebrate) * 4.5) ease-in-out 700ms infinite alternate;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  border-radius: 22px 18px 24px 20px / 18px 22px 20px 24px;
+  align-content: start;
 }
-.tile-card:nth-child(even) {
-  border-radius: 18px 28px 20px 26px / 28px 20px 26px 18px;
-  animation-delay: 60ms, 1200ms;
+
+.tile-card::before {
+  display: none;
 }
-.tile-card:nth-child(3) {
-  animation-delay: 120ms, 1600ms;
+
+.tile-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
 }
-.tile-card:nth-child(4) {
-  animation-delay: 180ms, 2000ms;
+
+.tile-emblem {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  overflow: visible;
 }
-@keyframes sign-sway {
-  from {
-    transform: rotate(-0.45deg);
-  }
-  to {
-    transform: rotate(0.45deg);
-  }
+
+.tile-card h2 {
+  font-size: var(--fs-md);
+  line-height: 1.22;
 }
+
+/* Town tile heading fallback when h2 is empty in markup */
+.tile-card h2:empty::before {
+  content: 'City Market';
+}
+
+.tile-card .muted.small {
+  font-size: var(--fs-xs);
+  line-height: 1.35;
+}
+
 .tile-card.urgent {
   border-color: var(--c-accent);
   background:
     radial-gradient(
       75% 55% at 20% 15%,
-      color-mix(in srgb, var(--c-accent-soft) 70%, transparent),
+      color-mix(in srgb, var(--c-accent-soft) 72%, transparent),
       transparent 70%
     ),
     linear-gradient(180deg, var(--c-panel), var(--c-surface-alt));
   box-shadow:
-    inset 0 0 0 4px var(--c-panel),
-    inset 0 0 0 5.5px color-mix(in srgb, var(--c-accent) 35%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-accent) 60%, var(--c-ink)),
-    0 0 22px color-mix(in srgb, var(--c-accent) 24%, transparent);
-  animation: urgent-pulse calc(var(--dur-celebrate) * 2) ease-in-out infinite;
+    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 75%, transparent),
+    0 6px 0 color-mix(in srgb, var(--c-accent) 58%, var(--c-ink)),
+    0 10px 20px -10px var(--c-shadow);
 }
-@keyframes urgent-pulse {
-  0%,
-  100% {
-    transform: translateY(0) scale(1) rotate(-0.4deg);
+
+.tile-card.urgent .tile-emblem {
+  animation: home-emblem-bob calc(var(--dur-celebrate) * 1.8) ease-in-out infinite alternate;
+}
+
+@media (max-width: 330px) {
+  .grid-2.home-tiles {
+    grid-template-columns: 1fr;
   }
-  50% {
-    transform: translateY(-3px) scale(1.018) rotate(0.5deg);
+}
+
+/* ---------------- LIGHTWEIGHT TRANSFORM + OPACITY MOTION ---------------- */
+
+.home-noren-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: home-noren-sway calc(var(--dur-celebrate) * 4) ease-in-out infinite alternate;
+}
+
+.home-flame-flicker {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: home-flame-flicker calc(var(--dur-celebrate) * 1.6) ease-in-out infinite alternate;
+}
+
+.home-ambient-1 {
+  animation: home-ambient-drift calc(var(--dur-celebrate) * 4.5) ease-in-out infinite alternate;
+}
+
+.home-ambient-2 {
+  animation: home-ambient-drift calc(var(--dur-celebrate) * 5.4) ease-in-out -1.4s infinite
+    alternate-reverse;
+}
+
+.home-ambient-3 {
+  animation: home-ambient-drift calc(var(--dur-celebrate) * 4.8) ease-in-out -2.6s infinite
+    alternate;
+}
+
+@keyframes home-small-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes home-noren-sway {
+  from {
+    transform: rotate(-2deg);
+  }
+  to {
+    transform: rotate(2.2deg);
+  }
+}
+
+@keyframes home-flame-flicker {
+  from {
+    transform: scale(0.95, 0.94);
+    opacity: 0.88;
+  }
+  to {
+    transform: scale(1.04, 1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes home-ambient-drift {
+  from {
+    transform: translate3d(-6px, -4px, 0) rotate(-10deg);
+    opacity: 0.55;
+  }
+  to {
+    transform: translate3d(7px, 5px, 0) rotate(12deg);
+    opacity: 0.95;
+  }
+}
+
+@keyframes home-emblem-bob {
+  from {
+    transform: translateY(0) rotate(-3deg);
+  }
+  to {
+    transform: translateY(-3px) rotate(3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speech,
+  .ring > div,
+  .home-noren-sway,
+  .home-flame-flicker,
+  .home-ambient-1,
+  .home-ambient-2,
+  .home-ambient-3,
+  .tile-card.urgent .tile-emblem {
+    animation: none !important;
+    transition: none !important;
   }
 }
