@@ -42,6 +42,8 @@ Collected from direct feedback while building. Treat them as requirements.
 
 ## 3. How the work is split between AIs
 
+> **Model rule (owner):** every _design_ (characters, avatar parts, yokai, items, scenes, icons, UI art) MUST be made by **Gemini 4 Argon** (`gemini-4-argon-high`), never a substitute. If Argon's provider drops, shrink the brief and retry Argon. Don't switch models. **GPT-5.6 Sol** (`gpt-5.6-sol-high`, via `run-model.sh`) is for action and motion animation only (attack choreography, effects timing) and must not edit design art. When a GPT run touches art files, merge only its animation files and send the art part to Argon.
+
 | Who                                   | Does what                                                                                                                                     |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Claude (Claude Code)**              | Architecture, engine and game logic, data schemas, UI structure, wiring, tests, CI, reviewing and merging all AI art                          |
