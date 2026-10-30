@@ -1,0 +1,1097 @@
+{
+  "title": "Kotodama LessonPack 1.0.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "pack": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "N5",
+            "N4",
+            "N3",
+            "N2",
+            "N1"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "district": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "version",
+        "level",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+              },
+              "meanings": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "romaji": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "kind": {
+                "type": "string",
+                "const": "kana"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "meanings",
+              "kind",
+              "text"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+              },
+              "meanings": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "romaji": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "kind": {
+                "type": "string",
+                "const": "word"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "pos": {
+                "type": "string",
+                "enum": [
+                  "noun",
+                  "verb",
+                  "i-adj",
+                  "na-adj",
+                  "adverb",
+                  "counter",
+                  "other"
+                ]
+              },
+              "forms": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "example": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "en": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "text",
+                  "en"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "meanings",
+              "kind",
+              "text",
+              "pos"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+              },
+              "meanings": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "romaji": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "kind": {
+                "type": "string",
+                "const": "phrase"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "register": {
+                "type": "string",
+                "enum": [
+                  "casual",
+                  "polite",
+                  "formal"
+                ]
+              },
+              "usage": {
+                "type": "string",
+                "minLength": 1
+              },
+              "literal": {
+                "type": "string"
+              },
+              "variants": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "register": {
+                      "type": "string",
+                      "enum": [
+                        "casual",
+                        "polite",
+                        "formal"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "register"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "accept": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "tiles": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "id",
+              "meanings",
+              "kind",
+              "text",
+              "register",
+              "usage"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+              },
+              "meanings": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "romaji": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "kind": {
+                "type": "string",
+                "const": "pattern"
+              },
+              "pattern": {
+                "type": "string",
+                "minLength": 1
+              },
+              "slots": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                  }
+                }
+              },
+              "meaningPattern": {
+                "type": "string",
+                "minLength": 1
+              },
+              "examples": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "en": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "en"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "meanings",
+              "kind",
+              "pattern",
+              "slots",
+              "meaningPattern",
+              "examples"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+              },
+              "meanings": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "romaji": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "kind": {
+                "type": "string",
+                "const": "sentence"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "register": {
+                "type": "string",
+                "enum": [
+                  "casual",
+                  "polite",
+                  "formal"
+                ]
+              },
+              "tiles": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "accept": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "id",
+              "meanings",
+              "kind",
+              "text",
+              "register",
+              "tiles"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "dialogues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "setting": {
+            "type": "string"
+          },
+          "lines": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "speaker": {
+                  "type": "string",
+                  "enum": [
+                    "narrator",
+                    "teacher",
+                    "friend",
+                    "clerk",
+                    "player"
+                  ]
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "en": {
+                  "type": "string"
+                },
+                "choices": {
+                  "minItems": 2,
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "correct": {
+                        "type": "boolean"
+                      },
+                      "feedback": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "text",
+                      "correct",
+                      "feedback"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "speaker",
+                "text",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "setting",
+          "lines"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "units": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "nodes": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "lesson",
+                    "story",
+                    "checkpoint"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "introduces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                  }
+                },
+                "teach": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          }
+                        },
+                        "required": [
+                          "item"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "note": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string"
+                              },
+                              "body": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "title",
+                              "body"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "note"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "exercises": {
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "choice"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "ask": {
+                            "type": "string",
+                            "enum": [
+                              "meaning",
+                              "reading",
+                              "japanese"
+                            ]
+                          },
+                          "distractors": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item",
+                          "ask",
+                          "distractors"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "match"
+                          },
+                          "items": {
+                            "minItems": 4,
+                            "maxItems": 6,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "items"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "listen"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "distractors": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item",
+                          "distractors"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "dictation"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "tiles"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "extraTiles": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "type"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "ask": {
+                            "type": "string",
+                            "enum": [
+                              "japanese",
+                              "meaning"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item",
+                          "ask"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "fill"
+                          },
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "answer": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "options": {
+                            "minItems": 2,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "en": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "text",
+                          "answer",
+                          "options",
+                          "en"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "trace"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "situation"
+                          },
+                          "scene": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "answer": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "distractors": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "scene",
+                          "answer",
+                          "distractors"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "translate"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "direction": {
+                            "type": "string",
+                            "enum": [
+                              "toJapanese",
+                              "toEnglish"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item",
+                          "direction"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "register"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "from": {
+                            "type": "string",
+                            "enum": [
+                              "casual",
+                              "polite",
+                              "formal"
+                            ]
+                          },
+                          "to": {
+                            "type": "string",
+                            "enum": [
+                              "casual",
+                              "polite",
+                              "formal"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item",
+                          "from",
+                          "to"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "pattern"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "direction": {
+                            "type": "string",
+                            "enum": [
+                              "toJapanese",
+                              "toEnglish"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item",
+                          "direction"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "conjugate"
+                          },
+                          "item": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          },
+                          "form": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "item",
+                          "form"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "const": "reply"
+                          },
+                          "dialogue": {
+                            "type": "string",
+                            "pattern": "^[kwpgsd]\\.[a-z0-9][a-z0-9_-]*$"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "dialogue"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "title",
+                "introduces",
+                "exercises"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "nodes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "pack",
+    "items",
+    "units"
+  ],
+  "additionalProperties": false
+}

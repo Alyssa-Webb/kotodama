@@ -1,0 +1,1595 @@
+{
+  "schemaVersion": "1.0.0",
+  "pack": {
+    "id": "kotodama-starter",
+    "title": "First Steps",
+    "version": 1,
+    "level": "N5",
+    "description": "Your first kana and your first café visit: ten hiragana, polite basics, and ordering a coffee.",
+    "district": "café"
+  },
+  "items": [
+    {
+      "id": "k.a",
+      "kind": "kana",
+      "text": "あ",
+      "romaji": "a",
+      "meanings": ["a"]
+    },
+    {
+      "id": "k.i",
+      "kind": "kana",
+      "text": "い",
+      "romaji": "i",
+      "meanings": ["i"]
+    },
+    {
+      "id": "k.u",
+      "kind": "kana",
+      "text": "う",
+      "romaji": "u",
+      "meanings": ["u"]
+    },
+    {
+      "id": "k.e",
+      "kind": "kana",
+      "text": "え",
+      "romaji": "e",
+      "meanings": ["e"]
+    },
+    {
+      "id": "k.o",
+      "kind": "kana",
+      "text": "お",
+      "romaji": "o",
+      "meanings": ["o"]
+    },
+    {
+      "id": "k.ka",
+      "kind": "kana",
+      "text": "か",
+      "romaji": "ka",
+      "meanings": ["ka"]
+    },
+    {
+      "id": "k.ki",
+      "kind": "kana",
+      "text": "き",
+      "romaji": "ki",
+      "meanings": ["ki"]
+    },
+    {
+      "id": "k.ku",
+      "kind": "kana",
+      "text": "く",
+      "romaji": "ku",
+      "meanings": ["ku"]
+    },
+    {
+      "id": "k.ke",
+      "kind": "kana",
+      "text": "け",
+      "romaji": "ke",
+      "meanings": ["ke"]
+    },
+    {
+      "id": "k.ko",
+      "kind": "kana",
+      "text": "こ",
+      "romaji": "ko",
+      "meanings": ["ko"]
+    },
+    {
+      "id": "w.mizu",
+      "kind": "word",
+      "text": "{水|みず}",
+      "romaji": "mizu",
+      "pos": "noun",
+      "meanings": ["water"]
+    },
+    {
+      "id": "w.koohii",
+      "kind": "word",
+      "text": "コーヒー",
+      "romaji": "koohii",
+      "pos": "noun",
+      "meanings": ["coffee"]
+    },
+    {
+      "id": "w.ocha",
+      "kind": "word",
+      "text": "お{茶|ちゃ}",
+      "romaji": "ocha",
+      "pos": "noun",
+      "meanings": ["tea", "green tea"]
+    },
+    {
+      "id": "w.koucha",
+      "kind": "word",
+      "text": "{紅茶|こうちゃ}",
+      "romaji": "koucha",
+      "pos": "noun",
+      "meanings": ["black tea"]
+    },
+    {
+      "id": "w.juusu",
+      "kind": "word",
+      "text": "ジュース",
+      "romaji": "juusu",
+      "pos": "noun",
+      "meanings": ["juice"]
+    },
+    {
+      "id": "w.gyuunyuu",
+      "kind": "word",
+      "text": "{牛乳|ぎゅうにゅう}",
+      "romaji": "gyuunyuu",
+      "pos": "noun",
+      "meanings": ["milk"]
+    },
+    {
+      "id": "w.pan",
+      "kind": "word",
+      "text": "パン",
+      "romaji": "pan",
+      "pos": "noun",
+      "meanings": ["bread"]
+    },
+    {
+      "id": "w.keeki",
+      "kind": "word",
+      "text": "ケーキ",
+      "romaji": "keeki",
+      "pos": "noun",
+      "meanings": ["cake"]
+    },
+    {
+      "id": "w.sandoicchi",
+      "kind": "word",
+      "text": "サンドイッチ",
+      "romaji": "sandoicchi",
+      "pos": "noun",
+      "meanings": ["sandwich"]
+    },
+    {
+      "id": "w.kissaten",
+      "kind": "word",
+      "text": "{喫茶店|きっさてん}",
+      "romaji": "kissaten",
+      "pos": "noun",
+      "meanings": ["café", "coffee shop"]
+    },
+    {
+      "id": "w.menyuu",
+      "kind": "word",
+      "text": "メニュー",
+      "romaji": "menyuu",
+      "pos": "noun",
+      "meanings": ["menu"]
+    },
+    {
+      "id": "w.hitotsu",
+      "kind": "word",
+      "text": "{一|ひと}つ",
+      "romaji": "hitotsu",
+      "pos": "counter",
+      "meanings": ["one (thing)", "one"]
+    },
+    {
+      "id": "w.futatsu",
+      "kind": "word",
+      "text": "{二|ふた}つ",
+      "romaji": "futatsu",
+      "pos": "counter",
+      "meanings": ["two (things)", "two"]
+    },
+    {
+      "id": "w.kore",
+      "kind": "word",
+      "text": "これ",
+      "romaji": "kore",
+      "pos": "other",
+      "meanings": ["this", "this one"]
+    },
+    {
+      "id": "w.oishii",
+      "kind": "word",
+      "text": "おいしい",
+      "romaji": "oishii",
+      "pos": "i-adj",
+      "meanings": ["delicious", "tasty"],
+      "forms": {
+        "nai": "おいしくない",
+        "past": "おいしかった"
+      },
+      "example": {
+        "text": "このケーキはおいしいです。",
+        "en": "This cake is delicious."
+      }
+    },
+    {
+      "id": "p.onegaishimasu",
+      "kind": "phrase",
+      "text": "お{願|ねが}いします",
+      "register": "polite",
+      "meanings": ["please", "I'd like that, please"],
+      "usage": "Said after naming what you want, or when asking a favor.",
+      "variants": [
+        {
+          "text": "お{願|ねが}い",
+          "register": "casual"
+        }
+      ],
+      "tiles": ["お{願|ねが}い", "します"]
+    },
+    {
+      "id": "p.itadakimasu",
+      "kind": "phrase",
+      "text": "いただきます",
+      "register": "polite",
+      "meanings": ["Let's eat", "Thank you for the food"],
+      "literal": "I humbly receive.",
+      "usage": "Said with your hands together right before you start eating or drinking."
+    },
+    {
+      "id": "p.hajimemashite",
+      "kind": "phrase",
+      "text": "はじめまして",
+      "register": "polite",
+      "meanings": ["Nice to meet you", "How do you do"],
+      "literal": "(This is) the first time.",
+      "usage": "Said when you meet someone for the first time, usually followed by your name."
+    },
+    {
+      "id": "p.sumimasen",
+      "kind": "phrase",
+      "text": "すみません",
+      "register": "polite",
+      "meanings": ["Excuse me", "Sorry"],
+      "usage": "Calls a server over, apologizes lightly, or thanks someone who went out of their way."
+    },
+    {
+      "id": "p.arigatou-gozaimasu",
+      "kind": "phrase",
+      "text": "ありがとうございます",
+      "register": "polite",
+      "meanings": ["Thank you", "Thank you very much"],
+      "usage": "The polite thank-you for staff, strangers and anyone older than you.",
+      "variants": [
+        {
+          "text": "ありがとう",
+          "register": "casual"
+        }
+      ],
+      "tiles": ["ありがとう", "ございます"]
+    },
+    {
+      "id": "p.irasshaimase",
+      "kind": "phrase",
+      "text": "いらっしゃいませ",
+      "register": "formal",
+      "meanings": ["Welcome", "Welcome to our shop"],
+      "usage": "Shop and restaurant staff say this when you walk in. Customers don't say it back; a nod is enough."
+    },
+    {
+      "id": "p.gochisousama",
+      "kind": "phrase",
+      "text": "ごちそうさまでした",
+      "register": "polite",
+      "meanings": ["Thank you for the meal"],
+      "usage": "Said after finishing a meal: to the cook, your host, or the staff as you leave.",
+      "variants": [
+        {
+          "text": "ごちそうさま",
+          "register": "casual"
+        }
+      ],
+      "tiles": ["ごちそうさま", "でした"]
+    },
+    {
+      "id": "g.o-kudasai",
+      "kind": "pattern",
+      "pattern": "{{thing}}をください",
+      "slots": {
+        "thing": [
+          "w.mizu",
+          "w.koohii",
+          "w.ocha",
+          "w.koucha",
+          "w.juusu",
+          "w.gyuunyuu",
+          "w.pan",
+          "w.keeki",
+          "w.sandoicchi",
+          "w.kore"
+        ]
+      },
+      "meanings": ["please give me ...", "..., please"],
+      "meaningPattern": "{{thing}}, please",
+      "notes": "Name the thing, then を (said \"o\"), then ください.",
+      "examples": [
+        {
+          "text": "{水|みず}をください。",
+          "en": "Water, please."
+        },
+        {
+          "text": "これをください。",
+          "en": "This one, please."
+        }
+      ]
+    },
+    {
+      "id": "s.mizu-o-kudasai",
+      "kind": "sentence",
+      "text": "{水|みず}をください。",
+      "register": "polite",
+      "meanings": ["Water, please.", "Can I have some water?"],
+      "tiles": ["{水|みず}", "を", "ください", "。"]
+    },
+    {
+      "id": "s.koohii-o-hitotsu",
+      "kind": "sentence",
+      "text": "コーヒーを{一|ひと}つください。",
+      "register": "polite",
+      "meanings": ["One coffee, please.", "A coffee, please."],
+      "tiles": ["コーヒー", "を", "{一|ひと}つ", "ください", "。"]
+    },
+    {
+      "id": "s.menyuu-o-onegaishimasu",
+      "kind": "sentence",
+      "text": "メニューをお{願|ねが}いします。",
+      "register": "polite",
+      "meanings": ["The menu, please.", "Menu, please.", "Could I have the menu?"],
+      "tiles": ["メニュー", "を", "お{願|ねが}いします", "。"]
+    },
+    {
+      "id": "s.kore-wa-nan-desu-ka",
+      "kind": "sentence",
+      "text": "これは{何|なん}ですか。",
+      "register": "polite",
+      "meanings": ["What is this?", "What's this?"],
+      "tiles": ["これ", "は", "{何|なん}", "ですか", "。"]
+    },
+    {
+      "id": "s.oishii-desu",
+      "kind": "sentence",
+      "text": "おいしいです。",
+      "register": "polite",
+      "meanings": ["It's delicious.", "It's tasty.", "This is delicious."],
+      "tiles": ["おいしい", "です", "。"]
+    },
+    {
+      "id": "s.okaikei",
+      "kind": "sentence",
+      "text": "お{会計|かいけい}をお{願|ねが}いします。",
+      "register": "polite",
+      "meanings": ["The check, please.", "The bill, please.", "Check, please."],
+      "tiles": ["お{会計|かいけい}", "を", "お{願|ねが}いします", "。"]
+    }
+  ],
+  "dialogues": [
+    {
+      "id": "d.cafe-order",
+      "title": "Ordering at the café",
+      "setting": "A small café by the station, mid-morning",
+      "lines": [
+        {
+          "speaker": "clerk",
+          "text": "いらっしゃいませ。",
+          "en": "Welcome."
+        },
+        {
+          "speaker": "player",
+          "text": "すみません、メニューをお{願|ねが}いします。",
+          "en": "Excuse me, the menu, please.",
+          "choices": [
+            {
+              "text": "すみません、メニューをお{願|ねが}いします。",
+              "correct": true,
+              "feedback": "Polite and natural."
+            },
+            {
+              "text": "いただきます。",
+              "correct": false,
+              "feedback": "You say that right before eating, not to ask for something."
+            },
+            {
+              "text": "はじめまして。",
+              "correct": false,
+              "feedback": "That is for meeting someone for the first time."
+            }
+          ]
+        },
+        {
+          "speaker": "clerk",
+          "text": "はい、どうぞ。",
+          "en": "Here you are."
+        },
+        {
+          "speaker": "player",
+          "text": "コーヒーを{一|ひと}つください。",
+          "en": "One coffee, please.",
+          "choices": [
+            {
+              "text": "コーヒーを{一|ひと}つください。",
+              "correct": true,
+              "feedback": "The thing, を, how many, ください. Perfect."
+            },
+            {
+              "text": "コーヒーです。",
+              "correct": false,
+              "feedback": "That means 'It is coffee', not a request."
+            },
+            {
+              "text": "ごちそうさまでした。",
+              "correct": false,
+              "feedback": "That is what you say after a meal."
+            }
+          ]
+        },
+        {
+          "speaker": "clerk",
+          "text": "かしこまりました。{少々|しょうしょう}お{待|ま}ちください。",
+          "en": "Certainly. One moment, please."
+        },
+        {
+          "speaker": "clerk",
+          "text": "お{待|ま}たせしました。コーヒーです。",
+          "en": "Sorry to keep you waiting. Your coffee."
+        },
+        {
+          "speaker": "player",
+          "text": "ありがとうございます。",
+          "en": "Thank you.",
+          "choices": [
+            {
+              "text": "ありがとうございます。",
+              "correct": true,
+              "feedback": "Polite thanks to the staff."
+            },
+            {
+              "text": "いらっしゃいませ。",
+              "correct": false,
+              "feedback": "Only shop staff say that."
+            }
+          ]
+        },
+        {
+          "speaker": "player",
+          "text": "いただきます。",
+          "en": "(before the first sip) Let's eat.",
+          "choices": [
+            {
+              "text": "いただきます。",
+              "correct": true,
+              "feedback": "Said right before eating or drinking."
+            },
+            {
+              "text": "ごちそうさまでした。",
+              "correct": false,
+              "feedback": "That one comes after you finish."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "u01",
+      "title": "Kana Gate",
+      "nodes": [
+        {
+          "id": "u01.n01",
+          "kind": "lesson",
+          "title": "Vowels あいうえお",
+          "introduces": ["k.a", "k.i", "k.u", "k.e", "k.o"],
+          "teach": [
+            {
+              "note": {
+                "title": "Five vowels",
+                "body": "Every kana is one beat. The five vowels are short and crisp: a as in 'father', i as in 'see', u as in 'food' with relaxed lips, e as in 'get', o as in 'old' but short."
+              }
+            },
+            {
+              "item": "k.a"
+            },
+            {
+              "item": "k.i"
+            },
+            {
+              "item": "k.u"
+            },
+            {
+              "item": "k.e"
+            },
+            {
+              "item": "k.o"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u01.n01.e01",
+              "type": "choice",
+              "item": "k.a",
+              "ask": "meaning",
+              "distractors": ["k.i", "k.u"]
+            },
+            {
+              "id": "u01.n01.e02",
+              "type": "choice",
+              "item": "k.i",
+              "ask": "meaning",
+              "distractors": ["k.a", "k.e"]
+            },
+            {
+              "id": "u01.n01.e03",
+              "type": "listen",
+              "item": "k.u",
+              "distractors": ["k.a", "k.o"]
+            },
+            {
+              "id": "u01.n01.e04",
+              "type": "choice",
+              "item": "k.e",
+              "ask": "meaning",
+              "distractors": ["k.i", "k.o"]
+            },
+            {
+              "id": "u01.n01.e05",
+              "type": "listen",
+              "item": "k.o",
+              "distractors": ["k.u", "k.e"]
+            },
+            {
+              "id": "u01.n01.e06",
+              "type": "match",
+              "items": ["k.a", "k.i", "k.u", "k.e", "k.o"]
+            },
+            {
+              "id": "u01.n01.e07",
+              "type": "listen",
+              "item": "k.a",
+              "distractors": ["k.o", "k.e"]
+            },
+            {
+              "id": "u01.n01.e08",
+              "type": "trace",
+              "item": "k.i"
+            },
+            {
+              "id": "u01.n01.e09",
+              "type": "dictation",
+              "item": "k.e"
+            },
+            {
+              "id": "u01.n01.e10",
+              "type": "choice",
+              "item": "k.u",
+              "ask": "meaning",
+              "distractors": ["k.a", "k.e"]
+            },
+            {
+              "id": "u01.n01.e11",
+              "type": "listen",
+              "item": "k.i",
+              "distractors": ["k.e", "k.a"]
+            },
+            {
+              "id": "u01.n01.e12",
+              "type": "dictation",
+              "item": "k.o"
+            },
+            {
+              "id": "u01.n01.e13",
+              "type": "trace",
+              "item": "k.u"
+            }
+          ]
+        },
+        {
+          "id": "u01.n02",
+          "kind": "lesson",
+          "title": "The K row かきくけこ",
+          "introduces": ["k.ka", "k.ki", "k.ku", "k.ke", "k.ko"],
+          "teach": [
+            {
+              "note": {
+                "title": "Add a k",
+                "body": "Put a k in front of each vowel: か ka, き ki, く ku, け ke, こ ko. Same rhythm, one beat each."
+              }
+            },
+            {
+              "item": "k.ka"
+            },
+            {
+              "item": "k.ki"
+            },
+            {
+              "item": "k.ku"
+            },
+            {
+              "item": "k.ke"
+            },
+            {
+              "item": "k.ko"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u01.n02.e01",
+              "type": "choice",
+              "item": "k.ka",
+              "ask": "meaning",
+              "distractors": ["k.ki", "k.ko"]
+            },
+            {
+              "id": "u01.n02.e02",
+              "type": "choice",
+              "item": "k.ki",
+              "ask": "meaning",
+              "distractors": ["k.ka", "k.ke"]
+            },
+            {
+              "id": "u01.n02.e03",
+              "type": "listen",
+              "item": "k.ku",
+              "distractors": ["k.ka", "k.u"]
+            },
+            {
+              "id": "u01.n02.e04",
+              "type": "choice",
+              "item": "k.ke",
+              "ask": "meaning",
+              "distractors": ["k.ki", "k.e"]
+            },
+            {
+              "id": "u01.n02.e05",
+              "type": "listen",
+              "item": "k.ko",
+              "distractors": ["k.o", "k.ka"]
+            },
+            {
+              "id": "u01.n02.e06",
+              "type": "match",
+              "items": ["k.ka", "k.ki", "k.ku", "k.ke", "k.ko"]
+            },
+            {
+              "id": "u01.n02.e07",
+              "type": "listen",
+              "item": "k.ka",
+              "distractors": ["k.ko", "k.ke"]
+            },
+            {
+              "id": "u01.n02.e08",
+              "type": "trace",
+              "item": "k.ki"
+            },
+            {
+              "id": "u01.n02.e09",
+              "type": "dictation",
+              "item": "k.ke"
+            },
+            {
+              "id": "u01.n02.e10",
+              "type": "choice",
+              "item": "k.ku",
+              "ask": "meaning",
+              "distractors": ["k.u", "k.ko"]
+            },
+            {
+              "id": "u01.n02.e11",
+              "type": "listen",
+              "item": "k.ki",
+              "distractors": ["k.ke", "k.ka"]
+            },
+            {
+              "id": "u01.n02.e12",
+              "type": "dictation",
+              "item": "k.ko"
+            },
+            {
+              "id": "u01.n02.e13",
+              "type": "trace",
+              "item": "k.ku"
+            }
+          ]
+        },
+        {
+          "id": "u01.n03",
+          "kind": "checkpoint",
+          "title": "Gate Trial",
+          "introduces": [],
+          "exercises": [
+            {
+              "id": "u01.n03.e01",
+              "type": "match",
+              "items": ["k.a", "k.ka", "k.i", "k.ki", "k.u", "k.ku"]
+            },
+            {
+              "id": "u01.n03.e02",
+              "type": "listen",
+              "item": "k.e",
+              "distractors": ["k.ke", "k.i"]
+            },
+            {
+              "id": "u01.n03.e03",
+              "type": "choice",
+              "item": "k.ko",
+              "ask": "meaning",
+              "distractors": ["k.o", "k.ku"]
+            },
+            {
+              "id": "u01.n03.e04",
+              "type": "dictation",
+              "item": "k.ki"
+            },
+            {
+              "id": "u01.n03.e05",
+              "type": "listen",
+              "item": "k.o",
+              "distractors": ["k.ko", "k.u"]
+            },
+            {
+              "id": "u01.n03.e06",
+              "type": "type",
+              "item": "k.ka",
+              "ask": "meaning"
+            },
+            {
+              "id": "u01.n03.e07",
+              "type": "match",
+              "items": ["k.e", "k.ke", "k.o", "k.ko"]
+            },
+            {
+              "id": "u01.n03.e08",
+              "type": "listen",
+              "item": "k.u",
+              "distractors": ["k.ku", "k.o"]
+            },
+            {
+              "id": "u01.n03.e09",
+              "type": "dictation",
+              "item": "k.a"
+            },
+            {
+              "id": "u01.n03.e10",
+              "type": "choice",
+              "item": "k.ke",
+              "ask": "meaning",
+              "distractors": ["k.e", "k.ki"]
+            },
+            {
+              "id": "u01.n03.e11",
+              "type": "type",
+              "item": "k.u",
+              "ask": "meaning"
+            },
+            {
+              "id": "u01.n03.e12",
+              "type": "listen",
+              "item": "k.ka",
+              "distractors": ["k.a", "k.ko"]
+            },
+            {
+              "id": "u01.n03.e13",
+              "type": "dictation",
+              "item": "k.ko"
+            },
+            {
+              "id": "u01.n03.e14",
+              "type": "choice",
+              "item": "k.i",
+              "ask": "meaning",
+              "distractors": ["k.ki", "k.e"]
+            },
+            {
+              "id": "u01.n03.e15",
+              "type": "trace",
+              "item": "k.ko"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u02",
+      "title": "The Café",
+      "nodes": [
+        {
+          "id": "u02.n01",
+          "kind": "lesson",
+          "title": "Drinks",
+          "introduces": ["w.mizu", "w.koohii", "w.ocha", "w.koucha", "w.juusu", "g.o-kudasai"],
+          "teach": [
+            {
+              "item": "w.mizu"
+            },
+            {
+              "item": "w.koohii"
+            },
+            {
+              "item": "w.ocha"
+            },
+            {
+              "item": "w.koucha"
+            },
+            {
+              "item": "w.juusu"
+            },
+            {
+              "note": {
+                "title": "を + ください",
+                "body": "Say the thing, then を (pronounced \"o\"), then ください: {水|みず}をください means \"water, please\"."
+              }
+            },
+            {
+              "item": "g.o-kudasai"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u02.n01.e01",
+              "type": "choice",
+              "item": "w.mizu",
+              "ask": "meaning",
+              "distractors": ["w.koohii", "w.ocha"]
+            },
+            {
+              "id": "u02.n01.e02",
+              "type": "listen",
+              "item": "w.koohii",
+              "distractors": ["w.juusu", "w.mizu"]
+            },
+            {
+              "id": "u02.n01.e03",
+              "type": "choice",
+              "item": "w.ocha",
+              "ask": "meaning",
+              "distractors": ["w.koucha", "w.mizu"]
+            },
+            {
+              "id": "u02.n01.e04",
+              "type": "choice",
+              "item": "w.koucha",
+              "ask": "japanese",
+              "distractors": ["w.ocha", "w.koohii"]
+            },
+            {
+              "id": "u02.n01.e05",
+              "type": "listen",
+              "item": "w.juusu",
+              "distractors": ["w.koohii", "w.ocha"]
+            },
+            {
+              "id": "u02.n01.e06",
+              "type": "match",
+              "items": ["w.mizu", "w.koohii", "w.ocha", "w.koucha", "w.juusu"]
+            },
+            {
+              "id": "u02.n01.e07",
+              "type": "pattern",
+              "item": "g.o-kudasai",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u02.n01.e08",
+              "type": "type",
+              "item": "w.mizu",
+              "ask": "japanese"
+            },
+            {
+              "id": "u02.n01.e09",
+              "type": "listen",
+              "item": "w.ocha",
+              "distractors": ["w.mizu", "w.koucha"]
+            },
+            {
+              "id": "u02.n01.e10",
+              "type": "pattern",
+              "item": "g.o-kudasai",
+              "direction": "toJapanese"
+            },
+            {
+              "id": "u02.n01.e11",
+              "type": "choice",
+              "item": "w.juusu",
+              "ask": "meaning",
+              "distractors": ["w.koohii", "w.koucha"]
+            },
+            {
+              "id": "u02.n01.e12",
+              "type": "dictation",
+              "item": "w.koohii"
+            },
+            {
+              "id": "u02.n01.e13",
+              "type": "fill",
+              "text": "{水|みず}＿＿ください。",
+              "answer": "を",
+              "options": ["を", "は", "が"],
+              "en": "Water, please."
+            },
+            {
+              "id": "u02.n01.e14",
+              "type": "listen",
+              "item": "w.koucha",
+              "distractors": ["w.koohii", "w.ocha"]
+            },
+            {
+              "id": "u02.n01.e15",
+              "type": "pattern",
+              "item": "g.o-kudasai",
+              "direction": "toEnglish"
+            }
+          ]
+        },
+        {
+          "id": "u02.n02",
+          "kind": "lesson",
+          "title": "Food and thanks",
+          "introduces": [
+            "w.pan",
+            "w.keeki",
+            "w.sandoicchi",
+            "w.gyuunyuu",
+            "p.onegaishimasu",
+            "p.itadakimasu"
+          ],
+          "teach": [
+            {
+              "item": "w.pan"
+            },
+            {
+              "item": "w.keeki"
+            },
+            {
+              "item": "w.sandoicchi"
+            },
+            {
+              "item": "w.gyuunyuu"
+            },
+            {
+              "item": "p.onegaishimasu"
+            },
+            {
+              "item": "p.itadakimasu"
+            },
+            {
+              "note": {
+                "title": "いただきます",
+                "body": "Hands together, a small nod, then いただきます: it thanks everyone who brought the meal to you."
+              }
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u02.n02.e01",
+              "type": "choice",
+              "item": "w.pan",
+              "ask": "meaning",
+              "distractors": ["w.keeki", "w.sandoicchi"]
+            },
+            {
+              "id": "u02.n02.e02",
+              "type": "listen",
+              "item": "w.keeki",
+              "distractors": ["w.pan", "w.sandoicchi"]
+            },
+            {
+              "id": "u02.n02.e03",
+              "type": "choice",
+              "item": "w.sandoicchi",
+              "ask": "meaning",
+              "distractors": ["w.pan", "w.keeki"]
+            },
+            {
+              "id": "u02.n02.e04",
+              "type": "choice",
+              "item": "w.gyuunyuu",
+              "ask": "meaning",
+              "distractors": ["w.mizu", "w.ocha"]
+            },
+            {
+              "id": "u02.n02.e05",
+              "type": "choice",
+              "item": "p.itadakimasu",
+              "ask": "meaning",
+              "distractors": ["p.onegaishimasu"]
+            },
+            {
+              "id": "u02.n02.e06",
+              "type": "tiles",
+              "item": "p.onegaishimasu"
+            },
+            {
+              "id": "u02.n02.e07",
+              "type": "match",
+              "items": ["w.pan", "w.keeki", "w.sandoicchi", "w.gyuunyuu"]
+            },
+            {
+              "id": "u02.n02.e08",
+              "type": "situation",
+              "scene": "Your food has just arrived and you are about to eat.",
+              "answer": "p.itadakimasu",
+              "distractors": ["p.onegaishimasu"]
+            },
+            {
+              "id": "u02.n02.e09",
+              "type": "register",
+              "item": "p.onegaishimasu",
+              "from": "polite",
+              "to": "casual"
+            },
+            {
+              "id": "u02.n02.e10",
+              "type": "listen",
+              "item": "w.gyuunyuu",
+              "distractors": ["w.koohii", "w.juusu"]
+            },
+            {
+              "id": "u02.n02.e11",
+              "type": "dictation",
+              "item": "w.pan"
+            },
+            {
+              "id": "u02.n02.e12",
+              "type": "type",
+              "item": "w.keeki",
+              "ask": "japanese"
+            },
+            {
+              "id": "u02.n02.e13",
+              "type": "listen",
+              "item": "w.sandoicchi",
+              "distractors": ["w.pan", "w.keeki"]
+            },
+            {
+              "id": "u02.n02.e14",
+              "type": "listen",
+              "item": "p.itadakimasu",
+              "distractors": ["p.onegaishimasu"]
+            },
+            {
+              "id": "u02.n02.e15",
+              "type": "situation",
+              "scene": "You have just named the cake you want. Add \"please\".",
+              "answer": "p.onegaishimasu",
+              "distractors": ["p.itadakimasu"]
+            }
+          ]
+        },
+        {
+          "id": "u02.n03",
+          "kind": "lesson",
+          "title": "Polite moves",
+          "introduces": [
+            "p.hajimemashite",
+            "p.sumimasen",
+            "p.arigatou-gozaimasu",
+            "p.irasshaimase",
+            "p.gochisousama",
+            "w.kissaten"
+          ],
+          "teach": [
+            {
+              "item": "w.kissaten"
+            },
+            {
+              "item": "p.irasshaimase"
+            },
+            {
+              "item": "p.sumimasen"
+            },
+            {
+              "item": "p.arigatou-gozaimasu"
+            },
+            {
+              "item": "p.gochisousama"
+            },
+            {
+              "item": "p.hajimemashite"
+            },
+            {
+              "note": {
+                "title": "すみません does a lot",
+                "body": "すみません means \"excuse me\" and \"sorry\". In a café it is how you call the server over."
+              }
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u02.n03.e01",
+              "type": "choice",
+              "item": "p.hajimemashite",
+              "ask": "meaning",
+              "distractors": ["p.sumimasen", "p.arigatou-gozaimasu"]
+            },
+            {
+              "id": "u02.n03.e02",
+              "type": "listen",
+              "item": "p.sumimasen",
+              "distractors": ["p.hajimemashite", "p.arigatou-gozaimasu"]
+            },
+            {
+              "id": "u02.n03.e03",
+              "type": "choice",
+              "item": "p.arigatou-gozaimasu",
+              "ask": "meaning",
+              "distractors": ["p.sumimasen", "p.gochisousama"]
+            },
+            {
+              "id": "u02.n03.e04",
+              "type": "choice",
+              "item": "w.kissaten",
+              "ask": "meaning",
+              "distractors": ["w.koohii", "w.pan"]
+            },
+            {
+              "id": "u02.n03.e05",
+              "type": "situation",
+              "scene": "You meet your host family for the first time.",
+              "answer": "p.hajimemashite",
+              "distractors": ["p.arigatou-gozaimasu", "p.itadakimasu"]
+            },
+            {
+              "id": "u02.n03.e06",
+              "type": "situation",
+              "scene": "You want the server to come to your table.",
+              "answer": "p.sumimasen",
+              "distractors": ["p.hajimemashite", "p.gochisousama"]
+            },
+            {
+              "id": "u02.n03.e07",
+              "type": "register",
+              "item": "p.arigatou-gozaimasu",
+              "from": "polite",
+              "to": "casual"
+            },
+            {
+              "id": "u02.n03.e08",
+              "type": "choice",
+              "item": "p.irasshaimase",
+              "ask": "meaning",
+              "distractors": ["p.hajimemashite", "p.itadakimasu"]
+            },
+            {
+              "id": "u02.n03.e09",
+              "type": "tiles",
+              "item": "p.gochisousama"
+            },
+            {
+              "id": "u02.n03.e10",
+              "type": "situation",
+              "scene": "You have finished eating and are getting up to leave.",
+              "answer": "p.gochisousama",
+              "distractors": ["p.itadakimasu", "p.irasshaimase"]
+            },
+            {
+              "id": "u02.n03.e11",
+              "type": "listen",
+              "item": "w.kissaten",
+              "distractors": ["w.koohii", "w.keeki"]
+            },
+            {
+              "id": "u02.n03.e12",
+              "type": "match",
+              "items": [
+                "p.hajimemashite",
+                "p.sumimasen",
+                "p.arigatou-gozaimasu",
+                "p.irasshaimase",
+                "p.gochisousama"
+              ]
+            },
+            {
+              "id": "u02.n03.e13",
+              "type": "listen",
+              "item": "p.irasshaimase",
+              "distractors": ["p.arigatou-gozaimasu", "p.sumimasen"]
+            },
+            {
+              "id": "u02.n03.e14",
+              "type": "type",
+              "item": "w.kissaten",
+              "ask": "japanese"
+            },
+            {
+              "id": "u02.n03.e15",
+              "type": "tiles",
+              "item": "p.arigatou-gozaimasu"
+            }
+          ]
+        },
+        {
+          "id": "u02.n04",
+          "kind": "lesson",
+          "title": "Ordering",
+          "introduces": [
+            "w.menyuu",
+            "w.hitotsu",
+            "w.futatsu",
+            "w.kore",
+            "s.mizu-o-kudasai",
+            "s.koohii-o-hitotsu"
+          ],
+          "teach": [
+            {
+              "item": "w.menyuu"
+            },
+            {
+              "item": "w.kore"
+            },
+            {
+              "item": "w.hitotsu"
+            },
+            {
+              "item": "w.futatsu"
+            },
+            {
+              "note": {
+                "title": "Counting things",
+                "body": "{一|ひと}つ (one) and {二|ふた}つ (two) count things in general. The number goes after を: コーヒーを{一|ひと}つください。"
+              }
+            },
+            {
+              "item": "s.mizu-o-kudasai"
+            },
+            {
+              "item": "s.koohii-o-hitotsu"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u02.n04.e01",
+              "type": "choice",
+              "item": "w.menyuu",
+              "ask": "meaning",
+              "distractors": ["w.keeki", "w.kissaten"]
+            },
+            {
+              "id": "u02.n04.e02",
+              "type": "choice",
+              "item": "w.hitotsu",
+              "ask": "meaning",
+              "distractors": ["w.futatsu", "w.kore"]
+            },
+            {
+              "id": "u02.n04.e03",
+              "type": "listen",
+              "item": "w.futatsu",
+              "distractors": ["w.hitotsu", "w.kore"]
+            },
+            {
+              "id": "u02.n04.e04",
+              "type": "choice",
+              "item": "w.kore",
+              "ask": "meaning",
+              "distractors": ["w.hitotsu", "w.menyuu"]
+            },
+            {
+              "id": "u02.n04.e05",
+              "type": "tiles",
+              "item": "s.mizu-o-kudasai"
+            },
+            {
+              "id": "u02.n04.e06",
+              "type": "translate",
+              "item": "s.koohii-o-hitotsu",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u02.n04.e07",
+              "type": "match",
+              "items": ["w.menyuu", "w.hitotsu", "w.futatsu", "w.kore"]
+            },
+            {
+              "id": "u02.n04.e08",
+              "type": "listen",
+              "item": "s.mizu-o-kudasai",
+              "distractors": ["s.koohii-o-hitotsu"]
+            },
+            {
+              "id": "u02.n04.e09",
+              "type": "tiles",
+              "item": "s.koohii-o-hitotsu",
+              "extraTiles": ["{二|ふた}つ"]
+            },
+            {
+              "id": "u02.n04.e10",
+              "type": "type",
+              "item": "w.menyuu",
+              "ask": "japanese"
+            },
+            {
+              "id": "u02.n04.e11",
+              "type": "choice",
+              "item": "w.futatsu",
+              "ask": "japanese",
+              "distractors": ["w.hitotsu", "w.kore"]
+            },
+            {
+              "id": "u02.n04.e12",
+              "type": "translate",
+              "item": "s.mizu-o-kudasai",
+              "direction": "toJapanese"
+            },
+            {
+              "id": "u02.n04.e13",
+              "type": "dictation",
+              "item": "w.kore"
+            },
+            {
+              "id": "u02.n04.e14",
+              "type": "listen",
+              "item": "s.koohii-o-hitotsu",
+              "distractors": ["s.mizu-o-kudasai"]
+            },
+            {
+              "id": "u02.n04.e15",
+              "type": "listen",
+              "item": "w.hitotsu",
+              "distractors": ["w.futatsu", "w.kore"]
+            }
+          ]
+        },
+        {
+          "id": "u02.n05",
+          "kind": "lesson",
+          "title": "At the table",
+          "introduces": [
+            "w.oishii",
+            "s.menyuu-o-onegaishimasu",
+            "s.kore-wa-nan-desu-ka",
+            "s.oishii-desu",
+            "s.okaikei"
+          ],
+          "teach": [
+            {
+              "item": "w.oishii"
+            },
+            {
+              "item": "s.menyuu-o-onegaishimasu"
+            },
+            {
+              "item": "s.kore-wa-nan-desu-ka"
+            },
+            {
+              "note": {
+                "title": "なん before です",
+                "body": "Before です, {何|なん} is read なん: これは{何|なん}ですか。"
+              }
+            },
+            {
+              "item": "s.oishii-desu"
+            },
+            {
+              "item": "s.okaikei"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u02.n05.e01",
+              "type": "choice",
+              "item": "w.oishii",
+              "ask": "meaning",
+              "distractors": ["w.kore", "w.menyuu"]
+            },
+            {
+              "id": "u02.n05.e02",
+              "type": "listen",
+              "item": "s.oishii-desu",
+              "distractors": ["s.okaikei", "s.kore-wa-nan-desu-ka"]
+            },
+            {
+              "id": "u02.n05.e03",
+              "type": "tiles",
+              "item": "s.menyuu-o-onegaishimasu"
+            },
+            {
+              "id": "u02.n05.e04",
+              "type": "situation",
+              "scene": "You sit down and want to see what they have.",
+              "answer": "s.menyuu-o-onegaishimasu",
+              "distractors": ["s.okaikei", "s.oishii-desu"]
+            },
+            {
+              "id": "u02.n05.e05",
+              "type": "tiles",
+              "item": "s.kore-wa-nan-desu-ka"
+            },
+            {
+              "id": "u02.n05.e06",
+              "type": "listen",
+              "item": "s.kore-wa-nan-desu-ka",
+              "distractors": ["s.oishii-desu", "s.okaikei"]
+            },
+            {
+              "id": "u02.n05.e07",
+              "type": "situation",
+              "scene": "You take a bite and love it.",
+              "answer": "s.oishii-desu",
+              "distractors": ["s.kore-wa-nan-desu-ka", "s.okaikei"]
+            },
+            {
+              "id": "u02.n05.e08",
+              "type": "tiles",
+              "item": "s.okaikei"
+            },
+            {
+              "id": "u02.n05.e09",
+              "type": "situation",
+              "scene": "You are finished and want to pay.",
+              "answer": "s.okaikei",
+              "distractors": ["s.menyuu-o-onegaishimasu", "s.oishii-desu"]
+            },
+            {
+              "id": "u02.n05.e10",
+              "type": "type",
+              "item": "w.oishii",
+              "ask": "japanese"
+            },
+            {
+              "id": "u02.n05.e11",
+              "type": "translate",
+              "item": "s.oishii-desu",
+              "direction": "toJapanese"
+            },
+            {
+              "id": "u02.n05.e12",
+              "type": "listen",
+              "item": "s.okaikei",
+              "distractors": ["s.menyuu-o-onegaishimasu", "s.kore-wa-nan-desu-ka"]
+            },
+            {
+              "id": "u02.n05.e13",
+              "type": "translate",
+              "item": "s.menyuu-o-onegaishimasu",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u02.n05.e14",
+              "type": "translate",
+              "item": "s.kore-wa-nan-desu-ka",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u02.n05.e15",
+              "type": "match",
+              "items": ["w.oishii", "w.kore", "w.menyuu", "w.kissaten"]
+            }
+          ]
+        },
+        {
+          "id": "u02.n06",
+          "kind": "story",
+          "title": "At the counter",
+          "introduces": [],
+          "teach": [
+            {
+              "note": {
+                "title": "Your first order",
+                "body": "Listen to the clerk and choose what you say. Everything here is something you already know."
+              }
+            }
+          ],
+          "exercises": [
+            {
+              "id": "u02.n06.e01",
+              "type": "reply",
+              "dialogue": "d.cafe-order"
+            }
+          ]
+        },
+        {
+          "id": "u02.n07",
+          "kind": "checkpoint",
+          "title": "Boss: Mojibake",
+          "introduces": [],
+          "exercises": [
+            {
+              "id": "u02.n07.e01",
+              "type": "listen",
+              "item": "w.mizu",
+              "distractors": ["w.ocha", "w.juusu"]
+            },
+            {
+              "id": "u02.n07.e02",
+              "type": "choice",
+              "item": "w.gyuunyuu",
+              "ask": "japanese",
+              "distractors": ["w.koucha", "w.juusu"]
+            },
+            {
+              "id": "u02.n07.e03",
+              "type": "pattern",
+              "item": "g.o-kudasai",
+              "direction": "toEnglish"
+            },
+            {
+              "id": "u02.n07.e04",
+              "type": "situation",
+              "scene": "You meet a new coworker.",
+              "answer": "p.hajimemashite",
+              "distractors": ["p.sumimasen", "p.itadakimasu"]
+            },
+            {
+              "id": "u02.n07.e05",
+              "type": "tiles",
+              "item": "s.okaikei"
+            },
+            {
+              "id": "u02.n07.e06",
+              "type": "fill",
+              "text": "コーヒー＿＿{一|ひと}つください。",
+              "answer": "を",
+              "options": ["を", "は", "が"],
+              "en": "One coffee, please."
+            },
+            {
+              "id": "u02.n07.e07",
+              "type": "listen",
+              "item": "s.kore-wa-nan-desu-ka",
+              "distractors": ["s.oishii-desu", "s.mizu-o-kudasai"]
+            },
+            {
+              "id": "u02.n07.e08",
+              "type": "type",
+              "item": "w.koohii",
+              "ask": "japanese"
+            },
+            {
+              "id": "u02.n07.e09",
+              "type": "register",
+              "item": "p.gochisousama",
+              "from": "polite",
+              "to": "casual"
+            },
+            {
+              "id": "u02.n07.e10",
+              "type": "match",
+              "items": ["w.pan", "w.keeki", "w.sandoicchi", "w.menyuu", "w.kissaten"]
+            },
+            {
+              "id": "u02.n07.e11",
+              "type": "choice",
+              "item": "p.irasshaimase",
+              "ask": "meaning",
+              "distractors": ["p.arigatou-gozaimasu", "p.sumimasen"]
+            },
+            {
+              "id": "u02.n07.e12",
+              "type": "pattern",
+              "item": "g.o-kudasai",
+              "direction": "toJapanese"
+            },
+            {
+              "id": "u02.n07.e13",
+              "type": "translate",
+              "item": "s.koohii-o-hitotsu",
+              "direction": "toJapanese"
+            },
+            {
+              "id": "u02.n07.e14",
+              "type": "dictation",
+              "item": "w.ocha"
+            },
+            {
+              "id": "u02.n07.e15",
+              "type": "situation",
+              "scene": "Your meal has just been served.",
+              "answer": "p.itadakimasu",
+              "distractors": ["p.gochisousama", "p.hajimemashite"]
+            },
+            {
+              "id": "u02.n07.e16",
+              "type": "listen",
+              "item": "p.arigatou-gozaimasu",
+              "distractors": ["p.sumimasen", "p.onegaishimasu"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
