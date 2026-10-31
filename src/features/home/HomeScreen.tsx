@@ -1,15 +1,17 @@
 import { TourButton } from '../tour/Tour';
-import { Link } from 'react-router';
 import { useGame } from '../../foundations/store/gameStore';
 import { isUnlocked } from '../../engine/game';
 import { regionForUnit, regions } from '../../foundations/world';
 import { useSave, useStats } from '../hooks';
 import { Avatar } from '../avatar/Avatar';
-import { Slot } from '../../foundations/slots/Slot';
 import { SpeakableJa } from '../../foundations/japanese/Ja';
 import { Mascot } from '../../foundations/art/Mascot';
 import { DojoHallBackdrop, MarketStreetBackdrop } from '../lesson/BattleBackdrops';
-import { useDesk, type DeskNote } from './desk';
+import { useDesk } from './desk';
+import { NorenContinue } from './parts/NorenContinue';
+import { EmaNudge } from './parts/EmaNudge';
+import { Omamori } from './parts/Omamori';
+import { PlaceSign, SceneEave } from './parts/SceneFrame';
 import './home.css';
 
 function greeting(hour: number): { ja: string; en: string } {
@@ -493,31 +495,6 @@ function HomeCampDiorama({
  * Today's goal as a Chibi Shrine Chōchin Lantern that fills with warm golden spirit fire
  * as `pct` rises from 0% to 100%. Pure inline SVG with +3 shade lips and top-left highlight.
  */
-/** One reminder: a link when it goes somewhere, a button when it acts in place. */
-function Nudge({ note }: { note: DeskNote }) {
-  const body = (
-    <>
-      <span className="home-nudge-dot" aria-hidden="true" />
-      <span className="home-nudge-text">{note.text}</span>
-      {note.cta && <span className="home-nudge-cta">{note.cta}</span>}
-    </>
-  );
-  const cls = `home-nudge tone-${note.tone}`;
-  if (note.to)
-    return (
-      <Link className={cls} to={note.to} onClick={note.act}>
-        {body}
-      </Link>
-    );
-  if (note.act)
-    return (
-      <button type="button" className={cls} onClick={note.act}>
-        {body}
-      </button>
-    );
-  return <div className={cls}>{body}</div>;
-}
-
 /**
  * Home is one screen with one job: a scene of where you are in the story, one button to keep
  * going, and at most three reminders that only appear when something needs you. Stats live in
@@ -569,7 +546,8 @@ export function HomeScreen() {
           />
         )}
         <div className="home-scene-floor" aria-hidden="true" />
-        <p className="home-place">{region.en}</p>
+        <SceneEave />
+        <PlaceSign place={region.en} />
         <TourButton />
         <div className="home-koto">
           <Mascot
@@ -589,52 +567,47 @@ export function HomeScreen() {
       </section>
 
       {next ? (
-        <Link
-          className="next-card home-continue"
+        <NorenContinue
           to={next.href}
-          aria-label={`${save.lessonCount ? 'Continue' : 'Start your first lesson'}: ${next.title}`}
-        >
-          <span className="home-continue-copy">
-            <span className="eyebrow">
-              {next.kind === 'checkpoint' ? 'Boss ahead' : 'Next lesson'}
-            </span>
-            <span className="home-continue-title">{next.title}</span>
-            <Slot slot="streak.extend" fire={save.streak.lastGoalDay} className="home-goal">
-              <span className="home-goal-bar" role="img" aria-label={`Daily goal ${goalPct}%`}>
-                <span style={{ transform: `scaleX(${goalPct / 100})` }} />
-              </span>
-              <span className="home-goal-text">
-                {met ? 'Goal met today' : `${desk.status.todayXp} / ${desk.status.goal} XP today`}
-              </span>
-            </Slot>
-          </span>
-          <span className="home-continue-go" aria-hidden="true">
-            {save.lessonCount ? 'Continue' : 'Start'}
-          </span>
-        </Link>
+          label={`${save.lessonCount ? 'Continue' : 'Start your first lesson'}: ${next.title}`}
+          eyebrow={next.kind === 'checkpoint' ? 'Boss ahead' : 'Next lesson'}
+          title={next.title}
+          cta={save.lessonCount ? 'Continue' : 'Start'}
+          goalPct={goalPct}
+          goalText={
+            met ? 'Goal met today' : `${desk.status.todayXp} / ${desk.status.goal} XP today`
+          }
+          goalFire={save.streak.lastGoalDay}
+        />
       ) : (
-        <Link className="next-card home-continue" to="/packs">
-          <span className="home-continue-copy">
-            <span className="eyebrow">All caught up</span>
-            <span className="home-continue-title">Every lesson is done</span>
-          </span>
-          <span className="home-continue-go">Add a pack</span>
-        </Link>
+        <NorenContinue
+          to="/packs"
+          label="Add a lesson pack"
+          eyebrow="All caught up"
+          title="Every lesson is done"
+          cta="Add a pack"
+          goalPct={null}
+          goalText=""
+        />
       )}
 
       {notes.length > 0 && (
         <div className="home-nudges" role="list" aria-label="Needs you">
           {notes.map((n) => (
             <div role="listitem" key={n.id}>
-              <Nudge note={n} />
+              <EmaNudge note={n} />
             </div>
           ))}
         </div>
       )}
 
       <nav className="home-more" aria-label="More to play">
-        <Link to="/modes">Arcade</Link>
-        <Link to="/collection">Spirits{spiritCount ? ` · ${spiritCount} awake` : ''}</Link>
+        <Omamori to="/modes" kind="arcade" label="Arcade" />
+        <Omamori
+          to="/collection"
+          kind="spirits"
+          label={`Spirits${spiritCount ? ` · ${spiritCount} awake` : ''}`}
+        />
       </nav>
     </div>
   );

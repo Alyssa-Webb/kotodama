@@ -1,0 +1,38 @@
+/* Home's object UI: noren, lantern, ema, omamori, eave and signboard. Placeholder looks; the art
+   pass replaces them. Animate only transform and opacity. */
+
+.noren {
+  position: relative;
+}
+
+.goal-lantern {
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 36px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--c-surface-alt);
+}
+
+.goal-lantern-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--c-glow);
+  transform-origin: 50% 100%;
+}
+
+.ema-plaque {
+  flex: none;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--c-panel-edge);
+}
+
+.omamori {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
