@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    .f { opacity: 0; animation: show 0.5s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: -0.4167s; }
+    .f3 { animation-delay: -0.3333s; }
+    .f4 { animation-delay: -0.25s; }
+    .f5 { animation-delay: -0.1667s; }
+    .f6 { animation-delay: -0.0833s; }
+    @keyframes show {
+      0% { opacity: 1; }
+      16.6667% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .f { animation: none; opacity: 0; }
+      .f1 { opacity: 1; }
+    }
+    .cap { font-family: serif; font-size: 12px; font-weight: bold; fill: #faf3e3; letter-spacing: 0.5px; }
+    .seal { font-family: serif; font-size: 11px; font-weight: bold; fill: #c83e2b; }
+  </style>
+
+  <defs>
+    <linearGradient id="sky-bokashi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b5478"/>
+      <stop offset="42%" stop-color="#7fa3bc"/>
+      <stop offset="88%" stop-color="#efe3cc"/>
+      <stop offset="100%" stop-color="#f4ebd9"/>
+    </linearGradient>
+    <linearGradient id="earth-bokashi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ebe0c9"/>
+      <stop offset="100%" stop-color="#d2bf9c"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="48%" r="40%">
+      <stop offset="0%" stop-color="#fbf6ea" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#fbf6ea" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="seigaiha" width="44" height="22" patternUnits="userSpaceOnUse">
+      <path d="M0,22 A22,22 0 0,1 44,22 M7,22 A15,15 0 0,1 37,22 M14,22 A8,8 0 0,1 30,22" fill="none" stroke="#c5d3dc" stroke-width="1.15" stroke-opacity="0.6"/>
+      <path d="M-22,11 A22,22 0 0,1 22,11 M-15,11 A15,15 0 0,1 15,11 M22,11 A22,22 0 0,1 66,11 M29,11 A15,15 0 0,1 59,11" fill="none" stroke="#c5d3dc" stroke-width="1.15" stroke-opacity="0.6"/>
+    </pattern>
+
+    <!-- Stationary straw sandals & ankles -->
+    <g id="feet-front">
+      <ellipse cx="200" cy="326" rx="46" ry="9" fill="#9c8969" fill-opacity="0.44"/>
+      <!-- Left foot (viewer's left) -->
+      <rect x="172" y="300" width="20" height="16" rx="5" fill="#e3b898" stroke="#1e1b18" stroke-width="2.2"/>
+      <ellipse cx="181" cy="320" rx="16" ry="6.5" fill="#b88746" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M166,321 Q181,327 196,321" fill="none" stroke="#7d5622" stroke-width="2.6" stroke-linecap="round"/>
+      <ellipse cx="181" cy="316" rx="13" ry="5.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2"/>
+      <path d="M169,318 Q181,309 193,318" fill="none" stroke="#dca03a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M181,313 L181,319" stroke="#1e1b18" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Right foot (viewer's right) -->
+      <rect x="208" y="300" width="20" height="16" rx="5" fill="#e3b898" stroke="#1e1b18" stroke-width="2.2"/>
+      <ellipse cx="219" cy="320" rx="16" ry="6.5" fill="#b88746" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M204,321 Q219,327 234,321" fill="none" stroke="#7d5622" stroke-width="2.6" stroke-linecap="round"/>
+      <ellipse cx="219" cy="316" rx="13" ry="5.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2"/>
+      <path d="M207,318 Q219,309 231,318" fill="none" stroke="#dca03a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M219,313 L219,319" stroke="#1e1b18" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+
+    <!-- Front kimono torso (sleeves & obi tassel separate for secondary lag) -->
+    <g id="torso-front">
+      <!-- Neck -->
+      <path d="M188,208 H212 L214,228 H186 Z" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2"/>
+      <path d="M188,210 Q200,217 212,210 L212,217 Q200,223 188,217 Z" fill="#e3b898"/>
+      <!-- Ochre under-hem band -->
+      <rect x="169" y="295" width="62" height="10" rx="4" fill="#c8963e" stroke="#1e1b18" stroke-width="2.4"/>
+      <!-- Light-blue kimono body -->
+      <path d="M174,218 L165,254 L166,297 Q200,302 234,297 L235,254 L226,218 Z" fill="#78a6d4"/>
+      <path d="M166,287 Q200,292 234,287 L234,297 Q200,302 166,297 Z" fill="#5782b0"/>
+      <!-- White okumi vertical lower trim band -->
+      <path d="M206,276 L215,276 L214,298 L205,298 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="1.8"/>
+      <!-- White crossed collar (eri, hidari-mae: viewer's left crosses over right) -->
+      <path d="M214,215 L223,220 L201,254 L193,249 Z" fill="#e8e0cc" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M186,215 L177,220 L204,256 L214,254 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+      <!-- Varied-weight outer torso brush lines -->
+      <path d="M174,218 L165,254 L166,297 Q200,302 234,297 L235,254 L226,218" fill="none" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M164.5,274 L165,297 Q200,303 235,297 L235.5,274 L233.5,295.5 Q200,300 166.5,295.5 Z" fill="#1e1b18"/>
+      <!-- White obi-shita under-band -->
+      <path d="M162,266 Q200,270 238,266 L240,277 Q200,281 160,277 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+      <!-- Yellow obi sash -->
+      <path d="M164,253 Q200,257 236,253 L238,267 Q200,271 162,267 Z" fill="#e8c135" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M165,263 Q200,267 235,263" fill="none" stroke="#c79c1e" stroke-width="2"/>
+    </g>
+
+    <!-- Front small yellow sash knot & tassels (settle vs lifted) -->
+    <g id="obi-knot-settle">
+      <path d="M215,266 L210,279 Q214,282 218,278 Z M220,266 L221,280 Q226,281 228,276 Z" fill="#e8c135" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <ellipse cx="218" cy="265" rx="6.5" ry="5" fill="#f2cf4b" stroke="#1e1b18" stroke-width="2.2"/>
+    </g>
+    <g id="obi-knot-lift">
+      <path d="M215,265 L208,276 Q212,279 217,276 Z M220,265 L223,277 Q228,278 230,273 Z" fill="#e8c135" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <ellipse cx="218" cy="264" rx="6.5" ry="5" fill="#f2cf4b" stroke="#1e1b18" stroke-width="2.2"/>
+    </g>
+
+    <!-- Sleeves + hands: settled vs airy lifted (lagging a beat behind torso breath) -->
+    <g id="sleeves-settle">
+      <circle cx="129" cy="261" r="10.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+      <circle cx="271" cy="261" r="10.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+      <path d="M175,219 L132,243 L143,278 C154,281 164,272 167,256 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.7" stroke-linejoin="round"/>
+      <path d="M135,247 L144,276 C152,278 160,272 164,261" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+      <path d="M132,243 L143,278 C152,281 161,275 165,264 C160,273 151,277 144,275 Z" fill="#1e1b18"/>
+      <path d="M225,219 L268,243 L257,278 C246,281 236,272 233,256 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.7" stroke-linejoin="round"/>
+      <path d="M265,247 L256,276 C248,278 240,272 236,261" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+      <path d="M268,243 L257,278 C248,281 239,275 235,264 C240,273 249,277 256,275 Z" fill="#1e1b18"/>
+    </g>
+    <g id="sleeves-lift">
+      <circle cx="126" cy="258" r="10.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+      <circle cx="274" cy="258" r="10.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+      <path d="M175,219 L129,240 L141,275 C153,278 164,270 167,255 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.7" stroke-linejoin="round"/>
+      <path d="M132,244 L142,273 C150,275 159,269 164,259" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+      <path d="M225,219 L271,240 L259,275 C247,278 236,270 233,255 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.7" stroke-linejoin="round"/>
+      <path d="M268,244 L258,273 C250,275 241,269 236,259" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+    </g>
+
+    <!-- Chibi front head + black bob + short fringe + cheeks + smile (eyes & topknot separate) -->
+    <g id="head-front">
+      <!-- Back hair dome + playful left side tuft -->
+      <path d="M142,212 C125,196 125,162 131,152 C122,154 118,148 124,143 C128,140 132,141 134,142 C142,113 166,99 200,99 C234,99 258,113 266,142 C275,164 274,196 258,212 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.8" stroke-linejoin="round"/>
+      <!-- Ears -->
+      <ellipse cx="132" cy="173" rx="11" ry="14.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M130,167 Q125,173 130,179" fill="none" stroke="#c99b7c" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="268" cy="173" rx="11" ry="14.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M270,167 Q275,173 270,179" fill="none" stroke="#c99b7c" stroke-width="2" stroke-linecap="round"/>
+      <!-- Face base & woodblock chin shade -->
+      <path d="M144,136 C144,116 256,116 256,136 L256,182 C256,206 232,214 200,214 C168,214 144,206 144,182 Z" fill="#f5d5bc"/>
+      <path d="M146,193 C156,208 176,214 200,214 C224,214 244,208 254,193 C240,204 222,208 200,208 C178,208 160,204 146,193 Z" fill="#e3b898"/>
+      <!-- Varied-weight sumi jaw & cheek brush line -->
+      <path d="M145,180 C145,206 170,215 200,215 C230,215 255,206 255,180 C253,203 229,211.5 200,211.5 C171,211.5 147,203 145,180 Z" fill="#1e1b18"/>
+      <!-- Beni-pink cheeks -->
+      <ellipse cx="159" cy="191" rx="13" ry="8.5" fill="#e6928e"/>
+      <ellipse cx="241" cy="191" rx="13" ry="8.5" fill="#e6928e"/>
+      <!-- Gentle brush smile & tiny nose hint -->
+      <ellipse cx="200" cy="184" rx="2.5" ry="1.6" fill="#d9a689"/>
+      <path d="M191,192 Q200,199.5 209,192 Q200,196 191,192 Z" fill="#1e1b18" stroke="#1e1b18" stroke-width="1.4" stroke-linecap="round"/>
+      <!-- Eyebrows -->
+      <path d="M161,156 Q171,152 180,155" fill="none" stroke="#1e1b18" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M220,155 Q229,152 239,156" fill="none" stroke="#1e1b18" stroke-width="3.2" stroke-linecap="round"/>
+      <!-- Side bob locks & short 3-parted fringe -->
+      <path d="M134,142 C131,168 134,200 144,216 C150,218 153,213 151,203 L149,151 C159,154 169,152 174,144 L177,136 L179,146 C186,154 214,154 221,146 L223,136 L226,144 C231,152 241,154 251,151 L249,203 C247,213 250,218 256,216 C266,200 269,168 266,142 C258,112 234,101 200,101 C166,101 142,112 134,142 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <!-- Carved crown sheen -->
+      <path d="M153,125 C172,110 228,110 247,125 C228,116 172,116 153,125 Z" fill="#433e3c"/>
+    </g>
+
+    <!-- Eye states for the 2-frame blink -->
+    <g id="eyes-open">
+      <ellipse cx="171" cy="175" rx="12" ry="13" fill="#1c1918"/>
+      <path d="M162,180 A10,10 0 0,0 180,180 A11,8 0 0,1 162,180 Z" fill="#3b536e"/>
+      <path d="M156,167 Q161,169 163,165" fill="none" stroke="#1c1918" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="166.5" cy="170" r="3.8" fill="#faf4e6"/>
+      <circle cx="175" cy="179" r="1.7" fill="#faf4e6"/>
+
+      <ellipse cx="229" cy="175" rx="12" ry="13" fill="#1c1918"/>
+      <path d="M220,180 A10,10 0 0,0 238,180 A11,8 0 0,1 220,180 Z" fill="#3b536e"/>
+      <path d="M244,167 Q239,169 237,165" fill="none" stroke="#1c1918" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="224.5" cy="170" r="3.8" fill="#faf4e6"/>
+      <circle cx="233" cy="179" r="1.7" fill="#faf4e6"/>
+    </g>
+    <g id="eyes-half">
+      <path d="M159,175 Q171,173 183,175 A12,9 0 0,1 159,175 Z" fill="#1c1918"/>
+      <circle cx="168" cy="177" r="2.3" fill="#faf4e6"/>
+      <path d="M156,173 Q171,169 183,175" fill="none" stroke="#1c1918" stroke-width="3.2" stroke-linecap="round"/>
+
+      <path d="M217,175 Q229,173 241,175 A12,9 0 0,1 217,175 Z" fill="#1c1918"/>
+      <circle cx="226" cy="177" r="2.3" fill="#faf4e6"/>
+      <path d="M217,175 Q229,169 244,173" fill="none" stroke="#1c1918" stroke-width="3.2" stroke-linecap="round"/>
+    </g>
+    <g id="eyes-closed">
+      <path d="M157,176 Q171,183 183,176" fill="none" stroke="#1c1918" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M155,174 L160,176" stroke="#1c1918" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M217,176 Q229,183 243,176" fill="none" stroke="#1c1918" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M245,174 L240,176" stroke="#1c1918" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+    <!-- Topknot tied with cord -->
+    <g id="topknot">
+      <path d="M-8,0 C-19,-4 -19,-15 -8,-14 C-5,-21 8,-21 10,-13 C20,-14 21,-3 9,0 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M-4,-13 Q2,-17 7,-11" fill="none" stroke="#433e3c" stroke-width="2" stroke-linecap="round"/>
+      <rect x="-8.5" y="-2.5" width="17" height="5.5" rx="2.5" fill="#dfc79b" stroke="#1e1b18" stroke-width="2"/>
+    </g>
+  </defs>
+
+  <!-- Washi ground & Nishiki-e background -->
+  <rect width="400" height="400" fill="#f4ebd9"/>
+  <rect x="16" y="16" width="368" height="238" fill="url(#sky-bokashi)"/>
+  <rect x="16" y="16" width="368" height="225" fill="url(#seigaiha)"/>
+  <!-- Edo suyari-gasumi woodblock cloud bands -->
+  <path d="M16,192 H112 Q124,192 124,184 Q124,176 112,176 H66 Q76,168 64,162 H16 Z" fill="#f4ebd9" fill-opacity="0.9"/>
+  <path d="M384,174 H288 Q276,174 276,166 Q276,158 288,158 H336 Q326,150 338,144 H384 Z" fill="#f4ebd9" fill-opacity="0.9"/>
+  <!-- Calm earthen ground block -->
+  <rect x="16" y="254" width="368" height="130" fill="url(#earth-bokashi)"/>
+  <path d="M16,254 Q200,248 384,254" fill="none" stroke="#3a332c" stroke-width="1.8"/>
+  <path d="M74,312 Q88,309 102,312 M302,304 Q318,301 332,304" fill="none" stroke="#b39f7d" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="200" cy="198" r="136" fill="url(#halo)"/>
+
+  <!-- Frame 1: Rest (body at 0, sleeves settled at 0, eyes open) -->
+  <g class="f f1">
+    <use href="#feet-front"/>
+    <use href="#sleeves-settle" x="0" y="0"/>
+    <g transform="translate(0,0)"><use href="#torso-front"/><use href="#obi-knot-settle"/></g>
+    <g transform="translate(0,0)"><use href="#head-front"/><use href="#eyes-open"/></g>
+    <use href="#topknot" transform="translate(200,101)"/>
+  </g>
+
+  <!-- Frame 2: Inhale rising (body -1.5, head -2, sleeves lagging at -0.5, eyes open) -->
+  <g class="f f2">
+    <use href="#feet-front"/>
+    <use href="#sleeves-settle" x="0" y="-0.5"/>
+    <g transform="translate(0,-1.5)"><use href="#torso-front"/><use href="#obi-knot-settle"/></g>
+    <g transform="translate(0,-2)"><use href="#head-front"/><use href="#eyes-open"/></g>
+    <use href="#topknot" transform="translate(200,99.5) rotate(-1.5)"/>
+  </g>
+
+  <!-- Frame 3: Breath peak (body -3, head -3.5, sleeves rising to -2.2, eyes open) -->
+  <g class="f f3">
+    <use href="#feet-front"/>
+    <use href="#sleeves-lift" x="0" y="-2.2"/>
+    <g transform="translate(0,-3)"><use href="#torso-front"/><use href="#obi-knot-lift"/></g>
+    <g transform="translate(0,-3.5)"><use href="#head-front"/><use href="#eyes-open"/></g>
+    <use href="#topknot" transform="translate(200,98) rotate(-2)"/>
+  </g>
+
+  <!-- Frame 4: Body begins settling (-2), sleeves peak a beat later (-3.5), BLINK 1/2 (half-closed) -->
+  <g class="f f4">
+    <use href="#feet-front"/>
+    <use href="#sleeves-lift" x="0" y="-3.5"/>
+    <g transform="translate(0,-2)"><use href="#torso-front"/><use href="#obi-knot-lift"/></g>
+    <g transform="translate(0,-2.2)"><use href="#head-front"/><use href="#eyes-half"/></g>
+    <use href="#topknot" transform="translate(200,98.5) rotate(1.5)"/>
+  </g>
+
+  <!-- Frame 5: Body settles (-0.8), sleeves descending (-1.8), BLINK 2/2 (closed) -->
+  <g class="f f5">
+    <use href="#feet-front"/>
+    <use href="#sleeves-lift" x="0" y="-1.8"/>
+    <g transform="translate(0,-0.8)"><use href="#torso-front"/><use href="#obi-knot-lift"/></g>
+    <g transform="translate(0,-1)"><use href="#head-front"/><use href="#eyes-closed"/></g>
+    <use href="#topknot" transform="translate(200,99.8) rotate(1)"/>
+  </g>
+
+  <!-- Frame 6: Body settled (0), sleeves finishing settle (-0.8), eyes open again -->
+  <g class="f f6">
+    <use href="#feet-front"/>
+    <use href="#sleeves-settle" x="0" y="-0.8"/>
+    <g transform="translate(0,0)"><use href="#torso-front"/><use href="#obi-knot-settle"/></g>
+    <g transform="translate(0,0)"><use href="#head-front"/><use href="#eyes-open"/></g>
+    <use href="#topknot" transform="translate(200,101)"/>
+  </g>
+
+  <!-- Edo woodblock print margin & red cartouche -->
+  <rect x="16" y="16" width="368" height="368" fill="none" stroke="#3a332c" stroke-width="2.4"/>
+  <rect x="20" y="20" width="360" height="360" fill="none" stroke="#3a332c" stroke-width="0.9"/>
+  <g transform="translate(284,28)">
+    <rect width="86" height="24" rx="2" fill="#c83e2b" stroke="#1e1b18" stroke-width="1.8"/>
+    <rect x="3" y="3" width="80" height="18" fill="none" stroke="#faf3e3" stroke-width="0.8"/>
+    <text x="43" y="16.5" text-anchor="middle" class="cap">idle-front</text>
+  </g>
+  <g transform="translate(348,58)">
+    <rect width="20" height="20" rx="2" fill="#faf3e3" stroke="#c83e2b" stroke-width="1.6"/>
+    <text x="10" y="14.5" text-anchor="middle" class="seal">佇</text>
+  </g>
+</svg>

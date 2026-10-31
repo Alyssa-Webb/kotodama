@@ -1,0 +1,296 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    .f { opacity: 0; animation: show 0.6667s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: -0.5833s; }
+    .f3 { animation-delay: -0.5s; }
+    .f4 { animation-delay: -0.4167s; }
+    .f5 { animation-delay: -0.3333s; }
+    .f6 { animation-delay: -0.25s; }
+    .f7 { animation-delay: -0.1667s; }
+    .f8 { animation-delay: -0.0833s; }
+    @keyframes show {
+      0% { opacity: 1; }
+      12.5% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .f { animation: none; opacity: 0; }
+      .f1 { opacity: 1; }
+    }
+    .cap { font-family: serif; font-size: 12px; font-weight: bold; fill: #faf3e3; letter-spacing: 0.5px; }
+    .seal { font-family: serif; font-size: 11px; font-weight: bold; fill: #c83e2b; }
+  </style>
+
+  <defs>
+    <linearGradient id="sky-bokashi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b5478"/>
+      <stop offset="38%" stop-color="#7fa3bc"/>
+      <stop offset="85%" stop-color="#efe3cc"/>
+      <stop offset="100%" stop-color="#f4ebd9"/>
+    </linearGradient>
+    <linearGradient id="ground-bokashi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e5d7bc"/>
+      <stop offset="100%" stop-color="#cbb793"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="48%" r="42%">
+      <stop offset="0%" stop-color="#fbf6ea" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#fbf6ea" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="seigaiha" width="40" height="20" patternUnits="userSpaceOnUse">
+      <path d="M0,20 A20,20 0 0,1 40,20 M6,20 A14,14 0 0,1 34,20 M12,20 A8,8 0 0,1 28,20" fill="none" stroke="#c7d4dc" stroke-width="1.1" stroke-opacity="0.55"/>
+      <path d="M-20,10 A20,20 0 0,1 20,10 M-14,10 A14,14 0 0,1 14,10 M20,10 A20,20 0 0,1 60,10 M26,10 A14,14 0 0,1 54,10" fill="none" stroke="#c7d4dc" stroke-width="1.1" stroke-opacity="0.55"/>
+    </pattern>
+
+    <!-- Chibi rear head + bob (topknot kept separate for secondary lag) -->
+    <g id="head-back">
+      <!-- Ears -->
+      <ellipse cx="131" cy="171" rx="11" ry="15" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.6"/>
+      <path d="M128,165 Q124,171 129,177" fill="none" stroke="#c99b7c" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="269" cy="171" rx="11" ry="15" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.6"/>
+      <path d="M272,165 Q276,171 271,177" fill="none" stroke="#c99b7c" stroke-width="2" stroke-linecap="round"/>
+      <!-- Nape -->
+      <rect x="185" y="205" width="30" height="16" rx="6" fill="#e3b898"/>
+      <!-- Main black bob dome with signature right side-tuft -->
+      <path d="M141,210 C125,196 124,150 142,123 C159,97 241,97 258,123 C264,132 267,140 268,145 C276,144 282,149 279,154 C276,158 271,158 269,157 C272,178 270,198 259,210 Q200,221 141,210 Z" fill="#262322"/>
+      <!-- Undercut woodblock shadow band -->
+      <path d="M141,202 Q200,211 259,202 L259,210 Q200,221 141,210 Z" fill="#171514"/>
+      <!-- Carved crown sheen & hair-lock ink lines -->
+      <path d="M154,132 C174,113 226,113 246,132 C228,121 172,121 154,132 Z" fill="#433e3c"/>
+      <path d="M168,136 Q163,174 168,206 M200,132 L200,209 M232,136 Q237,174 232,206" fill="none" stroke="#161413" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Varied-weight sumi keyblock contour + thick calligraphic lower-bob brush swell -->
+      <path d="M141,210 C125,196 124,150 142,123 C159,97 241,97 258,123 C264,132 267,140 268,145 C276,144 282,149 279,154 C276,158 271,158 269,157 C272,178 270,198 259,210 Q200,221 141,210 Z" fill="none" stroke="#1e1b18" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M131,182 C132,198 137,207 142,211 Q200,222 258,211 C264,207 269,197 270,180 C268,195 262,204 256,208 Q200,217 144,208 C138,204 133,195 131,182 Z" fill="#1e1b18"/>
+    </g>
+
+    <!-- Topknot variants anchored at cord (0,0) so puff lags while cord stays on crown -->
+    <g id="topknot">
+      <path d="M-8,0 C-19,-4 -19,-15 -8,-14 C-5,-21 8,-21 10,-13 C20,-14 21,-3 9,0 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M-4,-13 Q2,-17 7,-11" fill="none" stroke="#433e3c" stroke-width="2" stroke-linecap="round"/>
+      <rect x="-8.5" y="-2.5" width="17" height="5.5" rx="2.5" fill="#dfc79b" stroke="#1e1b18" stroke-width="2"/>
+    </g>
+    <g id="topknot-up">
+      <path d="M-7,0 C-17,-7 -16,-20 -6,-18 C-3,-26 8,-26 10,-17 C19,-18 19,-6 8,0 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M-3,-17 Q2,-21 7,-15" fill="none" stroke="#433e3c" stroke-width="2" stroke-linecap="round"/>
+      <rect x="-8.5" y="-2.5" width="17" height="5.5" rx="2.5" fill="#dfc79b" stroke="#1e1b18" stroke-width="2"/>
+    </g>
+    <g id="topknot-dn">
+      <path d="M-9,0 C-22,-2 -21,-11 -9,-10 C-6,-16 8,-16 11,-9 C22,-10 23,-1 10,0 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M-4,-10 Q2,-13 7,-8" fill="none" stroke="#433e3c" stroke-width="2" stroke-linecap="round"/>
+      <rect x="-8.5" y="-2.5" width="17" height="5.5" rx="2.5" fill="#dfc79b" stroke="#1e1b18" stroke-width="2"/>
+    </g>
+
+    <!-- Kimono torso from behind (sash knot kept separate for lag) -->
+    <g id="torso-back">
+      <!-- White crossed nape collar (eri) -->
+      <path d="M175,214 Q200,225 225,214 L231,224 Q200,236 169,224 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+      <!-- Ochre under-hem band -->
+      <rect x="169" y="294" width="62" height="11" rx="4" fill="#c8963e" stroke="#1e1b18" stroke-width="2.4"/>
+      <!-- Light-blue kimono body -->
+      <path d="M169,222 Q200,232 231,222 L236,296 Q200,301 164,296 Z" fill="#78a6d4"/>
+      <path d="M165,286 Q200,291 235,286 L236,296 Q200,301 164,296 Z" fill="#5782b0"/>
+      <path d="M169,222 Q200,232 231,222 L236,296 Q200,301 164,296 Z" fill="none" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+      <!-- Tapered calligraphic side & hem brush accents -->
+      <path d="M166,245 L162.5,296 Q200,302.5 237.5,296 L234,245 L235.5,295 Q200,299.5 164.5,295 Z" fill="#1e1b18"/>
+      <!-- Carved center-back seam -->
+      <path d="M200,231 L198.8,253 L201.2,253 Z M200,278 L198.8,296 L201.2,296 Z" fill="#3a5d82"/>
+      <!-- White obi-shita under-band -->
+      <path d="M161,266 Q200,270 239,266 L241,277 Q200,281 159,277 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="2.3" stroke-linejoin="round"/>
+      <!-- Yellow obi sash -->
+      <path d="M163,253 Q200,257 237,253 L239,267 Q200,271 161,267 Z" fill="#e8c135" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M164,263 Q200,267 236,263" fill="none" stroke="#c79c1e" stroke-width="2.2"/>
+    </g>
+
+    <!-- Sash knot variants for secondary bounce/lag -->
+    <g id="knot-mid">
+      <path d="M-13,4 L-19,15 L-9,13 Z M13,4 L19,15 L9,13 Z" fill="#c79c1e" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <ellipse cx="-10" cy="0" rx="8" ry="5.5" fill="#e8c135" stroke="#1e1b18" stroke-width="2.2"/>
+      <ellipse cx="10" cy="0" rx="8" ry="5.5" fill="#e8c135" stroke="#1e1b18" stroke-width="2.2"/>
+      <rect x="-6" y="-6" width="12" height="12" rx="3.5" fill="#f2cf4b" stroke="#1e1b18" stroke-width="2.3"/>
+    </g>
+    <g id="knot-up">
+      <path d="M-12,1 L-23,7 L-13,11 Z M12,1 L23,7 L13,11 Z" fill="#c79c1e" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <ellipse cx="-11" cy="-3" rx="8.5" ry="5" transform="rotate(-14 -11 -3)" fill="#e8c135" stroke="#1e1b18" stroke-width="2.2"/>
+      <ellipse cx="11" cy="-3" rx="8.5" ry="5" transform="rotate(14 11 -3)" fill="#e8c135" stroke="#1e1b18" stroke-width="2.2"/>
+      <rect x="-6" y="-7" width="12" height="11" rx="3.5" fill="#f2cf4b" stroke="#1e1b18" stroke-width="2.3"/>
+    </g>
+    <g id="knot-dn">
+      <path d="M-10,5 L-14,20 L-5,17 Z M10,5 L14,20 L5,17 Z" fill="#c79c1e" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <ellipse cx="-9" cy="2" rx="7.5" ry="6" transform="rotate(12 -9 2)" fill="#e8c135" stroke="#1e1b18" stroke-width="2.2"/>
+      <ellipse cx="9" cy="2" rx="7.5" ry="6" transform="rotate(-12 9 2)" fill="#e8c135" stroke="#1e1b18" stroke-width="2.2"/>
+      <rect x="-6" y="-4" width="12" height="12" rx="3.5" fill="#f2cf4b" stroke="#1e1b18" stroke-width="2.3"/>
+    </g>
+
+    <!-- Sleeves: forward (away/foreshortened), neutral, backward (toward viewer/full) -->
+    <g id="slv-fwd-l">
+      <circle cx="136" cy="249" r="8.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.3"/>
+      <path d="M170,224 L138,236 L144,264 C153,268 164,262 169,250 Z" fill="#5782b0" stroke="#1e1b18" stroke-width="2.8" stroke-linejoin="round"/>
+    </g>
+    <g id="slv-fwd-r">
+      <circle cx="264" cy="249" r="8.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.3"/>
+      <path d="M230,224 L262,236 L256,264 C247,268 236,262 231,250 Z" fill="#5782b0" stroke="#1e1b18" stroke-width="2.8" stroke-linejoin="round"/>
+    </g>
+    <g id="slv-mid-l">
+      <circle cx="133" cy="259" r="9.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+      <path d="M170,224 L134,244 L144,274 C155,277 165,269 169,254 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.9" stroke-linejoin="round"/>
+      <path d="M144,274 C152,275 161,269 166,257" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <g id="slv-mid-r">
+      <circle cx="267" cy="259" r="9.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+      <path d="M230,224 L266,244 L256,274 C245,277 235,269 231,254 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.9" stroke-linejoin="round"/>
+      <path d="M256,274 C248,275 239,269 234,257" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <g id="slv-back-l">
+      <circle cx="134" cy="266" r="10" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M171,225 L132,248 L143,283 C156,287 168,277 171,258 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="3.1" stroke-linejoin="round"/>
+      <path d="M137,252 L145,280" fill="none" stroke="#5782b0" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+    <g id="slv-back-r">
+      <circle cx="266" cy="266" r="10" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M229,225 L268,248 L257,283 C244,287 232,277 229,258 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="3.1" stroke-linejoin="round"/>
+      <path d="M263,252 L255,280" fill="none" stroke="#5782b0" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- Feet & straw sandals: planted, pushing heel, and lifted woven sole -->
+    <g id="foot-plant">
+      <rect x="-8" y="-14" width="16" height="15" rx="5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.3"/>
+      <ellipse cx="0" cy="2" rx="13" ry="5.5" fill="#b88746" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M-12,3 Q0,8 12,3" fill="none" stroke="#7d5622" stroke-width="2.6" stroke-linecap="round"/>
+    </g>
+    <g id="foot-push">
+      <rect x="-8" y="-15" width="16" height="14" rx="5" fill="#e3b898" stroke="#1e1b18" stroke-width="2.3"/>
+      <ellipse cx="0" cy="0" rx="12.5" ry="7.5" fill="#a87739" stroke="#1e1b18" stroke-width="2.6"/>
+      <path d="M-7,-2 L7,-2 M-6,2 L6,2" stroke="#7d5622" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <g id="foot-sole">
+      <ellipse cx="0" cy="-9" rx="8" ry="6" fill="#e3b898" stroke="#1e1b18" stroke-width="2.2"/>
+      <ellipse cx="0" cy="0" rx="12" ry="10.5" fill="#b88746" stroke="#1e1b18" stroke-width="2.8"/>
+      <ellipse cx="0" cy="0" rx="8.5" ry="7" fill="none" stroke="#7d5622" stroke-width="1.5"/>
+      <path d="M-6,-3 L6,-3 M-6,2 L6,2" stroke="#7d5622" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <!-- Washi ground & Nishiki-e background -->
+  <rect width="400" height="400" fill="#f4ebd9"/>
+  <rect x="16" y="16" width="368" height="205" fill="url(#sky-bokashi)"/>
+  <rect x="16" y="16" width="368" height="190" fill="url(#seigaiha)"/>
+  <path d="M16,168 H118 Q130,168 130,160 Q130,152 118,152 H72 Q82,144 70,138 H16 Z" fill="#f4ebd9" fill-opacity="0.88"/>
+  <path d="M384,154 H284 Q272,154 272,146 Q272,138 284,138 H332 Q322,130 334,124 H384 Z" fill="#f4ebd9" fill-opacity="0.88"/>
+  <rect x="16" y="212" width="368" height="172" fill="url(#ground-bokashi)"/>
+  <path d="M16,212 Q125,204 172,212 L116,384 H16 Z M384,212 Q275,204 228,212 L284,384 H384 Z" fill="#bfae8e"/>
+  <path d="M172,212 Q200,209 228,212 L284,384 H116 Z" fill="#eadbc2"/>
+  <path d="M172,212 C158,255 138,318 116,384 M228,212 C242,255 262,318 284,384" fill="none" stroke="#3a332c" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M16,212 Q110,205 172,212 M228,212 Q290,205 384,212" fill="none" stroke="#3a332c" stroke-width="1.6"/>
+  <ellipse cx="200" cy="242" rx="16" ry="3.2" fill="#d8c6a7"/>
+  <ellipse cx="196" cy="356" rx="28" ry="5" fill="#d8c6a7"/>
+  <circle cx="200" cy="195" r="135" fill="url(#halo)"/>
+
+  <!-- Frame 1: Left contact (L foot ahead, R foot pushing back; L arm back, R arm fwd) -->
+  <g class="f f1">
+    <ellipse cx="200" cy="328" rx="42" ry="9" fill="#9c8969" fill-opacity="0.45"/>
+    <use href="#foot-plant" x="184" y="314"/>
+    <use href="#foot-push" x="216" y="324"/>
+    <use href="#slv-fwd-r" x="0" y="0"/>
+    <g transform="translate(-1,0)"><use href="#torso-back"/><use href="#knot-mid" x="201" y="262"/></g>
+    <use href="#slv-back-l" x="-1" y="0"/>
+    <g transform="translate(-1,0)"><use href="#head-back"/></g>
+    <use href="#topknot" transform="translate(200,103) rotate(5)"/>
+  </g>
+
+  <!-- Frame 2: Left down / cushion (head bobs down +5, R sole lifts; topknot & knot lag UP) -->
+  <g class="f f2">
+    <ellipse cx="199" cy="330" rx="45" ry="10" fill="#9c8969" fill-opacity="0.5"/>
+    <use href="#foot-plant" x="184" y="317"/>
+    <use href="#foot-sole" x="216" y="316"/>
+    <use href="#slv-fwd-r" x="1" y="4"/>
+    <g transform="translate(-2,4)"><use href="#torso-back"/><use href="#knot-up" x="201" y="259"/></g>
+    <use href="#slv-back-l" x="-3" y="5"/>
+    <g transform="translate(-2,5)"><use href="#head-back"/></g>
+    <use href="#topknot-up" transform="translate(199,108) rotate(8)"/>
+  </g>
+
+  <!-- Frame 3: Left passing (body rises, R foot passes mid-air; topknot & knot drag DOWN) -->
+  <g class="f f3">
+    <ellipse cx="199" cy="328" rx="40" ry="8.5" fill="#9c8969" fill-opacity="0.42"/>
+    <use href="#foot-plant" x="184" y="320"/>
+    <use href="#foot-sole" x="214" y="309"/>
+    <use href="#slv-mid-r" x="0" y="1"/>
+    <g transform="translate(-1,1)"><use href="#torso-back"/><use href="#knot-dn" x="200" y="264"/></g>
+    <use href="#slv-mid-l" x="-1" y="1"/>
+    <g transform="translate(-1,1)"><use href="#head-back"/></g>
+    <use href="#topknot-dn" transform="translate(199,104) rotate(3)"/>
+  </g>
+
+  <!-- Frame 4: Left up / peak (head high -4, R foot reaching ahead; sleeves reversing) -->
+  <g class="f f4">
+    <ellipse cx="200" cy="327" rx="37" ry="8" fill="#9c8969" fill-opacity="0.36"/>
+    <use href="#foot-push" x="184" y="322"/>
+    <use href="#foot-plant" x="215" y="310"/>
+    <use href="#slv-fwd-l" x="0" y="-3"/>
+    <g transform="translate(0,-4)"><use href="#torso-back"/><use href="#knot-dn" x="199" y="265"/></g>
+    <use href="#slv-mid-r" x="1" y="-3"/>
+    <g transform="translate(0,-4)"><use href="#head-back"/></g>
+    <use href="#topknot-dn" transform="translate(199,99) rotate(-4)"/>
+  </g>
+
+  <!-- Frame 5: Right contact (R foot ahead, L foot pushing back; R arm back, L arm fwd) -->
+  <g class="f f5">
+    <ellipse cx="200" cy="328" rx="42" ry="9" fill="#9c8969" fill-opacity="0.45"/>
+    <use href="#foot-plant" x="216" y="314"/>
+    <use href="#foot-push" x="184" y="324"/>
+    <use href="#slv-fwd-l" x="0" y="0"/>
+    <g transform="translate(1,0)"><use href="#torso-back"/><use href="#knot-mid" x="199" y="262"/></g>
+    <use href="#slv-back-r" x="1" y="0"/>
+    <g transform="translate(1,0)"><use href="#head-back"/></g>
+    <use href="#topknot" transform="translate(200,103) rotate(-5)"/>
+  </g>
+
+  <!-- Frame 6: Right down / cushion (head bobs down +5, L sole lifts; topknot & knot lag UP) -->
+  <g class="f f6">
+    <ellipse cx="201" cy="330" rx="45" ry="10" fill="#9c8969" fill-opacity="0.5"/>
+    <use href="#foot-plant" x="216" y="317"/>
+    <use href="#foot-sole" x="184" y="316"/>
+    <use href="#slv-fwd-l" x="-1" y="4"/>
+    <g transform="translate(2,4)"><use href="#torso-back"/><use href="#knot-up" x="199" y="259"/></g>
+    <use href="#slv-back-r" x="3" y="5"/>
+    <g transform="translate(2,5)"><use href="#head-back"/></g>
+    <use href="#topknot-up" transform="translate(201,108) rotate(-8)"/>
+  </g>
+
+  <!-- Frame 7: Right passing (body rises, L foot passes mid-air; topknot & knot drag DOWN) -->
+  <g class="f f7">
+    <ellipse cx="201" cy="328" rx="40" ry="8.5" fill="#9c8969" fill-opacity="0.42"/>
+    <use href="#foot-plant" x="216" y="320"/>
+    <use href="#foot-sole" x="186" y="309"/>
+    <use href="#slv-mid-l" x="0" y="1"/>
+    <g transform="translate(1,1)"><use href="#torso-back"/><use href="#knot-dn" x="200" y="264"/></g>
+    <use href="#slv-mid-r" x="1" y="1"/>
+    <g transform="translate(1,1)"><use href="#head-back"/></g>
+    <use href="#topknot-dn" transform="translate(201,104) rotate(-3)"/>
+  </g>
+
+  <!-- Frame 8: Right up / peak (head high -4, L foot reaching ahead; sleeves reversing) -->
+  <g class="f f8">
+    <ellipse cx="200" cy="327" rx="37" ry="8" fill="#9c8969" fill-opacity="0.36"/>
+    <use href="#foot-push" x="216" y="322"/>
+    <use href="#foot-plant" x="185" y="310"/>
+    <use href="#slv-fwd-r" x="0" y="-3"/>
+    <g transform="translate(0,-4)"><use href="#torso-back"/><use href="#knot-dn" x="201" y="265"/></g>
+    <use href="#slv-mid-l" x="-1" y="-3"/>
+    <g transform="translate(0,-4)"><use href="#head-back"/></g>
+    <use href="#topknot-dn" transform="translate(201,99) rotate(4)"/>
+  </g>
+
+  <!-- Edo woodblock print margin & red cartouche -->
+  <rect x="16" y="16" width="368" height="368" fill="none" stroke="#3a332c" stroke-width="2.4"/>
+  <rect x="20" y="20" width="360" height="360" fill="none" stroke="#3a332c" stroke-width="0.9"/>
+  <g transform="translate(284,28)">
+    <rect width="86" height="24" rx="2" fill="#c83e2b" stroke="#1e1b18" stroke-width="1.8"/>
+    <rect x="3" y="3" width="80" height="18" fill="none" stroke="#faf3e3" stroke-width="0.8"/>
+    <text x="43" y="16.5" text-anchor="middle" class="cap">walk-back</text>
+  </g>
+  <g transform="translate(348,58)">
+    <rect width="20" height="20" rx="2" fill="#faf3e3" stroke="#c83e2b" stroke-width="1.6"/>
+    <text x="10" y="14.5" text-anchor="middle" class="seal">歩</text>
+  </g>
+</svg>
