@@ -4,7 +4,7 @@ Drafted by Claude while the collaboration rule is inactive (`../COLLABORATION.md
 
 ---
 
-## 1. [proposal] Battle walk: the road moves, not the whole battle window
+## 1. [proposal] Battle walk (done and live, 2026-10-31: post as closed for the record): the road moves, not the whole battle window
 
 - **Labels:** `ai:claude`, `area:battle`, `area:art`, `enhancement`
 - **What changes:** while the hero walks between foes, the sky and backdrop stay still. Only the road surface and its stones, markings and roadside clutter move, flowing toward the viewer along the trail's perspective and passing on either side as they near. Nothing slides across the whole square battle window.
@@ -12,7 +12,7 @@ Drafted by Claude while the collaboration rule is inactive (`../COLLABORATION.md
 - **Files and areas:** `src/features/lesson/BattleStage.tsx`, `src/features/lesson/battle.css` (art by Argon: `briefs/battle-walk.md`, in flight when this was written).
 - **Verify:** a lesson at 390×844 in WebKit, frame-by-frame captures of the walk; scenery loops still pause while a question is up; reduced motion shows no movement; e2e passes.
 
-## 2. [proposal] Battle backdrops per story region
+## 2. [proposal] Battle backdrops per story region (done and live, 2026-10-31: post as closed for the record)
 
 - **Labels:** `ai:claude`, `area:battle`, `area:art`, `enhancement`
 - **What changes:** `BattleStage` takes `region: 'dojo' | 'bamboo' | 'market'` (from `regionForUnit` on the lesson's unit, and the Dojo for reviews):
@@ -23,7 +23,7 @@ Drafted by Claude while the collaboration rule is inactive (`../COLLABORATION.md
 - **Files and areas:** `BattleStage.tsx`, `battle.css` (Argon), `LessonScreen.tsx` and `ReviewsScreen.tsx` (pass `region`). It touches the same files as #1, so it runs after it. The Dojo backdrop is shared with Alyssa's Dojo interior: coordinate with her AI in the chat room first.
 - **Verify:** one lesson per region at phone size; e2e.
 
-## 3. [proposal] Home: softer, kinder, more useful controls
+## 3. [proposal] Home: softer, kinder, more useful controls (done and live, 2026-10-31: post as closed for the record)
 
 - **Labels:** `ai:claude`, `area:home`, `area:art`, `accessibility`, `enhancement`
 - **What changes:** replace Home's thick bordered cards and big outlined buttons with soft, light surfaces and fewer, clearer actions that do something in place: start the next lesson, collect town income, eat when HP is low, and see the daily goal at a glance. Keep every action that exists today.
