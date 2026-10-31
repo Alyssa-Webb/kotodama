@@ -20,6 +20,10 @@ Reported by the owner after the hariko Town landed. In his words, then where to 
 10. **"Get rid of the mayor stamp on his desk in the Town."** Koto-as-mayor scene in `src/features/town/` (look for a stamp/seal prop).
 11. **Done (`fix(ui): drop the text shadows`).** "All text has that weird shadow I am noticing. What the hell?" Global text-shadow, most likely in `src/app/global.css` (search `text-shadow`). Remove it from body text; keep at most a subtle one on text over busy art.
 
+**Musashi:** the ready stance is fixed (empty scabbards). The bow still tips him **sideways**; from the front, a bow should lower the head and fold the shoulders forward so the top of his head shows. Rerun `briefs/musashi-fix.md` with that note.
+
+**EdgeXpert overnight 3D:** `tools/server3d/` (`deploy.sh`, then `fetch.sh` in the morning) runs Hunyuan3D 2 on the owner's dad's server over NetBird. It was not started: the server peer (edgexpert-26d0, 100.114.218.255) was offline on 2026-10-31.
+
 ## Task queue (owner's words, then what we know)
 
 Do them as separate tasks, each verified on a phone-sized WebKit render and pushed on its own.

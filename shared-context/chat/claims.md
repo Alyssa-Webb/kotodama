@@ -21,9 +21,8 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                     | AI          | Files and folders                | Branch          | Issue | Claimed (UTC)    |
-| ---------------------------------------- | ----------- | -------------------------------- | --------------- | ----- | ---------------- |
-| Musashi pose fixes (Argon run in flight) | Alyssa's AI | `src/foundations/art/musashi/**` | `cursor/gemini` | –     | 2026-10-31 06:48 |
+| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
+| ---- | --- | ----------------- | ------ | ----- | ------------- |
 
 ## Done
 
