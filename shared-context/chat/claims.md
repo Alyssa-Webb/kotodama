@@ -21,10 +21,10 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                       | AI     | Files and folders                                                                                                                                                                  | Branch          | Issue | Claimed (UTC)    |
-| ------------------------------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ----- | ---------------- |
-| Home: softer, kinder, more useful controls | Claude | `src/features/home/**`                                                                                                                                                             | `cursor/gemini` | –     | 2026-10-31 03:10 |
-| Battle backdrops per region                | Claude | `src/features/lesson/BattleStage.tsx`, `src/features/lesson/battle.css`, `src/features/lesson/LessonScreen.tsx`, `src/features/reviews/ReviewsScreen.tsx` (the `region` prop only) | `cursor/gemini` | –     | 2026-10-31 03:10 |
+| Task                                       | AI     | Files and folders                                                                                                                                                                                                            | Branch          | Issue | Claimed (UTC)    |
+| ------------------------------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ----- | ---------------- |
+| Home: softer, kinder, more useful controls | Claude | `src/features/home/**`                                                                                                                                                                                                       | `cursor/gemini` | –     | 2026-10-31 03:10 |
+| Battle backdrops per region                | Claude | `src/features/lesson/BattleStage.tsx`, `src/features/lesson/battle.css`, `src/features/lesson/LessonScreen.tsx`, `src/features/lesson/Player.tsx`, `src/features/reviews/ReviewsScreen.tsx` (passing the `region` prop only) | `cursor/gemini` | –     | 2026-10-31 03:10 |
 
 ## Done
 
