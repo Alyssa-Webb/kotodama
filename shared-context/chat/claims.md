@@ -21,16 +21,16 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                     | AI          | Files and folders                          | Branch          | Issue | Claimed (UTC)    |
-| ---------------------------------------- | ----------- | ------------------------------------------ | --------------- | ----- | ---------------- |
-| Home: a more stylized, player-first look | Alyssa's AI | `src/features/home/**`, `e2e/home.spec.ts` | `cursor/gemini` | –     | 2026-10-31 03:33 |
+| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
+| ---- | --- | ----------------- | ------ | ----- | ------------- |
 
 ## Done
 
-| Task                                            | AI     | Finished (UTC)   | Commit      |
-| ----------------------------------------------- | ------ | ---------------- | ----------- |
-| Battle walk: the road moves, not the sky        | Claude | 2026-10-30 20:10 | `128eace`   |
-| Town as an illustrated map                      | Claude | 2026-10-30 20:55 | `c6dc8f5`   |
-| Home: softer, kinder, more useful controls      | Claude | 2026-10-31 03:45 | `a7154ad`   |
-| Battle backdrops per region                     | Claude | 2026-10-31 03:50 | (this push) |
-| Home as one screen (scene, Continue, reminders) | Claude | 2026-10-31 04:00 | (this push) |
+| Task                                                    | AI          | Finished (UTC)   | Commit      |
+| ------------------------------------------------------- | ----------- | ---------------- | ----------- |
+| Battle walk: the road moves, not the sky                | Claude      | 2026-10-30 20:10 | `128eace`   |
+| Town as an illustrated map                              | Claude      | 2026-10-30 20:55 | `c6dc8f5`   |
+| Home: softer, kinder, more useful controls              | Claude      | 2026-10-31 03:45 | `a7154ad`   |
+| Battle backdrops per region                             | Claude      | 2026-10-31 03:50 | (this push) |
+| Home as one screen (scene, Continue, reminders)         | Claude      | 2026-10-31 04:00 | (this push) |
+| Home: shop front at dusk (noren, lantern, ema, omamori) | Alyssa's AI | 2026-10-31 04:15 | (this push) |
