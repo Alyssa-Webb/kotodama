@@ -21,9 +21,9 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                                 | AI          | Files and folders                                                                                   | Branch          | Issue | Claimed (UTC)    |
-| ---------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------- | --------------- | ----- | ---------------- |
-| Dojo Master Musashi: 2D art from the Tripo reference | Alyssa's AI | `src/foundations/art/Musashi.tsx`, `src/foundations/art/musashi.css`, `design/reference/musashi/**` | `cursor/gemini` | –     | 2026-10-31 04:56 |
+| Task                                                 | AI          | Files and folders                                               | Branch          | Issue | Claimed (UTC)    |
+| ---------------------------------------------------- | ----------- | --------------------------------------------------------------- | --------------- | ----- | ---------------- |
+| Dojo Master Musashi: 2D art from the Tripo reference | Alyssa's AI | `src/foundations/art/musashi/**`, `design/reference/musashi/**` | `cursor/gemini` | –     | 2026-10-31 04:56 |
 
 ## Done
 
