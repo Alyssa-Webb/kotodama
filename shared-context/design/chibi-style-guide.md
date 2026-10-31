@@ -82,3 +82,21 @@ Theme variable names are kebab-case: it's `--c-surface-alt`, not `--c-surfaceAlt
 - [ ] Only theme variables (plus skin hex); dark parts use `--c-hud-bg`; kebab-case names
 - [ ] Still reads at 40 px; checked in light **and** dark
 - [ ] Motion uses only transform and opacity, pivots sensibly, respects reduced motion
+
+## 10. Rejected styles: don't repeat these
+
+Everything the owner has turned down, so a fresh run starts knowing it. Each was tried and rejected.
+
+- **3D or three.js.** It lagged on phones and looked worse; the game is 2D only.
+- **Heavy outlines and boxy UI:** thick bordered cards, chunky outlined or 3D-slab buttons, boxes inside boxes. He wants soft surfaces, breathing room and few, clear actions.
+- **Flashy effects:** big glowing slashes, multi-flash strobes, zigzag glow wakes. He wants a thin white slice, a brief hit flash, then hurt and KO animations.
+- **Motion that moves the whole scene:** the sky or backdrop sliding when the hero walks. Only the road or floor moves, along the path's perspective.
+- **Placeholder backdrops that don't fit the place:** the town on a mountain backdrop. Every location is its own illustrated place.
+- **Japanese as UI labels a beginner can't read,** or romaji in place of furigana. Use English UI, with Japanese as furigana-annotated learning hints.
+- **Kanji badges or emoji as icons** where a drawn symbol fits.
+- **Dark parts in `--c-ink` or `--c-ink-muted`:** they turn light in dark mode (grey hair). Use `--c-hud-bg`.
+- **Invented theme variable names** (`--c-surfaceAlt`): names are kebab-case and must exist in `design/tokens.json`.
+- **Text overlapping controls,** such as furigana running into a button. Give ruby text its own line height.
+- **Lag:** many looping animations inside big SVGs, `filter` or `box-shadow` animation, or entrance animations that scale whole pages.
+- **Content that doesn't read at phone size,** or that breaks out of its frame: check at 375 px in light and dark.
+- **A design part that reads as something else,** like the first rokurokubi's neck looking like an arm. Make the key feature unmistakable.
