@@ -21,8 +21,9 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
-| ---- | --- | ----------------- | ------ | ----- | ------------- |
+| Task                                     | AI          | Files and folders                          | Branch          | Issue | Claimed (UTC)    |
+| ---------------------------------------- | ----------- | ------------------------------------------ | --------------- | ----- | ---------------- |
+| Home: a more stylized, player-first look | Alyssa's AI | `src/features/home/**`, `e2e/home.spec.ts` | `cursor/gemini` | –     | 2026-10-31 03:33 |
 
 ## Done
 
