@@ -36,10 +36,22 @@ export function MarketStreetBackdrop({ className }: { className?: string }) {
       <defs>
         {/* Hand-wiped ichimonji bokashi dusk sky (the only gradient in the woodblock print) */}
         <linearGradient id="market-bokashi-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="color-mix(in srgb, var(--c-secondary) 74%, var(--c-sky-top))" />
-          <stop offset="34%" stopColor="color-mix(in srgb, var(--c-secondary) 46%, var(--c-sky-mid))" />
-          <stop offset="68%" stopColor="color-mix(in srgb, var(--c-sky-mid) 74%, var(--c-sky-bottom))" />
-          <stop offset="100%" stopColor="color-mix(in srgb, var(--c-accent) 36%, var(--c-sky-bottom))" />
+          <stop
+            offset="0%"
+            stopColor="color-mix(in srgb, var(--c-secondary) 74%, var(--c-sky-top))"
+          />
+          <stop
+            offset="34%"
+            stopColor="color-mix(in srgb, var(--c-secondary) 46%, var(--c-sky-mid))"
+          />
+          <stop
+            offset="68%"
+            stopColor="color-mix(in srgb, var(--c-sky-mid) 74%, var(--c-sky-bottom))"
+          />
+          <stop
+            offset="100%"
+            stopColor="color-mix(in srgb, var(--c-accent) 36%, var(--c-sky-bottom))"
+          />
         </linearGradient>
       </defs>
 
@@ -236,14 +248,7 @@ export function MarketStreetBackdrop({ className }: { className?: string }) {
             stroke="var(--c-panel-edge)"
             strokeWidth="1.5"
           />
-          <circle
-            cx="11"
-            cy="11"
-            r="4"
-            fill="var(--c-accent)"
-            stroke={SUMI}
-            strokeWidth="1.2"
-          />
+          <circle cx="11" cy="11" r="4" fill="var(--c-accent)" stroke={SUMI} strokeWidth="1.2" />
         </g>
 
         {/* Sake shop's sugidama (cedar ball) hanging under the machiya eaves */}
@@ -346,14 +351,7 @@ export function MarketStreetBackdrop({ className }: { className?: string }) {
               stroke={SUMI}
               strokeWidth="1.2"
             />
-            <circle
-              cx="6.5"
-              cy="4.8"
-              r="2.3"
-              stroke={WASHI}
-              strokeWidth="1.2"
-              fill="none"
-            />
+            <circle cx="6.5" cy="4.8" r="2.3" stroke={WASHI} strokeWidth="1.2" fill="none" />
           </g>
         ))}
         {/* Shingled yatai roof with +3 shade lip, carved shingle lines & top-left highlight */}
@@ -596,22 +594,8 @@ export function MarketStreetBackdrop({ className }: { className?: string }) {
             strokeWidth="1"
             fill="none"
           />
-          <rect
-            x="-3.6"
-            y="0.4"
-            width="7.2"
-            height="2.2"
-            rx="0.8"
-            fill={SUMI}
-          />
-          <rect
-            x="-3.6"
-            y="14"
-            width="7.2"
-            height="2.2"
-            rx="0.8"
-            fill={SUMI}
-          />
+          <rect x="-3.6" y="0.4" width="7.2" height="2.2" rx="0.8" fill={SUMI} />
+          <rect x="-3.6" y="14" width="7.2" height="2.2" rx="0.8" fill={SUMI} />
           <ellipse
             cx="-2.2"
             cy="5.4"
@@ -637,15 +621,7 @@ export function MarketStreetBackdrop({ className }: { className?: string }) {
           strokeWidth="1.4"
         />
         <rect x="0.7" y="0.7" width="14.6" height="6" fill="var(--c-lacquer)" />
-        <rect
-          x="2"
-          y="2"
-          width="12"
-          height="22"
-          fill="none"
-          stroke={WASHI}
-          strokeWidth="0.8"
-        />
+        <rect x="2" y="2" width="12" height="22" fill="none" stroke={WASHI} strokeWidth="0.8" />
         {/* Carved vector strokes for 市 (market) */}
         <path
           d="M8 5.2 V7.4 M4.2 7.8 H11.8 M5.2 11.2 V16.8 M5.2 11.2 H10.8 V16.2 Q10.8 17 9.6 16.4 M8 8 V20.5"

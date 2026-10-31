@@ -117,11 +117,7 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
       />
 
       {/* Central training lane: left in luminous open washi paper so characters pop */}
-      <path
-        d="M222.8 56 L12.8 156 L288.3 156 L252.3 56 Z"
-        fill={PAPER_BASE}
-        opacity="0.52"
-      />
+      <path d="M222.8 56 L12.8 156 L288.3 156 L252.3 56 Z" fill={PAPER_BASE} opacity="0.52" />
       {/* Faint sumi wash ring on the upper-mid lane where the opponent stands (228, 88) */}
       <ellipse cx="228" cy="88" rx="34" ry="8" fill={SUMI_DEEP} opacity="0.055" />
       <path
@@ -263,27 +259,17 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
           strokeWidth="1.05"
           strokeLinecap="round"
         />
-        <path
-          d="M0 13.5 L12.5 24 V65.5 L0 82.5 L0 79 L10.6 64 V25 L0 16.5 Z"
-          fill={SUMI_DEEP}
-        />
+        <path d="M0 13.5 L12.5 24 V65.5 L0 82.5 L0 79 L10.6 64 V25 L0 16.5 Z" fill={SUMI_DEEP} />
       </g>
 
       {/* Kamiza alcove with hanging scroll at the back wall (head of the training lane) */}
       <g transform="translate(206 14)">
         {/* Recessed alcove wash (tanboku nijimi) */}
         <rect x="4.5" y="3.5" width="53" height="36" rx="1.5" fill={SUMI_WASH} />
-        <path
-          d="M5 4 H57 V16 C42 12 20 12 5 17 Z"
-          fill={SUMI_DEEP}
-          opacity="0.12"
-        />
+        <path d="M5 4 H57 V16 C42 12 20 12 5 17 Z" fill={SUMI_DEEP} opacity="0.12" />
 
         {/* Strong vertical sumi pillar brush strokes on either side of the kamiza */}
-        <path
-          d="M2.2 2.5 C4.2 2 5.8 2 7.2 2.8 L6.8 39.5 C5 40 3.4 40 2 39.2 Z"
-          fill={SUMI_DEEP}
-        />
+        <path d="M2.2 2.5 C4.2 2 5.8 2 7.2 2.8 L6.8 39.5 C5 40 3.4 40 2 39.2 Z" fill={SUMI_DEEP} />
         <path
           d="M3.6 5.5 V34"
           stroke={PAPER_BASE}
@@ -304,10 +290,7 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
         />
 
         {/* Curved overhanging kamiza lintel beam brushed in one sweeping stroke */}
-        <path
-          d="M-2.5 2.4 Q31 -2.4 64.5 2.4 L62.5 6.8 Q31 2.8 -0.5 6.8 Z"
-          fill={SUMI_DEEP}
-        />
+        <path d="M-2.5 2.4 Q31 -2.4 64.5 2.4 L62.5 6.8 Q31 2.8 -0.5 6.8 Z" fill={SUMI_DEEP} />
         <path
           d="M6 3.6 Q31 0.8 56 3.6"
           stroke={PAPER_BASE}
@@ -323,15 +306,7 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
         {/* Hanging scroll (kakejiku) in sumi mounting & warm washi reserve */}
         <path d="M31 5.8 L25 8.2 M31 5.8 L37 8.2" stroke={SUMI_MID} strokeWidth="0.85" />
         {/* Silk brocade mounting in medium grey sumi wash */}
-        <rect
-          x="19.5"
-          y="8"
-          width="23"
-          height="26.5"
-          rx="1"
-          fill={SUMI_MID}
-          opacity="0.28"
-        />
+        <rect x="19.5" y="8" width="23" height="26.5" rx="1" fill={SUMI_MID} opacity="0.28" />
         <rect
           x="19.5"
           y="8"
@@ -420,14 +395,8 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
             d="M53.5 41.2 C58 40.2 65 40.2 70 41.2 L69.5 46.2 C64.5 46.8 58.5 46.8 54 46.2 Z"
             fill={SUMI_DEEP}
           />
-          <path
-            d="M11.2 4 C13 3.4 14.8 3.4 16.5 4 L16.2 42.5 H11.5 Z"
-            fill={SUMI_DEEP}
-          />
-          <path
-            d="M59.2 4 C61 3.4 62.8 3.4 64.5 4 L64.2 42.5 H59.5 Z"
-            fill={SUMI_DEEP}
-          />
+          <path d="M11.2 4 C13 3.4 14.8 3.4 16.5 4 L16.2 42.5 H11.5 Z" fill={SUMI_DEEP} />
+          <path d="M59.2 4 C61 3.4 62.8 3.4 64.5 4 L64.2 42.5 H59.5 Z" fill={SUMI_DEEP} />
           {/* Dry-brush flying white highlight on rack uprights & lower tie bar */}
           <path
             d="M12.8 7 V38 M60.8 7 V38"
@@ -500,12 +469,7 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
           {/* Soft pale wash halo around the lantern */}
           <circle cx={x} cy="22.5" r="16" fill="url(#dojo-lantern-wash)" />
           {/* Hanging cord stroke */}
-          <path
-            d={`M${x} 8.5 V14.2`}
-            stroke={SUMI_DEEP}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
+          <path d={`M${x} 8.5 V14.2`} stroke={SUMI_DEEP} strokeWidth="1.5" strokeLinecap="round" />
           {/* Washi paper lantern body with subtle side ink shading */}
           <ellipse cx={x} cy="22.2" rx="8.2" ry="7.4" fill={PAPER_BASE} />
           <path
