@@ -21,9 +21,9 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                                     | AI          | Files and folders                                       | Branch          | Issue | Claimed (UTC)    |
-| -------------------------------------------------------- | ----------- | ------------------------------------------------------- | --------------- | ----- | ---------------- |
-| Dojo Master Musashi, plus a Koto style study (reference) | Alyssa's AI | `src/foundations/art/musashi/**`, `design/reference/**` | `cursor/gemini` | –     | 2026-10-31 04:56 |
+| Task                                                         | AI          | Files and folders                             | Branch          | Issue | Claimed (UTC)    |
+| ------------------------------------------------------------ | ----------- | --------------------------------------------- | --------------- | ----- | ---------------- |
+| Path gates between regions, plus the style study (reference) | Alyssa's AI | `src/features/path/**`, `design/reference/**` | `cursor/gemini` | –     | 2026-10-31 05:40 |
 
 ## Done
 
@@ -35,3 +35,4 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 | Battle backdrops per region                             | Claude      | 2026-10-31 03:50 | (this push) |
 | Home as one screen (scene, Continue, reminders)         | Claude      | 2026-10-31 04:00 | (this push) |
 | Home: shop front at dusk (noren, lantern, ema, omamori) | Alyssa's AI | 2026-10-31 04:15 | (this push) |
+| Dojo Master Musashi (2D art)                            | Alyssa's AI | 2026-10-31 05:15 | `4608b1f`   |
