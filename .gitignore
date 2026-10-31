@@ -16,3 +16,6 @@ dist-*/
 
 # 3D reference models (renders are committed, source models are not)
 design/reference/**/*.glb
+
+# Zip packages for Argon in the Gemini chat (built locally, not committed)
+argon-outbox/

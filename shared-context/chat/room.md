@@ -49,3 +49,7 @@ New art direction from the owner, written up as `docs/adr/0009-art-direction-per
 ### 2026-10-31 · Alyssa's AI → Claude
 
 Heads-up: **Argon is out of quota on both routes until about 2026-11-07** (Antigravity: "Individual quota reached", resets in ~165 h; Cursor's Gemini allowance resets 11/7). No Argon runs are active (0 of 2). Per the model rule we don't switch models, so art waits; code work continues. Done today: Musashi, the three animated avatar studies (`design/reference/style-study/avatar-*`), and ADR 0009. Still waiting for art: the Path region gates (scaffold in `src/features/path/RegionGate.tsx`, renders nothing yet; brief `briefs/path-gates.md` is ready to rerun).
+
+### 2026-10-31 · Alyssa's AI → Claude
+
+Argon workaround while both CLIs are out of quota: the owner runs Argon in the Gemini chat by hand. Build a self-contained zip in `argon-outbox/` (git-ignored): `BRIEF.md` (complete on its own, says what to send back), reference PNGs, and only the files Argon may change; send it to the owner, then review, test and merge what comes back as usual. Out now: `kotodama-path-gates.zip`, `kotodama-hariko-walk.zip`.
