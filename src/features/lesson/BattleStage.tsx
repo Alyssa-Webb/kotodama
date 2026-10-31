@@ -15,160 +15,410 @@ import { AvatarActor, type ActorMood } from '../avatar/AvatarActor';
 import { BattleFx } from './BattleFx';
 import './battle.css';
 
-/** One 80px vertical tile of stones, ruts and pebbles inside the winding road clip. */
-function RoadScrollTile({ yOffset }: { yOffset: number }) {
+const STONE_LIP = 'color-mix(in srgb, var(--c-border) 52%, var(--c-hud-bg))';
+const DARK_GRASS = 'color-mix(in srgb, var(--c-success) 52%, var(--c-hud-bg))';
+const BRIGHT_GRASS = 'color-mix(in srgb, var(--c-success) 68%, var(--c-coin-shine))';
+const RUT_STROKE = 'color-mix(in srgb, var(--c-gold) 46%, var(--c-hud-bg))';
+const WOOD_SHADE = 'color-mix(in srgb, var(--c-panel-edge) 54%, var(--c-hud-bg))';
+
+/**
+ * Perspective scale levels around the horizon vanishing point (248, 44).
+ * Each step scales by r = 1.52; animating the parent group from scale(1) to scale(1.52^2 = 2.3104)
+ * advances every band (A/B) by two steps so the road surface and roadside props flow and grow
+ * continuously toward the viewer without ever snapping.
+ */
+const PERSPECTIVE_LEVELS: ReadonlyArray<{ scale: number; variant: 'a' | 'b' }> = [
+  { scale: 0.1873, variant: 'a' },
+  { scale: 0.2848, variant: 'b' },
+  { scale: 0.4328, variant: 'a' },
+  { scale: 0.6579, variant: 'b' },
+  { scale: 1, variant: 'a' },
+  { scale: 1.52, variant: 'b' },
+  { scale: 2.3104, variant: 'a' },
+  { scale: 3.5118, variant: 'b' },
+];
+
+/**
+ * One perspective band of the road surface (dy = 25..38 from the vanishing point):
+ * road-edge curb stones, wheel ruts, transverse trail markings, stepping stones and petals.
+ */
+function RoadPerspectiveBand({ variant }: { variant: 'a' | 'b' }) {
   return (
-    <g transform={`translate(0 ${yOffset})`}>
-      {/* Worn dirt ruts & wheel tracks curving along the road */}
+    <g>
+      {/* Perspective wheel ruts & trail markings flowing down the lane */}
       <path
-        d="M232 62 C214 78 182 96 138 118 M258 64 C264 82 256 102 236 124"
-        stroke="color-mix(in srgb, var(--c-gold) 48%, var(--c-hud-bg))"
-        strokeWidth="3.2"
+        d="M -39.5 26 L -54.7 36 M -5.7 26 L -7.9 36"
+        stroke={RUT_STROKE}
+        strokeWidth="1.4"
         strokeLinecap="round"
-        strokeDasharray="10 14"
         fill="none"
-        opacity="0.45"
+        opacity="0.52"
       />
       <path
-        d="M196 82 C164 100 118 118 76 136 M252 84 C248 104 234 122 218 138"
+        d="M -38.2 26.5 L -53.2 36 M -4.8 26.5 L -6.9 36"
         stroke="var(--c-coin-shine)"
-        strokeWidth="2"
+        strokeWidth="0.65"
         strokeLinecap="round"
-        strokeDasharray="8 16"
         fill="none"
-        opacity="0.35"
+        opacity="0.38"
+      />
+      {/* Transverse earth-step contour across the trail */}
+      <path
+        d="M -52 31.2 Q -26 32.6 -6 31"
+        stroke={RUT_STROKE}
+        strokeWidth="1.1"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.34"
       />
 
-      {/* Flat mossy stepping stones with darker bottom shade bands & top highlights */}
+      {/* Left road edge curb stones (m = -2.10) & right road edge curb stones (m = +0.36) */}
       <g>
-        <ellipse cx="238" cy="69.5" rx="9" ry="3.2" fill="var(--c-ink-muted)" />
-        <ellipse cx="238" cy="68" rx="9" ry="3" fill="var(--c-border)" />
-        <ellipse cx="235" cy="67.2" rx="4" ry="1.2" fill="var(--c-coin-shine)" opacity="0.7" />
+        <ellipse
+          cx="-58.8"
+          cy="28.9"
+          rx="4.4"
+          ry="1.55"
+          transform="rotate(-22 -58.8 28.9)"
+          fill={STONE_LIP}
+        />
+        <ellipse
+          cx="-58.8"
+          cy="28"
+          rx="4.4"
+          ry="1.45"
+          transform="rotate(-22 -58.8 28)"
+          fill="var(--c-border)"
+        />
+        <ellipse
+          cx="-60.1"
+          cy="27.5"
+          rx="1.9"
+          ry="0.55"
+          transform="rotate(-22 -60.1 27.5)"
+          fill="var(--c-coin-shine)"
+          opacity="0.65"
+        />
 
-        <ellipse cx="212" cy="87" rx="12" ry="4.2" fill="var(--c-ink-muted)" />
-        <ellipse cx="212" cy="85" rx="12" ry="3.8" fill="var(--c-border)" />
-        <ellipse cx="208" cy="84" rx="5.5" ry="1.5" fill="var(--c-coin-shine)" opacity="0.7" />
+        <ellipse
+          cx="-72.5"
+          cy="35.5"
+          rx="5.2"
+          ry="1.8"
+          transform="rotate(-22 -72.5 35.5)"
+          fill={STONE_LIP}
+        />
+        <ellipse
+          cx="-72.5"
+          cy="34.5"
+          rx="5.2"
+          ry="1.65"
+          transform="rotate(-22 -72.5 34.5)"
+          fill="var(--c-surface-alt)"
+        />
+        <ellipse cx="-74.2" cy="34" rx="2.3" ry="0.85" fill="var(--c-success)" />
 
-        <ellipse cx="256" cy="99" rx="11" ry="3.8" fill="var(--c-ink-muted)" />
-        <ellipse cx="256" cy="97.2" rx="11" ry="3.5" fill="var(--c-surface-alt)" />
+        <ellipse
+          cx="9.9"
+          cy="28.3"
+          rx="3.8"
+          ry="1.35"
+          transform="rotate(14 9.9 28.3)"
+          fill={STONE_LIP}
+        />
+        <ellipse
+          cx="9.9"
+          cy="27.5"
+          rx="3.8"
+          ry="1.25"
+          transform="rotate(14 9.9 27.5)"
+          fill="var(--c-border)"
+        />
+        <ellipse
+          cx="8.8"
+          cy="27.1"
+          rx="1.6"
+          ry="0.48"
+          transform="rotate(14 8.8 27.1)"
+          fill="var(--c-coin-shine)"
+          opacity="0.6"
+        />
 
-        <ellipse cx="166" cy="113" rx="15" ry="5.2" fill="var(--c-ink-muted)" />
-        <ellipse cx="166" cy="110.8" rx="15" ry="4.8" fill="var(--c-border)" />
-        <ellipse cx="161" cy="109.5" rx="6.5" ry="1.8" fill="var(--c-coin-shine)" opacity="0.75" />
-
-        <ellipse cx="224" cy="126" rx="14" ry="4.8" fill="var(--c-ink-muted)" />
-        <ellipse cx="224" cy="124" rx="14" ry="4.4" fill="var(--c-surface-alt)" />
-
-        <ellipse cx="104" cy="134" rx="17" ry="5.8" fill="var(--c-ink-muted)" />
-        <ellipse cx="104" cy="131.5" rx="17" ry="5.2" fill="var(--c-border)" />
-        <ellipse cx="98" cy="130" rx="7" ry="2" fill="var(--c-coin-shine)" opacity="0.75" />
+        <ellipse
+          cx="12.3"
+          cy="35"
+          rx="4.6"
+          ry="1.6"
+          transform="rotate(14 12.3 35)"
+          fill={STONE_LIP}
+        />
+        <ellipse
+          cx="12.3"
+          cy="34.1"
+          rx="4.6"
+          ry="1.5"
+          transform="rotate(14 12.3 34.1)"
+          fill="var(--c-surface-alt)"
+        />
+        <ellipse cx="13.6" cy="33.6" rx="2.1" ry="0.8" fill="var(--c-success)" />
       </g>
 
-      {/* Scattered road pebbles & fallen sakura petals */}
-      <g fill="var(--c-ink-muted)" opacity="0.75">
-        <ellipse cx="226" cy="76" rx="3.2" ry="1.8" />
-        <ellipse cx="266" cy="82" rx="3.8" ry="2" />
-        <ellipse cx="188" cy="98" rx="4.2" ry="2.2" />
-        <ellipse cx="242" cy="112" rx="4.5" ry="2.4" />
-        <ellipse cx="136" cy="122" rx="5" ry="2.5" />
-        <ellipse cx="192" cy="135" rx="5.5" ry="2.6" />
-        <ellipse cx="68" cy="138" rx="4.8" ry="2.4" />
-      </g>
-      <g fill="var(--c-petal)" opacity="0.85">
-        <ellipse cx="246" cy="79" rx="3" ry="1.6" transform="rotate(-18 246 79)" />
-        <ellipse cx="176" cy="104" rx="3.6" ry="1.8" transform="rotate(24 176 104)" />
-        <ellipse cx="212" cy="118" rx="3.8" ry="1.9" transform="rotate(-15 212 118)" />
-        <ellipse cx="128" cy="129" rx="4.2" ry="2.1" transform="rotate(12 128 129)" />
-      </g>
+      {variant === 'a' ? (
+        <g>
+          {/* Stepping stone (left-center lane) */}
+          <ellipse cx="-34" cy="29.4" rx="5.5" ry="1.9" fill={STONE_LIP} />
+          <ellipse cx="-34" cy="28.5" rx="5.5" ry="1.75" fill="var(--c-border)" />
+          <ellipse
+            cx="-35.8"
+            cy="28"
+            rx="2.4"
+            ry="0.65"
+            fill="var(--c-coin-shine)"
+            opacity="0.72"
+          />
+
+          {/* Stepping stone (right-center lane) */}
+          <ellipse cx="-17" cy="35.3" rx="6.4" ry="2.2" fill={STONE_LIP} />
+          <ellipse cx="-17" cy="34.2" rx="6.4" ry="2.05" fill="var(--c-surface-alt)" />
+          <ellipse
+            cx="-19.2"
+            cy="33.6"
+            rx="2.8"
+            ry="0.75"
+            fill="var(--c-coin-shine)"
+            opacity="0.7"
+          />
+
+          {/* Road pebbles & fallen sakura petals */}
+          <ellipse cx="-21" cy="27.4" rx="1.6" ry="0.85" fill={STONE_LIP} opacity="0.8" />
+          <ellipse cx="-46" cy="33.8" rx="2" ry="1.05" fill={STONE_LIP} opacity="0.8" />
+          <ellipse cx="-5.5" cy="31.6" rx="1.7" ry="0.9" fill={STONE_LIP} opacity="0.75" />
+          <ellipse
+            cx="-28"
+            cy="32"
+            rx="1.6"
+            ry="0.85"
+            transform="rotate(-18 -28 32)"
+            fill="var(--c-petal)"
+            opacity="0.88"
+          />
+          <ellipse
+            cx="-11"
+            cy="28.6"
+            rx="1.4"
+            ry="0.75"
+            transform="rotate(22 -11 28.6)"
+            fill="var(--c-petal)"
+            opacity="0.85"
+          />
+        </g>
+      ) : (
+        <g>
+          {/* Stepping stone (right-center lane) */}
+          <ellipse cx="-13.5" cy="29.1" rx="5.1" ry="1.75" fill={STONE_LIP} />
+          <ellipse cx="-13.5" cy="28.2" rx="5.1" ry="1.65" fill="var(--c-surface-alt)" />
+          <ellipse
+            cx="-15.2"
+            cy="27.7"
+            rx="2.2"
+            ry="0.6"
+            fill="var(--c-coin-shine)"
+            opacity="0.7"
+          />
+
+          {/* Stepping stone (left-center lane) */}
+          <ellipse cx="-44" cy="34.9" rx="6.8" ry="2.3" fill={STONE_LIP} />
+          <ellipse cx="-44" cy="33.8" rx="6.8" ry="2.15" fill="var(--c-border)" />
+          <ellipse
+            cx="-46.3"
+            cy="33.2"
+            rx="2.9"
+            ry="0.8"
+            fill="var(--c-coin-shine)"
+            opacity="0.75"
+          />
+
+          {/* Road pebbles & fallen sakura petals */}
+          <ellipse cx="-30.5" cy="27.6" rx="1.7" ry="0.9" fill={STONE_LIP} opacity="0.8" />
+          <ellipse cx="-24.5" cy="35.6" rx="2.1" ry="1.1" fill={STONE_LIP} opacity="0.8" />
+          <ellipse cx="-55" cy="30.8" rx="1.8" ry="0.95" fill={STONE_LIP} opacity="0.75" />
+          <ellipse
+            cx="-36"
+            cy="30.4"
+            rx="1.5"
+            ry="0.8"
+            transform="rotate(16 -36 30.4)"
+            fill="var(--c-petal)"
+            opacity="0.88"
+          />
+          <ellipse
+            cx="-19"
+            cy="32.8"
+            rx="1.7"
+            ry="0.9"
+            transform="rotate(-14 -19 32.8)"
+            fill="var(--c-petal)"
+            opacity="0.85"
+          />
+        </g>
+      )}
     </g>
   );
 }
 
-/** One 70px vertical tile of woodland verges: grass tufts, wildflowers, mossy stones & pebbles. */
-function VergeScrollTile({ yOffset }: { yOffset: number }) {
-  const darkGrass = 'color-mix(in srgb, var(--c-success) 52%, var(--c-hud-bg))';
-  const brightGrass = 'color-mix(in srgb, var(--c-success) 68%, var(--c-coin-shine))';
-
-  return (
-    <g transform={`translate(0 ${yOffset})`}>
-      {/* Left verge: mossy stones, grass tufts & sakura wildflowers */}
-      <g>
-        {/* Mossy roadside stone */}
-        <ellipse cx="148" cy="24" rx="10" ry="5.5" fill="var(--c-hud-bg)" opacity="0.45" />
-        <ellipse cx="148" cy="22" rx="9.5" ry="5" fill="var(--c-ink-muted)" />
-        <ellipse cx="148" cy="20.5" rx="9" ry="4.5" fill="var(--c-fog)" />
-        <ellipse cx="145" cy="19.2" rx="4" ry="1.6" fill="var(--c-coin-shine)" opacity="0.65" />
-
-        {/* Chunky 3-blade grass tuft (upper-left verge) */}
+/**
+ * One perspective band of roadside props on either side of the trail (dy = 25..38 from (248, 44)):
+ * chibi bushes, grass tufts, wildflowers, mossy boulders, wooden trail posts & stone lanterns
+ * that pass by on both verges and grow in scale as they near the viewer.
+ */
+function VergePerspectiveBand({ variant }: { variant: 'a' | 'b' }) {
+  return variant === 'a' ? (
+    <g>
+      {/* Left roadside near-edge: chunky grass tuft & sakura wildflower */}
+      <g transform="translate(-71 28.5)">
         <path
-          d="M114 34 C110 25 104 22 102 24 C105 28 108 32 110 35 C109 24 113 18 116 18 C118 18 120 24 119 35 C122 31 126 27 129 24 C127 21 121 25 117 34 Z"
-          fill={darkGrass}
+          d="M 0 1.2 C -1.8 -2.8 -4.4 -4 -5.2 -3 C -3.8 -1.2 -2.5 0.4 -1.6 1.6 C -2 -3.2 -0.2 -5.8 1 -5.8 C 2 -5.8 2.8 -3.2 2.4 1.6 C 3.6 -0.2 5.4 -2 6.6 -3.2 C 5.8 -4.4 3.2 -2.8 1.4 1.2 Z"
+          fill={DARK_GRASS}
         />
         <path
-          d="M114 32 C110 23 104 20 102 22 C105 26 108 30 110 33 C109 22 113 16 116 16 C118 16 120 22 119 33 C122 29 126 25 129 22 C127 19 121 23 117 32 Z"
+          d="M 0 0 C -1.8 -4 -4.4 -5.2 -5.2 -4.2 C -3.8 -2.4 -2.5 -0.8 -1.6 0.4 C -2 -4.4 -0.2 -7 1 -7 C 2 -7 2.8 -4.4 2.4 0.4 C 3.6 -1.4 5.4 -3.2 6.6 -4.4 C 5.8 -5.6 3.2 -4 1.4 0 Z"
           fill="var(--c-success)"
         />
-        <circle cx="116" cy="19" r="1.5" fill={brightGrass} />
-
-        {/* Wild sakura flower cluster */}
-        <circle cx="92" cy="29" r="4.8" fill="var(--c-lacquer)" opacity="0.5" />
-        <circle cx="92" cy="27.5" r="4.8" fill="var(--c-petal)" />
-        <circle cx="92" cy="27.5" r="2" fill="var(--c-glow)" />
-        <circle cx="82" cy="34" r="3.4" fill="var(--c-petal)" />
-        <circle cx="82" cy="34" r="1.4" fill="var(--c-coin-shine)" />
-
-        {/* Chunky grass tuft + camellia bloom (lower-left verge) */}
-        <path
-          d="M54 58 C49 47 42 43 39 46 C43 50 47 55 49 59 C48 46 53 39 56 39 C59 39 62 46 60 59 C64 54 69 49 72 46 C70 42 63 47 58 58 Z"
-          fill={darkGrass}
-        />
-        <path
-          d="M54 56 C49 45 42 41 39 44 C43 48 47 53 49 57 C48 44 53 37 56 37 C59 37 62 44 60 57 C64 52 69 47 72 44 C70 40 63 45 58 56 Z"
-          fill="var(--c-success)"
-        />
-        <circle cx="68" cy="54" r="4.5" fill="var(--c-lacquer)" />
-        <circle cx="68" cy="52.5" r="4.5" fill="var(--c-accent)" />
-        <circle cx="68" cy="52.5" r="1.8" fill="var(--c-glow)" />
-
-        {/* Verge pebbles */}
-        <ellipse cx="132" cy="44" rx="4" ry="2.2" fill="var(--c-ink-muted)" />
-        <ellipse cx="32" cy="64" rx="5" ry="2.6" fill="var(--c-fog)" />
+        <circle cx="0.8" cy="-5.2" r="0.8" fill={BRIGHT_GRASS} />
+        <circle cx="-4.8" cy="-0.4" r="2.2" fill="var(--c-lacquer)" opacity="0.55" />
+        <circle cx="-4.8" cy="-1.2" r="2.2" fill="var(--c-petal)" />
+        <circle cx="-4.8" cy="-1.2" r="0.9" fill="var(--c-glow)" />
       </g>
 
-      {/* Right verge: mossy border boulders, grass tufts & wildflowers */}
-      <g>
-        {/* Chunky grass tuft (upper-right verge) */}
+      {/* Left roadside outer verge: mossy chibi boulder & shrub mound */}
+      <g transform="translate(-112 34)">
+        <ellipse cx="0" cy="1.4" rx="7.2" ry="3.6" fill="var(--c-hud-bg)" opacity="0.45" />
+        <ellipse cx="0" cy="0.4" rx="6.8" ry="3.3" fill={STONE_LIP} />
+        <ellipse cx="0" cy="-0.8" rx="6.4" ry="3.1" fill="var(--c-fog)" />
+        <path d="M -4.8 -1.4 C -2.8 -4 2.2 -4 4.6 -1.6 Z" fill="var(--c-success)" />
+        <ellipse
+          cx="-2.4"
+          cy="-2"
+          rx="2.5"
+          ry="0.95"
+          transform="rotate(-14 -2.4 -2)"
+          fill="var(--c-coin-shine)"
+          opacity="0.65"
+        />
+      </g>
+
+      {/* Right roadside near-edge: grass tuft & camellia bloom */}
+      <g transform="translate(20.5 29)">
         <path
-          d="M306 28 C302 19 296 16 294 18 C297 22 300 26 302 29 C301 18 305 12 308 12 C310 12 312 18 311 29 C314 25 318 21 321 18 C319 15 313 19 309 28 Z"
-          fill={darkGrass}
+          d="M 0 1.2 C -1.6 -2.6 -4 -3.8 -4.8 -2.8 C -3.5 -1 -2.2 0.4 -1.4 1.5 C -1.8 -3 -0.2 -5.4 0.9 -5.4 C 1.8 -5.4 2.6 -3 2.2 1.5 C 3.4 -0.2 5 -1.8 6.2 -3 C 5.4 -4.2 3 -2.6 1.2 1.2 Z"
+          fill={DARK_GRASS}
         />
         <path
-          d="M306 26 C302 17 296 14 294 16 C297 20 300 24 302 27 C301 16 305 10 308 10 C310 10 312 16 311 27 C314 23 318 19 321 16 C319 13 313 17 309 26 Z"
+          d="M 0 0 C -1.6 -3.8 -4 -5 -4.8 -4 C -3.5 -2.2 -2.2 -0.8 -1.4 0.3 C -1.8 -4.2 -0.2 -6.6 0.9 -6.6 C 1.8 -6.6 2.6 -4.2 2.2 0.3 C 3.4 -1.4 5 -3 6.2 -4.2 C 5.4 -5.4 3 -3.8 1.2 0 Z"
           fill="var(--c-success)"
         />
-        <circle cx="322" cy="24" r="4.2" fill="var(--c-petal)" />
-        <circle cx="322" cy="24" r="1.8" fill="var(--c-glow)" />
+        <circle cx="5.2" cy="-0.5" r="2.1" fill="var(--c-lacquer)" />
+        <circle cx="5.2" cy="-1.3" r="2.1" fill="var(--c-accent)" />
+        <circle cx="5.2" cy="-1.3" r="0.85" fill="var(--c-glow)" />
+      </g>
 
-        {/* Mossy roadside boulder */}
-        <ellipse cx="296" cy="49" rx="12" ry="6.5" fill="var(--c-hud-bg)" opacity="0.45" />
-        <ellipse cx="296" cy="47" rx="11.5" ry="6" fill="var(--c-ink-muted)" />
-        <ellipse cx="296" cy="45" rx="11" ry="5.5" fill="var(--c-fog)" />
-        <path d="M287 44 C290 40 298 40 302 43 Z" fill="var(--c-success)" />
-        <ellipse cx="292" cy="43" rx="4.5" ry="1.8" fill="var(--c-coin-shine)" opacity="0.6" />
-
-        {/* Chunky grass tuft & flowers (lower-right verge) */}
+      {/* Right roadside outer verge: rounded chibi bush cluster & blossom */}
+      <g transform="translate(46 34.5)">
         <path
-          d="M336 64 C331 53 324 49 321 52 C325 56 329 61 331 65 C330 52 335 45 338 45 C341 45 344 52 342 65 C346 60 351 55 354 52 C352 48 345 53 340 64 Z"
-          fill={darkGrass}
+          d="M -7.5 1.4 C -7.8 -3.4 -4.2 -6.2 0 -6 C 4.2 -6.2 7.8 -3.4 7.5 1.4 Z"
+          fill={DARK_GRASS}
         />
         <path
-          d="M336 62 C331 51 324 47 321 50 C325 54 329 59 331 63 C330 50 335 43 338 43 C341 43 344 50 342 63 C346 58 351 53 354 50 C352 46 345 51 340 62 Z"
+          d="M -7.5 0 C -7.8 -4.8 -4.2 -7.6 0 -7.4 C 4.2 -7.6 7.8 -4.8 7.5 0 Z"
           fill="var(--c-success)"
         />
-        <circle cx="316" cy="60" r="4.8" fill="var(--c-petal)" />
-        <circle cx="316" cy="60" r="2" fill="var(--c-glow)" />
-        <circle cx="356" cy="58" r="3.8" fill="var(--c-accent)" />
-        <circle cx="356" cy="58" r="1.5" fill="var(--c-coin-shine)" />
+        <ellipse
+          cx="-2.6"
+          cy="-4.6"
+          rx="2.8"
+          ry="1.1"
+          transform="rotate(-15 -2.6 -4.6)"
+          fill={BRIGHT_GRASS}
+          opacity="0.75"
+        />
+        <circle cx="4.2" cy="-2.2" r="1.9" fill="var(--c-petal)" />
+        <circle cx="4.2" cy="-2.2" r="0.8" fill="var(--c-glow)" />
+      </g>
+    </g>
+  ) : (
+    <g>
+      {/* Left roadside near-edge: wooden trail guidepost & grass tuft */}
+      <g transform="translate(-85 33.2)">
+        <ellipse cx="0" cy="1.2" rx="4.2" ry="1.6" fill="var(--c-hud-bg)" opacity="0.4" />
+        <rect x="-1.8" y="-9.5" width="3.6" height="10.5" rx="1.2" fill={WOOD_SHADE} />
+        <rect x="-1.8" y="-10.2" width="3" height="10.5" rx="1" fill="var(--c-panel-edge)" />
+        <path d="M -2.8 -9.2 L 0 -11.6 L 2.8 -9.2 Z" fill={WOOD_SHADE} />
+        <path d="M -2.6 -9.8 L 0 -12.1 L 2.6 -9.8 Z" fill="var(--c-gold-soft)" />
+        <rect x="-0.8" y="-7.5" width="1.4" height="4.2" rx="0.5" fill="var(--c-glow)" />
+        <path
+          d="M -4.8 0.8 C -5.8 -2 -4.2 -3.8 -2.4 -1.2 C -1.8 -3.5 0.2 -3.8 0.8 -1 C 2.2 -3.2 4.2 -2.4 3.4 0.8 Z"
+          fill="var(--c-success)"
+        />
+      </g>
+
+      {/* Left roadside outer verge: lush chibi bush mound & twin wildflowers */}
+      <g transform="translate(-100 28.8)">
+        <path
+          d="M -8 1.3 C -8.4 -3.6 -4.5 -6.6 0 -6.4 C 4.5 -6.6 8.4 -3.6 8 1.3 Z"
+          fill={DARK_GRASS}
+        />
+        <path
+          d="M -8 0 C -8.4 -4.8 -4.5 -7.8 0 -7.6 C 4.5 -7.8 8.4 -4.8 8 0 Z"
+          fill="var(--c-success)"
+        />
+        <ellipse
+          cx="-2.8"
+          cy="-4.8"
+          rx="3"
+          ry="1.15"
+          transform="rotate(-16 -2.8 -4.8)"
+          fill={BRIGHT_GRASS}
+          opacity="0.75"
+        />
+        <circle cx="-4.2" cy="-1.8" r="2" fill="var(--c-petal)" />
+        <circle cx="-4.2" cy="-1.8" r="0.85" fill="var(--c-glow)" />
+        <circle cx="3.8" cy="-2.8" r="1.7" fill="var(--c-accent)" />
+        <circle cx="3.8" cy="-2.8" r="0.7" fill="var(--c-coin-shine)" />
+      </g>
+
+      {/* Right roadside near-edge: mossy stone lantern (toro) passing by */}
+      <g transform="translate(24 33.8)">
+        <ellipse cx="0" cy="1.2" rx="4.8" ry="1.8" fill="var(--c-hud-bg)" opacity="0.45" />
+        <rect x="-2" y="-5.5" width="4" height="6.5" rx="1" fill={STONE_LIP} />
+        <rect x="-2" y="-6.2" width="3.5" height="6.2" rx="1" fill="var(--c-fog)" />
+        <rect x="-3.4" y="-7.4" width="6.8" height="1.8" rx="0.8" fill={STONE_LIP} />
+        <rect x="-3.4" y="-7.9" width="6.8" height="1.6" rx="0.8" fill="var(--c-border)" />
+        <rect x="-2.6" y="-11.8" width="5.2" height="4.2" rx="0.9" fill={STONE_LIP} />
+        <rect x="-2.6" y="-12.3" width="5.2" height="4" rx="0.9" fill="var(--c-surface-alt)" />
+        <rect x="-1.4" y="-11.3" width="2.8" height="2.3" rx="0.5" fill="var(--c-glow)" />
+        <path d="M -4.8 -11.8 C -2.8 -14.8 2.8 -14.8 4.8 -11.8 Z" fill={STONE_LIP} />
+        <path d="M -4.5 -12.4 C -2.5 -15.2 2.5 -15.2 4.5 -12.4 Z" fill="var(--c-fog)" />
+        <path d="M -2.4 -13.6 C -1 -14.8 1.2 -14.8 2.4 -13.6 Z" fill="var(--c-success)" />
+        <circle cx="0" cy="-15.2" r="1.1" fill="var(--c-border)" />
+      </g>
+
+      {/* Right roadside outer verge: mossy stone & grass tuft */}
+      <g transform="translate(42 28.6)">
+        <ellipse cx="0" cy="1.1" rx="5.4" ry="2.6" fill={STONE_LIP} />
+        <ellipse cx="0" cy="0" rx="5.1" ry="2.4" fill="var(--c-fog)" />
+        <ellipse
+          cx="-1.8"
+          cy="-0.8"
+          rx="2.1"
+          ry="0.75"
+          transform="rotate(-14 -1.8 -0.8)"
+          fill="var(--c-coin-shine)"
+          opacity="0.6"
+        />
+        <path
+          d="M 3.5 0.6 C 2.4 -2.6 0.6 -3.6 0 -2.6 C 1 -1.2 2 0 2.6 0.8 C 2.4 -2.8 3.6 -4.8 4.5 -4.8 C 5.2 -4.8 5.8 -2.8 5.4 0.8 Z"
+          fill="var(--c-success)"
+        />
       </g>
     </g>
   );
@@ -433,7 +683,7 @@ export function BattleStage({
           </g>
 
           {/* Distant vermilion Torii gate straddling the upper path entrance */}
-          <g transform="translate(226 26)">
+          <g transform="translate(216 24)">
             <circle cx="22" cy="22" r="24" fill="url(#battle-orb-glow)" opacity="0.65" />
             {/* Pillars */}
             <rect x="8" y="8" width="4.5" height="28" rx="1.5" fill="var(--c-lacquer)" />
@@ -454,8 +704,8 @@ export function BattleStage({
           </g>
 
           {/* Distant stone lantern (left of torii) & hanging chochin lantern (right of torii) */}
-          <g transform="translate(208 42)">
-            <rect x="3" y="12" width="6" height="8" rx="1.5" fill="var(--c-ink-muted)" />
+          <g transform="translate(200 40)">
+            <rect x="3" y="12" width="6" height="8" rx="1.5" fill={STONE_LIP} />
             <rect x="2" y="6" width="8" height="6" rx="1.5" fill="var(--c-border)" />
             <circle
               cx="6"
@@ -473,9 +723,9 @@ export function BattleStage({
               fill="var(--c-glow)"
               className="battle-lantern-glow"
             />
-            <path d="M0 6.5 L6 2 L12 6.5 Z" fill="var(--c-ink-muted)" />
+            <path d="M0 6.5 L6 2 L12 6.5 Z" fill={STONE_LIP} />
           </g>
-          <g transform="translate(274 36)">
+          <g transform="translate(268 35)">
             <path
               d="M8 24 V4 L0 4"
               stroke="var(--c-hud-bg)"
@@ -504,7 +754,7 @@ export function BattleStage({
         </g>
       </svg>
 
-      {/* Woodland ground & winding dirt path with scrolling stones, ruts and pebbles */}
+      {/* Woodland ground & perspective dirt road with flowing stones, markings and edges */}
       <div className="battle-road">
         <svg viewBox="0 0 400 156" preserveAspectRatio="none" className="battle-road-svg">
           <defs>
@@ -537,41 +787,38 @@ export function BattleStage({
               />
             </linearGradient>
             <clipPath id="battle-road-clip">
-              <path d="M 236 56 C 226 70, 206 80, 184 92 C 142 114, 58 126, 16 156 L 288 156 C 270 136, 278 122, 284 102 C 290 84, 272 72, 260 56 Z" />
+              <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" />
             </clipPath>
           </defs>
 
           {/* Woodland grass hills flanking the road */}
           <path
-            d="M 0 60 Q 110 50 248 56 Q 330 52 400 60 V 156 H 0 Z"
+            d="M 0 60 Q 110 52 238 56 Q 330 52 400 60 V 156 H 0 Z"
             fill="url(#battle-grass-grad)"
           />
           {/* Subtle shaded hillside contours on the verges */}
           <path
-            d="M 0 88 Q 78 82 174 96 L 96 132 L 0 124 Z M 282 88 Q 342 80 400 90 V 126 Q 336 116 280 118 Z"
+            d="M 0 88 Q 74 82 162 94 L 84 134 L 0 124 Z M 272 88 Q 338 80 400 90 V 126 Q 336 116 280 118 Z"
             fill="color-mix(in srgb, var(--c-success) 42%, var(--c-hud-bg))"
             opacity="0.45"
           />
 
-          {/* Outer grassy lip & recessed earth bank along the winding path */}
+          {/* Outer grassy lip & recessed earth bank along the perspective trail */}
           <path
-            d="M 231 56 C 220 70, 198 80, 174 92 C 130 114, 46 126, 4 156 L 300 156 C 282 136, 288 122, 294 102 C 300 84, 280 72, 265 56 Z"
+            d="M 218.5 56 L 2 156 L 298 156 L 256.5 56 Z"
             fill="color-mix(in srgb, var(--c-gold) 48%, var(--c-hud-bg))"
           />
-          {/* Main winding perspective dirt road */}
-          <path
-            d="M 236 56 C 226 70, 206 80, 184 92 C 142 114, 58 126, 16 156 L 288 156 C 270 136, 278 122, 284 102 C 290 84, 272 72, 260 56 Z"
-            fill="url(#battle-dirt-grad)"
-          />
+          {/* Main perspective dirt road */}
+          <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" fill="url(#battle-dirt-grad)" />
           {/* Warm packed-earth center ribbon */}
           <path
-            d="M 242 56 C 234 70, 218 82, 198 94 C 162 116, 92 128, 56 156 L 254 156 C 242 136, 254 120, 264 100 C 272 82, 262 70, 254 56 Z"
+            d="M 230.5 56 L 62 156 L 242 156 L 246 56 Z"
             fill="color-mix(in srgb, var(--c-gold-soft) 55%, var(--c-panel-edge))"
             opacity="0.55"
           />
           {/* Subtle clearing ring where the enemy stands on the upper-mid path */}
           <ellipse
-            cx="240"
+            cx="228"
             cy="88"
             rx="34"
             ry="8.5"
@@ -579,23 +826,40 @@ export function BattleStage({
             opacity="0.5"
           />
 
-          {/* Scrolling stones, ruts, pebbles & fallen petals clipped to the winding road */}
+          {/* Perspective-flowing road surface: stones, markings, ruts & curb edges */}
           <g clipPath="url(#battle-road-clip)">
-            <g className="battle-road-scroll">
-              <RoadScrollTile yOffset={-80} />
-              <RoadScrollTile yOffset={0} />
-              <RoadScrollTile yOffset={80} />
+            <g transform="translate(248 44)">
+              <g className="battle-road-scroll">
+                {PERSPECTIVE_LEVELS.map(({ scale, variant }) => (
+                  <g key={scale} transform={`scale(${scale})`}>
+                    <RoadPerspectiveBand variant={variant} />
+                  </g>
+                ))}
+              </g>
             </g>
           </g>
         </svg>
       </div>
 
-      {/* Scrolling woodland verges: grass tufts, wildflowers, mossy rocks & pebbles */}
+      {/* Roadside props on either side of the trail that pass by and grow as they near */}
       <div className="battle-verge">
-        <svg viewBox="0 0 400 210" preserveAspectRatio="none" className="battle-verge-svg">
-          <VergeScrollTile yOffset={0} />
-          <VergeScrollTile yOffset={70} />
-          <VergeScrollTile yOffset={140} />
+        <svg viewBox="0 0 400 156" preserveAspectRatio="none" className="battle-verge-svg">
+          <defs>
+            <clipPath id="battle-verge-clip">
+              <rect x="0" y="56" width="400" height="100" />
+            </clipPath>
+          </defs>
+          <g clipPath="url(#battle-verge-clip)">
+            <g transform="translate(248 44)">
+              <g className="battle-verge-scroll">
+                {PERSPECTIVE_LEVELS.map(({ scale, variant }) => (
+                  <g key={scale} transform={`scale(${scale})`}>
+                    <VergePerspectiveBand variant={variant} />
+                  </g>
+                ))}
+              </g>
+            </g>
+          </g>
         </svg>
       </div>
 
@@ -675,30 +939,8 @@ export function BattleStage({
           <path d="M404 8 C388 14 376 26 370 40 C384 36 396 26 404 18 Z" fill="var(--c-success)" />
         </g>
 
-        {/* Bottom-right foreground framing foliage & mossy stone lantern */}
+        {/* Bottom-right foreground framing foliage */}
         <g className="battle-fg-br" style={{ transformOrigin: '400px 156px' }}>
-          {/* Mossy stone lantern (toro) on the right verge */}
-          <g transform="translate(352 104)">
-            <rect x="9" y="28" width="10" height="22" rx="3" fill="var(--c-hud-bg)" />
-            <rect x="9" y="26" width="10" height="20" rx="3" fill="var(--c-ink-muted)" />
-            <rect x="5" y="23" width="18" height="5" rx="2.5" fill="var(--c-fog)" />
-            <rect x="7" y="12" width="14" height="12" rx="2.5" fill="var(--c-hud-bg)" />
-            <rect x="7" y="11" width="14" height="11" rx="2.5" fill="var(--c-border)" />
-            <rect
-              x="10"
-              y="13.5"
-              width="8"
-              height="6.5"
-              rx="1.5"
-              fill="var(--c-glow)"
-              className="battle-lantern-glow"
-            />
-            <path d="M1 12 C6 4 22 4 27 12 Z" fill="var(--c-hud-bg)" />
-            <path d="M2 10.5 C7 3 21 3 26 10.5 Z" fill="var(--c-ink-muted)" />
-            <path d="M6 7 C10 4 16 4 20 7 Z" fill="var(--c-success)" />
-            <circle cx="14" cy="3" r="3" fill="var(--c-fog)" />
-          </g>
-          {/* Framing foreground bush leaves */}
           <path
             d="M408 158 C408 124 388 108 364 110 C364 122 370 132 378 138 C364 134 350 142 346 158 Z"
             fill="var(--c-hud-bg)"
