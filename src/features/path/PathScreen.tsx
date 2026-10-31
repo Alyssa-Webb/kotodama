@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { Link } from 'react-router';
 import { useGame } from '../../foundations/store/gameStore';
 import { isUnlocked } from '../../engine/game';
@@ -278,7 +279,79 @@ function MiniTorii({
 }
 
 /** Decorative region diorama SVG behind each unit's stretch of the pilgrimage trail. */
-function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
+interface TrailStyle {
+  lip: string;
+  curb: string;
+  surface: string;
+  paver: string;
+  paverWidth: number;
+  paverDash: string;
+}
+
+/** Each region's road: the colours of its lip, curb, surface and stepping stones. */
+function trailStyle(id: string): TrailStyle {
+  const market = id === 'market';
+  const dojo = id === 'dojo';
+  return {
+    lip: market
+      ? 'color-mix(in srgb, var(--c-lacquer) 58%, var(--c-hud-bg))'
+      : 'color-mix(in srgb, var(--c-panel-edge) 56%, var(--c-hud-bg))',
+    curb: market
+      ? 'color-mix(in srgb, var(--c-panel-edge) 70%, var(--c-lacquer))'
+      : 'var(--c-panel-edge)',
+    surface: dojo
+      ? 'color-mix(in srgb, var(--c-hud-ink) 82%, var(--c-gold-soft))'
+      : market
+        ? 'color-mix(in srgb, var(--c-gold-soft) 74%, var(--c-accent-soft))'
+        : 'color-mix(in srgb, var(--c-hud-ink) 78%, var(--c-gold-soft))',
+    paver: dojo
+      ? 'color-mix(in srgb, var(--c-panel-edge) 64%, var(--c-hud-bg))'
+      : market
+        ? 'color-mix(in srgb, var(--c-lacquer) 48%, var(--c-panel-edge))'
+        : 'color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-gold))',
+    paverWidth: dojo || market ? 22 : 18,
+    paverDash: dojo ? '10 22' : market ? '8 18' : '4 28',
+  };
+}
+
+/** The road itself: lip, curb, surface, then stepping stones (masked away from region edges). */
+function Trail({ d, style, paverMask }: { d: string; style: TrailStyle; paverMask: string }) {
+  return (
+    <>
+      <path
+        d={d}
+        transform="translate(0 5)"
+        stroke={style.lip}
+        strokeWidth="66"
+        strokeLinecap="butt"
+        fill="none"
+      />
+      <path d={d} stroke={style.curb} strokeWidth="58" strokeLinecap="butt" fill="none" />
+      <path d={d} stroke={style.surface} strokeWidth="46" strokeLinecap="butt" fill="none" />
+      <path
+        d={d}
+        stroke={style.paver}
+        strokeWidth={style.paverWidth}
+        strokeDasharray={style.paverDash}
+        strokeLinecap="round"
+        fill="none"
+        mask={paverMask}
+      />
+    </>
+  );
+}
+
+function RegionScene({
+  region,
+  lit,
+  prevRegionId,
+}: {
+  region: RegionInfo;
+  lit: boolean;
+  /** The region just before this one on the Path, whose road this one's road blends out of. */
+  prevRegionId?: string;
+}) {
+  const uid = useId().replace(/:/g, '');
   const trailD =
     'M 192 -8 L 192 0 C 192 62, 260 94, 260 162 C 260 226, 192 246, 192 280 C 192 314, 134 334, 134 402 C 134 466, 192 498, 192 560 L 192 568';
   const stoneMain = 'color-mix(in srgb, var(--c-hud-ink) 74%, var(--c-fog))';
@@ -509,59 +582,33 @@ function RegionScene({ region, lit }: { region: RegionInfo; lit: boolean }) {
           </g>
         )}
 
-        {/* Continuous winding pilgrimage trail (lip + curb + surface + pavers) */}
-        <path
-          d={trailD}
-          transform="translate(0 5)"
-          stroke={
-            region.id === 'market'
-              ? 'color-mix(in srgb, var(--c-lacquer) 58%, var(--c-hud-bg))'
-              : 'color-mix(in srgb, var(--c-panel-edge) 56%, var(--c-hud-bg))'
-          }
-          strokeWidth="66"
-          strokeLinecap="butt"
-          fill="none"
-        />
-        <path
-          d={trailD}
-          stroke={
-            region.id === 'market'
-              ? 'color-mix(in srgb, var(--c-panel-edge) 70%, var(--c-lacquer))'
-              : 'var(--c-panel-edge)'
-          }
-          strokeWidth="58"
-          strokeLinecap="butt"
-          fill="none"
-        />
-        <path
-          d={trailD}
-          stroke={
-            region.id === 'dojo'
-              ? 'color-mix(in srgb, var(--c-hud-ink) 82%, var(--c-gold-soft))'
-              : region.id === 'market'
-                ? 'color-mix(in srgb, var(--c-gold-soft) 74%, var(--c-accent-soft))'
-                : 'color-mix(in srgb, var(--c-hud-ink) 78%, var(--c-gold-soft))'
-          }
-          strokeWidth="46"
-          strokeLinecap="butt"
-          fill="none"
-        />
-        <path
-          d={trailD}
-          stroke={
-            region.id === 'dojo'
-              ? 'color-mix(in srgb, var(--c-panel-edge) 64%, var(--c-hud-bg))'
-              : region.id === 'market'
-                ? 'color-mix(in srgb, var(--c-lacquer) 48%, var(--c-panel-edge))'
-                : 'color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-gold))'
-          }
-          strokeWidth={region.id === 'dojo' || region.id === 'market' ? '22' : '18'}
-          strokeDasharray={
-            region.id === 'dojo' ? '10 22' : region.id === 'market' ? '8 18' : '4 28'
-          }
-          strokeLinecap="round"
-          fill="none"
-        />
+        {/* Continuous winding pilgrimage trail. At the top it starts in the previous region's
+            road and fades into this one, and the pavers stop short of both edges, so the road
+            runs on unbroken from region to region. */}
+        <defs>
+          <linearGradient id={`${uid}-seam-g`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="white" />
+            <stop offset="1" stopColor="black" />
+          </linearGradient>
+          <mask id={`${uid}-seam`} maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="560">
+            <rect x="0" y="0" width="400" height="110" fill={`url(#${uid}-seam-g)`} />
+          </mask>
+          <linearGradient id={`${uid}-edges-g`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="black" />
+            <stop offset="0.045" stopColor="white" />
+            <stop offset="0.955" stopColor="white" />
+            <stop offset="1" stopColor="black" />
+          </linearGradient>
+          <mask id={`${uid}-edges`} maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="560">
+            <rect x="0" y="0" width="400" height="560" fill={`url(#${uid}-edges-g)`} />
+          </mask>
+        </defs>
+        <Trail d={trailD} style={trailStyle(region.id)} paverMask={`url(#${uid}-edges)`} />
+        {prevRegionId && prevRegionId !== region.id && (
+          <g mask={`url(#${uid}-seam)`}>
+            <Trail d={trailD} style={trailStyle(prevRegionId)} paverMask={`url(#${uid}-edges)`} />
+          </g>
+        )}
       </svg>
 
       {/* 1:1 aspect-ratio chibi landmarks & transitional foliage */}
@@ -1840,7 +1887,11 @@ export function PathScreen() {
                       className={`unit region-${region.id} ${unitOpen ? 'unit-open' : 'unit-locked'} ${unitDone ? 'unit-done' : ''}`}
                     >
                       <div className="unit-stage">
-                        <RegionScene region={region} lit={unitOpen} />
+                        <RegionScene
+                          region={region}
+                          lit={unitOpen}
+                          {...(unitIdx > 0 ? { prevRegionId: regionFor(unitIdx - 1).id } : {})}
+                        />
                         {!unitOpen && <RegionMist />}
                         {gateFor(region.id) && (
                           <RegionGate kind={gateFor(region.id)!} lit={unitOpen} />
