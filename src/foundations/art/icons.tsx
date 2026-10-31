@@ -14,21 +14,24 @@ export function HeartIcon({ size, empty, ...rest }: P & { empty?: boolean }) {
   return (
     <svg viewBox="0 0 24 24" {...base(size, rest)}>
       <path
-        d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.2 0 3.6 1.3 4.4 2.6.8-1.3 2.2-2.6 4.4-2.6 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21Z"
-        fill={empty ? 'var(--c-surface-alt)' : 'var(--c-danger)'}
-        stroke={empty ? 'var(--c-border)' : 'color-mix(in srgb, var(--c-danger) 60%, var(--c-ink))'}
-        strokeWidth="1.4"
+        d="M12 21.4C8.2 19.2 3 15.6 3 10.6 3 7.3 5.5 5.4 8.2 5.4c1.8 0 3.1 1 3.8 2.4.7-1.4 2-2.4 3.8-2.4 2.7 0 5.2 1.9 5.2 5.2 0 5-5.2 8.6-9 10.8Z"
+        fill={
+          empty ? 'var(--c-border)' : 'color-mix(in srgb, var(--c-danger) 62%, var(--c-hud-bg))'
+        }
       />
-      {!empty && (
-        <path
-          d="M6.5 7.5c-1.4.3-2.2 1.7-1.9 3.1"
-          stroke="var(--c-panel)"
-          strokeOpacity=".7"
-          strokeWidth="1.6"
-          fill="none"
-          strokeLinecap="round"
-        />
-      )}
+      <path
+        d="M12 19.2C8.2 17 3 13.4 3 8.4 3 5.1 5.5 3.2 8.2 3.2c1.8 0 3.1 1 3.8 2.4.7-1.4 2-2.4 3.8-2.4 2.7 0 5.2 1.9 5.2 5.2 0 5-5.2 8.6-9 10.8Z"
+        fill={empty ? 'var(--c-surface-alt)' : 'var(--c-danger)'}
+      />
+      <ellipse
+        cx="7.4"
+        cy="6.8"
+        rx="2.4"
+        ry="1.3"
+        transform="rotate(-18 7.4 6.8)"
+        fill="var(--c-hud-ink)"
+        opacity={empty ? '0.22' : '0.42'}
+      />
     </svg>
   );
 }
@@ -36,48 +39,29 @@ export function HeartIcon({ size, empty, ...rest }: P & { empty?: boolean }) {
 export function YenIcon({ size, ...rest }: P) {
   return (
     <svg viewBox="0 0 24 24" {...base(size, rest)}>
-      <ellipse
+      <circle
         cx="12"
-        cy="12"
-        rx="7.5"
-        ry="10"
-        fill="var(--c-gold)"
-        stroke="color-mix(in srgb, var(--c-gold) 55%, var(--c-ink))"
-        strokeWidth="1.3"
+        cy="13.2"
+        r="8.5"
+        fill="color-mix(in srgb, var(--c-gold) 60%, var(--c-hud-bg))"
       />
-      <ellipse
-        cx="12"
-        cy="12"
-        rx="5.4"
-        ry="7.8"
-        fill="none"
-        stroke="var(--c-glow)"
-        strokeOpacity=".8"
-        strokeWidth="0.9"
-      />
-      {[7, 9.5, 14.5, 17].map((y) => (
-        <path
-          key={y}
-          d={`M8.6 ${y}h6.8`}
-          stroke="color-mix(in srgb, var(--c-gold) 60%, var(--c-ink))"
-          strokeWidth="0.8"
-        />
-      ))}
+      <circle cx="12" cy="11" r="8.5" fill="var(--c-gold)" />
       <rect
-        x="10"
-        y="10.4"
-        width="4"
-        height="3.2"
-        rx="0.6"
-        fill="color-mix(in srgb, var(--c-gold) 60%, var(--c-ink))"
+        x="9.6"
+        y="8.6"
+        width="4.8"
+        height="4.8"
+        rx="0.9"
+        fill="color-mix(in srgb, var(--c-gold) 45%, var(--c-hud-bg))"
       />
-      <path
-        d="M8 6.5c.6-1.2 1.6-2 2.8-2.3"
-        stroke="var(--c-panel)"
-        strokeOpacity=".8"
-        strokeWidth="1.2"
-        fill="none"
-        strokeLinecap="round"
+      <ellipse
+        cx="7.8"
+        cy="6.6"
+        rx="2.4"
+        ry="1.3"
+        transform="rotate(-22 7.8 6.6)"
+        fill="var(--c-coin-shine)"
+        opacity="0.5"
       />
     </svg>
   );
@@ -87,12 +71,31 @@ export function FlameIcon({ size, lit = true, ...rest }: P & { lit?: boolean }) 
   return (
     <svg viewBox="0 0 24 24" {...base(size, rest)} className={lit ? 'flame-lit' : undefined}>
       <path
-        d="M12 22c-4.4 0-7-2.9-7-6.6 0-3.4 2.4-5.4 3.6-8.4.4 1.6 1.3 2.6 2.2 3C10.6 6.5 12.6 3.7 15 2c-.3 3 1.3 5 2.6 6.9 1 1.5 1.4 3 1.4 4.5C19 18.9 16.4 22 12 22Z"
-        fill={lit ? 'var(--c-accent)' : 'var(--c-fog)'}
+        d="M12 21.6c-5.2 0-8.6-3.4-8.6-7.6 0-3 1.4-5 3.2-6.2.2 1.6 1 2.6 2 2.4.6-3 2.4-5.4 4.2-5.4 2.4 0 7.8 4.4 7.8 9.2 0 4.2-3.4 7.6-8.6 7.6Z"
+        fill={
+          lit
+            ? 'color-mix(in srgb, var(--c-accent) 60%, var(--c-hud-bg))'
+            : 'color-mix(in srgb, var(--c-fog) 62%, var(--c-hud-bg))'
+        }
       />
       <path
-        d="M12 21c-2.2 0-3.6-1.5-3.6-3.4 0-2 1.6-3.2 2.4-5 .4 1 1 1.6 1.6 1.8.2-1.6 1.2-3 2.3-3.8 0 1.8.9 3 1.6 4.2.4.7.6 1.5.6 2.3 0 2.3-1.6 3.9-4.9 3.9Z"
-        fill={lit ? 'var(--c-glow)' : 'var(--c-surface-alt)'}
+        d="M12 19.4c-5.2 0-8.6-3.4-8.6-7.6 0-3 1.4-5 3.2-6.2.2 1.6 1 2.6 2 2.4.6-3 2.4-5.4 4.2-5.4 2.4 0 7.8 4.4 7.8 9.2 0 4.2-3.4 7.6-8.6 7.6Z"
+        fill={lit ? 'var(--c-accent)' : 'var(--c-fog)'}
+      />
+      {lit && (
+        <path
+          d="M12.2 17.8c-3 0-4.8-2.2-4.8-4.8 0-2.8 2.8-5.2 5-5.2 2 0 4.4 2.4 4.4 5.2 0 2.6-1.8 4.8-4.6 4.8Z"
+          fill="var(--c-glow)"
+        />
+      )}
+      <ellipse
+        cx="10.6"
+        cy="6.4"
+        rx="2.2"
+        ry="1.2"
+        transform="rotate(-24 10.6 6.4)"
+        fill="var(--c-hud-ink)"
+        opacity={lit ? '0.4' : '0.25'}
       />
     </svg>
   );
