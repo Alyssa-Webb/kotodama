@@ -42,7 +42,9 @@ test('golden path: first lesson, rewards, reviews, persistence', async ({ page }
 
 test('town, shop and import screens render', async ({ page }, info) => {
   await page.goto('./#/town');
-  await expect(page.getByRole('img', { name: /Town map/ })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Kotodama Town map' })).toBeVisible();
+  // Every district is a building on the map; a new player's are still locked.
+  await expect(page.getByRole('button', { name: /^The Station \(/ })).toBeVisible();
   await settle(page);
   await page.screenshot({ path: shot('town', info.project.name) });
   await page.goto('./#/shop');
