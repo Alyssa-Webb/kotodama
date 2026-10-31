@@ -1061,7 +1061,7 @@ export function HomeScreen() {
           <div className="tile-copy">
             <div className="tile-head">
               <p className="eyebrow">Town</p>
-              <h2>City Market</h2>
+              <h2>Kotodama Town</h2>
             </div>
             <p className="muted small">
               {restoredCount} of {towns.length} districts awake
