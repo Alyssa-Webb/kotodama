@@ -1,0 +1,26 @@
+/* Ukiyo-e Bamboo Thicket battle backdrop styles (transform & opacity only, at most one gentle loop). */
+.battle-bamboo-sway {
+  will-change: transform;
+  animation: bamboo-ukiyoe-sway calc(var(--dur-celebrate, 900ms) * 4.6) ease-in-out infinite;
+}
+
+@keyframes bamboo-ukiyoe-sway {
+  0%,
+  100% {
+    transform: rotate(-1.6deg);
+  }
+  50% {
+    transform: rotate(1.6deg);
+  }
+}
+
+/* Pause decorative backdrop loops while a battle question is up so answering stays smooth. */
+.battle:not(.battle-walking) .battle-bamboo-sway {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .battle-bamboo-sway {
+    animation: none !important;
+  }
+}
