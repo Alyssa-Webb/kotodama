@@ -508,3 +508,10 @@ span.goal-lantern.goal-lantern-full .goal-lantern-fill {
 .noren-panel-2 {
   display: none;
 }
+
+/* Centre the seal in its narrow panel (84px panel, 30px lantern and the gaps are fixed sizes, so
+   this offset is the same at every screen width). */
+.noren-seal {
+  margin-right: 8px;
+  margin-top: 0;
+}

@@ -78,15 +78,12 @@ export function KotoSays({
         <Mascot outfit={outfit} pose={pose} size={108} facing="right" />
       </button>
       <div className="koto-counter" aria-hidden="true">
-        {role === 'shop' ? (
+        {role === 'shop' &&
           WARES.map((id, k) => (
             <span key={id} className="koto-ware" style={{ animationDelay: `${k * 0.4}s` }}>
               <ItemArt id={id} size={40} />
             </span>
-          ))
-        ) : (
-          <span className="koto-podium-seal">Mayor</span>
-        )}
+          ))}
       </div>
       <button
         key={i}
