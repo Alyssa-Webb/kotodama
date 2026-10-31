@@ -21,9 +21,9 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                         | AI     | Files and folders      | Branch          | Issue | Claimed (UTC)    |
-| -------------------------------------------- | ------ | ---------------------- | --------------- | ----- | ---------------- |
-| Home redesign (two concepts for Ken to pick) | Claude | `src/features/home/**` | `cursor/gemini` | –     | 2026-10-31 04:05 |
+| Task                                                                | AI     | Files and folders                                                                                                                      | Branch          | Issue | Claimed (UTC)    |
+| ------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ----- | ---------------- |
+| Home redesign with a management desk (two concepts for Ken to pick) | Claude | `src/features/home/**`, `src/features/town/Tycoon.tsx`, `src/features/town/useTown.ts` (sharing the town income calculation with Home) | `cursor/gemini` | –     | 2026-10-31 04:05 |
 
 ## Done
 
