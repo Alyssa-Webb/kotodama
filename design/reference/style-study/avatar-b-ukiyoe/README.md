@@ -1,0 +1,3 @@
+# Ukiyo-e Woodblock Print (Nishiki-e)
+
+Each clip steps at 12 fps through discrete `<g class="f ...">` frame groups via opacity-only CSS keyframes, treating every pose like a freshly pulled woodblock impression whose flat mineral-pigment fills and varied-weight sumi contours register against a still *bokashi* and *seigaiha* print ground. Fluidity and weight come from hand-staged overlap and squash-and-stretch rather than interpolated transforms: the topknot, wide kimono sleeves, and yellow *obi* knot lag a beat behind the walk bob, slow breath, and *bokken* lunge, while carved crescent smear blocks carry the swing into impact.

@@ -1,0 +1,281 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    .f { opacity: 0; animation: show 0.6667s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: -0.5833s; }
+    .f3 { animation-delay: -0.5s; }
+    .f4 { animation-delay: -0.4167s; }
+    .f5 { animation-delay: -0.3333s; }
+    .f6 { animation-delay: -0.25s; }
+    .f7 { animation-delay: -0.1667s; }
+    .f8 { animation-delay: -0.0833s; }
+    @keyframes show {
+      0% { opacity: 1; }
+      12.5% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .f { animation: none; opacity: 0; }
+      .f1 { opacity: 1; }
+    }
+    .cap { font-family: serif; font-size: 12px; font-weight: bold; fill: #faf3e3; letter-spacing: 0.5px; }
+    .seal { font-family: serif; font-size: 11px; font-weight: bold; fill: #c83e2b; }
+  </style>
+
+  <defs>
+    <linearGradient id="sky-bokashi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b5478"/>
+      <stop offset="40%" stop-color="#7fa3bc"/>
+      <stop offset="86%" stop-color="#efe3cc"/>
+      <stop offset="100%" stop-color="#f4ebd9"/>
+    </linearGradient>
+    <linearGradient id="earth-bokashi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eadec7"/>
+      <stop offset="100%" stop-color="#cfb994"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="48%" cy="49%" r="44%">
+      <stop offset="0%" stop-color="#fbf6ea" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#fbf6ea" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="seigaiha" width="44" height="22" patternUnits="userSpaceOnUse">
+      <path d="M0,22 A22,22 0 0,1 44,22 M7,22 A15,15 0 0,1 37,22 M14,22 A8,8 0 0,1 30,22" fill="none" stroke="#c5d3dc" stroke-width="1.15" stroke-opacity="0.55"/>
+      <path d="M-22,11 A22,22 0 0,1 22,11 M-15,11 A15,15 0 0,1 15,11 M22,11 A22,22 0 0,1 66,11 M29,11 A15,15 0 0,1 59,11" fill="none" stroke="#c5d3dc" stroke-width="1.15" stroke-opacity="0.55"/>
+    </pattern>
+
+    <!-- 3/4 straw sandal & chibi foot facing right -->
+    <g id="foot-3q">
+      <rect x="-10" y="-16" width="18" height="14" rx="5" fill="#e3b898" stroke="#1e1b18" stroke-width="2.2"/>
+      <ellipse cx="2" cy="1" rx="16.5" ry="6" fill="#b88746" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M-13,2 Q2,8 17,2" fill="none" stroke="#7d5622" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="2" cy="-3" rx="13" ry="5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2"/>
+      <path d="M-4,-1 Q5,-8 12,-1" fill="none" stroke="#dca03a" stroke-width="2.8" stroke-linecap="round"/>
+    </g>
+
+    <!-- 3/4 kimono torso centered at (0,0) around waist/hip so scale() gives clean squash-stretch -->
+    <g id="torso-3q">
+      <!-- Neck -->
+      <path d="M-10,-52 H12 L14,-34 H-12 Z" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2"/>
+      <!-- Ochre under-hem band -->
+      <rect x="-29" y="34" width="60" height="10" rx="4" fill="#c8963e" stroke="#1e1b18" stroke-width="2.4"/>
+      <!-- Light-blue kimono body -->
+      <path d="M-24,-42 L-33,-6 L-32,36 Q2,41 34,36 L33,-6 L22,-42 Z" fill="#78a6d4"/>
+      <path d="M-32,26 Q2,31 34,26 L34,36 Q2,41 -32,36 Z" fill="#5782b0"/>
+      <!-- White okumi trim on 3/4 front skirt -->
+      <path d="M12,15 L20,15 L19,37 L11,37 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="1.8"/>
+      <!-- White crossed collar (3/4 view facing right) -->
+      <path d="M13,-44 L21,-39 L6,-6 L-1,-11 Z" fill="#e8e0cc" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-12,-44 L-20,-39 L9,-4 L18,-6 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+      <!-- Varied-weight sumi torso contours -->
+      <path d="M-24,-42 L-33,-6 L-32,36 Q2,41 34,36 L33,-6 L22,-42" fill="none" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M-33.5,14 L-32.5,36.5 Q2,42.5 34.5,36.5 L34,14 L32.5,35 Q2,39.5 -31,35 Z" fill="#1e1b18"/>
+      <!-- White obi-shita & yellow obi sash -->
+      <path d="M-35,6 Q2,10 36,6 L38,16 Q2,20 -37,16 Z" fill="#faf5e8" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M-34,-7 Q2,-3 35,-7 L37,7 Q2,11 -36,7 Z" fill="#e8c135" stroke="#1e1b18" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M-33,3 Q2,7 34,3" fill="none" stroke="#c79c1e" stroke-width="2"/>
+    </g>
+
+    <!-- Small yellow sash knot (pivots at (0,0) for secondary lag) -->
+    <g id="obi-knot-3q">
+      <path d="M-2,1 L-8,14 Q-4,17 1,13 Z M3,1 L5,15 Q10,16 12,11 Z" fill="#e8c135" stroke="#1e1b18" stroke-width="2" stroke-linejoin="round"/>
+      <ellipse cx="1" cy="0" rx="6.5" ry="5" fill="#f2cf4b" stroke="#1e1b18" stroke-width="2.2"/>
+    </g>
+
+    <!-- 3/4 chibi head facing right, centered around (0,0) at neck/chin pivot -->
+    <g id="head-3q">
+      <!-- Far-right bob lock peeking behind cheek -->
+      <path d="M46,-68 C58,-46 58,-16 46,-1 C41,1 38,-4 40,-14 Z" fill="#1b1918" stroke="#1e1b18" stroke-width="2.4" stroke-linejoin="round"/>
+      <!-- Rounded back-left black bob dome + signature stray tuft -->
+      <path d="M-56,-4 C-72,-20 -73,-54 -65,-65 C-75,-63 -79,-70 -72,-75 C-68,-78 -63,-76 -61,-75 C-50,-104 -22,-116 10,-114 C36,-112 52,-96 55,-70 L-10,-4 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.8" stroke-linejoin="round"/>
+      <!-- Chubby 3/4 face & woodblock chin shade -->
+      <path d="M-34,-78 C-34,-98 48,-98 50,-74 C54,-52 55,-26 46,-12 C36,1 14,3 -12,1 C-30,-1 -38,-16 -38,-40 Z" fill="#f5d5bc"/>
+      <path d="M-28,-14 C-14,-2 16,-1 44,-13 C34,1 10,3 -14,1 C-24,0 -31,-6 -28,-14 Z" fill="#e3b898"/>
+      <path d="M50,-56 C55,-36 53,-18 45,-9 C35,2 12,4 -14,1 C11,1 33,-1 42,-11 C50,-20 52,-37 50,-56 Z" fill="#1e1b18"/>
+      <!-- Beni-pink cheeks -->
+      <ellipse cx="-8" cy="-21" rx="12.5" ry="8" fill="#e6928e"/>
+      <ellipse cx="44" cy="-23" rx="7.5" ry="7" fill="#e6928e"/>
+      <!-- Big dark 3/4 eyes -->
+      <ellipse cx="5" cy="-38" rx="11.5" ry="13" fill="#1c1918"/>
+      <path d="M-4,-33 A9,9 0 0,0 14,-33 A10,7 0 0,1 -4,-33 Z" fill="#3b536e"/>
+      <path d="M-9,-46 Q-4,-44 -2,-48" fill="none" stroke="#1c1918" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="1" cy="-43" r="3.7" fill="#faf4e6"/>
+      <circle cx="9" cy="-34" r="1.6" fill="#faf4e6"/>
+
+      <ellipse cx="39" cy="-39" rx="8.5" ry="12.2" fill="#1c1918"/>
+      <circle cx="36.5" cy="-44" r="3.1" fill="#faf4e6"/>
+      <circle cx="42" cy="-35" r="1.4" fill="#faf4e6"/>
+      <!-- Left ear & side bob lock + 3-parted short fringe -->
+      <ellipse cx="-48" cy="-39" rx="11" ry="14.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.5"/>
+      <path d="M-50,-45 Q-54,-39 -49,-33" fill="none" stroke="#c99b7c" stroke-width="2" stroke-linecap="round"/>
+      <path d="M-40,-72 C-42,-44 -39,-14 -29,2 C-22,4 -19,-2 -21,-13 L-23,-63 C-12,-60 -1,-62 5,-70 L8,-78 L11,-68 C19,-60 35,-60 41,-68 L43,-76 L46,-68 C51,-62 55,-62 57,-66 C54,-96 36,-112 6,-113 C-22,-114 -36,-96 -40,-72 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M-36,-88 C-16,-103 28,-102 42,-87 C25,-96 -16,-96 -36,-88 Z" fill="#433e3c"/>
+    </g>
+
+    <!-- Calm vs focused expressions -->
+    <g id="expr-calm">
+      <path d="M-4,-57 Q5,-61 14,-58 M31,-58 Q39,-61 46,-57" fill="none" stroke="#1e1b18" stroke-width="3" stroke-linecap="round"/>
+      <path d="M18,-20 Q25,-14 32,-20" fill="none" stroke="#1e1b18" stroke-width="2.8" stroke-linecap="round"/>
+    </g>
+    <g id="expr-focus">
+      <path d="M-5,-59 L14,-54 M47,-59 L31,-54" fill="none" stroke="#1e1b18" stroke-width="3.3" stroke-linecap="round"/>
+      <path d="M19,-18 Q26,-21 32,-17" fill="none" stroke="#1e1b18" stroke-width="2.8" stroke-linecap="round"/>
+    </g>
+
+    <!-- Topknot tied with cord -->
+    <g id="topknot-3q">
+      <path d="M-8,0 C-19,-4 -19,-15 -8,-14 C-5,-21 8,-21 10,-13 C20,-14 21,-3 9,0 Z" fill="#262322" stroke="#1e1b18" stroke-width="2.6" stroke-linejoin="round"/>
+      <rect x="-8.5" y="-2.5" width="17" height="5.5" rx="2.5" fill="#dfc79b" stroke="#1e1b18" stroke-width="2"/>
+    </g>
+
+    <!-- Wooden bokken anchored at grip (0,0), blade pointing along +X -->
+    <g id="bokken">
+      <!-- Tsuka handle -->
+      <path d="M-20,-3.5 L12,-3.5 L12,3.5 L-20,3.5 Z" fill="#ebe1cc" stroke="#1e1b18" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M-13,-3 L-9,3 M-5,-3 L-1,3 M3,-3 L7,3" stroke="#8c5928" stroke-width="1.5"/>
+      <!-- Wooden blade with gentle katana sori curve -->
+      <path d="M14,-4 Q72,-5 122,-10 Q120,-1 114,2 Q68,2 14,3 Z" fill="#c98d4f"/>
+      <path d="M14,0 Q68,-1 118,-5 Q116,1 114,2 Q68,2 14,3 Z" fill="#8f5c2a"/>
+      <path d="M14,-4 Q72,-5 122,-10 Q120,-1 114,2 Q68,2 14,3 Z" fill="none" stroke="#1e1b18" stroke-width="2.4" stroke-linejoin="round"/>
+      <!-- Tsuba handguard -->
+      <rect x="11" y="-8.5" width="5" height="17" rx="2" fill="#4a3321" stroke="#1e1b18" stroke-width="2"/>
+    </g>
+
+    <!-- Draped kimono sleeve + round hand -->
+    <g id="arm-guard">
+      <path d="M-12,-36 L26,-12 L16,24 C2,26 -10,16 -14,-2 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.7" stroke-linejoin="round"/>
+      <path d="M22,-8 L14,21 C4,22 -5,15 -9,2" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="29" cy="-6" r="9.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+    </g>
+    <g id="arm-up">
+      <path d="M0,0 L-14,-44 L-40,-32 C-42,-16 -30,-2 -12,4 Z" fill="#78a6d4" stroke="#1e1b18" stroke-width="2.7" stroke-linejoin="round"/>
+      <path d="M-17,-39 L-37,-29 C-38,-17 -29,-6 -16,-1" fill="none" stroke="#5782b0" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="-13" cy="-47" r="9.5" fill="#f5d5bc" stroke="#1e1b18" stroke-width="2.4"/>
+    </g>
+  </defs>
+
+  <!-- Washi ground & Nishiki-e background -->
+  <rect width="400" height="400" fill="#f4ebd9"/>
+  <rect x="16" y="16" width="368" height="242" fill="url(#sky-bokashi)"/>
+  <rect x="16" y="16" width="368" height="228" fill="url(#seigaiha)"/>
+  <!-- Edo suyari-gasumi woodblock cloud bands -->
+  <path d="M16,188 H108 Q120,188 120,180 Q120,172 108,172 H64 Q74,164 62,158 H16 Z" fill="#f4ebd9" fill-opacity="0.9"/>
+  <path d="M384,168 H296 Q284,168 284,160 Q284,152 296,152 H340 Q330,144 342,138 H384 Z" fill="#f4ebd9" fill-opacity="0.9"/>
+  <!-- Ground stage -->
+  <rect x="16" y="258" width="368" height="126" fill="url(#earth-bokashi)"/>
+  <path d="M16,258 Q200,252 384,258" fill="none" stroke="#3a332c" stroke-width="1.8"/>
+  <circle cx="195" cy="200" r="142" fill="url(#halo)"/>
+
+  <!-- Frame 1: Chudan Guard (balanced ready stance, sword held forward) -->
+  <g class="f f1">
+    <ellipse cx="190" cy="330" rx="52" ry="9" fill="#9c8969" fill-opacity="0.45"/>
+    <use href="#foot-3q" x="162" y="322"/>
+    <use href="#foot-3q" x="212" y="325"/>
+    <g transform="translate(188,262)"><use href="#torso-3q"/><use href="#obi-knot-3q" x="20" y="3"/></g>
+    <g transform="translate(188,214)"><use href="#head-3q"/><use href="#expr-calm"/><use href="#topknot-3q" transform="translate(4,-113)"/></g>
+    <use href="#bokken" transform="translate(217,254) rotate(-32)"/>
+    <use href="#arm-guard" transform="translate(188,260)"/>
+  </g>
+
+  <!-- Frame 2: Anticipation 1 (lean back, inhale stretch, sword raised overhead) -->
+  <g class="f f2">
+    <ellipse cx="180" cy="330" rx="48" ry="8.5" fill="#9c8969" fill-opacity="0.42"/>
+    <use href="#foot-3q" x="156" y="322"/>
+    <use href="#foot-3q" transform="translate(202,322) rotate(-10)"/>
+    <use href="#bokken" transform="translate(173,157) rotate(-146)"/>
+    <g transform="translate(178,260) rotate(-7) scale(0.96,1.04)"><use href="#torso-3q"/><use href="#obi-knot-3q" transform="translate(20,3) rotate(12)"/></g>
+    <g transform="translate(174,211) rotate(-8)"><use href="#head-3q"/><use href="#expr-focus"/><use href="#topknot-3q" transform="translate(4,-113) rotate(16)"/></g>
+    <use href="#arm-up" transform="translate(186,204)"/>
+  </g>
+
+  <!-- Frame 3: Anticipation 2 (deep coil on back leg, peak wind-up tension) -->
+  <g class="f f3">
+    <ellipse cx="175" cy="331" rx="48" ry="9" fill="#9c8969" fill-opacity="0.46"/>
+    <use href="#foot-3q" x="152" y="323"/>
+    <use href="#foot-3q" transform="translate(196,319) rotate(-18)"/>
+    <use href="#bokken" transform="translate(156,153) rotate(-162)"/>
+    <g transform="translate(172,264) rotate(-12) scale(1.03,0.97)"><use href="#torso-3q"/><use href="#obi-knot-3q" transform="translate(20,3) rotate(16)"/></g>
+    <g transform="translate(166,216) rotate(-13)"><use href="#head-3q"/><use href="#expr-focus"/><use href="#topknot-3q" transform="translate(4,-113) rotate(8)"/></g>
+    <use href="#arm-up" transform="translate(178,196) rotate(-12)"/>
+  </g>
+
+  <!-- Frame 4: Swing Smear 1 (explosive forward lunge + wide woodblock crescent blur arc!) -->
+  <g class="f f4">
+    <ellipse cx="204" cy="330" rx="58" ry="9" fill="#9c8969" fill-opacity="0.44"/>
+    <use href="#foot-3q" transform="translate(158,322) rotate(12)"/>
+    <use href="#foot-3q" x="232" y="324"/>
+    <g transform="translate(202,261) rotate(10) scale(1.05,0.96)"><use href="#torso-3q"/><use href="#obi-knot-3q" transform="translate(20,3) rotate(-24)"/></g>
+    <g transform="translate(208,214) rotate(8)"><use href="#head-3q"/><use href="#expr-focus"/><use href="#topknot-3q" transform="translate(4,-113) rotate(-26)"/></g>
+    <!-- Carved woodblock crescent blade smear arc connected to swinging grip -->
+    <path d="M88,96 C152,32 276,48 356,216 L236,226 L224,220 C248,142 184,88 126,124 Z" fill="#faf4e4" fill-opacity="0.9"/>
+    <path d="M98,90 C162,36 280,54 356,216 L328,214 C270,84 168,64 112,108 Z" fill="#c98d4f"/>
+    <path d="M128,74 C194,44 286,70 352,208" fill="none" stroke="#78a6d4" stroke-width="5" stroke-linecap="round"/>
+    <path d="M88,96 C152,32 276,48 356,216" fill="none" stroke="#1e1b18" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M222,231 L348,214" stroke="#8f5c2a" stroke-width="4.5" stroke-linecap="round"/>
+    <use href="#arm-guard" transform="translate(205,244) rotate(-22)"/>
+  </g>
+
+  <!-- Frame 5: Impact + Trailing Smear 2 (heavy squash, blade slams down + shock sparks!) -->
+  <g class="f f5">
+    <ellipse cx="212" cy="332" rx="64" ry="10.5" fill="#9c8969" fill-opacity="0.52"/>
+    <use href="#foot-3q" transform="translate(160,323) rotate(14)"/>
+    <use href="#foot-3q" x="240" y="326"/>
+    <g transform="translate(210,269) rotate(14) scale(1.08,0.91)"><use href="#torso-3q"/><use href="#obi-knot-3q" transform="translate(20,3) rotate(18)"/></g>
+    <g transform="translate(218,224) rotate(13)"><use href="#head-3q"/><use href="#expr-focus"/><use href="#topknot-3q" transform="translate(4,-113) rotate(6)"/></g>
+    <!-- Trailing woodblock motion wedge + solid bokken at impact -->
+    <path d="M318,162 C346,196 360,238 363,281 L262,265 C290,236 306,198 318,162 Z" fill="#faf4e4" fill-opacity="0.82"/>
+    <path d="M334,182 C352,212 360,246 363,281 L308,270 Z" fill="#78a6d4" fill-opacity="0.55"/>
+    <path d="M318,162 C346,196 360,238 363,281" fill="none" stroke="#1e1b18" stroke-width="2.6" stroke-linecap="round"/>
+    <use href="#bokken" transform="translate(242,263) rotate(11)"/>
+    <use href="#arm-guard" transform="translate(212,262) rotate(14)"/>
+    <!-- Woodblock impact burst -->
+    <path d="M364,279 L380,264 M366,283 L382,284 M360,287 L374,302 M352,272 L364,255" stroke="#c83e2b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M362,279 L375,272 M361,285 L376,293" stroke="#1e1b18" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Frame 6: Follow-through / Overshoot (deepest settle, blade dips low, hair & knot whip forward) -->
+  <g class="f f6">
+    <ellipse cx="212" cy="332" rx="64" ry="10.5" fill="#9c8969" fill-opacity="0.5"/>
+    <use href="#foot-3q" transform="translate(160,323) rotate(12)"/>
+    <use href="#foot-3q" x="240" y="326"/>
+    <!-- Dust puff at front sandal -->
+    <path d="M258,327 C266,320 276,322 276,329 C282,326 288,331 282,335 H256 Z" fill="#faf4e4" stroke="#3a332c" stroke-width="1.6"/>
+    <g transform="translate(209,271) rotate(16) scale(1.06,0.93)"><use href="#torso-3q"/><use href="#obi-knot-3q" transform="translate(20,3) rotate(26)"/></g>
+    <g transform="translate(218,227) rotate(16)"><use href="#head-3q"/><use href="#expr-focus"/><use href="#topknot-3q" transform="translate(4,-113) rotate(18)"/></g>
+    <use href="#bokken" transform="translate(240,271) rotate(21)"/>
+    <use href="#arm-guard" transform="translate(211,266) rotate(22)"/>
+  </g>
+
+  <!-- Frame 7: Recovery 1 (pushing back from lunge, torso rises, blade lifts toward guard) -->
+  <g class="f f7">
+    <ellipse cx="200" cy="330" rx="56" ry="9.5" fill="#9c8969" fill-opacity="0.46"/>
+    <use href="#foot-3q" x="161" y="322"/>
+    <use href="#foot-3q" x="226" y="326"/>
+    <g transform="translate(198,264) rotate(6) scale(0.98,1.03)"><use href="#torso-3q"/><use href="#obi-knot-3q" transform="translate(20,3) rotate(-10)"/></g>
+    <g transform="translate(200,217) rotate(5)"><use href="#head-3q"/><use href="#expr-calm"/><use href="#topknot-3q" transform="translate(4,-113) rotate(-12)"/></g>
+    <use href="#bokken" transform="translate(227,258) rotate(-8)"/>
+    <use href="#arm-guard" transform="translate(198,262) rotate(4)"/>
+  </g>
+
+  <!-- Frame 8: Recovery 2 (settling back into Chudan Guard, lagging sleeves & topknot settle) -->
+  <g class="f f8">
+    <ellipse cx="193" cy="330" rx="53" ry="9" fill="#9c8969" fill-opacity="0.45"/>
+    <use href="#foot-3q" x="162" y="322"/>
+    <use href="#foot-3q" x="216" y="325"/>
+    <g transform="translate(191,263) rotate(2)"><use href="#torso-3q"/><use href="#obi-knot-3q" transform="translate(20,3) rotate(-4)"/></g>
+    <g transform="translate(192,215) rotate(2)"><use href="#head-3q"/><use href="#expr-calm"/><use href="#topknot-3q" transform="translate(4,-113) rotate(-5)"/></g>
+    <use href="#bokken" transform="translate(220,254) rotate(-23)"/>
+    <use href="#arm-guard" transform="translate(191,261) rotate(-3)"/>
+  </g>
+
+  <!-- Edo woodblock print margin & red cartouche -->
+  <rect x="16" y="16" width="368" height="368" fill="none" stroke="#3a332c" stroke-width="2.4"/>
+  <rect x="20" y="20" width="360" height="360" fill="none" stroke="#3a332c" stroke-width="0.9"/>
+  <g transform="translate(284,28)">
+    <rect width="86" height="24" rx="2" fill="#c83e2b" stroke="#1e1b18" stroke-width="1.8"/>
+    <rect x="3" y="3" width="80" height="18" fill="none" stroke="#faf3e3" stroke-width="0.8"/>
+    <text x="43" y="16.5" text-anchor="middle" class="cap">strike</text>
+  </g>
+  <g transform="translate(348,58)">
+    <rect width="20" height="20" rx="2" fill="#faf3e3" stroke="#c83e2b" stroke-width="1.6"/>
+    <text x="10" y="14.5" text-anchor="middle" class="seal">斬</text>
+  </g>
+</svg>
