@@ -1,0 +1,26 @@
+/* Ukiyo-e City Market battle backdrop styles (transform & opacity only, at most one gentle loop). */
+.market-ukiyoe-sway {
+  will-change: transform;
+  animation: market-ukiyoe-sway calc(var(--dur-celebrate, 900ms) * 4.5) ease-in-out infinite;
+}
+
+@keyframes market-ukiyoe-sway {
+  0%,
+  100% {
+    transform: rotate(-1.8deg);
+  }
+  50% {
+    transform: rotate(1.8deg);
+  }
+}
+
+/* Pause decorative backdrop loops while a battle question is up so answering stays smooth. */
+.battle:not(.battle-walking) .market-ukiyoe-sway {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .market-ukiyoe-sway {
+    animation: none !important;
+  }
+}
