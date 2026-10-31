@@ -13,7 +13,7 @@
   );
 }
 
-/* Parallax backdrop: soft sky, drifting clouds, far mountains, bamboo/cedar silhouettes, torii & lanterns */
+/* Backdrop: sky, sun/moon, stars, clouds, far mountains, midground hills & distant torii stay still */
 .battle-backdrop {
   position: absolute;
   inset: 0;
@@ -22,100 +22,8 @@
   display: block;
   pointer-events: none;
 }
-.battle-clouds {
-  will-change: transform;
-  animation: battle-cloud-drift 18s ease-in-out infinite alternate;
-}
-.battle-star {
-  will-change: opacity, transform;
-  animation: battle-star-twinkle 2.4s ease-in-out infinite alternate;
-}
-.battle-star-delay {
-  animation-delay: -1.2s;
-}
-.battle-lantern-glow {
-  will-change: opacity, transform;
-  transform-origin: center;
-  animation: battle-lantern-flicker 1.9s ease-in-out infinite alternate;
-}
-.battle-bamboo-sway {
-  will-change: transform;
-  animation: battle-bamboo-sway 3.6s ease-in-out infinite alternate;
-}
-.battle-parallax-far {
-  will-change: transform;
-  animation: battle-parallax-far 1.1s ease-in-out infinite;
-  animation-play-state: paused;
-}
-.battle-parallax-mid {
-  will-change: transform;
-  animation: battle-parallax-mid 0.55s ease-in-out infinite alternate;
-  animation-play-state: paused;
-}
-.battle-walking .battle-parallax-far,
-.battle-walking .battle-parallax-mid {
-  animation-play-state: running;
-}
 
-@keyframes battle-cloud-drift {
-  from {
-    transform: translateX(-8px);
-  }
-  to {
-    transform: translateX(12px);
-  }
-}
-@keyframes battle-star-twinkle {
-  from {
-    opacity: 0.3;
-    transform: scale(0.85);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
-@keyframes battle-lantern-flicker {
-  0% {
-    opacity: 0.68;
-    transform: scale(0.95);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  100% {
-    opacity: 0.84;
-    transform: scale(0.98);
-  }
-}
-@keyframes battle-bamboo-sway {
-  from {
-    transform: rotate(-2.5deg);
-  }
-  to {
-    transform: rotate(2.5deg);
-  }
-}
-@keyframes battle-parallax-far {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(1.2px);
-  }
-}
-@keyframes battle-parallax-mid {
-  from {
-    transform: translate(-1px, 0) scale(1);
-  }
-  to {
-    transform: translate(1px, 2px) scale(1.008);
-  }
-}
-
-/* Winding dirt path with perspective, ruts, stepping stones & pebbles */
+/* Perspective dirt path: stones, markings, ruts & curb edges flow toward the viewer */
 .battle-road {
   position: absolute;
   inset: 0;
@@ -127,80 +35,58 @@
   display: block;
 }
 .battle-road-scroll {
+  transform-origin: 0 0;
   will-change: transform;
-  animation: battle-road-scroll 1.1s linear infinite;
+  animation: battle-road-scroll 0.9s linear infinite;
   animation-play-state: paused;
 }
 .battle-walking .battle-road-scroll {
   animation-play-state: running;
 }
 @keyframes battle-road-scroll {
-  from {
-    transform: translateY(-80px);
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: translateY(0);
+  25% {
+    transform: scale(1.2329);
+  }
+  50% {
+    transform: scale(1.52);
+  }
+  75% {
+    transform: scale(1.874);
+  }
+  100% {
+    transform: scale(2.3104);
   }
 }
 
-/* Grass tufts, wildflowers and verge stones scroll past while walking; pausing (not removing) the
-   animation means the ground never snaps back when the avatar stops. */
+/* Roadside props on either side pass by and grow along the trail's perspective; pausing (not
+   removing) the animation means the ground and verges never snap back when the avatar stops. */
 .battle-verge {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  /* one tile taller than it shows, so a one-tile translate loops seamlessly */
-  height: calc(64% + 70px);
+  inset: 0;
   pointer-events: none;
-  will-change: transform;
-  background-image:
-    radial-gradient(
-      6px 9px at 14px 22px,
-      color-mix(in srgb, var(--c-success) 82%, var(--c-hud-bg)) 60%,
-      transparent
-    ),
-    radial-gradient(5px 8px at 48px 54px, var(--c-success) 60%, transparent),
-    radial-gradient(4px 4px at 74px 32px, var(--c-petal) 65%, transparent);
-  background-size: 92px 70px;
-  -webkit-mask: linear-gradient(
-    90deg,
-    var(--c-hud-bg) 26%,
-    transparent 40%,
-    transparent 68%,
-    var(--c-hud-bg) 80%
-  );
-  mask: linear-gradient(
-    90deg,
-    var(--c-hud-bg) 26%,
-    transparent 40%,
-    transparent 68%,
-    var(--c-hud-bg) 80%
-  );
-  animation: battle-verge 1.1s linear infinite;
-  animation-play-state: paused;
 }
 .battle-verge-svg {
   width: 100%;
   height: 100%;
   display: block;
 }
-.battle-walking .battle-verge {
+.battle-verge-scroll {
+  transform-origin: 0 0;
+  will-change: transform;
+  animation: battle-road-scroll 0.9s linear infinite;
+  animation-play-state: paused;
+}
+.battle-walking .battle-verge-scroll {
   animation-play-state: running;
 }
-@keyframes battle-verge {
-  from {
-    transform: translateY(-70px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
 
-/* Placement: the enemy sits on the upper-mid curve of the winding path, smaller for road depth */
+/* Placement: the enemy sits on the upper-mid path, approaching down the road as the hero walks up */
 .battle-foe {
   position: absolute;
-  left: 60%;
+  left: 58%;
   top: 18px;
   translate: -50% 0;
   display: grid;
@@ -208,6 +94,23 @@
   gap: 3px;
   transform: scale(0.8);
   transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+.battle-walking .battle-foe {
+  animation: battle-foe-approach 860ms cubic-bezier(0.22, 0.68, 0.36, 1) both;
+}
+@keyframes battle-foe-approach {
+  0% {
+    transform: translate(14px, -22px) scale(0.48);
+    opacity: 0;
+  }
+  28% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 1;
+  }
 }
 .battle-hp {
   display: flex;
@@ -227,15 +130,28 @@
   background: var(--c-danger);
 }
 
-/* The hero stands on the wider foreground path near the bottom */
+/* The hero stands on the foreground path and walks up the trail toward the next foe */
 .battle-hero {
   position: absolute;
-  left: 32%;
+  left: 34%;
   bottom: -10px;
   translate: -50% 0;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+.battle-walking .battle-hero {
+  animation: battle-hero-walk-up 860ms cubic-bezier(0.22, 0.68, 0.36, 1) both;
+}
+@keyframes battle-hero-walk-up {
+  0% {
+    transform: translate(-18px, 12px) scale(1.06);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
 }
 
-/* Foreground framing leaves at the edges & floating woodland particles */
+/* Foreground framing leaves at the corners (stationary so the viewport frame stays still) */
 .battle-fg {
   position: absolute;
   inset: 0;
@@ -243,43 +159,6 @@
   height: 100%;
   display: block;
   pointer-events: none;
-}
-.battle-fg-tl,
-.battle-fg-bl {
-  will-change: transform;
-  animation: battle-leaf-sway-l 3.2s ease-in-out infinite alternate;
-}
-.battle-fg-tr,
-.battle-fg-br {
-  will-change: transform;
-  animation: battle-leaf-sway-r 3.5s -1.2s ease-in-out infinite alternate;
-}
-.battle-walking .battle-fg {
-  animation: battle-fg-walk 0.55s ease-in-out infinite alternate;
-}
-@keyframes battle-leaf-sway-l {
-  from {
-    transform: rotate(-2deg) scale(1);
-  }
-  to {
-    transform: rotate(2.5deg) scale(1.03);
-  }
-}
-@keyframes battle-leaf-sway-r {
-  from {
-    transform: rotate(2deg) scale(1);
-  }
-  to {
-    transform: rotate(-2.5deg) scale(1.03);
-  }
-}
-@keyframes battle-fg-walk {
-  from {
-    transform: translateY(0) scale(1);
-  }
-  to {
-    transform: translateY(2.5px) scale(1.012);
-  }
 }
 
 .battle-particles {
@@ -306,7 +185,7 @@
 }
 .battle-mote-2 {
   left: 46%;
-  top: 48%;
+  top: 58%;
   width: 4px;
   height: 4px;
   animation-delay: -1.4s;
@@ -314,7 +193,7 @@
 }
 .battle-mote-3 {
   left: 78%;
-  top: 62%;
+  top: 64%;
   animation-delay: -2.6s;
   animation-duration: 3.5s;
 }
@@ -326,18 +205,18 @@
   animation: battle-petal-drift 4.8s linear infinite;
 }
 .battle-petal-1 {
-  left: 24%;
-  top: 12%;
+  left: 28%;
+  top: 42%;
 }
 .battle-petal-2 {
-  left: 56%;
-  top: 8%;
+  left: 54%;
+  top: 38%;
   animation-delay: -1.8s;
   animation-duration: 5.4s;
 }
 .battle-petal-3 {
-  left: 82%;
-  top: 18%;
+  left: 76%;
+  top: 44%;
   animation-delay: -3.2s;
   animation-duration: 4.5s;
 }
@@ -354,7 +233,7 @@
 }
 @keyframes battle-petal-drift {
   0% {
-    transform: translate(0, -6px) rotate(0deg) scale(0.85);
+    transform: translate(0, -4px) rotate(0deg) scale(0.85);
     opacity: 0;
   }
   20% {
@@ -364,7 +243,7 @@
     opacity: 0.82;
   }
   100% {
-    transform: translate(-38px, 84px) rotate(220deg) scale(1);
+    transform: translate(-28px, 64px) rotate(200deg) scale(1);
     opacity: 0;
   }
 }
@@ -391,19 +270,11 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .battle-clouds,
-  .battle-star,
-  .battle-lantern-glow,
-  .battle-bamboo-sway,
-  .battle-parallax-far,
-  .battle-parallax-mid,
   .battle-road-scroll,
   .battle-verge,
-  .battle-fg,
-  .battle-fg-tl,
-  .battle-fg-bl,
-  .battle-fg-tr,
-  .battle-fg-br,
+  .battle-verge-scroll,
+  .battle-foe,
+  .battle-hero,
   .battle-mote,
   .battle-petal,
   .battle-hero .avatar-motion {
@@ -417,17 +288,6 @@
  * foes; while a question is up only the foe and the hero stay alive, so answering stays smooth.
  */
 .battle:not(.battle-walking)
-  :is(
-    .battle-clouds,
-    .battle-star,
-    .battle-lantern-glow,
-    .battle-bamboo-sway,
-    .battle-mote,
-    .battle-petal,
-    .battle-fg-tl,
-    .battle-fg-bl,
-    .battle-fg-tr,
-    .battle-fg-br
-  ) {
+  :is(.battle-road-scroll, .battle-verge, .battle-verge-scroll, .battle-mote, .battle-petal) {
   animation-play-state: paused;
 }
