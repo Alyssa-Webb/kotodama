@@ -13,3 +13,6 @@ content/outbox/*
 tools/.voice-cache
 .claude
 dist-*/
+
+# 3D reference models (renders are committed, source models are not)
+design/reference/**/*.glb
