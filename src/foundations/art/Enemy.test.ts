@@ -21,6 +21,7 @@ describe('region foes', () => {
       'chochin-obake',
       'kasa-obake',
       'nopperabo',
+      'rokurokubi',
       'bakeneko',
     ]);
   });
