@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    .f { opacity: 0; animation: show 0.6667s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: -0.5833s; }
+    .f3 { animation-delay: -0.5s; }
+    .f4 { animation-delay: -0.4167s; }
+    .f5 { animation-delay: -0.3333s; }
+    .f6 { animation-delay: -0.25s; }
+    .f7 { animation-delay: -0.1667s; }
+    .f8 { animation-delay: -0.0833s; }
+    @keyframes show {
+      0% { opacity: 1; }
+      12.5% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .f { animation: none; opacity: 0; }
+      .f1 { opacity: 1; }
+    }
+  </style>
+
+  <defs>
+    <!-- Chibi head seen from behind: ears, side-lock tips, rich sumi bob & dry-brush sheen -->
+    <g id="head-back">
+      <!-- Ears -->
+      <ellipse cx="-63" cy="14" rx="12" ry="15" fill="#f5ebe0"/>
+      <ellipse cx="-62" cy="16" rx="7" ry="9" fill="#e4ceba"/>
+      <path d="M-57,0 C-71,-2 -77,12 -72,24 C-68,31 -58,31 -54,27 C-62,27 -68,22 -69,14 C-70,7 -64,2 -56,3 Z" fill="#23201d"/>
+      <ellipse cx="63" cy="14" rx="12" ry="15" fill="#f5ebe0"/>
+      <ellipse cx="62" cy="16" rx="7" ry="9" fill="#e4ceba"/>
+      <path d="M57,0 C71,-2 77,12 72,24 C68,31 58,31 54,27 C62,27 68,22 69,14 C70,7 64,2 56,3 Z" fill="#23201d"/>
+      <!-- Front side-lock tips peeking past jaw -->
+      <path d="M-58,28 C-61,40 -54,50 -44,50 C-47,43 -47,35 -46,28 Z" fill="#181715"/>
+      <path d="M58,28 C61,40 54,50 44,50 C47,43 47,35 46,28 Z" fill="#181715"/>
+      <!-- Main black bob mass with stray right tuft -->
+      <path d="M0,-54 C-44,-54 -68,-26 -67,14 C-66,30 -62,41 -54,45 C-34,52 34,52 54,45 C62,41 66,30 67,14 C68,-2 66,-10 78,-6 C81,-5 80,-12 71,-16 C64,-38 42,-54 0,-54 Z" fill="#181715"/>
+      <!-- Sumi dry-brush sheen & hair grain strokes -->
+      <path d="M-42,-26 C-24,-40 16,-41 38,-27 C20,-34 -18,-34 -42,-26 Z" fill="#5e5952" fill-opacity="0.65"/>
+      <path d="M-28,-16 C-12,-24 14,-24 29,-16 C12,-20 -12,-20 -28,-16 Z" fill="#9c9589" fill-opacity="0.35"/>
+      <!-- Nape shadow brush stroke -->
+      <path d="M-54,42 C-26,49 26,49 54,42 C46,49 -46,49 -54,42 Z" fill="#0f0e0d"/>
+    </g>
+
+    <!-- Topknot lag states (origin at crown 0,-54) -->
+    <g id="tk-mid">
+      <path d="M-9,-2 C-18,-9 -22,-17 -14,-20 C-9,-22 -4,-16 -2,-11 C0,-20 9,-24 15,-18 C20,-14 14,-6 6,-2 Z" fill="#181715"/>
+      <path d="M12,-14 C19,-17 25,-13 21,-8 C18,-5 11,-5 6,-3 Z" fill="#23201d"/>
+      <path d="M-8,-2 C-3,-5 4,-5 9,-2 C6,2 -5,2 -8,-2 Z" fill="#d9c398"/>
+      <path d="M-9,-2 C-3,-6 5,-6 10,-2 C5,-3 -3,-3 -9,-2 Z" fill="#5e5952"/>
+    </g>
+    <g id="tk-up">
+      <path d="M-8,-2 C-15,-12 -18,-23 -10,-25 C-5,-26 -2,-19 0,-13 C3,-23 11,-27 16,-21 C20,-16 14,-7 7,-2 Z" fill="#181715"/>
+      <path d="M11,-17 C18,-22 24,-18 20,-12 C17,-7 11,-6 6,-3 Z" fill="#23201d"/>
+      <path d="M-8,-2 C-3,-5 4,-5 9,-2 C6,2 -5,2 -8,-2 Z" fill="#d9c398"/>
+    </g>
+    <g id="tk-dn">
+      <path d="M-9,-1 C-20,-5 -24,-12 -17,-15 C-11,-17 -5,-12 -2,-8 C1,-15 10,-18 16,-13 C21,-9 15,-3 7,-1 Z" fill="#181715"/>
+      <path d="M13,-10 C21,-11 26,-7 21,-3 C17,-1 11,-2 6,-1 Z" fill="#23201d"/>
+      <path d="M-8,-1 C-3,-4 4,-4 9,-1 C6,3 -5,3 -8,-1 Z" fill="#d9c398"/>
+    </g>
+
+    <!-- Sash knot lag states (origin at back waist 0,0) -->
+    <g id="sk-mid">
+      <ellipse cx="0" cy="0" rx="10" ry="7" fill="#ecd04f"/>
+      <path d="M-8,2 C-13,9 -15,16 -9,18 C-5,19 -2,12 0,5 C2,12 5,19 9,18 C15,16 13,9 8,2 Z" fill="#cfa926"/>
+      <path d="M-10,-1 C-6,-7 6,-7 10,-1 C12,4 6,7 0,6 C-6,7 -12,4 -10,-1 Z" fill="#ecd04f"/>
+      <path d="M-11,0 C-7,-8 7,-8 11,0 C7,-5 -7,-5 -11,0 Z" fill="#23201d"/>
+      <path d="M-3,5 C-6,11 -9,16 -12,17 M3,5 C6,11 9,16 12,17" stroke="#23201d" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    </g>
+    <g id="sk-up">
+      <path d="M-9,0 C-17,3 -21,9 -15,12 C-10,14 -4,8 0,3 C4,8 10,14 15,12 C21,9 17,3 9,0 Z" fill="#cfa926"/>
+      <path d="M-11,-2 C-6,-8 6,-8 11,-2 C12,3 6,6 0,5 C-6,6 -12,3 -11,-2 Z" fill="#ecd04f"/>
+      <path d="M-12,-1 C-7,-9 7,-9 12,-1 C7,-6 -7,-6 -12,-1 Z" fill="#23201d"/>
+      <path d="M-4,3 C-9,7 -14,10 -17,10 M4,3 C9,7 14,10 17,10" stroke="#23201d" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    </g>
+    <g id="sk-dn">
+      <path d="M-7,2 C-10,11 -11,20 -6,22 C-2,23 0,15 0,6 C0,15 2,23 6,22 C11,20 10,11 7,2 Z" fill="#cfa926"/>
+      <path d="M-9,0 C-5,-6 5,-6 9,0 C11,5 5,8 0,7 C-5,8 -11,5 -9,0 Z" fill="#ecd04f"/>
+      <path d="M-10,1 C-6,-6 6,-6 10,1 C6,-4 -6,-4 -10,1 Z" fill="#23201d"/>
+      <path d="M-2,6 C-4,13 -6,19 -7,21 M2,6 C4,13 6,19 7,21" stroke="#23201d" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    </g>
+
+    <!-- Foot states: planted, lifted (sole visible!), passing -->
+    <g id="ft-plant">
+      <rect x="-8" y="-12" width="16" height="12" rx="5" fill="#f5ebe0"/>
+      <ellipse cx="0" cy="1" rx="14" ry="5.5" fill="#c9ae7a"/>
+      <path d="M-15,1 C-15,6 15,6 15,1 C15,8 -15,8 -15,1 Z" fill="#23201d"/>
+    </g>
+    <g id="ft-sole">
+      <rect x="-7" y="-15" width="14" height="10" rx="5" fill="#e6d3c1"/>
+      <ellipse cx="0" cy="-2" rx="12.5" ry="9" fill="#c9ae7a"/>
+      <ellipse cx="0" cy="-2" rx="9" ry="6" fill="#8c734b" fill-opacity="0.45"/>
+      <path d="M-13,-2 C-13,-13 13,-13 13,-2 C13,9 -13,9 -13,-2 M-10,-2 C-10,6 10,6 10,-2 C10,-9 -10,-9 -10,-2 Z" fill="#23201d" fill-rule="evenodd"/>
+    </g>
+    <g id="ft-fwd">
+      <rect x="-7" y="-10" width="14" height="10" rx="4" fill="#e6d3c1"/>
+      <ellipse cx="0" cy="0" rx="12" ry="4.5" fill="#b59b68"/>
+      <path d="M-13,0 C-13,5 13,5 13,0 C13,6 -13,6 -13,0 Z" fill="#23201d"/>
+    </g>
+
+    <!-- Shared kimono torso & obi back (collar, light-blue wash, ochre hem, white+yellow sash) -->
+    <g id="torso-back">
+      <!-- White collar at nape -->
+      <path d="M-21,-45 C-10,-39 10,-39 21,-45 L26,-37 C12,-30 -12,-30 -26,-37 Z" fill="#fbfaf6"/>
+      <path d="M-25,-37 C-10,-31 10,-31 25,-37 C10,-28 -10,-28 -25,-37 Z" fill="#5e5952"/>
+      <!-- Kimono torso & skirt pale blue wash -->
+      <path d="M-26,-40 L26,-40 L37,0 L35,44 C14,48 -14,48 -35,44 L-37,0 Z" fill="#b8d4e8"/>
+      <!-- Wet-edge blue shade & center-back seam -->
+      <path d="M-35,20 C-14,25 14,25 35,20 L35,44 C14,48 -14,48 -35,44 Z" fill="#8fb5d1" fill-opacity="0.55"/>
+      <path d="M0,-32 L0,44" stroke="#5e5952" stroke-width="1.8" stroke-opacity="0.45" stroke-linecap="round"/>
+      <!-- Ochre-gold under-hem -->
+      <path d="M-32,43 C-12,47 12,47 32,43 L31,51 C12,55 -12,55 -31,51 Z" fill="#cba963"/>
+      <!-- Expressive variable-weight sumi brush contours & dry-brush hem -->
+      <path d="M-27,-41 C-32,-26 -37,-10 -38,12 L-36,46 C-14,51 14,51 36,46 L38,12 C37,-10 32,-26 27,-41 L24,-37 C29,-23 33,-8 33,12 L32,42 C12,46 -12,46 -32,42 L-33,12 C-33,-8 -29,-23 -24,-37 Z" fill="#1f1d1a"/>
+      <path d="M-32,50 C-12,55 12,55 32,50 C14,58 -14,58 -32,50 Z" fill="#1f1d1a"/>
+      <!-- White obiita under-band & yellow sash -->
+      <path d="M-38,4 C-14,8 14,8 38,4 L39,14 C14,18 -14,18 -39,14 Z" fill="#fbfaf6"/>
+      <path d="M-37,-9 C-14,-6 14,-6 37,-9 L38,6 C14,10 -14,10 -38,6 Z" fill="#ecd04f"/>
+      <path d="M-39,-9 C-14,-4 14,-4 39,-9 C14,-1 -14,-1 -39,-9 Z" fill="#1f1d1a"/>
+      <path d="M-40,14 C-14,19 14,19 40,14 C14,22 -14,22 -40,14 Z" fill="#1f1d1a"/>
+    </g>
+
+    <!-- Sleeves: back-swinging (close/low), neutral, forward-swinging (tucked away) -->
+    <g id="slv-l-back">
+      <circle cx="-58" cy="-4" r="10.5" fill="#f5ebe0"/>
+      <path d="M-68,-6 C-71,4 -60,10 -51,4 C-59,6 -66,2 -68,-6 Z" fill="#1f1d1a"/>
+      <path d="M-25,-39 C-40,-33 -55,-22 -61,-12 L-45,12 C-38,14 -33,6 -33,-6 Z" fill="#b8d4e8"/>
+      <path d="M-56,-14 L-45,11 C-38,13 -34,6 -34,-5 C-38,4 -42,8 -47,7 Z" fill="#8fb5d1"/>
+      <path d="M-25,-41 C-42,-34 -58,-23 -63,-11 L-45,15 C-36,16 -31,6 -31,-6 L-36,-4 C-36,4 -39,10 -45,9 L-58,-11 C-52,-21 -39,-30 -24,-36 Z" fill="#1f1d1a"/>
+    </g>
+    <g id="slv-l-mid">
+      <circle cx="-55" cy="-12" r="10" fill="#f5ebe0"/>
+      <path d="M-64,-13 C-66,-5 -57,0 -49,-5 C-56,-3 -62,-7 -64,-13 Z" fill="#1f1d1a"/>
+      <path d="M-25,-39 C-39,-35 -52,-27 -58,-18 L-44,4 C-37,6 -33,-1 -33,-10 Z" fill="#b8d4e8"/>
+      <path d="M-25,-41 C-40,-36 -54,-27 -60,-18 L-44,6 C-36,8 -31,-1 -31,-10 L-36,-8 C-36,-1 -38,2 -43,1 L-55,-17 C-49,-25 -38,-32 -24,-36 Z" fill="#1f1d1a"/>
+    </g>
+    <g id="slv-l-fwd">
+      <circle cx="-49" cy="-21" r="9" fill="#e6d3c1"/>
+      <path d="M-25,-39 C-37,-38 -48,-32 -53,-25 L-42,-5 C-36,-4 -33,-10 -33,-16 Z" fill="#9bc0da"/>
+      <path d="M-25,-41 C-38,-39 -50,-33 -55,-25 L-42,-3 C-35,-2 -31,-10 -31,-17 L-36,-15 C-36,-9 -38,-7 -41,-8 L-50,-24 C-45,-30 -36,-35 -24,-36 Z" fill="#1f1d1a"/>
+    </g>
+    <!-- Right sleeves mirror via scale(-1,1) in frames -->
+  </defs>
+
+  <!-- Plain warm white washi paper -->
+  <rect width="400" height="400" fill="#f7f4ec"/>
+
+  <!-- Subtle sumi-e receding mountain path brush washes -->
+  <path d="M126,348 C172,341 232,341 276,349 C232,354 170,354 126,348 Z" fill="#dfd8ca"/>
+  <path d="M142,312 C180,307 222,307 258,313 C222,317 178,317 142,312 Z" fill="#e5dfd2"/>
+  <path d="M158,280 C186,277 216,277 242,281 C215,284 185,284 158,280 Z" fill="#ece6da"/>
+  <!-- Soft ink ground shadow under avatar -->
+  <ellipse cx="200" cy="330" rx="44" ry="8" fill="#9c9589" fill-opacity="0.32"/>
+
+  <!-- Frame 1: Left contact forward, Right toe-off back; body falling -> knots lag UP -->
+  <g class="f f1">
+    <use href="#ft-fwd" x="182" y="319"/>
+    <use href="#ft-plant" x="218" y="327"/>
+    <use href="#slv-l-fwd" transform="translate(200,256) scale(-1,1)"/>
+    <use href="#torso-back" x="200" y="256"/>
+    <use href="#slv-l-back" x="200" y="256"/>
+    <use href="#sk-up" x="201" y="255"/>
+    <use href="#head-back" x="200" y="156"/>
+    <use href="#tk-up" x="201" y="102"/>
+  </g>
+
+  <!-- Frame 2: Left down (squash low dy=+5), Right foot lifts showing straw sole; knots flare UP -->
+  <g class="f f2">
+    <use href="#ft-plant" x="182" y="323"/>
+    <use href="#ft-sole" x="218" y="317"/>
+    <use href="#slv-l-fwd" transform="translate(200,261) scale(-1,1)"/>
+    <use href="#torso-back" x="200" y="261"/>
+    <use href="#slv-l-back" x="200" y="261"/>
+    <use href="#sk-up" x="201" y="259"/>
+    <use href="#head-back" x="200" y="161"/>
+    <use href="#tk-up" x="200" y="106"/>
+  </g>
+
+  <!-- Frame 3: Left passing, body rising (dy=+1), sleeves pass neutral; knots dragged DOWN -->
+  <g class="f f3">
+    <use href="#ft-plant" x="183" y="325"/>
+    <use href="#ft-fwd" x="215" y="313"/>
+    <use href="#slv-l-mid" transform="translate(200,257) scale(-1,1)"/>
+    <use href="#torso-back" x="200" y="257"/>
+    <use href="#slv-l-mid" x="200" y="257"/>
+    <use href="#sk-dn" x="200" y="258"/>
+    <use href="#head-back" x="200" y="157"/>
+    <use href="#tk-dn" x="200" y="103"/>
+  </g>
+
+  <!-- Frame 4: Left push / High point (dy=-4), Right reaches fwd; knots catch up mid -->
+  <g class="f f4">
+    <use href="#ft-plant" x="183" y="328"/>
+    <use href="#ft-fwd" x="218" y="315"/>
+    <use href="#slv-l-fwd" x="200" y="252"/>
+    <use href="#torso-back" x="200" y="252"/>
+    <use href="#slv-l-mid" transform="translate(200,252) scale(-1,1)"/>
+    <use href="#sk-mid" x="199" y="253"/>
+    <use href="#head-back" x="200" y="152"/>
+    <use href="#tk-mid" x="199" y="98"/>
+  </g>
+
+  <!-- Frame 5: Right contact forward, Left toe-off back; body falling -> knots lag UP -->
+  <g class="f f5">
+    <use href="#ft-fwd" x="218" y="319"/>
+    <use href="#ft-plant" x="182" y="327"/>
+    <use href="#slv-l-fwd" x="200" y="256"/>
+    <use href="#torso-back" x="200" y="256"/>
+    <use href="#slv-l-back" transform="translate(200,256) scale(-1,1)"/>
+    <use href="#sk-up" x="199" y="255"/>
+    <use href="#head-back" x="200" y="156"/>
+    <use href="#tk-up" x="199" y="102"/>
+  </g>
+
+  <!-- Frame 6: Right down (squash low dy=+5), Left foot lifts showing straw sole; knots flare UP -->
+  <g class="f f6">
+    <use href="#ft-plant" x="218" y="323"/>
+    <use href="#ft-sole" x="182" y="317"/>
+    <use href="#slv-l-fwd" x="200" y="261"/>
+    <use href="#torso-back" x="200" y="261"/>
+    <use href="#slv-l-back" transform="translate(200,261) scale(-1,1)"/>
+    <use href="#sk-up" x="199" y="259"/>
+    <use href="#head-back" x="200" y="161"/>
+    <use href="#tk-up" x="200" y="106"/>
+  </g>
+
+  <!-- Frame 7: Right passing, body rising (dy=+1), sleeves pass neutral; knots trail down -->
+  <g class="f f7">
+    <use href="#ft-plant" x="217" y="325"/>
+    <use href="#ft-fwd" x="185" y="313"/>
+    <use href="#slv-l-mid" x="200" y="257"/>
+    <use href="#torso-back" x="200" y="257"/>
+    <use href="#slv-l-mid" transform="translate(200,257) scale(-1,1)"/>
+    <use href="#sk-dn" x="200" y="258"/>
+    <use href="#head-back" x="200" y="157"/>
+    <use href="#tk-dn" x="200" y="103"/>
+  </g>
+
+  <!-- Frame 8: Right push / High point (dy=-4), Left reaches fwd; Left sleeve starts back -->
+  <g class="f f8">
+    <use href="#ft-plant" x="217" y="328"/>
+    <use href="#ft-fwd" x="182" y="315"/>
+    <use href="#slv-l-fwd" transform="translate(200,252) scale(-1,1)"/>
+    <use href="#torso-back" x="200" y="252"/>
+    <use href="#slv-l-mid" x="200" y="252"/>
+    <use href="#sk-mid" x="201" y="253"/>
+    <use href="#head-back" x="200" y="152"/>
+    <use href="#tk-mid" x="201" y="98"/>
+  </g>
+
+  <!-- Vermilion hanko seal in bottom-right corner -->
+  <g transform="translate(348,346)">
+    <path d="M2,1 C9,0 19,0 25,2 C27,8 27,19 25,25 C18,27 8,27 2,25 C0,18 0,8 2,1 Z" fill="#c83e2b"/>
+    <path d="M7,7 H19 M13,7 V20 M8,13 H18 M7,20 H19" stroke="#f7f4ec" stroke-width="1.8" stroke-linecap="square" fill="none"/>
+  </g>
+
+  <!-- Small caption naming the clip -->
+  <text x="24" y="366" font-family="serif" font-size="13" fill="#5e5952" letter-spacing="0.5">walk-back</text>
+</svg>

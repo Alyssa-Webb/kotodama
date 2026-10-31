@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    .f { opacity: 0; animation: show 0.5s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: -0.4167s; }
+    .f3 { animation-delay: -0.3333s; }
+    .f4 { animation-delay: -0.25s; }
+    .f5 { animation-delay: -0.1667s; }
+    .f6 { animation-delay: -0.0833s; }
+    @keyframes show {
+      0% { opacity: 1; }
+      16.6667% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .f { animation: none; opacity: 0; }
+      .f1 { opacity: 1; }
+    }
+  </style>
+
+  <defs>
+    <!-- Stationary chibi feet in straw sandals (waraji) -->
+    <g id="feet-front">
+      <!-- Left foot (viewer's left) -->
+      <path d="M-28,-14 L-10,-14 L-9,0 C-14,4 -25,4 -29,0 Z" fill="#f5ebe0"/>
+      <ellipse cx="-19" cy="2" rx="15" ry="5.5" fill="#c9ae7a"/>
+      <path d="M-28,-1 C-23,-6 -15,-6 -10,-1" stroke="#dfbe5c" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      <path d="M-27,-1 C-22,-5 -16,-5 -11,-1 M-19,-5 L-19,1" stroke="#23201d" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M-35,2 C-35,8 -3,8 -3,2 C-3,10 -35,10 -35,2 Z" fill="#1f1d1a"/>
+      <!-- Right foot (viewer's right) -->
+      <path d="M10,-14 L28,-14 L29,0 C25,4 14,4 9,0 Z" fill="#f5ebe0"/>
+      <ellipse cx="19" cy="2" rx="15" ry="5.5" fill="#c9ae7a"/>
+      <path d="M10,-1 C15,-6 23,-6 28,-1" stroke="#dfbe5c" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      <path d="M11,-1 C16,-5 22,-5 27,-1 M19,-5 L19,1" stroke="#23201d" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M3,2 C3,8 35,8 35,2 C35,10 3,10 3,2 Z" fill="#1f1d1a"/>
+    </g>
+
+    <!-- Kimono skirt (stays grounded with subtle waist connection) -->
+    <g id="skirt-front">
+      <path d="M-34,-28 L34,-28 L33,14 C12,18 -12,18 -33,14 Z" fill="#b8d4e8"/>
+      <path d="M-33,-2 L33,-2 L33,14 C12,18 -12,18 -33,14 Z" fill="#8fb5d1" fill-opacity="0.48"/>
+      <!-- White vertical lapel overlap trim (hidari-mae, viewer's left) -->
+      <path d="M-17,-26 L-11,-26 L-10,15 L-16,15 Z" fill="#fbfaf6"/>
+      <path d="M-11,-26 L-9,15 L-11,15 L-12,-26 Z" fill="#5e5952" fill-opacity="0.55"/>
+      <!-- Warm ochre under-hem -->
+      <path d="M-30,13 C-10,17 10,17 30,13 L29,21 C10,25 -10,25 -29,21 Z" fill="#cba963"/>
+      <!-- Expressive sumi skirt contours -->
+      <path d="M-35,-28 L-34,15 C-12,20 12,20 34,15 L35,-28 L31,13 C11,17 -11,17 -31,13 Z" fill="#1f1d1a"/>
+      <path d="M-30,20 C-10,25 10,25 30,20 C12,27 -12,27 -30,20 Z" fill="#1f1d1a"/>
+    </g>
+
+    <!-- Upper kimono chest, hidari-mae white crossed collar, yellow sash & small front knot -->
+    <g id="chest-front">
+      <!-- Neck -->
+      <path d="M-11,-50 L11,-50 L13,-36 L-13,-36 Z" fill="#ead6c3"/>
+      <!-- Light-blue upper kimono -->
+      <path d="M-24,-43 L24,-43 L36,-8 L-36,-8 Z" fill="#b8d4e8"/>
+      <path d="M-24,-43 C-30,-31 -34,-19 -36,-8 L-32,-8 C-30,-19 -26,-30 -21,-41 Z" fill="#1f1d1a"/>
+      <path d="M24,-43 C30,-31 34,-19 36,-8 L32,-8 C30,-19 26,-30 21,-41 Z" fill="#1f1d1a"/>
+      <!-- White crossed collar: viewer's left tucks under viewer's right (hidari-mae) -->
+      <path d="M-18,-44 L-9,-44 L3,-20 L-5,-16 Z" fill="#fbfaf6"/>
+      <path d="M-9,-44 L4,-19 L2,-18 L-11,-43 Z" fill="#5e5952" fill-opacity="0.6"/>
+      <path d="M18,-44 L9,-44 L-13,-9 L-3,-9 Z" fill="#fbfaf6"/>
+      <path d="M9,-44 L-14,-9 L-11,-9 L11,-43 Z" fill="#23201d"/>
+      <path d="M18,-44 L-2,-9 L-4,-9 L16,-43 Z" fill="#5e5952" fill-opacity="0.5"/>
+      <!-- White obiita under-band & yellow sash -->
+      <path d="M-37,1 C-14,5 14,5 37,1 L38,11 C14,15 -14,15 -38,11 Z" fill="#fbfaf6"/>
+      <path d="M-36,-11 C-14,-8 14,-8 36,-11 L37,3 C14,7 -14,7 -37,3 Z" fill="#ecd04f"/>
+      <path d="M-36,-2 C-14,2 14,2 36,-2 L37,3 C14,7 -14,7 -37,3 Z" fill="#cfa926" fill-opacity="0.45"/>
+      <path d="M-37,-11 C-14,-7 14,-7 37,-11 C14,-4 -14,-4 -37,-11 Z" fill="#1f1d1a"/>
+      <path d="M-39,11 C-14,16 14,16 39,11 C14,19 -14,19 -39,11 Z" fill="#1f1d1a"/>
+      <!-- Small yellow sash knot on viewer's right (matching Tripo model) -->
+      <g transform="translate(17,2)">
+        <path d="M-3,1 C-8,7 -9,13 -4,14 C-1,15 1,10 1,3 C2,10 4,15 8,14 C12,13 10,6 5,1 Z" fill="#cfa926"/>
+        <path d="M-4,1 C-7,6 -8,11 -4,12 C-2,12 0,8 1,3 C2,8 4,12 7,12 C10,11 8,6 4,1 Z" fill="#ecd04f"/>
+        <ellipse cx="1" cy="-1" rx="6.5" ry="4.2" fill="#f7e589"/>
+        <path d="M-6,-1 C-3,-6 5,-6 8,-1 C5,-4 -3,-4 -6,-1 Z" fill="#1f1d1a"/>
+        <path d="M-1,3 C-3,8 -5,12 -7,13 M3,3 C5,8 7,12 9,13" stroke="#1f1d1a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Sleeves: 3 subtle drape states for 1-beat delayed breath follow-through -->
+    <g id="slv-low">
+      <!-- Hands -->
+      <circle cx="-57" cy="-2" r="10.5" fill="#f5ebe0"/>
+      <path d="M-67,-3 C-69,6 -59,11 -50,5 C-58,8 -65,4 -67,-3 Z" fill="#1f1d1a"/>
+      <circle cx="57" cy="-2" r="10.5" fill="#f5ebe0"/>
+      <path d="M67,-3 C69,6 59,11 50,5 C58,8 65,4 67,-3 Z" fill="#1f1d1a"/>
+      <!-- Left & right wide kimono sleeves -->
+      <path d="M-24,-42 C-39,-36 -54,-25 -61,-13 L-45,13 C-37,15 -33,6 -33,-8 Z" fill="#b8d4e8"/>
+      <path d="M-57,-14 L-45,12 C-38,14 -34,6 -34,-7 C-38,3 -42,8 -47,7 Z" fill="#8fb5d1"/>
+      <path d="M-24,-43 C-41,-37 -56,-25 -62,-13 L-45,15 C-36,16 -32,6 -32,-8 L-36,-6 C-36,4 -39,10 -45,10 L-58,-12 C-52,-23 -38,-33 -23,-39 Z" fill="#1f1d1a"/>
+      <path d="M24,-42 C39,-36 54,-25 61,-13 L45,13 C37,15 33,6 33,-8 Z" fill="#b8d4e8"/>
+      <path d="M57,-14 L45,12 C38,14 34,6 34,-7 C38,3 42,8 47,7 Z" fill="#8fb5d1"/>
+      <path d="M24,-43 C41,-37 56,-25 62,-13 L45,15 C36,16 32,6 32,-8 L36,-6 C36,4 39,10 45,10 L58,-12 C52,-23 38,-33 23,-39 Z" fill="#1f1d1a"/>
+    </g>
+    <g id="slv-mid">
+      <circle cx="-60" cy="-6" r="10.5" fill="#f5ebe0"/>
+      <path d="M-70,-7 C-72,2 -62,7 -53,1 C-61,4 -68,0 -70,-7 Z" fill="#1f1d1a"/>
+      <circle cx="60" cy="-6" r="10.5" fill="#f5ebe0"/>
+      <path d="M70,-7 C72,2 62,7 53,1 C61,4 68,0 70,-7 Z" fill="#1f1d1a"/>
+      <path d="M-24,-42 C-41,-38 -57,-27 -64,-16 L-47,9 C-39,11 -33,3 -33,-9 Z" fill="#b8d4e8"/>
+      <path d="M-60,-17 L-47,8 C-40,10 -34,3 -34,-8 C-38,1 -44,5 -49,4 Z" fill="#8fb5d1"/>
+      <path d="M-24,-43 C-43,-39 -59,-28 -65,-16 L-47,11 C-38,12 -32,3 -32,-9 L-36,-7 C-36,2 -40,7 -46,7 L-61,-15 C-55,-26 -40,-34 -23,-39 Z" fill="#1f1d1a"/>
+      <path d="M24,-42 C41,-38 57,-27 64,-16 L47,9 C39,11 33,3 33,-9 Z" fill="#b8d4e8"/>
+      <path d="M60,-17 L47,8 C40,10 34,3 34,-8 C38,1 44,5 49,4 Z" fill="#8fb5d1"/>
+      <path d="M24,-43 C43,-39 59,-28 65,-16 L47,11 C38,12 32,3 32,-9 L36,-7 C36,2 39,7 46,7 L61,-15 C55,-26 40,-34 23,-39 Z" fill="#1f1d1a"/>
+    </g>
+    <g id="slv-high">
+      <circle cx="-63" cy="-10" r="10.5" fill="#f5ebe0"/>
+      <path d="M-73,-11 C-75,-2 -65,3 -56,-3 C-64,0 -71,-4 -73,-11 Z" fill="#1f1d1a"/>
+      <circle cx="63" cy="-10" r="10.5" fill="#f5ebe0"/>
+      <path d="M73,-11 C75,-2 65,3 56,-3 C64,0 71,-4 73,-11 Z" fill="#1f1d1a"/>
+      <path d="M-24,-42 C-43,-40 -60,-30 -67,-20 L-49,5 C-41,7 -33,0 -33,-11 Z" fill="#b8d4e8"/>
+      <path d="M-63,-21 L-49,4 C-42,6 -34,0 -34,-10 C-39,-1 -46,2 -51,1 Z" fill="#8fb5d1"/>
+      <path d="M-24,-43 C-45,-41 -62,-31 -68,-20 L-49,7 C-40,8 -32,0 -32,-11 L-36,-9 C-36,-1 -41,3 -48,3 L-64,-19 C-58,-29 -42,-36 -23,-39 Z" fill="#1f1d1a"/>
+      <path d="M24,-42 C43,-40 60,-30 67,-20 L49,5 C41,7 33,0 33,-11 Z" fill="#b8d4e8"/>
+      <path d="M63,-21 L49,4 C42,6 34,0 34,-10 C39,-1 46,2 51,1 Z" fill="#8fb5d1"/>
+      <path d="M24,-43 C45,-41 62,-31 68,-20 L49,7 C40,8 32,0 32,-11 L36,-9 C36,-1 41,3 48,3 L64,-19 C58,-29 42,-36 23,-39 Z" fill="#1f1d1a"/>
+    </g>
+
+    <!-- Front chibi head base (without eyes, so blink swaps cleanly) -->
+    <g id="head-front">
+      <!-- Back bob silhouette & stray tuft on viewer's left -->
+      <path d="M0,-54 C-43,-54 -66,-27 -66,12 C-66,28 -61,42 -52,48 L52,48 C61,42 66,28 66,12 C66,-27 43,-54 0,-54 Z" fill="#181715"/>
+      <path d="M-63,-8 C-74,-12 -79,-5 -74,1 C-70,5 -64,3 -62,1 Z" fill="#181715"/>
+      <!-- Ears -->
+      <ellipse cx="-63" cy="14" rx="11" ry="14" fill="#f5ebe0"/>
+      <ellipse cx="-62" cy="15" rx="6" ry="8" fill="#e4ceba"/>
+      <path d="M-58,1 C-71,-1 -76,12 -71,23 C-67,30 -59,30 -55,26 C-62,26 -67,21 -68,14 C-69,7 -64,3 -57,4 Z" fill="#1f1d1a"/>
+      <ellipse cx="63" cy="14" rx="11" ry="14" fill="#f5ebe0"/>
+      <ellipse cx="62" cy="15" rx="6" ry="8" fill="#e4ceba"/>
+      <path d="M58,1 C71,-1 76,12 71,23 C67,30 59,30 55,26 C62,26 67,21 68,14 C69,7 64,3 57,4 Z" fill="#1f1d1a"/>
+      <!-- Round chibi face with warm lower-cheek shade & calligraphic jaw -->
+      <path d="M-50,-16 L50,-16 L50,18 C50,39 30,50 0,50 C-30,50 -50,39 -50,18 Z" fill="#f5ebe0"/>
+      <path d="M-49,22 C-34,42 34,42 49,22 C46,41 26,50 0,50 C-26,50 -46,41 -49,22 Z" fill="#e6d3c1"/>
+      <path d="M-48,26 C-42,43 -23,51 0,51 C23,51 42,43 48,26 C40,40 22,47 0,47 C-22,47 -40,40 -48,26 Z" fill="#1f1d1a"/>
+      <!-- Pink cheeks & gentle smile -->
+      <ellipse cx="-32" cy="24" rx="12" ry="7.5" fill="#e89f99" fill-opacity="0.58"/>
+      <ellipse cx="32" cy="24" rx="12" ry="7.5" fill="#e89f99" fill-opacity="0.58"/>
+      <path d="M-9,26 C-4,32 4,32 9,26 C10,28 5,35 0,35 C-5,35 -10,28 -9,26 Z" fill="#1f1d1a"/>
+      <!-- Eyebrows -->
+      <path d="M-34,-5 C-28,-9 -20,-8 -16,-5 C-21,-5 -28,-5 -34,-5 Z" stroke="#181715" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M16,-5 C20,-8 28,-9 34,-5 C28,-5 21,-5 16,-5 Z" stroke="#181715" stroke-width="2.6" stroke-linecap="round"/>
+      <!-- Side hair locks framing cheeks & 3-part short fringe -->
+      <path d="M-64,-6 C-64,18 -60,40 -47,52 C-41,53 -39,47 -42,38 C-46,25 -47,8 -46,-10 Z" fill="#181715"/>
+      <path d="M64,-6 C64,18 60,40 47,52 C41,53 39,47 42,38 C46,25 47,8 46,-10 Z" fill="#181715"/>
+      <path d="M-54,-28 C-54,-8 -46,-4 -26,-8 L-21,-19 L-18,-7 C-7,-4 7,-4 18,-7 L21,-19 L26,-8 C46,-4 54,-8 54,-28 C40,-48 -40,-48 -54,-28 Z" fill="#181715"/>
+      <!-- Sumi dry-brush hair highlight -->
+      <path d="M-40,-31 C-20,-43 20,-43 40,-31 C18,-37 -18,-37 -40,-31 Z" fill="#5e5952" fill-opacity="0.65"/>
+      <!-- Small topknot tied with straw cord -->
+      <path d="M-8,-53 C-16,-61 -18,-70 -10,-72 C-5,-73 -1,-67 1,-61 C4,-70 12,-73 17,-68 C21,-63 15,-56 7,-53 Z" fill="#181715"/>
+      <path d="M12,-65 C19,-68 25,-64 21,-59 C17,-55 11,-55 6,-53 Z" fill="#23201d"/>
+      <path d="M-7,-53 C-2,-56 4,-56 8,-53 C6,-49 -5,-49 -7,-53 Z" fill="#d9c398"/>
+      <path d="M-2,-55 L-1,-47" stroke="#c7ae7c" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Eye states: open, half-blink, closed blink -->
+    <g id="eyes-open">
+      <ellipse cx="-25" cy="11" rx="10.5" ry="11.5" fill="#181715"/>
+      <path d="M-34,4 L-39,0 L-33,2 Z" fill="#181715"/>
+      <path d="M-32,15 C-28,20 -21,20 -18,15 C-21,21 -29,21 -32,15 Z" fill="#3a5266"/>
+      <circle cx="-28" cy="7" r="3" fill="#f7f4ec"/>
+      <ellipse cx="25" cy="11" rx="10.5" ry="11.5" fill="#181715"/>
+      <path d="M34,4 L39,0 L33,2 Z" fill="#181715"/>
+      <path d="M18,15 C21,20 28,20 32,15 C29,21 21,21 18,15 Z" fill="#3a5266"/>
+      <circle cx="22" cy="7" r="3" fill="#f7f4ec"/>
+    </g>
+    <g id="eyes-half">
+      <path d="M-35,12 C-34,20 -16,20 -15,12 Z" fill="#181715"/>
+      <path d="M-36,11 C-29,9 -20,9 -14,12" stroke="#181715" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+      <path d="M15,12 C16,20 34,20 35,12 Z" fill="#181715"/>
+      <path d="M14,12 C20,9 29,9 36,11" stroke="#181715" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+    </g>
+    <g id="eyes-shut">
+      <path d="M-36,13 C-29,18 -20,18 -14,13" stroke="#181715" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+      <path d="M-35,13 L-39,11" stroke="#181715" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M14,13 C20,18 29,18 36,13" stroke="#181715" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+      <path d="M35,13 L39,11" stroke="#181715" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <!-- Plain warm white washi paper -->
+  <rect width="400" height="400" fill="#f7f4ec"/>
+
+  <!-- Soft usuzumi ground wash stroke beneath sandals -->
+  <path d="M138,329 C174,323 228,323 262,329 C232,337 168,337 138,329 Z" fill="#9c9589" fill-opacity="0.34"/>
+
+  <!-- Frame 1: Body settled (dy=0), sleeves finally settle into low rest (1 beat after f6); eyes open -->
+  <g class="f f1">
+    <use href="#feet-front" x="200" y="325"/>
+    <use href="#skirt-front" x="200" y="292"/>
+    <use href="#slv-low" x="200" y="259"/>
+    <use href="#chest-front" x="200" y="259"/>
+    <use href="#head-front" x="200" y="159"/>
+    <use href="#eyes-open" x="200" y="159"/>
+  </g>
+
+  <!-- Frame 2: Breath rises (chest dy=-2.5, head dy=-3.5), sleeves lag behind low; eyes open -->
+  <g class="f f2">
+    <use href="#feet-front" x="200" y="325"/>
+    <use href="#skirt-front" x="200" y="291.5"/>
+    <use href="#slv-low" x="200" y="258"/>
+    <use href="#chest-front" x="200" y="256.5"/>
+    <use href="#head-front" x="200" y="155.5"/>
+    <use href="#eyes-open" x="200" y="155.5"/>
+  </g>
+
+  <!-- Frame 3: Peak inhale (chest dy=-5, head dy=-6.5), sleeves rising mid; eyes open -->
+  <g class="f f3">
+    <use href="#feet-front" x="200" y="325"/>
+    <use href="#skirt-front" x="200" y="290.5"/>
+    <use href="#slv-mid" x="200" y="255.5"/>
+    <use href="#chest-front" x="200" y="254"/>
+    <use href="#head-front" x="200" y="152.5"/>
+    <use href="#eyes-open" x="200" y="152.5"/>
+  </g>
+
+  <!-- Frame 4: Exhale starts (chest dy=-3, head dy=-4), sleeves peak high (1-beat lag); blink 1/2 -->
+  <g class="f f4">
+    <use href="#feet-front" x="200" y="325"/>
+    <use href="#skirt-front" x="200" y="291"/>
+    <use href="#slv-high" x="200" y="254"/>
+    <use href="#chest-front" x="200" y="256"/>
+    <use href="#head-front" x="200" y="155"/>
+    <use href="#eyes-half" x="200" y="155"/>
+  </g>
+
+  <!-- Frame 5: Body almost settled (chest dy=-1, head dy=-1.5), sleeves float mid; blink 2/2 (closed) -->
+  <g class="f f5">
+    <use href="#feet-front" x="200" y="325"/>
+    <use href="#skirt-front" x="200" y="291.8"/>
+    <use href="#slv-mid" x="200" y="256"/>
+    <use href="#chest-front" x="200" y="258"/>
+    <use href="#head-front" x="200" y="157.5"/>
+    <use href="#eyes-shut" x="200" y="157.5"/>
+  </g>
+
+  <!-- Frame 6: Body settled (dy=0), sleeves still floated mid before dropping to low in f1; eyes open -->
+  <g class="f f6">
+    <use href="#feet-front" x="200" y="325"/>
+    <use href="#skirt-front" x="200" y="292"/>
+    <use href="#slv-mid" x="200" y="258"/>
+    <use href="#chest-front" x="200" y="259"/>
+    <use href="#head-front" x="200" y="159"/>
+    <use href="#eyes-open" x="200" y="159"/>
+  </g>
+
+  <!-- Vermilion hanko seal in bottom-right corner -->
+  <g transform="translate(348,346)">
+    <path d="M2,1 C9,0 19,0 25,2 C27,8 27,19 25,25 C18,27 8,27 2,25 C0,18 0,8 2,1 Z" fill="#c83e2b"/>
+    <path d="M7,7 H19 M13,7 V20 M8,13 H18 M7,20 H19" stroke="#f7f4ec" stroke-width="1.8" stroke-linecap="square" fill="none"/>
+  </g>
+
+  <!-- Small caption naming the clip -->
+  <text x="24" y="366" font-family="serif" font-size="13" fill="#5e5952" letter-spacing="0.5">idle-front</text>
+</svg>
