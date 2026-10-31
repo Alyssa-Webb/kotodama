@@ -1,12 +1,93 @@
 # Tripo prompts for reference models
 
-Models are **reference only** (ADR 0009): I render each from eight angles into `design/reference/<name>/` and Gemini 4 Argon draws the 2D art from those images. Drop finished `.glb` files in Downloads and send them over.
+Models are **reference only** (ADR 0009): I render each from ten angles into `design/reference/<name>/` and Gemini 4 Argon draws the 2D art from those images.
 
-**Triangle budget (100,000 max):** set Tripo's face limit to about **40k for characters and props**, **70k for buildings**, and **100k only for the two dioramas**. Shapes matter more than detail here.
+**Face limit:** about 40k for characters and props, 70k for buildings, 100k for dioramas.
 
-**Style words:** 3D can't really be ukiyo-e or sumi-e, so for those areas the prompts ask for clean, matte, simple forms; Argon adds the style. Only the hariko (Home and Town) prompts ask for the folk-toy look directly.
+## What we learned from round 1 (2026-10-31)
+
+- **Never use templates.** `[BUILDING]` and `[DESCRIPTION]` were pasted as-is and produced a "snowman" and two blank blobs. Every prompt below is complete.
+- **One subject, at most three key features, the defining one first.** The bamboo road listed seven things and came back with no bamboo at all.
+- **Say what you want, not what you don't.** "No text" still gave fake carved kanji; ask for "a blank, smooth stone face".
+- **Proportions first, in plain shape terms** ("super-deformed chibi, head as big as the whole body"), and the key feature as geometry ("the neck curves in a big S like a question mark"). The rokurokubi came back with a straight pole and adult proportions.
+- **Name a real object when one exists.** "Hariko maneki-neko" gave a genuine folk toy.
+- Results worth keeping: the road diorama, dojo hall, market street and hariko maneki-neko. The "snowman" turned out to be a lovely hariko figure and is kept as a style reference.
 
 **Negative prompt for everything:**
+
+```text
+photorealistic, glossy plastic, shiny metal, modern objects, cars, electric wires, logos, base plate, background
+```
+
+## Round 2: complete prompts
+
+### Bamboo Thicket road (70k)
+
+```text
+Dense green bamboo forest with a narrow stone-paved path running straight through the middle: tall bamboo stalks with leaf sprays packed close on both sides of the path, a small moss-covered stone Jizo statue with a red bib at the path's edge. Clean simple shapes, matte surfaces.
+```
+
+### Border landmarks, blank stone (40k)
+
+```text
+Old Japanese crossroads set on a short dirt road: a red wooden torii gate over the road, a wooden kido town gate with a small tiled roof and open doors beside it, and a weathered stone waymarker post with a blank, smooth stone face. Chunky simple shapes, matte surfaces.
+```
+
+### Rokurokubi (40k)
+
+```text
+Super-deformed chibi yokai rokurokubi, head as big as her whole body: a cute young woman in a red kimono with a gold obi and an Edo-style hairdo with a hairpin; her very long, thin neck curves up in one big S shape like a question mark, so her head floats high above her body. Both arms tucked into her sleeves. Mischievous smile. Matte toy-like shapes.
+```
+
+### The hariko Town, one building each (70k)
+
+```text
+Small railway station with a platform and a little steam engine, made as a traditional Japanese hariko papier-mache folk toy: rounded chunky hand-made shapes, matte chalky white base hand-painted in vermilion red, indigo and gold.
+```
+
+```text
+Wooden teahouse with a noren curtain and a bench outside, made as a traditional Japanese hariko papier-mache folk toy: rounded chunky hand-made shapes, matte chalky white base hand-painted in vermilion red, indigo and gold.
+```
+
+```text
+Small Shinto shrine with a red torii gate in front, made as a traditional Japanese hariko papier-mache folk toy: rounded chunky hand-made shapes, matte chalky white base hand-painted in vermilion red, indigo and gold.
+```
+
+```text
+Covered Japanese shopping street with three tiny shopfronts under one roof, made as a traditional Japanese hariko papier-mache folk toy: rounded chunky hand-made shapes, matte chalky white base hand-painted in vermilion red, indigo and gold.
+```
+
+```text
+Japanese public bathhouse with a tall chimney and a noren curtain, made as a traditional Japanese hariko papier-mache folk toy: rounded chunky hand-made shapes, matte chalky white base hand-painted in vermilion red, indigo and gold.
+```
+
+```text
+Small wooden Edo-period village school with a bell on a post, made as a traditional Japanese hariko papier-mache folk toy: rounded chunky hand-made shapes, matte chalky white base hand-painted in vermilion red, indigo and gold.
+```
+
+```text
+Red capsule toy vending machine with a crank handle and a clear dome full of capsules, made as a traditional Japanese hariko papier-mache folk toy: rounded chunky hand-made shapes, matte chalky white base hand-painted in vermilion red, indigo and gold.
+```
+
+### Battle foes, one each (40k)
+
+```text
+Super-deformed chibi kappa, head as big as its whole body: a green river imp with a round water-filled dish on top of its head, a turtle shell on its back and a small yellow beak. Mischievous grin. Matte toy-like shapes.
+```
+
+```text
+Super-deformed chibi karasu-tengu, head as big as its whole body: a crow goblin with a black beak, two black feathered wings and a mountain monk's checked robe with a small black cap. Proud look. Matte toy-like shapes.
+```
+
+```text
+Super-deformed chibi bake-danuki, head as big as its whole body: a round tanuki raccoon dog with a big round belly, a striped tail and a green leaf balanced on its head. Cheeky grin. Matte toy-like shapes.
+```
+
+```text
+Super-deformed chibi bakeneko, head as big as its whole body: a cat yokai standing on its hind legs with a tenugui towel tied on its head, a tail that splits into two at the tip, and a small oil dish in one paw. Sly smile. Matte toy-like shapes.
+```
+
+## Round 1 prompts (kept for the record)
 
 ```text
 photorealistic, glossy plastic, shiny metal, modern objects, cars, electric wires, signs with text, logos, people (unless asked), base plate, background
