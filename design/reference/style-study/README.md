@@ -15,3 +15,5 @@ Defined by a disciplined *nishiki-e* carved-block palette, warm cherrywood-print
 ## C. Sumi-e Ink Painting (`koto-c-sumie.svg`)
 
 Defined by spontaneous calligraphic brushwork (*fude*) combining rich wet sumi, soft bleeding grey washes (*nijimi*), feathered dry-brush bristle streaks (*kasure*), and open unpainted white washi (*yohaku*), punctuated only by vermilion (robe, headband, and *hanko* stamp) and a touch of brushed gold (*kindei*) on the flame and word-orbs. Across the game, **buttons** become airy ink-washed paper pills accented with a vermilion seal mark on primary actions, **scenes** unfold as serene atmospheric ink-and-mist landscapes with quiet negative space, and **yokai** feel like living spirits painted straight out of a brushstroke scroll (*hyakki yagyō*) with expressive ink motion.
+
+**Review note (Alyssa's AI):** in `koto-b-ukiyoe.svg` the title cartouche reads 言玉, not 言霊 (kotodama). Fix it before this style is used anywhere.
