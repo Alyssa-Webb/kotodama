@@ -258,40 +258,47 @@ function HomeCampDiorama({
         fill="color-mix(in srgb, var(--c-success-soft) 72%, var(--c-surface-alt))"
       />
 
-      {/* Winding traveler's road from the Dojo Gate through the Bamboo Thicket to the Market */}
-      <path
-        d="M172 170 C186 150 226 144 246 130 C264 118 268 110 278 104"
-        transform="translate(0 3)"
-        stroke={woodLip}
-        strokeWidth="36"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M172 170 C186 150 226 144 246 130 C264 118 268 110 278 104"
-        stroke={woodMain}
-        strokeWidth="32"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M172 170 C186 150 226 144 246 130 C264 118 268 110 278 104"
-        stroke="color-mix(in srgb, var(--c-hud-ink) 80%, var(--c-gold-soft))"
-        strokeWidth="24"
-        strokeLinecap="round"
-        fill="none"
-      />
-      {/* Stepping stones along the road */}
-      {[
-        [198, 154, 7, 3.5],
-        [224, 142, 6, 3],
-        [246, 130, 5, 2.5],
-      ].map(([cx, cy, rx, ry], i) => (
-        <g key={i}>
-          <ellipse cx={cx} cy={cy! + 2} rx={rx} ry={ry} fill={stoneLip} />
-          <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill={stoneMain} />
-        </g>
-      ))}
+      {/* The road only runs on the meadow: past its rise it would paint over the hills, the market
+          houses and the mountains behind (owner). */}
+      <clipPath id="home-meadow-clip">
+        <path d="M-10 131 C90 117 198 119 292 125 C348 121 392 123 430 129 V168 H-10 Z" />
+      </clipPath>
+      <g clipPath="url(#home-meadow-clip)">
+        {/* Winding traveler's road from the Dojo Gate through the Bamboo Thicket to the Market */}
+        <path
+          d="M172 170 C186 150 226 144 246 130 C264 118 268 110 278 104"
+          transform="translate(0 3)"
+          stroke={woodLip}
+          strokeWidth="36"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <path
+          d="M172 170 C186 150 226 144 246 130 C264 118 268 110 278 104"
+          stroke={woodMain}
+          strokeWidth="32"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <path
+          d="M172 170 C186 150 226 144 246 130 C264 118 268 110 278 104"
+          stroke="color-mix(in srgb, var(--c-hud-ink) 80%, var(--c-gold-soft))"
+          strokeWidth="24"
+          strokeLinecap="round"
+          fill="none"
+        />
+        {/* Stepping stones along the road */}
+        {[
+          [198, 154, 7, 3.5],
+          [224, 142, 6, 3],
+          [246, 130, 5, 2.5],
+        ].map(([cx, cy, rx, ry], i) => (
+          <g key={i}>
+            <ellipse cx={cx} cy={cy! + 2} rx={rx} ry={ry} fill={stoneLip} />
+            <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill={stoneMain} />
+          </g>
+        ))}
+      </g>
 
       {/* Blooming Sakura Tree on the left behind the Dojo Gate */}
       <g transform="translate(22 96)">
