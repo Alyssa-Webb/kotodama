@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Koto in sumi-e ink painting style">
+  <defs>
+    <!-- Luminous white gasenshi washi paper -->
+    <radialGradient id="sumie-paper" cx="50%" cy="46%" r="65%">
+      <stop offset="0%" stop-color="#FCFBF7" />
+      <stop offset="78%" stop-color="#F7F4EC" />
+      <stop offset="100%" stop-color="#EDE7DA" />
+    </radialGradient>
+
+    <!-- Delicate handmade washi fibre whisper -->
+    <pattern id="sumie-fibres" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M10 18 Q18 15 25 19 M54 12 Q61 16 67 13 M22 52 Q30 48 36 53 M58 62 Q66 59 72 64" fill="none" stroke="#DFD8C8" stroke-width="0.8" stroke-linecap="round" opacity="0.6" />
+      <path d="M34 26 Q42 22 48 27 M14 66 Q21 63 27 67" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.8" />
+    </pattern>
+  </defs>
+
+  <!-- White washi background -->
+  <rect width="512" height="512" fill="url(#sumie-paper)" />
+  <rect width="512" height="512" fill="url(#sumie-fibres)" />
+
+  <!-- Atmospheric pale grey ink mist wash (tanboku nijimi) in negative space -->
+  <path d="M64 316 C118 292 184 302 248 308 C326 315 398 292 448 312 C426 336 352 346 258 342 C164 338 92 336 64 316 Z" fill="#23211E" opacity="0.045" />
+  <!-- Expressive wet-to-dry ground ink sweep beneath feet -->
+  <path d="M126 418 C176 407 288 408 378 416 C396 418 412 420 424 422 C398 423 364 422 332 424 C252 429 162 429 126 418 Z" fill="#23211E" opacity="0.16" />
+  <path d="M148 419 C204 413 292 414 366 419 M340 423 L408 425 M368 426 L422 427" fill="none" stroke="#6E6A63" stroke-width="1.6" stroke-linecap="round" opacity="0.45" />
+
+  <!-- Vermilion hanko artist seal stamp (lower-left balance) -->
+  <g id="hanko-seal" transform="rotate(-1.5 84 390)">
+    <path d="M67 373 C76 372 93 372 101 373 C103 374 103 398 101 406 C92 408 75 408 67 406 C65 397 65 375 67 373 Z" fill="#C63D26" opacity="0.92" />
+    <!-- Subtle dry stamp paper voids & carved white seal-script 言 -->
+    <circle cx="71" cy="402" r="1.3" fill="#FAF7F0" />
+    <circle cx="98" cy="378" r="1.1" fill="#FAF7F0" />
+    <rect x="70" y="376" width="28" height="28" fill="none" stroke="#FAF7F0" stroke-width="1.3" opacity="0.85" />
+    <path d="M79 381 H89 M74 386 H94 M78 391 H90 M78 395 H90" stroke="#FAF7F0" stroke-width="2" stroke-linecap="round" />
+    <rect x="78" y="398" width="12" height="5" fill="none" stroke="#FAF7F0" stroke-width="1.8" />
+  </g>
+
+  <!-- Floating kotodama gold-ink (kindei) enso word-orbs -->
+  <g id="gold-orbs">
+    <!-- Left enso gold orb -->
+    <circle cx="82" cy="212" r="14" fill="#EED279" opacity="0.38" />
+    <path d="M88 197 C78 194 67 201 67 212 C67 223 76 230 86 228 C95 226 100 217 97 207 C95 202 92 199 90 198 C93 203 94 212 90 219 C85 225 75 224 72 215 C69 207 76 199 88 197 Z" fill="#D5A438" />
+    <path d="M77 195 C79 187 84 182 82 175" fill="none" stroke="#5A5650" stroke-width="1.6" stroke-linecap="round" opacity="0.65" />
+
+    <!-- Right enso gold orb -->
+    <circle cx="430" cy="176" r="12.5" fill="#EED279" opacity="0.38" />
+    <path d="M435 163 C426 160 417 167 417 176 C417 186 425 192 434 190 C442 188 446 180 443 171 C441 167 439 165 437 164 C440 169 440 176 437 182 C432 187 424 186 421 179 C419 172 425 165 435 163 Z" fill="#D5A438" />
+    <path d="M427 160 C429 153 433 149 431 143" fill="none" stroke="#5A5650" stroke-width="1.5" stroke-linecap="round" opacity="0.65" />
+  </g>
+
+  <!-- Stubby chibi feet brushed in grey wash & sumi ink -->
+  <g id="feet">
+    <ellipse cx="210" cy="408" rx="27" ry="13" fill="#FCFBF7" />
+    <path d="M185 410 C194 419 224 419 235 409 C232 418 222 422 209 422 C195 422 186 417 185 410 Z" fill="#23211E" opacity="0.16" />
+    <path d="M183 409 C181 398 196 393 213 394 C224 395 234 399 236 406 C231 401 222 398 211 398 C197 398 187 402 188 410 C189 416 202 419 224 417 C206 422 185 419 183 409 Z" fill="#262421" />
+    <path d="M202 411 Q203 417 201 420 M215 411 Q216 417 214 420" fill="none" stroke="#262421" stroke-width="2" stroke-linecap="round" />
+
+    <ellipse cx="300" cy="408" rx="27" ry="13" fill="#FCFBF7" />
+    <path d="M275 410 C284 419 314 419 325 409 C322 418 312 422 299 422 C285 422 276 417 275 410 Z" fill="#23211E" opacity="0.16" />
+    <path d="M327 409 C329 398 314 393 297 394 C286 395 276 399 274 406 C279 401 288 398 299 398 C313 398 323 402 322 410 C321 416 308 419 286 417 C304 422 325 419 327 409 Z" fill="#262421" />
+    <path d="M294 411 Q295 417 293 420 M307 411 Q308 417 306 420" fill="none" stroke="#262421" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Small chibi body: grey sumi under-collar & wet vermilion box-shaped robe -->
+  <g id="sumie-robe">
+    <!-- Wet grey sumi shoulder wash (replacing indigo so palette stays pure sumi + vermilion + gold) -->
+    <path d="M166 304 C166 283 186 274 254 274 C322 274 342 284 342 306 L344 378 C344 396 326 405 304 405 L206 405 C182 405 165 395 166 376 Z" fill="#4E4A44" />
+    <path d="M166 304 C166 283 186 274 254 274 C308 274 334 281 340 297 C326 285 300 280 254 280 C194 280 173 289 172 310 L172 384 C167 378 166 368 166 356 Z" fill="#23211E" />
+
+    <!-- Wet vermilion brush-wash box robe -->
+    <path d="M173 292 C174 282 190 278 254 278 C318 278 334 283 336 294 L338 382 C338 398 323 406 300 406 C268 407 224 407 206 405 C184 403 171 395 172 379 Z" fill="#C63D26" />
+    <!-- Deeper wet vermilion ink pooling along left & lower hem -->
+    <path d="M173 302 C176 344 182 382 204 394 C232 401 288 400 326 393 C318 403 304 406 284 406 L206 405 C184 403 171 395 172 379 Z" fill="#A52D19" opacity="0.72" />
+    <!-- Dry-brush kasure vermilion bristle streaks at robe edge -->
+    <path d="M335 322 L337 376 M332 344 L334 388" stroke="#FAF7F0" stroke-width="1.3" stroke-linecap="round" opacity="0.55" />
+    <!-- Washi white kimono collar V with brisk sumi stroke -->
+    <path d="M226 278 L254 305 L282 278 Z" fill="#FAF8F3" />
+    <path d="M225 278 L254 306 L283 278" fill="none" stroke="#23211E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Reserved washi-white square seal & brushed calligraphic kanji 言 -->
+    <path d="M207 301 C224 299 286 299 302 301 C305 302 306 306 306 314 L305 381 C305 388 302 391 295 391 L214 391 C208 391 205 388 205 381 L204 312 C204 305 205 302 207 301 Z" fill="none" stroke="#FAF8F3" stroke-width="5" />
+    <g fill="#FAF8F3">
+      <!-- Calligraphic brush strokes for 言 (pressed start, organic taper) -->
+      <path d="M238 313 C247 310 263 311 272 314 C275 315 274 320 269 320 C259 321 246 320 238 318 C235 317 235 314 238 313 Z" />
+      <path d="M217 328 C238 325 274 324 292 327 C296 328 295 334 289 334 C270 335 238 335 219 334 C214 334 214 329 217 328 Z" />
+      <path d="M232 342 C246 340 265 340 277 342 C281 343 280 348 275 349 C263 349 246 349 233 348 C230 347 229 343 232 342 Z" />
+      <path d="M232 355 C246 353 265 353 277 355 C281 356 280 361 275 362 C263 362 246 362 233 361 C230 360 229 356 232 355 Z" />
+      <path fill-rule="evenodd" d="M228 367 C244 366 266 366 281 367 C285 368 286 371 285 381 C285 384 282 386 278 386 L231 386 C227 386 225 384 225 380 L224 372 C224 369 226 367 228 367 Z M234 373 L234 380 L276 380 L276 373 Z" />
+    </g>
+  </g>
+
+  <!-- Resting left paw in wet & dry sumi brush -->
+  <g id="paw-left">
+    <ellipse cx="168" cy="336" rx="25" ry="20" fill="#FCFBF7" />
+    <path d="M145 339 C152 351 180 352 191 340 C188 351 178 356 167 356 C154 356 146 349 145 339 Z" fill="#23211E" opacity="0.15" />
+    <path d="M190 324 C182 315 162 313 150 322 C141 329 141 344 152 352 C163 359 182 357 191 345 C181 352 164 353 155 347 C147 341 147 330 155 324 C164 318 180 319 190 324 Z" fill="#23211E" />
+    <path d="M160 344 Q160 350 158 353 M171 345 Q171 351 169 354 M181 343 Q182 349 180 352" fill="none" stroke="#23211E" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Big chibi head & short pointed ears in expressive wet/dry sumi brushwork -->
+  <g id="sumie-head">
+    <!-- Left ear: watered vermilion tip bleed + bold sumi brush flick -->
+    <path d="M136 154 C127 113 140 80 162 78 C183 76 203 101 210 138 Z" fill="#FCFBF7" />
+    <path d="M137 118 C140 93 149 80 162 79 C175 78 189 91 197 112 Q167 124 137 118 Z" fill="#C63D26" opacity="0.62" />
+    <path d="M151 140 C147 122 153 107 162 106 C171 105 179 117 182 134 Z" fill="#23211E" opacity="0.12" />
+    <path d="M133 155 C123 111 137 76 161 75 C182 74 202 97 210 135 C201 103 181 82 162 82 C143 82 132 113 140 152 Z" fill="#1C1B19" />
+    <path d="M139 142 C135 117 143 92 157 83" fill="none" stroke="#6E6A63" stroke-width="1.4" stroke-linecap="round" />
+
+    <!-- Right ear: watered vermilion tip bleed + bold sumi brush flick -->
+    <path d="M372 154 C381 113 368 80 346 78 C325 76 305 101 298 138 Z" fill="#FCFBF7" />
+    <path d="M371 118 C368 93 359 80 346 79 C333 78 319 91 311 112 Q341 124 371 118 Z" fill="#C63D26" opacity="0.62" />
+    <path d="M357 140 C361 122 355 107 346 106 C337 105 329 117 326 134 Z" fill="#23211E" opacity="0.12" />
+    <path d="M375 155 C385 111 371 76 347 75 C326 74 306 97 298 135 C307 103 327 82 346 82 C365 82 376 113 368 152 Z" fill="#1C1B19" />
+
+    <!-- Unpainted white washi head reserve + soft wet grey nijimi chin wash -->
+    <path d="M126 196 C126 133 168 108 254 108 C340 108 382 133 382 196 C382 260 340 292 254 292 C168 292 126 260 126 196 Z" fill="#FCFBF7" />
+    <path d="M130 226 C146 268 190 278 254 278 C318 278 360 266 377 226 C369 270 330 292 254 292 C176 292 138 269 130 226 Z" fill="#23211E" opacity="0.10" />
+    <path d="M148 256 C174 282 214 287 258 287 C298 287 332 280 356 260 C332 286 296 293 254 293 C206 293 168 281 148 256 Z" fill="#23211E" opacity="0.12" />
+
+    <!-- Calligraphic head contour strokes: thick wet cheek sweeps + dry-brush kasure crown/jaw -->
+    <path d="M196 112 C150 119 123 150 123 198 C123 256 162 292 244 294 C170 288 130 252 130 197 C130 153 154 123 196 112 Z" fill="#1E1C1A" />
+    <path d="M312 112 C358 119 385 150 385 198 C385 248 354 282 292 291 C348 280 378 245 378 197 C378 153 354 123 312 112 Z" fill="#1E1C1A" />
+    <!-- Dry-brush flying-white (kasure) crown & chin bristle lines -->
+    <path d="M204 110 Q254 105 304 110 M216 112 Q254 108 292 112" fill="none" stroke="#6E6A63" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="18 5 12 4" />
+    <path d="M226 292 Q264 295 304 289 M242 295 Q274 296 312 287" fill="none" stroke="#4A4742" stroke-width="1.7" stroke-linecap="round" />
+
+    <!-- Single bold vermilion brushstroke headband (wet start left -> dry kasure right) -->
+    <path d="M130 150 C174 163 292 166 376 148 C379 150 378 154 373 156 C292 174 174 172 129 158 C124 156 125 149 130 150 Z" fill="#C63D26" />
+    <path d="M336 156 L376 150 M344 160 L379 154" stroke="#FAF8F3" stroke-width="1.4" stroke-linecap="round" />
+    <!-- Touch of gold wash + sumi brush bead at centre -->
+    <circle cx="254" cy="161" r="16.5" fill="#EED279" />
+    <circle cx="255" cy="162" r="14.5" fill="#D5A438" opacity="0.85" />
+    <path d="M258 144 C245 142 236 151 237 162 C238 173 248 179 259 177 C269 175 274 165 270 154 C269 164 264 172 255 174 C246 175 240 168 240 160 C240 151 248 145 258 144 Z" fill="#1E1C1A" />
+    <circle cx="254" cy="168" r="3.4" fill="#181715" />
+
+    <!-- Touch of gold teardrop flame on crown with single sumi ink flick -->
+    <path d="M254 62 C275 82 279 108 254 116 C229 108 233 82 254 62 Z" fill="#EED279" />
+    <path d="M255 66 C272 84 274 106 254 114 C240 108 242 88 255 66 Z" fill="#D5A438" opacity="0.88" />
+    <path d="M253 62 C234 82 232 106 252 116 C237 105 239 83 253 62 Z" fill="#23211E" />
+
+    <!-- Faint watered-vermilion cheek blush -->
+    <ellipse cx="160" cy="236" rx="22" ry="12.5" fill="#C63D26" opacity="0.22" />
+    <ellipse cx="346" cy="236" rx="22" ry="12.5" fill="#C63D26" opacity="0.22" />
+
+    <!-- Expressive wet-sumi eyes, calligraphy brows, swift whiskers & smile -->
+    <path d="M174 184 C185 175 204 175 216 182 C203 179 187 180 176 188 Z" fill="#23211E" />
+    <path d="M334 184 C323 175 304 175 292 182 C305 179 321 180 332 188 Z" fill="#23211E" />
+
+    <!-- Wet ink bloom halo + deep shoboku black eyes -->
+    <ellipse cx="197" cy="214" rx="22.5" ry="25.5" fill="#23211E" opacity="0.18" />
+    <path d="M176 213 C176 198 185 189 198 189 C211 189 220 199 220 214 C220 228 210 238 197 238 C184 238 176 227 176 213 Z" fill="#181715" />
+    <circle cx="190" cy="204" r="7.2" fill="#FCFBF7" />
+    <circle cx="204" cy="222" r="3.4" fill="#FCFBF7" />
+
+    <ellipse cx="311" cy="214" rx="22.5" ry="25.5" fill="#23211E" opacity="0.18" />
+    <path d="M290 214 C290 199 299 189 312 189 C325 189 334 198 334 213 C334 227 326 238 313 238 C300 238 290 228 290 214 Z" fill="#181715" />
+    <circle cx="304" cy="204" r="7.2" fill="#FCFBF7" />
+    <circle cx="318" cy="222" r="3.4" fill="#FCFBF7" />
+
+    <!-- Swift menso-brush whiskers -->
+    <g fill="#23211E">
+      <path d="M144 220 C128 216 112 215 98 218 C113 218 128 220 143 223 Z" />
+      <path d="M143 231 C126 231 110 233 96 238 C111 235 127 234 143 235 Z" />
+      <path d="M146 241 C132 245 118 250 106 257 C119 252 132 247 147 244 Z" />
+      <path d="M364 220 C380 216 396 215 410 218 C395 218 380 220 365 223 Z" />
+      <path d="M365 231 C382 231 398 233 412 238 C397 235 381 234 365 235 Z" />
+      <path d="M362 241 C376 245 390 250 402 257 C389 252 376 247 361 244 Z" />
+    </g>
+
+    <!-- Ink dot nose & joyful brushed open smile -->
+    <ellipse cx="254" cy="224" rx="5" ry="3.5" fill="#181715" />
+    <path d="M232 235 C232 262 276 262 276 235 Z" fill="#3A3632" />
+    <ellipse cx="254" cy="249" rx="13" ry="8" fill="#C63D26" opacity="0.45" />
+    <path d="M227 234 Q241 240 254 230 Q267 240 281 234" fill="none" stroke="#181715" stroke-width="3.4" stroke-linecap="round" />
+  </g>
+
+  <!-- Classic maneki-neko raised beckoning right paw in fluid sumi brush -->
+  <g id="beckoning-paw">
+    <path d="M324 303 C346 299 372 279 378 244 C382 220 369 207 352 208 C336 210 328 225 330 246 C331 262 323 276 315 284 Z" fill="#FCFBF7" />
+    <path d="M324 303 C346 299 370 280 377 248 C368 273 347 290 320 296 Z" fill="#23211E" opacity="0.14" />
+    <!-- Expressive wet-to-dry brush arm contour -->
+    <path d="M315 284 C324 275 331 261 330 244 C328 222 337 207 354 206 C372 205 384 220 380 246 C374 281 348 301 324 305 C345 297 369 278 375 245 C378 223 368 211 354 211 C340 212 333 225 334 245 C335 263 326 277 315 284 Z" fill="#1E1C1A" />
+    <!-- Faint vermilion paw-pad wash & sumi toe flicks -->
+    <ellipse cx="354" cy="238" rx="10" ry="7.5" fill="#C63D26" opacity="0.28" />
+    <path d="M346 209 Q347 218 346 224 M360 209 Q360 218 359 224" fill="none" stroke="#1E1C1A" stroke-width="2.2" stroke-linecap="round" />
+  </g>
+
+  <!-- Style caption in English -->
+  <text x="256" y="482" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#3A3631" letter-spacing="0.8">Sumi-e Ink Painting</text>
+</svg>
