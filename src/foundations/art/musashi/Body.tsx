@@ -150,49 +150,76 @@ function PoseArms({ pose }: { pose: MusashiPose }): JSX.Element {
 
   if (pose === 'bow') {
     return (
-      <g className="musashi-bow-hands">
-        {/* Respectful ritsurei sleeves & hands sliding down to the front of his thighs */}
-        <path
-          d="M40 56 C35 66 39 83 46.5 98.5 C48.5 101.5 55 101.5 57.5 97.5 L51 69 Z"
-          fill={KIMONO_SHADE}
-          transform="translate(0 3)"
-        />
-        <path
-          d="M40 56 C35 66 39 83 46.5 98.5 C48.5 101.5 55 101.5 57.5 97.5 L51 69 Z"
-          fill={KIMONO}
-        />
-        <path
-          d="M80 56 C84 63 81 76 76 88.5 C74 91.5 67.5 91.5 65.5 88 L70 67 Z"
-          fill={KIMONO_SHADE}
-          transform="translate(0 3)"
-        />
-        <path d="M80 56 C84 63 81 76 76 88.5 C74 91.5 67.5 91.5 65.5 88 L70 67 Z" fill={KIMONO} />
-        {/* Hands resting flat on the front of his left & right thighs (land at y≈94.5 after 30° hip rotation) */}
-        <ellipse
-          cx="53"
-          cy="101.8"
-          rx="5.2"
-          ry="4"
-          transform="rotate(-28 53 101.8)"
-          fill={SKIN_SHADE}
-        />
-        <ellipse cx="53" cy="99.8" rx="5.2" ry="3.8" transform="rotate(-28 53 99.8)" fill={SKIN} />
-        <ellipse
-          cx="71.2"
-          cy="91.5"
-          rx="5.2"
-          ry="4"
-          transform="rotate(-28 71.2 91.5)"
-          fill={SKIN_SHADE}
-        />
-        <ellipse
-          cx="71.2"
-          cy="89.5"
-          rx="5.2"
-          ry="3.8"
-          transform="rotate(-28 71.2 89.5)"
-          fill={SKIN}
-        />
+      <g>
+        <g className="musashi-bow-hands">
+          {/* Respectful ritsurei sleeves reaching symmetrically down toward the thighs */}
+          <path
+            d="M40 56 C35 64 38 80 45 92.5 C47 95.5 53.5 95.5 55.5 92 L50.5 68 Z"
+            fill={KIMONO_SHADE}
+            transform="translate(0 3)"
+          />
+          <path
+            d="M40 56 C35 64 38 80 45 92.5 C47 95.5 53.5 95.5 55.5 92 L50.5 68 Z"
+            fill={KIMONO}
+          />
+          <path
+            d="M80 56 C85 64 82 80 75 92.5 C73 95.5 66.5 95.5 64.5 92 L69.5 68 Z"
+            fill={KIMONO_SHADE}
+            transform="translate(0 3)"
+          />
+          <path
+            d="M80 56 C85 64 82 80 75 92.5 C73 95.5 66.5 95.5 64.5 92 L69.5 68 Z"
+            fill={KIMONO}
+          />
+          <path
+            d="M46.2 90.8 Q50.5 92.5 54.5 90.2 M73.8 90.8 Q69.5 92.5 65.5 90.2"
+            stroke={KIMONO_FOLD}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            fill="none"
+          />
+
+          {/* Hands sliding down to rest symmetrically on the front of his left & right thighs */}
+          <ellipse
+            cx="50.5"
+            cy="97.2"
+            rx="5"
+            ry="4.4"
+            transform="rotate(14 50.5 97.2)"
+            fill={SKIN_SHADE}
+          />
+          <ellipse
+            cx="50.5"
+            cy="95"
+            rx="5"
+            ry="4.2"
+            transform="rotate(14 50.5 95)"
+            fill={SKIN}
+          />
+          <ellipse
+            cx="69.5"
+            cy="97.2"
+            rx="5"
+            ry="4.4"
+            transform="rotate(-14 69.5 97.2)"
+            fill={SKIN_SHADE}
+          />
+          <ellipse
+            cx="69.5"
+            cy="95"
+            rx="5"
+            ry="4.2"
+            transform="rotate(-14 69.5 95)"
+            fill={SKIN}
+          />
+        </g>
+
+        {/* Sheathed hilts remain anchored at his left hip without vertical squash */}
+        <g className="musashi-hip-swords">
+          <g transform="translate(2.5 88.5) scale(1 1.25) translate(0 -85)">
+            <DaishoHilts />
+          </g>
+        </g>
       </g>
     );
   }
@@ -241,41 +268,22 @@ function PoseArms({ pose }: { pose: MusashiPose }): JSX.Element {
 export function Body({ pose }: { pose: MusashiPose }): JSX.Element {
   const isBow = pose === 'bow';
   const isReady = pose === 'ready';
-  const upperPoseTransform = isBow ? 'rotate(30 60 85)' : isReady ? 'translate(0 1.5)' : undefined;
+  const upperPoseTransform = isBow
+    ? 'translate(0 85) scale(1 0.8) translate(0 -85)'
+    : isReady
+      ? 'translate(0 1.5)'
+      : undefined;
 
   return (
     <g className="musashi-figure">
       <LowerBody pose={pose} />
 
-      {/* Dark-indigo kimono lower skirt at the hips (bridges hakama and tilting upper body) */}
+      {/* Dark-indigo kimono lower skirt at the hips (bridges hakama and upper body) */}
       <path d="M40 79 H80 L83 90.5 Q60 93 37 90.5 Z" fill={KIMONO_SHADE} />
       <path d="M40 77.5 H80 L83 88 Q60 90.5 37 88 Z" fill={KIMONO} />
       <path d="M51 78.5 H69 L70.5 88.8 Q60 89.8 49.5 88.8 Z" fill={KIMONO_SHADE} />
 
-      {/* In bow, the waist obi sash & sheathed swords stay anchored at his hips */}
-      {isBow && (
-        <g className="musashi-hip-swords">
-          <rect x="38.5" y="76.8" width="43" height="8.5" rx="4.2" fill={OBI_SHADE} />
-          <rect x="38.5" y="74.2" width="43" height="8.2" rx="4.1" fill={OBI} />
-          <path
-            d="M41.5 78.4 H78.5"
-            stroke={OBI_SHADE}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            opacity="0.65"
-          />
-          <g className="musashi-obi-tail">
-            <path d="M63.5 81.5 L68.5 81 L70.2 92.5 L64.8 93 Z" fill={OBI_SHADE} />
-            <path d="M63.5 79.8 L68.5 79.3 L70.2 90.5 L64.8 91 Z" fill={OBI} />
-          </g>
-          <g transform="translate(2 2)">
-            <DaishoScabbards pose={pose} />
-            <DaishoHilts />
-          </g>
-        </g>
-      )}
-
-      {/* Upper torso, obi, arms & head (hinges ~30deg from the hips at (60,85) during bow) */}
+      {/* Upper torso, obi, arms & head (squashes vertically from the hips at (60,85) during bow) */}
       <g className="musashi-upper">
         <g transform={upperPoseTransform}>
           <BackHair />
@@ -309,9 +317,9 @@ export function Body({ pose }: { pose: MusashiPose }): JSX.Element {
             opacity="0.38"
           />
 
-          {/* Rust-orange obi sash & hanging tail (in idle and ready) */}
-          {!isBow && (
-            <>
+          {/* Rust-orange obi sash, hanging tail & hip scabbards (anchored at hips in bow) */}
+          <g className={isBow ? 'musashi-hip-swords' : undefined}>
+            <g transform={isBow ? 'translate(0 85) scale(1 1.25) translate(0 -85)' : undefined}>
               <rect x="38.5" y="75.8" width="43" height="8.5" rx="4.2" fill={OBI_SHADE} />
               <rect x="38.5" y="73.2" width="43" height="8.2" rx="4.1" fill={OBI} />
               <path
@@ -335,8 +343,8 @@ export function Body({ pose }: { pose: MusashiPose }): JSX.Element {
                 <path d="M63.5 78.8 L68.5 78.3 L70.2 89.5 L64.8 90 Z" fill={OBI} />
               </g>
               <DaishoScabbards pose={pose} />
-            </>
-          )}
+            </g>
+          </g>
 
           {/* Pose-specific arms, sleeves & daisho swords */}
           <PoseArms pose={pose} />
