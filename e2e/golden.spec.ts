@@ -12,7 +12,7 @@ test('golden path: first lesson, rewards, reviews, persistence', async ({ page }
   page.on('pageerror', (e) => errors.push(`${e.message}\n${e.stack ?? ''}`));
   test.info().annotations.push({ type: 'errors', description: 'collected below' });
   await page.goto('./');
-  await expect(page.getByRole('heading', { name: 'Wake your first spirit' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start your first lesson' })).toBeVisible();
   await settle(page);
   await page.screenshot({ path: shot('home', info.project.name) });
 
@@ -117,7 +117,7 @@ test('backup and restore round-trip', async ({ page, browser }) => {
 
 test('accessibility: no serious axe violations on home and a lesson', async ({ page }) => {
   await page.goto('./');
-  await expect(page.getByRole('heading', { name: 'Wake your first spirit' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start your first lesson' })).toBeVisible();
   const home = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(
     home.violations
@@ -137,7 +137,7 @@ test('accessibility: no serious axe violations on home and a lesson', async ({ p
 test('dark mode renders the game skin', async ({ page }, info) => {
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('./');
-  await expect(page.getByRole('heading', { name: 'Wake your first spirit' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start your first lesson' })).toBeVisible();
   const bg = await page.evaluate(() =>
     getComputedStyle(document.documentElement).getPropertyValue('--c-bg').trim(),
   );

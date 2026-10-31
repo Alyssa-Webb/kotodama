@@ -1,15 +1,15 @@
 import { TourButton } from '../tour/Tour';
 import { Link } from 'react-router';
 import { useGame } from '../../foundations/store/gameStore';
-import { daysAway, isUnlocked } from '../../engine/game';
-import { districtStates } from '../../engine/world';
-import { districts } from '../../foundations/world';
+import { isUnlocked } from '../../engine/game';
+import { regionForUnit, regions } from '../../foundations/world';
 import { useSave, useStats } from '../hooks';
 import { Avatar } from '../avatar/Avatar';
 import { Slot } from '../../foundations/slots/Slot';
 import { SpeakableJa } from '../../foundations/japanese/Ja';
 import { Mascot } from '../../foundations/art/Mascot';
-import { CapsuleIcon, FlameIcon, YenIcon } from '../../foundations/art/icons';
+import { DojoHallBackdrop, MarketStreetBackdrop } from '../lesson/BattleBackdrops';
+import { useDesk, type DeskNote } from './desk';
 import './home.css';
 
 function greeting(hour: number): { ja: string; en: string } {
@@ -493,418 +493,46 @@ function HomeCampDiorama({
  * Today's goal as a Chibi Shrine Chōchin Lantern that fills with warm golden spirit fire
  * as `pct` rises from 0% to 100%. Pure inline SVG with +3 shade lips and top-left highlight.
  */
-function GoalLanternSVG({ pct }: { pct: number }) {
-  const clamped = Math.max(0, Math.min(100, pct));
-  const fillH = (clamped / 100) * 56;
-  const fillY = 78 - fillH;
-  const done = clamped >= 100;
-
-  return (
-    <svg viewBox="0 0 88 96" className="goal-lantern-svg" aria-hidden="true">
-      <defs>
-        <clipPath id="home-goal-lantern-clip">
-          <ellipse cx="44" cy="50" rx="28" ry="27" />
-        </clipPath>
-      </defs>
-
-      {/* Ground shadow */}
-      <ellipse cx="44" cy="91" rx="22" ry="4.5" fill="var(--c-shadow)" />
-
-      {/* Hanging brass ring at top */}
-      <circle cx="44" cy="8" r="4.5" fill="none" stroke="var(--c-panel-edge)" strokeWidth="2.8" />
-
-      {/* Lantern paper chamber (+3 shade lip + warm unlit paper base) */}
-      <ellipse
-        cx="44"
-        cy="53"
-        rx="29"
-        ry="27.5"
-        fill="color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg))"
-      />
-      <ellipse
-        cx="44"
-        cy="50"
-        rx="29"
-        ry="27.5"
-        fill="color-mix(in srgb, var(--c-panel) 84%, var(--c-surface-alt))"
-      />
-
-      {/* Rising spirit-fire fill inside the lantern chamber */}
-      <g clipPath="url(#home-goal-lantern-clip)">
-        {clamped > 0 && (
-          <g>
-            <rect
-              x="12"
-              y={fillY + 3}
-              width="64"
-              height={fillH + 6}
-              fill="var(--c-accent)"
-              opacity="0.88"
-            />
-            <rect x="12" y={fillY} width="64" height={fillH + 4} fill="var(--c-glow)" />
-            <ellipse
-              cx="44"
-              cy={fillY + 1}
-              rx="28"
-              ry="4"
-              fill="var(--c-coin-shine)"
-              opacity="0.85"
-            />
-          </g>
-        )}
-        {/* Traditional curved chōchin rib lines */}
-        <ellipse
-          cx="44"
-          cy="50"
-          rx="18"
-          ry="27"
-          fill="none"
-          stroke="color-mix(in srgb, var(--c-panel-edge) 45%, var(--c-hud-bg))"
-          strokeWidth="1.6"
-          opacity="0.35"
-        />
-        <line
-          x1="15"
-          y1="41"
-          x2="73"
-          y2="41"
-          stroke="color-mix(in srgb, var(--c-panel-edge) 45%, var(--c-hud-bg))"
-          strokeWidth="1.5"
-          opacity="0.3"
-        />
-        <line
-          x1="15"
-          y1="59"
-          x2="73"
-          y2="59"
-          stroke="color-mix(in srgb, var(--c-panel-edge) 45%, var(--c-hud-bg))"
-          strokeWidth="1.5"
-          opacity="0.3"
-        />
-      </g>
-
-      {/* Top-left molded highlight on lantern body */}
-      <ellipse
-        cx="30"
-        cy="34"
-        rx="8.5"
-        ry="3.6"
-        transform="rotate(-22 30 34)"
-        fill="var(--c-hud-ink)"
-        opacity="0.48"
-      />
-
-      {/* Top & bottom lacquer rims (+3 shade lip + main rim) */}
-      <rect x="26" y="19" width="36" height="8" rx="4" fill="var(--c-hud-bg)" />
-      <rect x="26" y="16.5" width="36" height="7.5" rx="3.8" fill="var(--c-lacquer)" />
-      <rect x="28" y="75" width="32" height="7.5" rx="3.8" fill="var(--c-hud-bg)" />
-      <rect x="28" y="72.5" width="32" height="7" rx="3.5" fill="var(--c-lacquer)" />
-
-      {/* Bottom golden tassel */}
-      <rect x="41.5" y="79.5" width="5" height="7" rx="2.5" fill="var(--c-gold)" />
-      <rect x="41.5" y="78.5" width="5" height="6" rx="2.5" fill="var(--c-glow)" />
-
-      {/* Sparkles when daily goal is met */}
-      {done && (
-        <g fill="var(--c-glow)">
-          <path d="M12 22 L14 27 L19 29 L14 31 L12 36 L10 31 L5 29 L10 27 Z" />
-          <path d="M76 20 L78 24 L82 26 L78 28 L76 32 L74 28 L70 26 L74 24 Z" />
-        </g>
-      )}
-    </svg>
+/** One reminder: a link when it goes somewhere, a button when it acts in place. */
+function Nudge({ note }: { note: DeskNote }) {
+  const body = (
+    <>
+      <span className="home-nudge-dot" aria-hidden="true" />
+      <span className="home-nudge-text">{note.text}</span>
+      {note.cta && <span className="home-nudge-cta">{note.cta}</span>}
+    </>
   );
+  const cls = `home-nudge tone-${note.tone}`;
+  if (note.to)
+    return (
+      <Link className={cls} to={note.to} onClick={note.act}>
+        {body}
+      </Link>
+    );
+  if (note.act)
+    return (
+      <button type="button" className={cls} onClick={note.act}>
+        {body}
+      </button>
+    );
+  return <div className={cls}>{body}</div>;
 }
 
-/** Wooden directional arrow cap on the right end of the Next Lesson signpost. */
-function SignpostArrowSVG({ isBoss }: { isBoss: boolean }) {
-  const main = isBoss ? 'var(--c-accent)' : 'var(--c-panel-edge)';
-  const lip = isBoss
-    ? 'var(--c-lacquer)'
-    : 'color-mix(in srgb, var(--c-gold) 52%, var(--c-hud-bg))';
-  return (
-    <svg viewBox="0 0 44 52" className="signpost-arrow-svg" aria-hidden="true">
-      {/* Vertical wooden signpost timber post */}
-      <rect
-        x="8"
-        y="2"
-        width="12"
-        height="48"
-        rx="4"
-        fill="color-mix(in srgb, var(--c-gold) 48%, var(--c-hud-bg))"
-      />
-      <rect x="8" y="0" width="12" height="46" rx="4" fill="var(--c-panel-edge)" />
-      {/* Pointed directional arrow plaque (+3 lip + main + highlight + brass nail) */}
-      <path d="M2 16 H25 L41 28 L25 40 H2 Z" fill={lip} />
-      <path d="M2 13 H25 L41 25 L25 37 H2 Z" fill={main} />
-      <ellipse
-        cx="13"
-        cy="19"
-        rx="6"
-        ry="2.2"
-        transform="rotate(-12 13 19)"
-        fill="var(--c-coin-shine)"
-        opacity="0.48"
-      />
-      <circle cx="14" cy="25" r="2.8" fill="var(--c-hud-bg)" opacity="0.55" />
-    </svg>
-  );
-}
-
-/** Chibi 2D emblems for the world destination rows (Dojo, Town/Market, Arcade, Spirits, Food Street). */
-function TileEmblem({
-  kind,
-  urgent = false,
-}: {
-  kind: 'dojo' | 'town' | 'arcade' | 'spirits' | 'food';
-  urgent?: boolean;
-}) {
-  if (kind === 'food') {
-    return (
-      <svg viewBox="0 0 48 48" className="tile-emblem" aria-hidden="true">
-        <ellipse cx="24" cy="43" rx="16" ry="3.8" fill="var(--c-shadow)" />
-        {/* Chibi Onigiri rice ball (+3 shade lip + fluffy rice triangle + top-left highlight) */}
-        <path
-          d="M24 11 C31 11 41 25 39 35 C38 40 32 41 24 41 C16 41 10 40 9 35 C7 25 17 11 24 11 Z"
-          transform="translate(0 3)"
-          fill="color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg))"
-        />
-        <path
-          d="M24 11 C31 11 41 25 39 35 C38 40 32 41 24 41 C16 41 10 40 9 35 C7 25 17 11 24 11 Z"
-          fill="var(--c-hud-ink)"
-        />
-        <ellipse
-          cx="19"
-          cy="19"
-          rx="5"
-          ry="2.2"
-          transform="rotate(-24 19 19)"
-          fill="var(--c-coin-shine)"
-          opacity="0.7"
-        />
-        {/* Crisp nori seaweed wrap at bottom */}
-        <rect x="16" y="29" width="16" height="12" rx="3" fill="var(--c-hud-bg)" />
-        {/* Rosy cheeks & warm healing heart badge */}
-        <ellipse cx="14" cy="28" rx="2.4" ry="1.4" fill="var(--c-petal)" opacity="0.85" />
-        <ellipse cx="34" cy="28" rx="2.4" ry="1.4" fill="var(--c-petal)" opacity="0.85" />
-        <path
-          d="M36 16 C36 16 31 12.8 31 9.5 C31 7.6 32.5 6.4 34.2 6.4 C35.2 6.4 36 7 36 7.8 C36 7 36.8 6.4 37.8 6.4 C39.5 6.4 41 7.6 41 9.5 C41 12.8 36 16 36 16 Z"
-          fill="var(--c-accent)"
-        />
-      </svg>
-    );
-  }
-
-  if (kind === 'dojo') {
-    return (
-      <svg viewBox="0 0 48 48" className="tile-emblem" aria-hidden="true">
-        <ellipse cx="24" cy="43" rx="16" ry="3.8" fill="var(--c-shadow)" />
-        {/* Crossed wooden bokken practice swords */}
-        <g transform="rotate(-38 24 24)">
-          <rect
-            x="6"
-            y="21.5"
-            width="36"
-            height="6"
-            rx="3"
-            fill="color-mix(in srgb, var(--c-gold) 54%, var(--c-hud-bg))"
-          />
-          <rect x="6" y="19.5" width="36" height="5.5" rx="2.8" fill="var(--c-panel-edge)" />
-          <rect x="6" y="19" width="11" height="6.5" rx="2.5" fill="var(--c-lacquer)" />
-        </g>
-        <g transform="rotate(38 24 24)">
-          <rect
-            x="6"
-            y="21.5"
-            width="36"
-            height="6"
-            rx="3"
-            fill="color-mix(in srgb, var(--c-gold) 54%, var(--c-hud-bg))"
-          />
-          <rect x="6" y="19.5" width="36" height="5.5" rx="2.8" fill="var(--c-panel-edge)" />
-          <rect x="31" y="19" width="11" height="6.5" rx="2.5" fill="var(--c-lacquer)" />
-        </g>
-        {/* Center dojo shield / hinomaru headband medallion */}
-        <circle
-          cx="24"
-          cy="26.5"
-          r="11.5"
-          fill="color-mix(in srgb, var(--c-panel-edge) 60%, var(--c-hud-bg))"
-        />
-        <circle cx="24" cy="24" r="11.5" fill="var(--c-hud-ink)" />
-        <circle cx="24" cy="24.5" r="5.5" fill="var(--c-lacquer)" />
-        <circle cx="24" cy="23.5" r="5.2" fill="var(--c-accent)" />
-        <ellipse
-          cx="20"
-          cy="18"
-          rx="3.6"
-          ry="1.6"
-          transform="rotate(-18 20 18)"
-          fill="var(--c-coin-shine)"
-          opacity="0.65"
-        />
-        {urgent && <circle cx="38" cy="11" r="5" fill="var(--c-accent)" />}
-      </svg>
-    );
-  }
-
-  if (kind === 'town') {
-    return (
-      <svg viewBox="0 0 48 48" className="tile-emblem" aria-hidden="true">
-        <ellipse cx="24" cy="43" rx="18" ry="3.8" fill="var(--c-shadow)" />
-        {/* Edo City Market wooden storefront */}
-        <rect
-          x="9"
-          y="21"
-          width="30"
-          height="20"
-          rx="4"
-          fill="color-mix(in srgb, var(--c-gold) 52%, var(--c-hud-bg))"
-        />
-        <rect
-          x="9"
-          y="18.5"
-          width="30"
-          height="19.5"
-          rx="4"
-          fill="color-mix(in srgb, var(--c-hud-ink) 88%, var(--c-gold-soft))"
-        />
-        {/* Indigo market noren flaps */}
-        {[12, 20.5, 29].map((nx, i) => (
-          <g key={i}>
-            <rect
-              x={nx}
-              y="20.5"
-              width="7"
-              height="10"
-              rx="2"
-              fill="color-mix(in srgb, var(--c-secondary) 60%, var(--c-hud-bg))"
-            />
-            <rect x={nx} y="19" width="7" height="9.5" rx="2" fill="var(--c-secondary)" />
-          </g>
-        ))}
-        {/* Sweeping tiled market roof (+3 lip + main + highlight) */}
-        <path d="M4 21 Q24 6 44 21 L40 25 Q24 14 8 25 Z" fill="var(--c-hud-bg)" />
-        <path d="M4 18 Q24 3 44 18 L40 22 Q24 11 8 22 Z" fill="var(--c-lacquer)" />
-        <ellipse
-          cx="17"
-          cy="14"
-          rx="6"
-          ry="2"
-          transform="rotate(-18 17 14)"
-          fill="var(--c-coin-shine)"
-          opacity="0.45"
-        />
-        {/* Glowing red chōchin stall lantern */}
-        <ellipse cx="38" cy="31" rx="4.8" ry="5.5" fill="var(--c-accent)" />
-        <circle cx="38" cy="31" r="2.5" fill="var(--c-glow)" />
-      </svg>
-    );
-  }
-
-  if (kind === 'arcade') {
-    return (
-      <svg viewBox="0 0 48 48" className="tile-emblem" aria-hidden="true">
-        <ellipse cx="24" cy="43" rx="16" ry="3.8" fill="var(--c-shadow)" />
-        {/* Festival Taiko drum (+3 lip + crimson body + cream drumhead) */}
-        <circle cx="23" cy="27" r="15" fill="var(--c-lacquer)" />
-        <circle cx="23" cy="24" r="15" fill="var(--c-accent)" />
-        <circle
-          cx="23"
-          cy="25.5"
-          r="11"
-          fill="color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg))"
-        />
-        <circle cx="23" cy="24" r="11" fill="var(--c-hud-ink)" />
-        <ellipse
-          cx="17"
-          cy="15"
-          rx="4.8"
-          ry="1.8"
-          transform="rotate(-20 17 15)"
-          fill="var(--c-coin-shine)"
-          opacity="0.5"
-        />
-        {/* Speed Rush lightning bolt (+3 gold lip + glow) */}
-        <path
-          d="M26 11 L16 25 H24 L21 38 L34 22 H25.5 Z"
-          transform="translate(0 2)"
-          fill="var(--c-gold)"
-        />
-        <path d="M26 11 L16 25 H24 L21 38 L34 22 H25.5 Z" fill="var(--c-glow)" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 48 48" className="tile-emblem" aria-hidden="true">
-      <ellipse cx="24" cy="43" rx="14" ry="3.5" fill="var(--c-shadow)" />
-      {/* Chibi Kotodama word-spirit wisp with +3 lip, two-catchlight eyes & flame tuft */}
-      <path
-        d="M13 20 C11 11 15 6 19 8 L21 15 Z M35 20 C37 11 33 6 29 8 L27 15 Z"
-        fill="var(--c-accent)"
-      />
-      <rect
-        x="10"
-        y="16"
-        width="28"
-        height="23"
-        rx="11.5"
-        fill="color-mix(in srgb, var(--c-hud-ink) 72%, var(--c-panel-edge))"
-      />
-      <rect x="10" y="13" width="28" height="22" rx="11" fill="var(--c-hud-ink)" />
-      <ellipse
-        cx="18"
-        cy="18"
-        rx="5"
-        ry="2.2"
-        transform="rotate(-16 18 18)"
-        fill="var(--c-coin-shine)"
-        opacity="0.65"
-      />
-      {/* Two-catchlight chibi eyes + rosy cheeks */}
-      <ellipse cx="15" cy="27.5" rx="2.6" ry="1.5" fill="var(--c-petal)" />
-      <ellipse cx="33" cy="27.5" rx="2.6" ry="1.5" fill="var(--c-petal)" />
-      <ellipse cx="18.5" cy="25" rx="2.4" ry="2.8" fill="var(--c-hud-bg)" />
-      <circle cx="17.7" cy="23.9" r="1" fill="var(--c-hud-ink)" />
-      <circle cx="19.3" cy="26" r="0.5" fill="var(--c-hud-ink)" />
-      <ellipse cx="29.5" cy="25" rx="2.4" ry="2.8" fill="var(--c-hud-bg)" />
-      <circle cx="28.7" cy="23.9" r="1" fill="var(--c-hud-ink)" />
-      <circle cx="30.3" cy="26" r="0.5" fill="var(--c-hud-ink)" />
-      <path
-        d="M22 27.5 Q24 29.8 26 27.5"
-        stroke="var(--c-hud-bg)"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        fill="none"
-      />
-      {/* Golden spirit flame crown */}
-      <path d="M24 4 C28 8 28 13 24 15 C20 13 20 8 24 4 Z" fill="var(--c-gold)" />
-      <path d="M24 2.5 C28 6.5 28 11.5 24 13.5 C20 11.5 20 6.5 24 2.5 Z" fill="var(--c-glow)" />
-    </svg>
-  );
-}
-
+/**
+ * Home is one screen with one job: a scene of where you are in the story, one button to keep
+ * going, and at most three reminders that only appear when something needs you. Stats live in
+ * the header and places live in the tab bar, so Home repeats neither.
+ */
 export function HomeScreen() {
   const s = useStats();
   const save = useSave();
   const index = useGame((st) => st.index);
-  const clock = useGame((st) => st.clock);
-  const goalPct = Math.min(100, Math.round((s.todayXp / s.goal) * 100));
-  const away = daysAway(save, { now: s.now, timeZone: clock.timeZone() });
-  const towns = districtStates(save, index, districts, away);
-  const restoredCount = towns.filter((d) => d.restored).length;
-  const spiritCount = Object.keys(save.cards).length
-    ? new Set(Object.keys(save.cards).map((k) => k.split('#')[0])).size
-    : 0;
-  const lowHp = s.hearts !== null && s.maxHearts !== null && s.hearts < s.maxHearts;
-  const awake = Math.max(
-    0.15,
-    towns.filter((d) => d.lit).length /
-      Math.max(1, towns.filter((d) => d.district.restoredBy).length),
-  );
+  const desk = useDesk();
+  const goalPct = desk.status.goalPct;
   const hour = new Date(s.now).getHours();
   const hello = greeting(hour);
-  let next: { title: string; unit: string; href: string; kind: string } | null = null;
+  let next: { title: string; unit: string; href: string; kind: string; unitIndex: number } | null =
+    null;
   for (const p of index.paths) {
     const keys = p.nodes.map((n) => n.key);
     const n = p.nodes.find((x) => !save.nodes[x.key] && isUnlocked(save, keys, x.key));
@@ -914,190 +542,100 @@ export function HomeScreen() {
         unit: n.unit.title,
         href: `/lesson/${n.packId}/${n.node.id}`,
         kind: n.node.kind,
+        unitIndex: n.unitIndex,
       };
       break;
     }
   }
+  // The scene is the region of the next lesson; with everything done, the furthest region.
+  const region = next ? regionForUnit(next.unitIndex) : regions[regions.length - 1]!;
+  const spiritCount = new Set(Object.keys(save.cards).map((k) => k.split('#')[0])).size;
+  const awake = desk.town.total ? Math.max(0.15, desk.town.open / desk.town.total) : 0.15;
+  const notes = desk.notes.slice(0, 3);
+  const met = desk.status.goalMet;
+
   return (
     <div className="stack home-screen">
-      <section className="card home-hero" aria-label="Today">
-        {/* Chibi Dojo Gate & Traveler's Camp diorama with Koto greeting you on the path. */}
-        <div className="home-stage">
-          <TourButton />
+      <section className={`home-hero home-scene home-scene-${region.id}`} aria-label="Today">
+        {region.id === 'dojo' ? (
+          <DojoHallBackdrop className="home-backdrop" />
+        ) : region.id === 'market' ? (
+          <MarketStreetBackdrop className="home-backdrop" />
+        ) : (
           <HomeCampDiorama
             hour={hour}
             awake={save.lessonCount ? awake : 0.2}
             litFire={s.streak > 0 || s.todayXp > 0 || save.lessonCount > 0}
           />
-          <div className="home-hero-guide">
-            <Mascot
-              outfit={save.lessonCount === 0 ? 'guide' : 'sensei'}
-              pose={s.todayXp >= s.goal ? 'cheer' : 'wave'}
-              size={104}
-              facing="right"
-            />
-          </div>
-          <div className="speech">
-            <SpeakableJa text={hello.ja} role="teach" className="speech-ja" />
-            <span className="small">{hello.en}</span>
-          </div>
+        )}
+        <div className="home-scene-floor" aria-hidden="true" />
+        <p className="home-place">{region.en}</p>
+        <TourButton />
+        <div className="home-koto">
+          <Mascot
+            outfit={save.lessonCount === 0 ? 'guide' : 'sensei'}
+            pose={met ? 'cheer' : 'wave'}
+            size={92}
+            facing="right"
+          />
         </div>
-        <div className="home-hero-body">
-          <div className="stack home-today-copy" style={{ gap: 'var(--sp-1)' }}>
-            <p className="eyebrow">Today</p>
-            <h1>
-              {s.todayXp >= s.goal
-                ? 'Goal met. The town glows.'
-                : s.streak
-                  ? `Keep your ${s.streak}-day streak alive`
-                  : 'Wake your first spirit'}
-            </h1>
-            <div className="row home-chips" style={{ gap: 'var(--sp-2)' }}>
-              <span className="pill pill-accent">
-                <FlameIcon size={16} lit={s.streak > 0} /> {s.streak} day streak
-              </span>
-              <span className="pill pill-gold">
-                <YenIcon size={16} /> {s.yen}
-              </span>
-              {s.tokens > 0 && (
-                <span className="pill">
-                  <CapsuleIcon size={16} /> {s.tokens}
-                </span>
-              )}
-            </div>
-            <div className="home-goal-summary">
-              <p className="muted small">
-                {s.todayXp} / {s.goal} XP
-                {s.due > 0 ? ` · ${s.due} review${s.due === 1 ? '' : 's'} due` : ''}
-              </p>
-              <div className="home-goal-bar" aria-hidden="true">
-                <span style={{ transform: `scaleX(${goalPct / 100})` }} />
-              </div>
-            </div>
-          </div>
-          <Slot slot="streak.extend" fire={save.streak.lastGoalDay} className="ring-wrap">
-            <div
-              className="ring"
-              style={{ ['--p' as string]: goalPct }}
-              role="img"
-              aria-label={`Daily goal ${goalPct}%`}
-            >
-              <GoalLanternSVG pct={goalPct} />
-              <div>{goalPct}%</div>
-            </div>
-          </Slot>
+        <div className="speech">
+          <SpeakableJa text={hello.ja} role="teach" className="speech-ja" />
+          <span className="small">{hello.en}</span>
+        </div>
+        <div className="home-hero-avatar">
+          <Avatar size={88} mood={met ? 'happy' : 'idle'} />
         </div>
       </section>
 
-      <section className="card next-card stack">
-        <div className="row next-signpost-row" style={{ flexWrap: 'nowrap' }}>
-          <div className="next-avatar">
-            <Avatar size={76} mood={s.todayXp >= s.goal ? 'happy' : 'idle'} />
-          </div>
-          <div className="stack next-signpost-copy" style={{ gap: 'var(--sp-1)', minWidth: 0 }}>
-            <p className="eyebrow">{next?.kind === 'checkpoint' ? 'Boss ahead' : 'Next lesson'}</p>
-            {next ? (
-              <>
-                <h2>{next.title}</h2>
-                <p className="muted small">{next.unit}</p>
-              </>
-            ) : (
-              <p>Every installed lesson is done. Ask ChatGPT for the next pack.</p>
-            )}
-          </div>
-          <SignpostArrowSVG isBoss={next?.kind === 'checkpoint'} />
-        </div>
-        {next ? (
-          <Link className="btn btn-accent btn-block play-btn" to={next.href}>
-            {save.lessonCount ? 'Continue' : 'Start your first lesson'}
-          </Link>
-        ) : (
-          <Link className="btn btn-indigo btn-block play-btn" to="/packs">
-            Add a lesson pack
-          </Link>
-        )}
-      </section>
-
-      <div className="grid-2 home-tiles">
-        {lowHp && (
-          <Link to="/food" className="card stack card-link tile-card tile-food">
-            <TileEmblem kind="food" />
-            <div className="tile-copy">
-              <div className="tile-head">
-                <p className="eyebrow">Food Street</p>
-                <h2>
-                  HP {s.hearts} / {s.maxHearts}
-                </h2>
-              </div>
-              <p className="muted small">Order a warm meal in Japanese to heal up.</p>
-            </div>
-            <span className="tile-action" aria-hidden="true">
-              Heal ›
-            </span>
-          </Link>
-        )}
+      {next ? (
         <Link
-          to={s.due ? '/dojo' : '/reviews'}
-          className={`card stack card-link tile-card ${s.due ? 'urgent' : ''}`}
+          className="next-card home-continue"
+          to={next.href}
+          aria-label={`${save.lessonCount ? 'Continue' : 'Start your first lesson'}: ${next.title}`}
         >
-          <TileEmblem kind="dojo" urgent={s.due > 0} />
-          <div className="tile-copy">
-            <div className="tile-head">
-              <p className="eyebrow">Dojo</p>
-              <h2>{s.due ? `${s.due} spirits fading` : 'No spirits fading'}</h2>
-            </div>
-            <p className="muted small">
-              {s.due
-                ? 'Clear the fog to rescue them. Until then lessons pay half yen.'
-                : 'Reviews appear here as your memory needs them.'}
-            </p>
-          </div>
-          <span className="tile-action" aria-hidden="true">
-            {s.due ? 'Review ›' : '›'}
+          <span className="home-continue-copy">
+            <span className="eyebrow">
+              {next.kind === 'checkpoint' ? 'Boss ahead' : 'Next lesson'}
+            </span>
+            <span className="home-continue-title">{next.title}</span>
+            <Slot slot="streak.extend" fire={save.streak.lastGoalDay} className="home-goal">
+              <span className="home-goal-bar" role="img" aria-label={`Daily goal ${goalPct}%`}>
+                <span style={{ transform: `scaleX(${goalPct / 100})` }} />
+              </span>
+              <span className="home-goal-text">
+                {met ? 'Goal met today' : `${desk.status.todayXp} / ${desk.status.goal} XP today`}
+              </span>
+            </Slot>
+          </span>
+          <span className="home-continue-go" aria-hidden="true">
+            {save.lessonCount ? 'Continue' : 'Start'}
           </span>
         </Link>
-        <Link to="/town" className="card stack card-link tile-card">
-          <TileEmblem kind="town" />
-          <div className="tile-copy">
-            <div className="tile-head">
-              <p className="eyebrow">Town</p>
-              <h2>Kotodama Town</h2>
-            </div>
-            <p className="muted small">
-              {restoredCount} of {towns.length} districts awake
-            </p>
-          </div>
-          <span className="tile-action" aria-hidden="true">
-            {restoredCount}/{towns.length} ›
+      ) : (
+        <Link className="next-card home-continue" to="/packs">
+          <span className="home-continue-copy">
+            <span className="eyebrow">All caught up</span>
+            <span className="home-continue-title">Every lesson is done</span>
           </span>
+          <span className="home-continue-go">Add a pack</span>
         </Link>
-        <Link to="/modes" className="card stack card-link tile-card">
-          <TileEmblem kind="arcade" />
-          <div className="tile-copy">
-            <div className="tile-head">
-              <p className="eyebrow">Arcade</p>
-              <h2>Kana Rush · Listening Rush</h2>
+      )}
+
+      {notes.length > 0 && (
+        <div className="home-nudges" role="list" aria-label="Needs you">
+          {notes.map((n) => (
+            <div role="listitem" key={n.id}>
+              <Nudge note={n} />
             </div>
-            <p className="muted small">Survive until three misses. Beat your ghost.</p>
-          </div>
-          <span className="tile-action" aria-hidden="true">
-            ›
-          </span>
-        </Link>
-        <Link to="/collection" className="card stack card-link tile-card">
-          <TileEmblem kind="spirits" />
-          <div className="tile-copy">
-            <div className="tile-head">
-              <p className="eyebrow">Spirits</p>
-              <h2>{spiritCount ? `${spiritCount} awake` : 'None yet'}</h2>
-            </div>
-            <p className="muted small">Every word you learn wakes one.</p>
-          </div>
-          <span className="tile-action" aria-hidden="true">
-            {spiritCount ? `${spiritCount} ›` : '›'}
-          </span>
-        </Link>
-      </div>
+          ))}
+        </div>
+      )}
+
+      <nav className="home-more" aria-label="More to play">
+        <Link to="/modes">Arcade</Link>
+        <Link to="/collection">Spirits{spiritCount ? ` · ${spiritCount} awake` : ''}</Link>
+      </nav>
     </div>
   );
 }

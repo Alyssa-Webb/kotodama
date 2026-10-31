@@ -29,3 +29,7 @@ Both claims released: the softer Home and region battle backdrops are live. For 
 ### 2026-10-31 · Claude (paused at 84% usage)
 
 Two Argon runs for the Home redesign are running on Antigravity (`run-agy.sh`, Ken's Google AI Pro): `home-scene` (concept A, the scene is the UI) and `home-emaki` (concept B, the emaki scroll), each with the management desk (`src/features/home/desk.ts`). They commit to `art/home-scene` and `art/home-emaki` when done. Next: review both, show Ken both on the phone (ports 4176 and 4177), merge his pick, run the checks, push, release the Home claim. Home stays claimed by Claude until then.
+
+### 2026-10-31 · Claude → Alyssa's AI
+
+Home claim released. Ken turned down both Argon Home concepts (scene and scroll), so Home is now one screen built from existing art: the current region's scene (`DojoHallBackdrop` for the Dojo, the bamboo diorama, `MarketStreetBackdrop` for the market), one Continue card with the daily goal, at most three reminders from `desk.ts`, and Arcade and Spirits links. `e2e/home.spec.ts` covers it. Note for both of us: run `npm run e2e`, not `npx playwright test`; the latter reuses a stale `dist/`.

@@ -1,78 +1,95 @@
-/* Home screen: soft, unframed Dojo Gate & Traveler's Camp diorama, filling shrine lantern goal,
-   friendly next-lesson signpost, and light text-and-icon secondary rows.
-   No heavy outlines, no chunky 3D button slabs, no boxes inside boxes.
-   Performance: animate ONLY transform and opacity, no section-scaling entrances, minimal idle loops. */
+/* Home: one screen, one job. A scene of where you are in the story, one button to keep going,
+   and at most three reminders that appear only when something needs you.
+   Soft surfaces, no outlines, no boxes inside boxes. Animate only transform and opacity. */
 
 .home-screen {
-  gap: var(--sp-4);
-  /* No entrance animation that scales whole sections */
+  gap: var(--sp-2);
   animation: none !important;
 }
 
-/* ---------------- HERO: UNFRAMED DIORAMA & SOFT TODAY SUMMARY ---------------- */
+/* ---------------- THE SCENE ---------------- */
 
-.home-screen .card.home-hero {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-  padding: 0;
-  border: 0;
-  border-radius: 28px;
-  background: none;
-  box-shadow: none;
-  overflow: visible;
-  animation: none;
-}
-
-.home-screen .card.home-hero::before {
-  display: none;
-}
-
-.home-stage {
+.home-scene {
   position: relative;
-  height: 162px;
+  height: clamp(168px, 27svh, 280px);
   overflow: hidden;
-  border: 0;
-  border-radius: 26px;
+  border-radius: 28px;
   background: var(--c-sky-bottom);
-  box-shadow: 0 8px 24px -14px var(--c-shadow);
+  box-shadow: 0 10px 28px -16px var(--c-shadow);
+  isolation: isolate;
 }
 
-/* Soft, borderless ? tour button floating in the corner of the diorama */
-.home-stage .tour-btn {
-  border: 0;
-  background: color-mix(in srgb, var(--c-panel) 90%, var(--c-surface));
-  color: var(--c-accent);
-  box-shadow: 0 4px 12px var(--c-shadow);
-}
-
-.home-stage .tour-btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 8px var(--c-shadow);
-}
-
-.home-diorama {
+.home-scene .home-backdrop,
+.home-scene .home-diorama {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   pointer-events: none;
 }
 
-.home-hero-guide {
+/* A soft fade at the foot of the scene so the characters stand on something calm. */
+.home-scene-floor {
   position: absolute;
-  left: 6px;
-  bottom: -6px;
+  inset: auto 0 0;
+  height: 42%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--c-hud-bg) 46%, transparent)
+  );
+  pointer-events: none;
+}
+
+.home-place {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  z-index: 2;
+  margin: 0;
+  padding: 4px var(--sp-3);
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--c-hud-bg) 62%, transparent);
+  color: var(--c-hud-ink);
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-scene .tour-btn {
+  position: absolute;
+  top: var(--sp-2);
+  right: var(--sp-2);
+  z-index: 3;
+  border: 0;
+  box-shadow: 0 4px 12px -6px var(--c-shadow);
+}
+
+.home-koto,
+.home-hero-avatar {
+  position: absolute;
+  bottom: 4px;
   z-index: 2;
   line-height: 0;
   pointer-events: none;
 }
 
+.home-koto {
+  left: 2px;
+}
+
+.home-hero-avatar {
+  right: 6px;
+}
+
 /* Soft cloud speech bubble beside Koto (no heavy outline or 3D bottom ledge) */
 .speech {
   position: absolute;
-  left: 108px;
-  right: 56px;
-  bottom: 14px;
+  left: 92px;
+  right: 88px;
+  bottom: 22px;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -86,7 +103,7 @@
   border: 0;
   box-shadow: 0 6px 18px -6px var(--c-shadow);
   transform-origin: 0% 80%;
-  animation: home-small-pop var(--dur-slow) var(--spring) 120ms both;
+  animation: home-small-pop var(--dur-slow) var(--spring) 120ms backwards;
 }
 
 .speech::before {
@@ -111,6 +128,9 @@
   border: 0;
   color: var(--c-ink);
   cursor: pointer;
+  /* Keep a greeting whole; break it only when it can't fit at all (large text). */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 /* Expand tap target across the whole speech cloud so tapping anywhere speaks (>= 44px) */
@@ -121,336 +141,185 @@
   border-radius: inherit;
 }
 
-/* Soft, open Today summary surface below the diorama */
-.home-hero-body {
+/* ---------------- CONTINUE ---------------- */
+
+.home-continue {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4);
+  padding: 10px var(--sp-3) 10px var(--sp-4);
   border-radius: 24px;
-  border: 0;
-  background: color-mix(in srgb, var(--c-panel) 72%, transparent);
-  box-shadow: none;
-}
-
-.home-today-copy {
-  min-width: 0;
-  flex: 1;
-}
-
-/* Override .main h1 lacquer banner so h1 inside .home-hero-body is clean typography, not a box in a box */
-.main .home-hero-body h1 {
-  margin: 0;
-  padding: 0;
-  background: none;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  text-shadow: none;
-  text-align: left;
+  background: var(--c-panel);
   color: var(--c-ink);
-  font-size: var(--fs-lg);
-  line-height: 1.22;
+  text-decoration: none;
+  box-shadow: 0 8px 22px -14px var(--c-shadow);
+  transition: transform var(--dur-fast) var(--ease);
 }
 
-/* Soft, borderless status chips */
-.home-chips {
-  margin-top: 2px;
+.home-continue:active {
+  transform: scale(0.98);
 }
 
-.home-screen .pill {
-  border: 0;
-  box-shadow: none;
-  border-radius: var(--r-pill);
-  padding: 4px var(--sp-3);
+.home-continue:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 2px;
 }
 
-.home-goal-summary {
+.home-continue-copy {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  gap: 5px;
-  margin-top: 2px;
+  gap: 2px;
+  min-width: 0;
+}
+
+.home-continue .eyebrow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.home-continue-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.home-goal {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-1);
 }
 
 .home-goal-bar {
+  position: relative;
+  flex: 1;
+  max-width: 120px;
   height: 6px;
-  width: 100%;
-  max-width: 210px;
-  border-radius: var(--r-pill);
-  background: color-mix(in srgb, var(--c-ink) 10%, var(--c-surface-alt));
   overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-alt);
 }
 
 .home-goal-bar > span {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--c-accent), var(--c-glow));
-  transform-origin: left center;
-  transition: transform var(--dur-slow) var(--spring);
-}
-
-/* ---------------- TODAY'S GOAL: FILLING SHRINE LANTERN ---------------- */
-
-.ring-wrap {
-  flex: none;
-}
-
-.home-screen .ring {
-  position: relative;
-  width: 82px;
-  height: 90px;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-  display: grid;
-  place-items: center;
-}
-
-.goal-lantern-svg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
+  border-radius: inherit;
+  background: var(--c-gold);
+  transform-origin: 0 50%;
+  transition: transform var(--dur-slow) var(--ease);
 }
 
-/* Soft, unoutlined percentage pill centered on the shrine lantern */
-.home-screen .ring > div {
-  position: relative;
-  z-index: 1;
-  width: auto;
-  height: auto;
-  min-width: 44px;
-  padding: 2px 9px;
-  border-radius: var(--r-pill);
-  background: color-mix(in srgb, var(--c-panel) 94%, var(--c-surface));
-  color: var(--c-ink);
-  border: 0;
-  font-size: var(--fs-xs);
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.3;
-  box-shadow: 0 2px 8px var(--c-shadow);
-  animation: home-small-pop var(--dur-slow) var(--spring) 160ms both;
-}
-
-/* ---------------- NEXT LESSON: SOFT ROADSIDE SIGNPOST & PRIMARY ACTION ---------------- */
-
-.home-screen .card.next-card {
-  gap: var(--sp-3);
-  padding: var(--sp-4);
-  border-radius: 26px;
-  border: 0;
-  background: color-mix(in srgb, var(--c-panel) 82%, var(--c-gold-soft));
-  box-shadow: 0 6px 20px -12px var(--c-shadow);
-  animation: none;
-}
-
-.home-screen .card.next-card::before {
-  display: none;
-}
-
-.next-signpost-row {
-  align-items: center;
-  gap: var(--sp-3);
-}
-
-/* Avatar stands directly beside the signpost on a soft ground shadow (no inner box around avatar) */
-.next-avatar {
-  position: relative;
-  flex: none;
-  width: 72px;
-  height: 84px;
-  display: grid;
-  place-items: end center;
-  background: none;
-  border: 0;
-  box-shadow: none;
-}
-
-.next-avatar::before {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  width: 48px;
-  height: 10px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: var(--c-shadow);
-  pointer-events: none;
-}
-
-.next-signpost-copy {
-  flex: 1;
-}
-
-.next-signpost-copy h2 {
-  font-size: var(--fs-lg);
-  line-height: 1.22;
-}
-
-.signpost-arrow-svg {
-  flex: none;
-  width: 40px;
-  height: 48px;
-}
-
-/* Smooth, friendly pill control for the primary action (no thick outline, no 3D button slab) */
-.home-screen .play-btn {
-  min-height: 52px;
-  padding: var(--sp-3) var(--sp-5);
-  font-size: var(--fs-md);
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  border-radius: var(--r-pill);
-  border: 0;
-  text-shadow: none;
-  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--c-accent) 36%, var(--c-shadow));
-}
-
-.home-screen .play-btn.btn-accent {
-  background: var(--c-accent);
-  color: var(--c-accent-ink);
-}
-
-.home-screen .play-btn.btn-indigo {
-  background: var(--c-secondary);
-  color: var(--c-secondary-ink);
-  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--c-secondary) 36%, var(--c-shadow));
-}
-
-.home-screen .play-btn::before,
-.home-screen .play-btn::after {
-  display: none;
-}
-
-.home-screen .play-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-}
-
-.home-screen .play-btn:active:not(:disabled) {
-  transform: scale(0.985);
-  box-shadow: 0 4px 12px -6px var(--c-shadow);
-}
-
-/* ---------------- SECONDARY ACTIONS: LIGHT TEXT-AND-ICON ROWS ---------------- */
-
-.grid-2.home-tiles {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-}
-
-/* Disable global .grid-2 > * scaling entrance on home rows for zero lag */
-.grid-2.home-tiles > .tile-card,
-.home-screen .grid-2.home-tiles > .card.tile-card:nth-child(odd),
-.home-screen .grid-2.home-tiles > .card.tile-card:nth-child(even) {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--sp-3);
-  min-height: 56px;
-  padding: var(--sp-2) var(--sp-3);
-  border-radius: 20px;
-  border: 0;
-  background: color-mix(in srgb, var(--c-panel) 68%, transparent);
-  box-shadow: none;
-  animation: none;
-}
-
-.home-screen .tile-card::before {
-  display: none;
-}
-
-.home-screen .tile-card:hover,
-.home-screen .grid-2.home-tiles > .tile-card:nth-child(even):hover {
-  transform: translateY(-1px);
-}
-
-.home-screen .tile-card:active {
-  transform: scale(0.99);
-}
-
-.tile-emblem {
-  flex: none;
-  width: 38px;
-  height: 38px;
-  overflow: visible;
-}
-
-.tile-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-  min-width: 0;
-}
-
-.tile-head {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tile-card h2 {
-  font-size: var(--fs-md);
-  line-height: 1.22;
-}
-
-/* Town row heading fallback if h2 is empty */
-.tile-card h2:empty::before {
-  content: 'City Market';
-}
-
-.tile-card .muted.small {
-  font-size: var(--fs-xs);
-  line-height: 1.35;
-}
-
-.tile-action {
-  flex: none;
-  font-size: var(--fs-xs);
-  font-weight: 800;
+.home-goal-text {
   color: var(--c-ink-muted);
-  padding: 4px 8px;
-  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
   white-space: nowrap;
 }
 
-/* Soft tinted highlight when reviews are due or HP is low (no heavy border or 3D slab) */
-.home-screen .grid-2.home-tiles > .card.tile-card.urgent,
-.home-screen .grid-2.home-tiles > .card.tile-card.tile-food {
-  background: color-mix(in srgb, var(--c-accent-soft) 68%, var(--c-panel));
+.home-continue-go {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  max-width: 46%;
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  background: var(--c-accent);
+  color: var(--c-accent-ink);
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.15;
+  box-shadow: 0 6px 14px -8px var(--c-accent);
+}
+
+/* ---------------- REMINDERS (only when something needs you) ---------------- */
+
+.home-nudges {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.home-nudge {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 44px;
+  padding: 6px var(--sp-3);
   border: 0;
-  box-shadow: none;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--c-panel) 72%, transparent);
+  color: var(--c-ink);
+  font: inherit;
+  font-size: var(--fs-sm);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease);
 }
 
-.tile-card.urgent .tile-action,
-.tile-card.tile-food .tile-action {
-  background: color-mix(in srgb, var(--c-accent) 16%, var(--c-panel));
-  color: color-mix(in srgb, var(--c-accent) 78%, var(--c-ink));
+div.home-nudge {
+  cursor: default;
 }
 
-.tile-card.urgent .tile-emblem {
-  animation: home-emblem-bob calc(var(--dur-celebrate) * 1.8) ease-in-out infinite alternate;
+.home-nudge:active {
+  transform: scale(0.98);
 }
 
-@media (min-width: 680px) {
-  .grid-2.home-tiles {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--sp-2);
-  }
+.home-nudge-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-secondary);
+}
 
-  .grid-2.home-tiles > .tile-food {
-    grid-column: 1 / -1;
-  }
+.home-nudge.tone-urgent .home-nudge-dot {
+  background: var(--c-danger);
+}
+
+.home-nudge.tone-reward .home-nudge-dot {
+  background: var(--c-gold);
+}
+
+.home-nudge-text {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+}
+
+.home-nudge-cta {
+  flex: none;
+  color: var(--c-accent);
+  font-weight: 800;
+}
+
+/* ---------------- MORE TO PLAY ---------------- */
+
+.home-more {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+
+.home-more a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  color: var(--c-ink-muted);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-more a:active {
+  transform: scale(0.97);
 }
 
 /* ---------------- LIGHTWEIGHT TRANSFORM + OPACITY MOTION ---------------- */
@@ -523,25 +392,16 @@
   }
 }
 
-@keyframes home-emblem-bob {
-  from {
-    transform: translateY(0) rotate(-3deg);
-  }
-  to {
-    transform: translateY(-3px) rotate(3deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .speech,
-  .home-screen .ring > div,
   .home-goal-bar > span,
+  .home-continue,
+  .home-nudge,
   .home-noren-sway,
   .home-flame-flicker,
   .home-ambient-1,
   .home-ambient-2,
-  .home-ambient-3,
-  .tile-card.urgent .tile-emblem {
+  .home-ambient-3 {
     animation: none !important;
     transition: none !important;
   }

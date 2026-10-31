@@ -21,15 +21,15 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                                                | AI     | Files and folders                                                                                                                      | Branch          | Issue | Claimed (UTC)    |
-| ------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ----- | ---------------- |
-| Home redesign with a management desk (two concepts for Ken to pick) | Claude | `src/features/home/**`, `src/features/town/Tycoon.tsx`, `src/features/town/useTown.ts` (sharing the town income calculation with Home) | `cursor/gemini` | –     | 2026-10-31 04:05 |
+| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
+| ---- | --- | ----------------- | ------ | ----- | ------------- |
 
 ## Done
 
-| Task                                       | AI     | Finished (UTC)   | Commit      |
-| ------------------------------------------ | ------ | ---------------- | ----------- |
-| Battle walk: the road moves, not the sky   | Claude | 2026-10-30 20:10 | `128eace`   |
-| Town as an illustrated map                 | Claude | 2026-10-30 20:55 | `c6dc8f5`   |
-| Home: softer, kinder, more useful controls | Claude | 2026-10-31 03:45 | `a7154ad`   |
-| Battle backdrops per region                | Claude | 2026-10-31 03:50 | (this push) |
+| Task                                            | AI     | Finished (UTC)   | Commit      |
+| ----------------------------------------------- | ------ | ---------------- | ----------- |
+| Battle walk: the road moves, not the sky        | Claude | 2026-10-30 20:10 | `128eace`   |
+| Town as an illustrated map                      | Claude | 2026-10-30 20:55 | `c6dc8f5`   |
+| Home: softer, kinder, more useful controls      | Claude | 2026-10-31 03:45 | `a7154ad`   |
+| Battle backdrops per region                     | Claude | 2026-10-31 03:50 | (this push) |
+| Home as one screen (scene, Continue, reminders) | Claude | 2026-10-31 04:00 | (this push) |

@@ -27,7 +27,7 @@ async function giveYen(page: Page, yen: number) {
 
 test('buying in the shop opens the coin counter on screen and completes', async ({ page }) => {
   await page.goto('./');
-  await expect(page.getByRole('heading', { name: 'Wake your first spirit' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start your first lesson' })).toBeVisible();
   await giveYen(page, 1000);
   await page.goto('./#/shop');
 
