@@ -663,3 +663,15 @@
     animation: none !important;
   }
 }
+
+/* Region gates (placeholder look; the art pass draws them). */
+.region-gate {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 96px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}

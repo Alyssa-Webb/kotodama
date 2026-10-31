@@ -5,6 +5,7 @@ import { bosses } from '../../foundations/world';
 import { useSave } from '../hooks';
 import { Stars } from '../lesson/common';
 import { Avatar } from '../avatar/Avatar';
+import { RegionGate, gateFor } from './RegionGate';
 import './path.css';
 
 interface RegionInfo {
@@ -1841,6 +1842,9 @@ export function PathScreen() {
                       <div className="unit-stage">
                         <RegionScene region={region} lit={unitOpen} />
                         {!unitOpen && <RegionMist />}
+                        {gateFor(region.id) && (
+                          <RegionGate kind={gateFor(region.id)!} lit={unitOpen} />
+                        )}
 
                         {/* Roadside wooden region signboard hanging beside the trail where the region begins */}
                         <div className="unit-banner">
