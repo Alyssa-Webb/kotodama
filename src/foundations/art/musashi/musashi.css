@@ -85,36 +85,41 @@
   }
 }
 
-/* ---- Bow: respectful standing rei from the hips ---- */
+/* ---- Bow: respectful standing rei from the hips (gentle move into bow and hold) ---- */
 
-.musashi-pose-bow .musashi-breathe {
+.musashi-pose-bow .musashi-breathe,
+.musashi-pose-bow .musashi-hair-back,
+.musashi-pose-bow .musashi-hair-tufts,
+.musashi-pose-bow .musashi-obi-tail {
   animation: none;
 }
 
 .musashi-pose-bow .musashi-upper {
   transform-origin: 60px 85px;
-  animation:
-    musashi-bow-dip calc(var(--dur-slow, 420ms) * 1.6) var(--ease, ease-in-out) 1 both,
-    musashi-bow-hold calc(var(--dur-celebrate, 900ms) * 4.4) ease-in-out
-      calc(var(--dur-slow, 420ms) * 1.6) infinite;
+  animation: musashi-bow-dip calc(var(--dur-slow, 420ms) * 1.8) var(--ease, ease-in-out) 1 both;
+}
+
+.musashi-pose-bow .musashi-bow-hands {
+  transform-origin: 60px 72px;
+  animation: musashi-bow-hands-slide calc(var(--dur-slow, 420ms) * 1.8) var(--ease, ease-in-out) 1
+    both;
 }
 
 @keyframes musashi-bow-dip {
   0% {
-    transform: translate(-1.5px, -5.5px) rotate(-6deg);
+    transform: rotate(-30deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: rotate(0deg);
   }
 }
 
-@keyframes musashi-bow-hold {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
+@keyframes musashi-bow-hands-slide {
+  0% {
+    transform: translateY(-6px);
   }
-  50% {
-    transform: translateY(0.9px) rotate(0.9deg);
+  100% {
+    transform: translateY(0);
   }
 }
 
