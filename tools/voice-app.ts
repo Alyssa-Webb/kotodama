@@ -83,6 +83,10 @@ function kotoLines(): string[] {
   const out: string[] = ['ありがとうございます'];
   for (const v of Object.values(koto))
     if (Array.isArray(v)) for (const l of v as { ja?: string }[]) if (l.ja) out.push(l.ja);
+  // Home: his time-of-day greetings and the lines a tap cycles through.
+  const home = koto.home as Record<string, { ja?: string } | { ja?: string }[]> | undefined;
+  for (const v of Object.values(home ?? {}))
+    for (const l of Array.isArray(v) ? v : [v]) if (l.ja) out.push(l.ja);
   for (const d of YEN_DENOMINATIONS) out.push(yenFurigana(d));
   const shop = read('world/shop.json') as { consumables: { price: number }[] };
   const meals = (read('world/meals.json') as { meals: { price: number }[] }).meals;

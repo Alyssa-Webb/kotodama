@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { TourButton } from '../tour/Tour';
 import { useGame } from '../../foundations/store/gameStore';
 import { isUnlocked } from '../../engine/game';
-import { regionForUnit, regions } from '../../foundations/world';
+import { koto, regionForUnit, regions } from '../../foundations/world';
 import { useSave, useStats } from '../hooks';
 import { Avatar } from '../avatar/Avatar';
-import { SpeakableJa } from '../../foundations/japanese/Ja';
+import { JaText, useJa } from '../../foundations/japanese/Ja';
+import type { KotoLine } from '../../schema/koto';
 import { Mascot } from '../../foundations/art/Mascot';
 import { DojoHallBackdrop, MarketStreetBackdrop } from '../lesson/BattleBackdrops';
 import { useDesk } from './desk';
@@ -14,10 +16,37 @@ import { Omamori } from './parts/Omamori';
 import { PlaceSign, SceneEave } from './parts/SceneFrame';
 import './home.css';
 
-function greeting(hour: number): { ja: string; en: string } {
-  if (hour < 4 || hour >= 18) return { ja: 'こんばんは！', en: 'Good evening, traveler.' };
-  if (hour < 11) return { ja: 'おはようございます！', en: 'Good morning, traveler.' };
-  return { ja: 'こんにちは！', en: 'Hello, traveler.' };
+/** Koto's time-of-day greeting (world/koto.json). */
+function greeting(hour: number): KotoLine {
+  if (hour < 4 || hour >= 18) return koto.home.evening;
+  if (hour < 11) return koto.home.morning;
+  return koto.home.day;
+}
+
+/**
+ * Koto's speech bubble: his greeting first; each tap moves to his next line and says it in his
+ * own VOICEVOX voice.
+ */
+function KotoBubble({ hour }: { hour: number }) {
+  const { speak } = useJa();
+  const lines = [greeting(hour), ...koto.home.lines];
+  const [i, setI] = useState(0);
+  const line = lines[i % lines.length]!;
+  return (
+    <button
+      type="button"
+      className="speech speech-cycle"
+      aria-label={`Koto says: ${line.en} Tap for his next line.`}
+      onClick={() => {
+        const next = lines[(i + 1) % lines.length]!;
+        setI(i + 1);
+        speak(next.ja, { guide: 'koto' });
+      }}
+    >
+      <JaText text={line.ja} className="speech-ja" />
+      <span className="small">{line.en}</span>
+    </button>
+  );
 }
 
 /** Chibi cloud puff with +3 shade lip and soft top-left highlight. */
@@ -507,7 +536,6 @@ export function HomeScreen() {
   const desk = useDesk();
   const goalPct = desk.status.goalPct;
   const hour = new Date(s.now).getHours();
-  const hello = greeting(hour);
   let next: { title: string; unit: string; href: string; kind: string; unitIndex: number } | null =
     null;
   for (const p of index.paths) {
@@ -557,10 +585,7 @@ export function HomeScreen() {
             facing="right"
           />
         </div>
-        <div className="speech">
-          <SpeakableJa text={hello.ja} role="teach" className="speech-ja" />
-          <span className="small">{hello.en}</span>
-        </div>
+        <KotoBubble hour={hour} />
         <div className="home-hero-avatar">
           <Avatar size={88} mood={met ? 'happy' : 'idle'} />
         </div>

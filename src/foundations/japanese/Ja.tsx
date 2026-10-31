@@ -11,7 +11,11 @@ export interface JaSettings {
   scriptLevel: ScriptLevel;
   /** 'katakana' shows katakana wherever hiragana would appear (furigana included). */
   kana?: 'hiragana' | 'katakana';
-  speak: (text: string, opts?: { role?: string; slow?: boolean }) => void;
+  /** `guide` pins the voice to the guide on screen; without it the Voice setting decides. */
+  speak: (
+    text: string,
+    opts?: { role?: string; slow?: boolean; guide?: 'akari' | 'tetsu' | 'koto' },
+  ) => void;
 }
 
 export const JaContext = createContext<JaSettings>({

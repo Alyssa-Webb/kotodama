@@ -2,7 +2,7 @@
  * The exercise player shared by lessons, Dojo reviews, boss fights and rush modes: HUD (progress,
  * hearts, Kiai meter, combo), the guide who reacts to every answer, game FX and the shape components.
  */
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { grade } from '../../engine/exercises/grade';
 import { maxHearts as engineMaxHp } from '../../engine/game';
 import { economy } from '../../foundations/world';
@@ -17,7 +17,7 @@ import {
   type SessionConfig,
   type SessionState,
 } from '../../engine/lesson/session';
-import { SpeakableJa, useJa, RichText } from '../../foundations/japanese/Ja';
+import { JaContext, SpeakableJa, useJa, RichText } from '../../foundations/japanese/Ja';
 import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
 import { Guide, type Mood } from '../../foundations/art/Guide';
@@ -85,7 +85,7 @@ export function Player({
   foes,
   region,
 }: PlayerProps) {
-  const { speak } = useJa();
+  const ja = useJa();
   const voiceMode = useGame((s) => s.save?.settings.voiceMode ?? 'alternate-lesson');
   const lessonCount = useGame((s) => s.save?.lessonCount ?? 0);
   // The bar shows HP against your true max (it doesn't refill between lessons).
@@ -118,6 +118,12 @@ export function Player({
           : lessonCount % 2
             ? 'tetsu'
             : 'akari';
+  // Every line in the lesson is voiced by the guide on screen, so the face and the voice match.
+  const speak = useCallback(
+    (text: string, opts?: { role?: string; slow?: boolean }) => ja.speak(text, { ...opts, guide }),
+    [ja, guide],
+  );
+  const jaForLesson = useMemo(() => ({ ...ja, speak }), [ja, speak]);
 
   // A new question starts when the position advances and no feedback is showing (retries reuse objects).
   const questionKey = feedback ? -1 : state.position;
@@ -222,312 +228,317 @@ export function Player({
   const maxHearts = config.hearts;
 
   return (
-    <div className={`player ${kiai ? 'kiai' : ''}`}>
-      <div className="player-top">
-        <button className="btn btn-ghost icon-btn quit" onClick={onQuit} aria-label="Quit">
-          ✕
-        </button>
-        <div
-          className="bar progress"
-          style={{ flex: 1 }}
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={Math.round(progress(state) * 100)}
-          aria-label="Lesson progress"
-        >
-          <span style={{ width: `${Math.max(4, progress(state) * 100)}%` }} />
-        </div>
-        {state.hearts !== null && (
+    <JaContext.Provider value={jaForLesson}>
+      <div className={`player ${kiai ? 'kiai' : ''}`}>
+        <div className="player-top">
+          <button className="btn btn-ghost icon-btn quit" onClick={onQuit} aria-label="Quit">
+            ✕
+          </button>
           <div
-            className="hearts"
-            ref={heartsEl}
-            aria-label={`${state.hearts} hearts left`}
-            role="img"
+            className="bar progress"
+            style={{ flex: 1 }}
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progress(state) * 100)}
+            aria-label="Lesson progress"
           >
-            {maxHearts !== null && maxHearts <= 6 ? (
-              Array.from({ length: maxHearts }, (_, i) => (
-                <span key={i} className={`heart ${i < state.hearts! ? '' : 'lost'}`}>
-                  <HeartIcon size={22} empty={i >= state.hearts!} />
-                </span>
-              ))
-            ) : (
-              <span
-                className={`hp-bar${(hpMax ? state.hearts! / hpMax : 1) < 0.25 ? ' hp-low' : ''}${
-                  state.hearts! < (config.hearts ?? state.hearts!) &&
-                  (!feedback || !feedback.result.correct)
-                    ? ` hp-drop ${state.hearts! % 2 ? 'hp-odd' : 'hp-even'}`
-                    : state.hearts! > (config.hearts ?? state.hearts!) - state.heartsLost
-                      ? ' hp-heal'
-                      : ''
-                }`}
-                title={`${state.hearts} / ${hpMax ?? state.hearts} HP`}
-              >
-                <HeartIcon size={18} />
-                <span key={`crack-${state.hearts}`} className="hp-heart-crack" aria-hidden="true">
-                  <svg viewBox="0 0 18 18" width="18" height="18">
-                    <path
-                      d="M9.5 2.2 L7.1 7.2 L10.7 9.2 L6.7 15.4"
-                      fill="none"
-                      stroke="var(--c-hud-bg)"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M9.5 2.2 L7.1 7.2 L10.7 9.2 L6.7 15.4"
-                      fill="none"
-                      stroke="var(--c-coin-shine)"
-                      strokeWidth="1.1"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-                <span className="hp-track">
-                  <span
-                    className="hp-chip"
-                    style={{ transform: `scaleX(${hpMax ? state.hearts! / hpMax : 1})` }}
-                    aria-hidden="true"
-                  />
-                  <span
-                    className="hp-fill"
-                    style={{ transform: `scaleX(${hpMax ? state.hearts! / hpMax : 1})` }}
-                  />
-                  <span key={`fx-${state.hearts}`} className="hp-track-fx" aria-hidden="true">
-                    <span className="hp-flash" />
-                    <span className="hp-shimmer" />
-                  </span>
-                </span>
-                <span key={`sp-${state.hearts}`} className="hp-sparkles" aria-hidden="true">
-                  <span className="hp-sparkle hp-s1" />
-                  <span className="hp-sparkle hp-s2" />
-                  <span className="hp-sparkle hp-s3" />
-                </span>
-                <b>{state.hearts}</b>
-              </span>
-            )}
+            <span style={{ width: `${Math.max(4, progress(state) * 100)}%` }} />
           </div>
-        )}
-      </div>
-      <div
-        className="kiai-row"
-        aria-label={
-          kiai ? 'Kiai active: double rewards' : `Kiai meter ${Math.round(charge * 100)}%`
-        }
-      >
-        <FlameIcon size={22} lit={kiai || charge > 0} />
-        <div className="bar bar-gold kiai-bar">
-          <span style={{ width: `${charge * 100}%` }} />
-        </div>
-        <span className={`kiai-label ${kiai ? 'on' : ''}`} lang="ja">
-          {kiai ? 'Focus ×2 XP' : 'Focus'}
-        </span>
-        {state.combo >= 2 && (
-          <span key={state.combo} className="combo-chip">
-            {state.combo}
-            <small>combo</small>
-          </span>
-        )}
-      </div>
-      {header}
-      {battle && (
-        <BattleStage
-          state={state}
-          {...(foes?.length ? { foes } : {})}
-          {...(region ? { region } : {})}
-        />
-      )}
-
-      <div className="stage">
-        {!hideGuide && (
-          <div className="guide-col">
-            <Guide who={guide} mood={mood} size={88} />
-          </div>
-        )}
-        <div
-          ref={card}
-          key={state.position}
-          className={`card question ${feedback ? (feedback.result.correct ? 'is-right' : 'is-wrong') : ''}`}
-        >
-          <span className="corner tl" aria-hidden="true" />
-          <span className="corner br" aria-hidden="true" />
-          <p className="eyebrow">{q.prompt.instruction}</p>
-          {q.prompt.scene && <p className="scene-text">{q.prompt.scene}</p>}
-          {q.prompt.audio && !q.prompt.ja && (
-            <div className="row" style={{ justifyContent: 'center' }}>
-              <button
-                className="btn btn-indigo audio-btn"
-                onClick={() => speak(q.prompt.audio!)}
-                aria-label="Play audio"
-              >
-                <span className="audio-waves" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                </span>
-                Play
-              </button>
-              <button
-                className="btn btn-small"
-                onClick={() => speak(q.prompt.audio!, { slow: true })}
-                aria-label="Play slowly"
-              >
-                Slow
-              </button>
-            </div>
-          )}
-          {/* Showing the text would give a listening answer away, so this skips the question
-              instead (ungraded; rush and boss rounds can't skip). */}
-          {q.prompt.audio && !q.prompt.ja && q.shape !== 'trace' && !hideGuide && !header && (
-            <div className="center">
-              <button
-                className="btn btn-ghost btn-small"
-                onClick={skipQuestion}
-                disabled={!!feedback}
-              >
-                Can't listen now? Skip
-              </button>
-            </div>
-          )}
-          {q.prompt.ja && (
-            <div className="prompt-ja">
-              <SpeakableJa
-                text={q.prompt.ja}
-                {...(q.prompt.hideFurigana ? { level: 'kanji' as const } : {})}
-                className="display-ja"
-              />
-            </div>
-          )}
-          {q.prompt.en && <p className="prompt-en">{q.prompt.en}</p>}
-
-          <div className="answer-area">
-            {q.shape === 'choose' && (
-              <ChooseShape
-                q={q}
-                locked={!!feedback}
-                onAnswer={submit}
-                hintSignal={hints}
-                picked={feedback?.picked ?? null}
-              />
-            )}
-            {q.shape === 'match' && (
-              <MatchShape
-                key={q.exerciseId + state.position}
-                q={q}
-                locked={!!feedback}
-                onAnswer={submit}
-                hintSignal={hints}
-              />
-            )}
-            {q.shape === 'tiles' && (
-              <TilesShape
-                key={q.exerciseId + state.position}
-                q={q}
-                locked={!!feedback}
-                onAnswer={submit}
-                hintSignal={hints}
-                submitRef={submitRef}
-              />
-            )}
-            {q.shape === 'type' && (
-              <TypeShape
-                key={q.exerciseId + state.position}
-                q={q}
-                locked={!!feedback}
-                onAnswer={submit}
-                hintSignal={hints}
-                submitRef={submitRef}
-              />
-            )}
-            {q.shape === 'trace' && (
-              <TraceShape
-                key={q.exerciseId + state.position}
-                q={q}
-                locked={!!feedback}
-                onAnswer={submit}
-                hintSignal={hints}
-              />
-            )}
-            {q.shape === 'dialogue' && (
-              <DialogueShape
-                key={q.exerciseId + state.position}
-                q={q}
-                locked={!!feedback}
-                onAnswer={submit}
-                hintSignal={hints}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-
-      {feedback?.auto ? null : feedback ? (
-        <div className={`feedback ${feedback.result.correct ? 'good' : 'bad'}`} role="alert">
-          <span className="feedback-guide" aria-hidden="true">
-            <AvatarActor
-              mood={feedback.result.correct ? (fighter ? 'strike' : 'happy') : 'worried'}
-              size={52}
-            />
-          </span>
-          <div className="stack" style={{ gap: 'var(--sp-1)', flex: 1, minWidth: 0 }}>
-            <strong className="feedback-title">
-              {feedback.result.correct
-                ? feedback.result.typo
-                  ? 'Close enough: watch the spelling'
-                  : PRAISE[state.combo % PRAISE.length]
-                : CHEER[state.position % CHEER.length]}
-            </strong>
-            {(!feedback.result.correct || feedback.result.typo) && (
-              <span>
-                Answer: <DisplayText d={q.solution} speak />
-              </span>
-            )}
-            {q.note && (
-              <span className="small">
-                <RichText text={q.note} />
-              </span>
-            )}
-          </div>
-          <button
-            className={`btn ${feedback.result.correct ? 'btn-accent' : 'btn-indigo'}`}
-            onClick={next}
-            autoFocus
-          >
-            Continue
-          </button>
-        </div>
-      ) : (
-        <div className="player-actions">
-          <span className="player-avatar" aria-hidden="true">
-            <AvatarActor mood={kiai ? 'cheer' : 'idle'} size={46} />
-          </span>
-          <button
-            className="btn btn-small hint-btn"
-            disabled={
-              lanterns <= 0 || q.shape === 'match' || q.shape === 'dialogue' || q.shape === 'trace'
-            }
-            onClick={() => {
-              onUseLantern();
-              setHints((h) => h + 1);
-              fx.burst('embers', card.current, 12);
-            }}
-            title="Chōchin lantern: a hint (counts as a hard recall)"
-          >
-            <LanternIcon size={20} />
-            <span>Hint ({lanterns})</span>
-          </button>
-          {canCheck && (
-            <button
-              className="btn btn-accent"
-              style={{ flex: 1 }}
-              onClick={() => submitRef.current?.()}
+          {state.hearts !== null && (
+            <div
+              className="hearts"
+              ref={heartsEl}
+              aria-label={`${state.hearts} hearts left`}
+              role="img"
             >
-              Check
-            </button>
+              {maxHearts !== null && maxHearts <= 6 ? (
+                Array.from({ length: maxHearts }, (_, i) => (
+                  <span key={i} className={`heart ${i < state.hearts! ? '' : 'lost'}`}>
+                    <HeartIcon size={22} empty={i >= state.hearts!} />
+                  </span>
+                ))
+              ) : (
+                <span
+                  className={`hp-bar${(hpMax ? state.hearts! / hpMax : 1) < 0.25 ? ' hp-low' : ''}${
+                    state.hearts! < (config.hearts ?? state.hearts!) &&
+                    (!feedback || !feedback.result.correct)
+                      ? ` hp-drop ${state.hearts! % 2 ? 'hp-odd' : 'hp-even'}`
+                      : state.hearts! > (config.hearts ?? state.hearts!) - state.heartsLost
+                        ? ' hp-heal'
+                        : ''
+                  }`}
+                  title={`${state.hearts} / ${hpMax ?? state.hearts} HP`}
+                >
+                  <HeartIcon size={18} />
+                  <span key={`crack-${state.hearts}`} className="hp-heart-crack" aria-hidden="true">
+                    <svg viewBox="0 0 18 18" width="18" height="18">
+                      <path
+                        d="M9.5 2.2 L7.1 7.2 L10.7 9.2 L6.7 15.4"
+                        fill="none"
+                        stroke="var(--c-hud-bg)"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M9.5 2.2 L7.1 7.2 L10.7 9.2 L6.7 15.4"
+                        fill="none"
+                        stroke="var(--c-coin-shine)"
+                        strokeWidth="1.1"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span className="hp-track">
+                    <span
+                      className="hp-chip"
+                      style={{ transform: `scaleX(${hpMax ? state.hearts! / hpMax : 1})` }}
+                      aria-hidden="true"
+                    />
+                    <span
+                      className="hp-fill"
+                      style={{ transform: `scaleX(${hpMax ? state.hearts! / hpMax : 1})` }}
+                    />
+                    <span key={`fx-${state.hearts}`} className="hp-track-fx" aria-hidden="true">
+                      <span className="hp-flash" />
+                      <span className="hp-shimmer" />
+                    </span>
+                  </span>
+                  <span key={`sp-${state.hearts}`} className="hp-sparkles" aria-hidden="true">
+                    <span className="hp-sparkle hp-s1" />
+                    <span className="hp-sparkle hp-s2" />
+                    <span className="hp-sparkle hp-s3" />
+                  </span>
+                  <b>{state.hearts}</b>
+                </span>
+              )}
+            </div>
           )}
         </div>
-      )}
-    </div>
+        <div
+          className="kiai-row"
+          aria-label={
+            kiai ? 'Kiai active: double rewards' : `Kiai meter ${Math.round(charge * 100)}%`
+          }
+        >
+          <FlameIcon size={22} lit={kiai || charge > 0} />
+          <div className="bar bar-gold kiai-bar">
+            <span style={{ width: `${charge * 100}%` }} />
+          </div>
+          <span className={`kiai-label ${kiai ? 'on' : ''}`} lang="ja">
+            {kiai ? 'Focus ×2 XP' : 'Focus'}
+          </span>
+          {state.combo >= 2 && (
+            <span key={state.combo} className="combo-chip">
+              {state.combo}
+              <small>combo</small>
+            </span>
+          )}
+        </div>
+        {header}
+        {battle && (
+          <BattleStage
+            state={state}
+            {...(foes?.length ? { foes } : {})}
+            {...(region ? { region } : {})}
+          />
+        )}
+
+        <div className="stage">
+          {!hideGuide && (
+            <div className="guide-col">
+              <Guide who={guide} mood={mood} size={88} />
+            </div>
+          )}
+          <div
+            ref={card}
+            key={state.position}
+            className={`card question ${feedback ? (feedback.result.correct ? 'is-right' : 'is-wrong') : ''}`}
+          >
+            <span className="corner tl" aria-hidden="true" />
+            <span className="corner br" aria-hidden="true" />
+            <p className="eyebrow">{q.prompt.instruction}</p>
+            {q.prompt.scene && <p className="scene-text">{q.prompt.scene}</p>}
+            {q.prompt.audio && !q.prompt.ja && (
+              <div className="row" style={{ justifyContent: 'center' }}>
+                <button
+                  className="btn btn-indigo audio-btn"
+                  onClick={() => speak(q.prompt.audio!)}
+                  aria-label="Play audio"
+                >
+                  <span className="audio-waves" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                  Play
+                </button>
+                <button
+                  className="btn btn-small"
+                  onClick={() => speak(q.prompt.audio!, { slow: true })}
+                  aria-label="Play slowly"
+                >
+                  Slow
+                </button>
+              </div>
+            )}
+            {/* Showing the text would give a listening answer away, so this skips the question
+              instead (ungraded; rush and boss rounds can't skip). */}
+            {q.prompt.audio && !q.prompt.ja && q.shape !== 'trace' && !hideGuide && !header && (
+              <div className="center">
+                <button
+                  className="btn btn-ghost btn-small"
+                  onClick={skipQuestion}
+                  disabled={!!feedback}
+                >
+                  Can't listen now? Skip
+                </button>
+              </div>
+            )}
+            {q.prompt.ja && (
+              <div className="prompt-ja">
+                <SpeakableJa
+                  text={q.prompt.ja}
+                  {...(q.prompt.hideFurigana ? { level: 'kanji' as const } : {})}
+                  className="display-ja"
+                />
+              </div>
+            )}
+            {q.prompt.en && <p className="prompt-en">{q.prompt.en}</p>}
+
+            <div className="answer-area">
+              {q.shape === 'choose' && (
+                <ChooseShape
+                  q={q}
+                  locked={!!feedback}
+                  onAnswer={submit}
+                  hintSignal={hints}
+                  picked={feedback?.picked ?? null}
+                />
+              )}
+              {q.shape === 'match' && (
+                <MatchShape
+                  key={q.exerciseId + state.position}
+                  q={q}
+                  locked={!!feedback}
+                  onAnswer={submit}
+                  hintSignal={hints}
+                />
+              )}
+              {q.shape === 'tiles' && (
+                <TilesShape
+                  key={q.exerciseId + state.position}
+                  q={q}
+                  locked={!!feedback}
+                  onAnswer={submit}
+                  hintSignal={hints}
+                  submitRef={submitRef}
+                />
+              )}
+              {q.shape === 'type' && (
+                <TypeShape
+                  key={q.exerciseId + state.position}
+                  q={q}
+                  locked={!!feedback}
+                  onAnswer={submit}
+                  hintSignal={hints}
+                  submitRef={submitRef}
+                />
+              )}
+              {q.shape === 'trace' && (
+                <TraceShape
+                  key={q.exerciseId + state.position}
+                  q={q}
+                  locked={!!feedback}
+                  onAnswer={submit}
+                  hintSignal={hints}
+                />
+              )}
+              {q.shape === 'dialogue' && (
+                <DialogueShape
+                  key={q.exerciseId + state.position}
+                  q={q}
+                  locked={!!feedback}
+                  onAnswer={submit}
+                  hintSignal={hints}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+
+        {feedback?.auto ? null : feedback ? (
+          <div className={`feedback ${feedback.result.correct ? 'good' : 'bad'}`} role="alert">
+            <span className="feedback-guide" aria-hidden="true">
+              <AvatarActor
+                mood={feedback.result.correct ? (fighter ? 'strike' : 'happy') : 'worried'}
+                size={52}
+              />
+            </span>
+            <div className="stack" style={{ gap: 'var(--sp-1)', flex: 1, minWidth: 0 }}>
+              <strong className="feedback-title">
+                {feedback.result.correct
+                  ? feedback.result.typo
+                    ? 'Close enough: watch the spelling'
+                    : PRAISE[state.combo % PRAISE.length]
+                  : CHEER[state.position % CHEER.length]}
+              </strong>
+              {(!feedback.result.correct || feedback.result.typo) && (
+                <span>
+                  Answer: <DisplayText d={q.solution} speak />
+                </span>
+              )}
+              {q.note && (
+                <span className="small">
+                  <RichText text={q.note} />
+                </span>
+              )}
+            </div>
+            <button
+              className={`btn ${feedback.result.correct ? 'btn-accent' : 'btn-indigo'}`}
+              onClick={next}
+              autoFocus
+            >
+              Continue
+            </button>
+          </div>
+        ) : (
+          <div className="player-actions">
+            <span className="player-avatar" aria-hidden="true">
+              <AvatarActor mood={kiai ? 'cheer' : 'idle'} size={46} />
+            </span>
+            <button
+              className="btn btn-small hint-btn"
+              disabled={
+                lanterns <= 0 ||
+                q.shape === 'match' ||
+                q.shape === 'dialogue' ||
+                q.shape === 'trace'
+              }
+              onClick={() => {
+                onUseLantern();
+                setHints((h) => h + 1);
+                fx.burst('embers', card.current, 12);
+              }}
+              title="Chōchin lantern: a hint (counts as a hard recall)"
+            >
+              <LanternIcon size={20} />
+              <span>Hint ({lanterns})</span>
+            </button>
+            {canCheck && (
+              <button
+                className="btn btn-accent"
+                style={{ flex: 1 }}
+                onClick={() => submitRef.current?.()}
+              >
+                Check
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </JaContext.Provider>
   );
 }

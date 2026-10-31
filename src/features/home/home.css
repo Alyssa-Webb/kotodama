@@ -335,3 +335,17 @@ div.home-nudge {
     transition: none !important;
   }
 }
+
+/* Koto's bubble is one button: a tap moves to his next line. */
+.speech.speech-cycle {
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.speech.speech-cycle:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 2px;
+}

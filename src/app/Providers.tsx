@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, type ReactNode } from 'react';
 import { JaContext } from '../foundations/japanese/Ja';
-import { pickGuide, speak } from '../foundations/audio/voice';
+import { pickGuide, resolveGuide, speak } from '../foundations/audio/voice';
 import { setRespectSilentSwitch, setSoundEffects } from '../foundations/audio/sfx';
 import { applyThemePreference } from '../foundations/theme/theme';
 import { setHaptics } from '../foundations/haptics/haptics';
@@ -27,16 +27,19 @@ export function Providers({ children }: { children: ReactNode }) {
   }, [settings]);
 
   const say = useCallback(
-    (text: string, opts?: { role?: string; slow?: boolean }) => {
-      // Koto always speaks in his own voice; everything else follows the Voice setting.
-      const guide =
-        opts?.role === 'koto'
-          ? 'koto'
-          : pickGuide(voiceMode, {
-              lessonIndex: lessonCount,
-              lineIndex: lineCounter++,
-              ...(opts?.role ? { role: opts.role } : { role: 'quiz' }),
-            });
+    (
+      text: string,
+      opts?: { role?: string; slow?: boolean; guide?: 'akari' | 'tetsu' | 'koto' },
+    ) => {
+      // A screen that shows a guide pins the voice to them (so Tetsu sounds like Tetsu); Koto always
+      // speaks in his own voice; everything else follows the Voice setting.
+      const guide = resolveGuide(opts, () =>
+        pickGuide(voiceMode, {
+          lessonIndex: lessonCount,
+          lineIndex: lineCounter++,
+          ...(opts?.role ? { role: opts.role } : { role: 'quiz' }),
+        }),
+      );
       void speak(text, { guide, slow: opts?.slow ?? slow });
     },
     [voiceMode, lessonCount, slow],

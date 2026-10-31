@@ -76,6 +76,19 @@ function deviceVoice(guide: Guide): SpeechSynthesisVoice | undefined {
   );
 }
 
+/**
+ * Who voices a line: the guide a screen pins (the one on screen), else Koto for his own lines, else
+ * the Voice setting (`fromSetting`, called only when needed so its line counter stays honest).
+ */
+export function resolveGuide(
+  opts: { guide?: Guide; role?: string } | undefined,
+  fromSetting: () => Guide,
+): Guide {
+  if (opts?.guide) return opts.guide;
+  if (opts?.role === 'koto') return 'koto';
+  return fromSetting();
+}
+
 /** Which guide voices a line, from the Voice setting. */
 export function pickGuide(
   mode: VoiceMode,

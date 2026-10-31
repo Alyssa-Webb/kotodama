@@ -1,8 +1,14 @@
 {
   "version": 1,
   "shop": [
-    { "ja": "いらっしゃいませ！", "en": "Welcome, welcome! Step right in!" },
-    { "ja": "{今日|きょう}もがんばったね！", "en": "You studied hard today! Treat yourself." },
+    {
+      "ja": "いらっしゃいませ！",
+      "en": "Welcome, welcome! Step right in!"
+    },
+    {
+      "ja": "{今日|きょう}もがんばったね！",
+      "en": "You studied hard today! Treat yourself."
+    },
     {
       "ja": "{安|やす}いよ、{安|やす}いよ！",
       "en": "Cheap, cheap! Best prices on the whole street!"
@@ -11,7 +17,10 @@
       "ja": "おっ、お{客|きゃく}さん！",
       "en": "Oh, a customer! My mustache is totally real, by the way."
     },
-    { "ja": "ありがとうございます！", "en": "Thank you kindly! Come again!" }
+    {
+      "ja": "ありがとうございます！",
+      "en": "Thank you kindly! Come again!"
+    }
   ],
   "town": [
     {
@@ -77,5 +86,37 @@
       "ja": "がんばって！",
       "en": "And this is you! Dress up your traveller. Now go, I'll be cheering for you!"
     }
-  ]
+  ],
+  "home": {
+    "morning": {
+      "ja": "おはようございます！",
+      "en": "Good morning, traveler."
+    },
+    "day": {
+      "ja": "こんにちは！",
+      "en": "Hello, traveler."
+    },
+    "evening": {
+      "ja": "こんばんは！",
+      "en": "Good evening, traveler."
+    },
+    "lines": [
+      {
+        "ja": "がんばって！",
+        "en": "You can do it!"
+      },
+      {
+        "ja": "{復習|ふくしゅう}をわすれないでね。",
+        "en": "Don't forget your reviews."
+      },
+      {
+        "ja": "いっしょに{行|い}こう！",
+        "en": "Let's go together!"
+      },
+      {
+        "ja": "{一歩|いっぽ}ずつね。",
+        "en": "One step at a time."
+      }
+    ]
+  }
 }

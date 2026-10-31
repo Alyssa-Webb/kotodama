@@ -8,6 +8,13 @@ export const KotoSchema = z.object({
   version: z.number().int().positive(),
   shop: z.array(KotoLineSchema).min(1),
   town: z.array(KotoLineSchema).min(1),
+  /** Home: a greeting for each time of day, then the lines a tap cycles through. */
+  home: z.object({
+    morning: KotoLineSchema,
+    day: KotoLineSchema,
+    evening: KotoLineSchema,
+    lines: z.array(KotoLineSchema).min(1),
+  }),
   tour: z
     .array(
       KotoLineSchema.extend({
