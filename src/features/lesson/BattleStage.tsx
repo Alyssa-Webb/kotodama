@@ -12,6 +12,7 @@ import { momentsConfig } from '../../foundations/world';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx, startAmbient } from '../../foundations/audio/sfx';
 import { AvatarActor, type ActorMood } from '../avatar/AvatarActor';
+import { DojoHallBackdrop, MarketStreetBackdrop } from './BattleBackdrops';
 import { BattleFx } from './BattleFx';
 import './battle.css';
 
@@ -40,9 +41,203 @@ const PERSPECTIVE_LEVELS: ReadonlyArray<{ scale: number; variant: 'a' | 'b' }> =
 
 /**
  * One perspective band of the road surface (dy = 25..38 from the vanishing point):
- * road-edge curb stones, wheel ruts, transverse trail markings, stepping stones and petals.
+ * road-edge curb stones, wheel ruts, transverse trail markings, stepping stones and petals
+ * (or polished floorboard planks in the dojo, or cobblestone pavers in the market street).
  */
-function RoadPerspectiveBand({ variant }: { variant: 'a' | 'b' }) {
+function RoadPerspectiveBand({
+  variant,
+  region = 'bamboo',
+}: {
+  variant: 'a' | 'b';
+  region?: 'dojo' | 'bamboo' | 'market';
+}) {
+  if (region === 'dojo') {
+    return (
+      <g>
+        {/* Perspective floorboard plank seams running toward the far kamiza wall */}
+        <path
+          d="M -46.8 25 L -71.1 38 M -31.2 25 L -47.4 38 M -15.6 25 L -23.7 38 M 0 25 L 0 38"
+          stroke={WOOD_SHADE}
+          strokeWidth="1.15"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.58"
+        />
+        <path
+          d="M -45.6 25.5 L -69.5 38 M -14.5 25.5 L -22.2 38"
+          stroke="var(--c-coin-shine)"
+          strokeWidth="0.6"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.38"
+        />
+        {/* Transverse plank butt-joints & court boundary edge strips */}
+        <path
+          d={
+            variant === 'a'
+              ? 'M -56.5 29 H -31.8 M -16.2 29 H 8.2 M -44.2 35 H -21.8'
+              : 'M -36.5 29 H -15.8 M -66.2 35 H -43.5 M -21.2 35 H 10.4'
+          }
+          stroke={WOOD_SHADE}
+          strokeWidth="1.1"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.62"
+        />
+        <path
+          d="M -52.5 25 L -79.8 38 M 9 25 L 13.7 38"
+          stroke="var(--c-hud-ink)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.5"
+        />
+        <ellipse
+          cx={variant === 'a' ? '-24' : '-38'}
+          cy={variant === 'a' ? '31.8' : '32.4'}
+          rx="4.8"
+          ry="0.85"
+          fill="var(--c-coin-shine)"
+          opacity="0.35"
+        />
+      </g>
+    );
+  }
+
+  if (region === 'market') {
+    return (
+      <g>
+        {/* Perspective cart tracks & stone gutter seams along the market street */}
+        <path
+          d="M -39.5 26 L -54.7 36 M -5.7 26 L -7.9 36"
+          stroke="var(--c-hud-bg)"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.38"
+        />
+        <path
+          d="M -53 31 H -4"
+          stroke={STONE_LIP}
+          strokeWidth="1"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.45"
+        />
+        {/* Left & right stone curb blocks */}
+        <ellipse
+          cx="-58.8"
+          cy="28.8"
+          rx="4.5"
+          ry="1.5"
+          transform="rotate(-22 -58.8 28.8)"
+          fill="var(--c-hud-bg)"
+          opacity="0.55"
+        />
+        <ellipse
+          cx="-58.8"
+          cy="27.9"
+          rx="4.5"
+          ry="1.4"
+          transform="rotate(-22 -58.8 27.9)"
+          fill="var(--c-border)"
+        />
+        <ellipse
+          cx="-72.5"
+          cy="35.4"
+          rx="5.2"
+          ry="1.7"
+          transform="rotate(-22 -72.5 35.4)"
+          fill="var(--c-hud-bg)"
+          opacity="0.55"
+        />
+        <ellipse
+          cx="-72.5"
+          cy="34.4"
+          rx="5.2"
+          ry="1.6"
+          transform="rotate(-22 -72.5 34.4)"
+          fill="var(--c-surface-alt)"
+        />
+        <ellipse
+          cx="9.9"
+          cy="28.2"
+          rx="3.9"
+          ry="1.3"
+          transform="rotate(14 9.9 28.2)"
+          fill="var(--c-hud-bg)"
+          opacity="0.55"
+        />
+        <ellipse
+          cx="9.9"
+          cy="27.4"
+          rx="3.9"
+          ry="1.2"
+          transform="rotate(14 9.9 27.4)"
+          fill="var(--c-border)"
+        />
+        <ellipse
+          cx="12.3"
+          cy="34.9"
+          rx="4.6"
+          ry="1.55"
+          transform="rotate(14 12.3 34.9)"
+          fill="var(--c-hud-bg)"
+          opacity="0.55"
+        />
+        <ellipse
+          cx="12.3"
+          cy="34"
+          rx="4.6"
+          ry="1.45"
+          transform="rotate(14 12.3 34)"
+          fill="var(--c-surface-alt)"
+        />
+        {/* Staggered cobblestone pavers & warm lantern glints */}
+        <rect
+          x={variant === 'a' ? '-41' : '-24'}
+          y="27.6"
+          width="11"
+          height="2.8"
+          rx="1.2"
+          fill={STONE_LIP}
+        />
+        <rect
+          x={variant === 'a' ? '-41' : '-24'}
+          y="26.8"
+          width="11"
+          height="2.6"
+          rx="1.2"
+          fill="var(--c-border)"
+        />
+        <rect
+          x={variant === 'a' ? '-25' : '-49'}
+          y="33.2"
+          width="13"
+          height="3.2"
+          rx="1.4"
+          fill={STONE_LIP}
+        />
+        <rect
+          x={variant === 'a' ? '-25' : '-49'}
+          y="32.3"
+          width="13"
+          height="3"
+          rx="1.4"
+          fill="var(--c-surface-alt)"
+        />
+        <ellipse
+          cx={variant === 'a' ? '-19' : '-43'}
+          cy="33.4"
+          rx="3.2"
+          ry="0.75"
+          fill="var(--c-glow)"
+          opacity="0.55"
+        />
+      </g>
+    );
+  }
+
   return (
     <g>
       {/* Perspective wheel ruts & trail markings flowing down the lane */}
@@ -427,10 +622,13 @@ function VergePerspectiveBand({ variant }: { variant: 'a' | 'b' }) {
 export function BattleStage({
   state,
   foes = ENEMY_KINDS,
+  region = 'bamboo',
 }: {
   state: SessionState;
   /** The region's enemy roster, met in order. */
   foes?: readonly EnemyKind[];
+  /** Story region backdrop ('dojo' | 'bamboo' | 'market'). */
+  region?: 'dojo' | 'bamboo' | 'market';
 }) {
   const view = battleView(state, momentsConfig.battle.hitsPerEnemy);
   const [hero, setHero] = useState<ActorMood>('walk');
@@ -525,10 +723,37 @@ export function BattleStage({
   const current = shown === view.enemy;
   const hp = current ? view.hp : 0;
   const maxHp = current ? view.maxHp : 1;
+  const roadLipFill =
+    region === 'dojo'
+      ? 'color-mix(in srgb, var(--c-hud-ink) 56%, var(--c-gold-soft))'
+      : region === 'market'
+        ? STONE_LIP
+        : 'color-mix(in srgb, var(--c-gold) 48%, var(--c-hud-bg))';
+  const roadMainFill =
+    region === 'dojo'
+      ? 'url(#battle-dojo-grad)'
+      : region === 'market'
+        ? 'url(#battle-market-grad)'
+        : 'url(#battle-dirt-grad)';
+  const roadRibbonFill =
+    region === 'dojo'
+      ? 'color-mix(in srgb, var(--c-glow) 38%, var(--c-panel-edge))'
+      : region === 'market'
+        ? 'color-mix(in srgb, var(--c-glow) 34%, var(--c-surface-alt))'
+        : 'color-mix(in srgb, var(--c-gold-soft) 55%, var(--c-panel-edge))';
   return (
-    <div ref={root} className={`battle ${walking ? 'battle-walking' : ''}`} aria-hidden="true">
-      {/* Parallax sky, distant mountains, cedar & bamboo groves, shrine torii & lanterns */}
-      <svg viewBox="0 0 400 156" preserveAspectRatio="xMidYMid slice" className="battle-backdrop">
+    <div
+      ref={root}
+      className={`battle battle-region-${region} ${walking ? 'battle-walking' : ''}`}
+      aria-hidden="true"
+    >
+      {region === 'dojo' ? (
+        <DojoHallBackdrop className="battle-backdrop" />
+      ) : region === 'market' ? (
+        <MarketStreetBackdrop className="battle-backdrop" />
+      ) : (
+        /* Parallax sky, distant mountains, cedar & bamboo groves, shrine torii & lanterns */
+        <svg viewBox="0 0 400 156" preserveAspectRatio="xMidYMid slice" className="battle-backdrop">
         <defs>
           <linearGradient id="battle-sky-grad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="var(--c-sky-top)" />
@@ -753,6 +978,7 @@ export function BattleStage({
           </g>
         </g>
       </svg>
+      )}
 
       {/* Woodland ground & perspective dirt road with flowing stones, markings and edges */}
       <div className="battle-road">
@@ -786,53 +1012,75 @@ export function BattleStage({
                 stopColor="color-mix(in srgb, var(--c-panel-edge) 84%, var(--c-panel))"
               />
             </linearGradient>
+            <linearGradient id="battle-dojo-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="0"
+                stopColor="color-mix(in srgb, var(--c-panel-edge) 66%, var(--c-hud-bg))"
+              />
+              <stop
+                offset="0.5"
+                stopColor="color-mix(in srgb, var(--c-panel-edge) 76%, var(--c-surface-alt))"
+              />
+              <stop
+                offset="1"
+                stopColor="color-mix(in srgb, var(--c-panel-edge) 82%, var(--c-gold-soft))"
+              />
+            </linearGradient>
+            <linearGradient id="battle-market-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="0"
+                stopColor="color-mix(in srgb, var(--c-mountain-near) 66%, var(--c-hud-bg))"
+              />
+              <stop
+                offset="0.52"
+                stopColor="color-mix(in srgb, var(--c-fog) 62%, var(--c-surface-alt))"
+              />
+              <stop
+                offset="1"
+                stopColor="color-mix(in srgb, var(--c-border) 68%, var(--c-surface-alt))"
+              />
+            </linearGradient>
             <clipPath id="battle-road-clip">
               <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" />
             </clipPath>
           </defs>
 
-          {/* Woodland grass hills flanking the road */}
-          <path
-            d="M 0 60 Q 110 52 238 56 Q 330 52 400 60 V 156 H 0 Z"
-            fill="url(#battle-grass-grad)"
-          />
-          {/* Subtle shaded hillside contours on the verges */}
-          <path
-            d="M 0 88 Q 74 82 162 94 L 84 134 L 0 124 Z M 272 88 Q 338 80 400 90 V 126 Q 336 116 280 118 Z"
-            fill="color-mix(in srgb, var(--c-success) 42%, var(--c-hud-bg))"
-            opacity="0.45"
-          />
+          {region === 'bamboo' && (
+            <>
+              {/* Woodland grass hills flanking the road */}
+              <path
+                d="M 0 60 Q 110 52 238 56 Q 330 52 400 60 V 156 H 0 Z"
+                fill="url(#battle-grass-grad)"
+              />
+              {/* Subtle shaded hillside contours on the verges */}
+              <path
+                d="M 0 88 Q 74 82 162 94 L 84 134 L 0 124 Z M 272 88 Q 338 80 400 90 V 126 Q 336 116 280 118 Z"
+                fill="color-mix(in srgb, var(--c-success) 42%, var(--c-hud-bg))"
+                opacity="0.45"
+              />
+            </>
+          )}
 
-          {/* Outer grassy lip & recessed earth bank along the perspective trail */}
-          <path
-            d="M 218.5 56 L 2 156 L 298 156 L 256.5 56 Z"
-            fill="color-mix(in srgb, var(--c-gold) 48%, var(--c-hud-bg))"
-          />
-          {/* Main perspective dirt road */}
-          <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" fill="url(#battle-dirt-grad)" />
-          {/* Warm packed-earth center ribbon */}
+          {/* Outer grassy lip / court boundary / stone curb along the perspective trail */}
+          <path d="M 218.5 56 L 2 156 L 298 156 L 256.5 56 Z" fill={roadLipFill} />
+          {/* Main perspective road / floor lane / market street */}
+          <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" fill={roadMainFill} />
+          {/* Warm center ribbon */}
           <path
             d="M 230.5 56 L 62 156 L 242 156 L 246 56 Z"
-            fill="color-mix(in srgb, var(--c-gold-soft) 55%, var(--c-panel-edge))"
+            fill={roadRibbonFill}
             opacity="0.55"
           />
           {/* Subtle clearing ring where the enemy stands on the upper-mid path */}
-          <ellipse
-            cx="228"
-            cy="88"
-            rx="34"
-            ry="8.5"
-            fill="color-mix(in srgb, var(--c-gold-soft) 65%, var(--c-panel-edge))"
-            opacity="0.5"
-          />
+          <ellipse cx="228" cy="88" rx="34" ry="8.5" fill={roadRibbonFill} opacity="0.5" />
 
-          {/* Perspective-flowing road surface: stones, markings, ruts & curb edges */}
+          {/* Perspective-flowing road surface: stones, floorboards or pavers */}
           <g clipPath="url(#battle-road-clip)">
             <g transform="translate(248 44)">
               <g className="battle-road-scroll">
                 {PERSPECTIVE_LEVELS.map(({ scale, variant }) => (
                   <g key={scale} transform={`scale(${scale})`}>
-                    <RoadPerspectiveBand variant={variant} />
+                    <RoadPerspectiveBand variant={variant} region={region} />
                   </g>
                 ))}
               </g>
@@ -842,26 +1090,28 @@ export function BattleStage({
       </div>
 
       {/* Roadside props on either side of the trail that pass by and grow as they near */}
-      <div className="battle-verge">
-        <svg viewBox="0 0 400 156" preserveAspectRatio="none" className="battle-verge-svg">
-          <defs>
-            <clipPath id="battle-verge-clip">
-              <rect x="0" y="56" width="400" height="100" />
-            </clipPath>
-          </defs>
-          <g clipPath="url(#battle-verge-clip)">
-            <g transform="translate(248 44)">
-              <g className="battle-verge-scroll">
-                {PERSPECTIVE_LEVELS.map(({ scale, variant }) => (
-                  <g key={scale} transform={`scale(${scale})`}>
-                    <VergePerspectiveBand variant={variant} />
-                  </g>
-                ))}
+      {region === 'bamboo' && (
+        <div className="battle-verge">
+          <svg viewBox="0 0 400 156" preserveAspectRatio="none" className="battle-verge-svg">
+            <defs>
+              <clipPath id="battle-verge-clip">
+                <rect x="0" y="56" width="400" height="100" />
+              </clipPath>
+            </defs>
+            <g clipPath="url(#battle-verge-clip)">
+              <g transform="translate(248 44)">
+                <g className="battle-verge-scroll">
+                  {PERSPECTIVE_LEVELS.map(({ scale, variant }) => (
+                    <g key={scale} transform={`scale(${scale})`}>
+                      <VergePerspectiveBand variant={variant} />
+                    </g>
+                  ))}
+                </g>
               </g>
             </g>
-          </g>
-        </svg>
-      </div>
+          </svg>
+        </div>
+      )}
 
       {!(allDown && foe !== 'defeat') && (
         <div className="battle-foe">
@@ -889,74 +1139,76 @@ export function BattleStage({
       </div>
 
       {/* Foreground framing leaves at the edges & mossy roadside lantern */}
-      <svg viewBox="0 0 400 156" preserveAspectRatio="none" className="battle-fg">
-        {/* Top-left canopy branch & bamboo leaves */}
-        <g className="battle-fg-tl" style={{ transformOrigin: '0px 0px' }}>
-          <path d="M-6 -4 C18 2 38 14 54 28 C34 28 14 22 -6 14 Z" fill="var(--c-hud-bg)" />
-          <path
-            d="M-6 -6 C18 0 38 12 54 25 C34 25 14 19 -6 11 Z"
-            fill="color-mix(in srgb, var(--c-success) 62%, var(--c-hud-bg))"
-          />
-          <path d="M-4 8 C12 14 24 26 30 40 C16 36 4 26 -4 18 Z" fill="var(--c-success)" />
-          <circle cx="38" cy="20" r="4" fill="var(--c-petal)" />
-          <circle cx="38" cy="20" r="1.6" fill="var(--c-glow)" />
-        </g>
+      {region === 'bamboo' && (
+        <svg viewBox="0 0 400 156" preserveAspectRatio="none" className="battle-fg">
+          {/* Top-left canopy branch & bamboo leaves */}
+          <g className="battle-fg-tl" style={{ transformOrigin: '0px 0px' }}>
+            <path d="M-6 -4 C18 2 38 14 54 28 C34 28 14 22 -6 14 Z" fill="var(--c-hud-bg)" />
+            <path
+              d="M-6 -6 C18 0 38 12 54 25 C34 25 14 19 -6 11 Z"
+              fill="color-mix(in srgb, var(--c-success) 62%, var(--c-hud-bg))"
+            />
+            <path d="M-4 8 C12 14 24 26 30 40 C16 36 4 26 -4 18 Z" fill="var(--c-success)" />
+            <circle cx="38" cy="20" r="4" fill="var(--c-petal)" />
+            <circle cx="38" cy="20" r="1.6" fill="var(--c-glow)" />
+          </g>
 
-        {/* Bottom-left foreground framing bush & fern leaves */}
-        <g className="battle-fg-bl" style={{ transformOrigin: '0px 156px' }}>
-          <path
-            d="M-8 158 C-8 124 12 106 36 106 C38 118 32 130 22 136 C36 132 48 140 52 158 Z"
-            fill="var(--c-hud-bg)"
-          />
-          <path
-            d="M-8 158 C-8 126 10 109 34 109 C36 120 30 131 20 137 C34 133 46 141 50 158 Z"
-            fill="color-mix(in srgb, var(--c-success) 56%, var(--c-hud-bg))"
-          />
-          <path
-            d="M-4 158 C-2 136 10 122 26 120 C26 130 20 139 12 144 C24 141 34 146 38 158 Z"
-            fill="var(--c-success)"
-          />
-          <ellipse
-            cx="14"
-            cy="124"
-            rx="6"
-            ry="2.2"
-            transform="rotate(-28 14 124)"
-            fill="var(--c-coin-shine)"
-            opacity="0.5"
-          />
-          <circle cx="26" cy="142" r="4.5" fill="var(--c-accent)" />
-          <circle cx="26" cy="142" r="1.8" fill="var(--c-glow)" />
-        </g>
+          {/* Bottom-left foreground framing bush & fern leaves */}
+          <g className="battle-fg-bl" style={{ transformOrigin: '0px 156px' }}>
+            <path
+              d="M-8 158 C-8 124 12 106 36 106 C38 118 32 130 22 136 C36 132 48 140 52 158 Z"
+              fill="var(--c-hud-bg)"
+            />
+            <path
+              d="M-8 158 C-8 126 10 109 34 109 C36 120 30 131 20 137 C34 133 46 141 50 158 Z"
+              fill="color-mix(in srgb, var(--c-success) 56%, var(--c-hud-bg))"
+            />
+            <path
+              d="M-4 158 C-2 136 10 122 26 120 C26 130 20 139 12 144 C24 141 34 146 38 158 Z"
+              fill="var(--c-success)"
+            />
+            <ellipse
+              cx="14"
+              cy="124"
+              rx="6"
+              ry="2.2"
+              transform="rotate(-28 14 124)"
+              fill="var(--c-coin-shine)"
+              opacity="0.5"
+            />
+            <circle cx="26" cy="142" r="4.5" fill="var(--c-accent)" />
+            <circle cx="26" cy="142" r="1.8" fill="var(--c-glow)" />
+          </g>
 
-        {/* Top-right canopy leaves */}
-        <g className="battle-fg-tr" style={{ transformOrigin: '400px 0px' }}>
-          <path d="M406 -4 C382 2 362 14 346 28 C366 28 386 22 406 14 Z" fill="var(--c-hud-bg)" />
-          <path
-            d="M406 -6 C382 0 362 12 346 25 C366 25 386 19 406 11 Z"
-            fill="color-mix(in srgb, var(--c-success) 62%, var(--c-hud-bg))"
-          />
-          <path d="M404 8 C388 14 376 26 370 40 C384 36 396 26 404 18 Z" fill="var(--c-success)" />
-        </g>
+          {/* Top-right canopy leaves */}
+          <g className="battle-fg-tr" style={{ transformOrigin: '400px 0px' }}>
+            <path d="M406 -4 C382 2 362 14 346 28 C366 28 386 22 406 14 Z" fill="var(--c-hud-bg)" />
+            <path
+              d="M406 -6 C382 0 362 12 346 25 C366 25 386 19 406 11 Z"
+              fill="color-mix(in srgb, var(--c-success) 62%, var(--c-hud-bg))"
+            />
+            <path d="M404 8 C388 14 376 26 370 40 C384 36 396 26 404 18 Z" fill="var(--c-success)" />
+          </g>
 
-        {/* Bottom-right foreground framing foliage */}
-        <g className="battle-fg-br" style={{ transformOrigin: '400px 156px' }}>
-          <path
-            d="M408 158 C408 124 388 108 364 110 C364 122 370 132 378 138 C364 134 350 142 346 158 Z"
-            fill="var(--c-hud-bg)"
-          />
-          <path
-            d="M408 158 C408 126 390 111 366 113 C366 124 372 133 380 139 C366 135 352 143 348 158 Z"
-            fill="color-mix(in srgb, var(--c-success) 56%, var(--c-hud-bg))"
-          />
-          <path
-            d="M404 158 C402 136 390 124 374 122 C374 132 380 140 388 145 C376 142 366 147 362 158 Z"
-            fill="var(--c-success)"
-          />
-          <circle cx="376" cy="144" r="4.2" fill="var(--c-petal)" />
-          <circle cx="376" cy="144" r="1.7" fill="var(--c-glow)" />
-        </g>
-      </svg>
+          {/* Bottom-right foreground framing foliage */}
+          <g className="battle-fg-br" style={{ transformOrigin: '400px 156px' }}>
+            <path
+              d="M408 158 C408 124 388 108 364 110 C364 122 370 132 378 138 C364 134 350 142 346 158 Z"
+              fill="var(--c-hud-bg)"
+            />
+            <path
+              d="M408 158 C408 126 390 111 366 113 C366 124 372 133 380 139 C366 135 352 143 348 158 Z"
+              fill="color-mix(in srgb, var(--c-success) 56%, var(--c-hud-bg))"
+            />
+            <path
+              d="M404 158 C402 136 390 124 374 122 C374 132 380 140 388 145 C376 142 366 147 362 158 Z"
+              fill="var(--c-success)"
+            />
+            <circle cx="376" cy="144" r="4.2" fill="var(--c-petal)" />
+            <circle cx="376" cy="144" r="1.7" fill="var(--c-glow)" />
+          </g>
+        </svg>
+      )}
 
       <span className="battle-count">
         {Math.min(view.defeated, view.enemies)}/{view.enemies}

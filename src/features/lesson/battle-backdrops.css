@@ -1,0 +1,76 @@
+/* Self-contained styles for DojoHallBackdrop and MarketStreetBackdrop (transform & opacity only). */
+.battle-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.backdrop-sway {
+  will-change: transform;
+  animation: backdrop-gentle-sway calc(var(--dur-celebrate, 900ms) * 4.2) ease-in-out infinite;
+}
+
+.backdrop-sway-alt {
+  will-change: transform;
+  animation: backdrop-gentle-sway calc(var(--dur-celebrate, 900ms) * 5) ease-in-out infinite reverse;
+}
+
+.backdrop-glow {
+  will-change: opacity, transform;
+  animation: backdrop-lantern-pulse calc(var(--dur-celebrate, 900ms) * 3.6) ease-in-out infinite;
+}
+
+.backdrop-sunbeam {
+  will-change: opacity;
+  animation: backdrop-sun-breathe calc(var(--dur-celebrate, 900ms) * 5.2) ease-in-out infinite;
+}
+
+@keyframes backdrop-gentle-sway {
+  0%,
+  100% {
+    transform: rotate(-2.2deg);
+  }
+  50% {
+    transform: rotate(2.2deg);
+  }
+}
+
+@keyframes backdrop-lantern-pulse {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes backdrop-sun-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 0.96;
+  }
+}
+
+/* Pause decorative backdrop loops while a battle question is up so answering stays smooth. */
+.battle:not(.battle-walking)
+  :is(.backdrop-sway, .backdrop-sway-alt, .backdrop-glow, .backdrop-sunbeam) {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop-sway,
+  .backdrop-sway-alt,
+  .backdrop-glow,
+  .backdrop-sunbeam {
+    animation: none !important;
+  }
+}
