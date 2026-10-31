@@ -14,6 +14,10 @@ Chibi and cute, the direction you set earlier: big heads, small bodies, round ch
 
 <exact list; anything else is off-limits>
 
+## How to work (keep verbatim)
+
+Long single responses get cut off by the connection ("Provider Error"). **Build in small pieces and save each file as soon as it's written:** split big art into several files of under about 300 lines, write each one immediately, and wire everything together last. Never compose a whole screen before writing anything.
+
 ## Rules (keep verbatim)
 
 - 2D only: inline SVG + CSS. No 3D, canvas engines, images, fonts, network downloads or new npm dependencies.
