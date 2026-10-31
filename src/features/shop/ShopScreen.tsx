@@ -204,6 +204,11 @@ export function ShopScreen() {
                 <UiJa text={c.name} className="shop-name" />
                 <strong>{c.en}</strong>
                 <span className="small muted">{c.effect}</span>
+                {/* The price read in Japanese: its own row above the button, never on top of it. */}
+                <span className="price-ja">
+                  <span className="price-ja-label">Say it</span>
+                  <JaText text={yenFurigana(price)} />
+                </span>
                 <button
                   className="btn btn-small btn-gold"
                   disabled={disabled || stats.yen < price}
@@ -215,9 +220,6 @@ export function ShopScreen() {
                 >
                   ¥{price.toLocaleString('en-US')}
                 </button>
-                <span className="small price-ja">
-                  <JaText text={yenFurigana(price)} />
-                </span>
               </div>
             );
           })}

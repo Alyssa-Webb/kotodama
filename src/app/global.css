@@ -1449,7 +1449,25 @@ label.field {
   padding-inline: 4px;
 }
 .shop-grid .price-ja {
-  font-size: 10px;
+  /* Room for the furigana above the kanji, so the reading never runs into the button. */
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  margin-top: auto;
+  padding-top: 4px;
+  font-size: 12px;
+  line-height: 1.9;
+}
+.shop-grid .price-ja-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--c-ink-muted);
+}
+.shop-grid > .card > .price-ja + .btn {
+  margin-top: 4px;
 }
 /* Japanese UI labels: centred under the item, tappable to hear them. */
 .ui-ja {
