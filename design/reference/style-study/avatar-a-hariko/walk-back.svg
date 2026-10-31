@@ -1,297 +1,277 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <pattern id="washi" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M3 5q3-1 6 0M15 4q2 1 4 0M7 13q3 1 5 0M18 15q2-1 4 0M4 21q3 1 5 0M14 20q3-1 5 0" stroke="#e3dac8" stroke-width="0.7" fill="none" stroke-linecap="round" />
+      <path d="M9 8q2-1 4 0M2 17q2 1 4 0M19 10q2 1 3 0" stroke="#fbf8f1" stroke-width="0.7" fill="none" stroke-linecap="round" />
+    </pattern>
+
+    <g id="shadow">
+      <ellipse cx="0" cy="0" rx="23" ry="5.5" fill="#d8cebc" opacity="0.75" />
+      <ellipse cx="0" cy="0" rx="15" ry="3.4" fill="#c5b9a4" opacity="0.65" />
+    </g>
+
+    <g id="foot-planted">
+      <ellipse cx="0" cy="2" rx="6.2" ry="3.2" fill="#7d4e24" />
+      <ellipse cx="0" cy="1.3" rx="5.6" ry="2.7" fill="#c49353" />
+      <path d="M-4.2-1.5 C-4.2-4 4.2-4 4.2-1.5 L3.8 1.2 C2 2.2-2 2.2-3.8 1.2 Z" fill="#f5efe3" stroke="#d8cebe" stroke-width="0.4" />
+      <path d="M-3.8 0.5 Q0 2.2 3.8 0.5" stroke="#c93b2b" stroke-width="1.3" fill="none" stroke-linecap="round" />
+    </g>
+
+    <g id="foot-sole">
+      <ellipse cx="0" cy="0" rx="6.5" ry="4.4" fill="#6b3f19" />
+      <ellipse cx="0" cy="-0.2" rx="5.5" ry="3.5" fill="#cf9e59" />
+      <path d="M-3.8-1.4 H3.8 M-4 0.8 H4" stroke="#8a5627" stroke-width="0.7" stroke-linecap="round" />
+      <path d="M-4.2-3.2 Q0-4.8 4.2-3.2" stroke="#f5efe3" stroke-width="1.8" fill="none" stroke-linecap="round" />
+      <circle cx="0" cy="-2.8" r="1.1" fill="#c93b2b" />
+    </g>
+
+    <g id="foot-pass">
+      <ellipse cx="0" cy="0" rx="5.8" ry="3.8" fill="#6b3f19" />
+      <ellipse cx="0" cy="-0.2" rx="4.8" ry="2.9" fill="#c69552" />
+      <path d="M-3.2-0.8 H3.2 M-3.2 0.9 H3.2" stroke="#8a5627" stroke-width="0.6" stroke-linecap="round" />
+      <path d="M-3.5-2.6 Q0-3.8 3.5-2.6" stroke="#c93b2b" stroke-width="1.2" fill="none" />
+    </g>
+
+    <g id="arm-l-back">
+      <circle cx="55" cy="126" r="4.6" fill="#f4ede0" stroke="#dfd4c2" stroke-width="0.5" />
+      <path d="M77 105 C67 107 57 115 55 123 C54 128 58 137 66 137 C72 137 76 130 78 122 Z" fill="#5b8ec3" />
+      <path d="M56 126 C57 133 62 137 67 136 C69 135 70 131 68 128 Z" fill="#c93b2b" />
+      <path d="M57 125 C59 132 64 136 69 135" stroke="#eab928" stroke-width="0.7" fill="none" />
+      <g transform="translate(66,121)">
+        <circle cx="0" cy="-2" r="1.1" fill="#fbf7ef" /><circle cx="1.9" cy="-0.6" r="1.1" fill="#fbf7ef" />
+        <circle cx="1.2" cy="1.6" r="1.1" fill="#fbf7ef" /><circle cx="-1.2" cy="1.6" r="1.1" fill="#fbf7ef" />
+        <circle cx="-1.9" cy="-0.6" r="1.1" fill="#fbf7ef" /><circle cx="0" cy="0" r="0.8" fill="#eab928" />
+      </g>
+    </g>
+
+    <g id="arm-l-fwd">
+      <circle cx="53" cy="117" r="4.8" fill="#f4ede0" stroke="#dfd4c2" stroke-width="0.5" />
+      <path d="M77 104 C66 104 56 110 54 117 C53 122 59 129 66 128 C72 127 76 121 78 115 Z" fill="#5485b9" />
+      <path d="M56 120 C58 125 63 128 67 127" stroke="#c93b2b" stroke-width="1.5" fill="none" stroke-linecap="round" />
+      <circle cx="65" cy="116" r="1.8" fill="#fbf7ef" /><circle cx="65" cy="116" r="0.7" fill="#eab928" />
+    </g>
+
+    <g id="arm-r-back">
+      <circle cx="145" cy="126" r="4.6" fill="#f4ede0" stroke="#dfd4c2" stroke-width="0.5" />
+      <path d="M123 105 C133 107 143 115 145 123 C146 128 142 137 134 137 C128 137 124 130 122 122 Z" fill="#5b8ec3" />
+      <path d="M144 126 C143 133 138 137 133 136 C131 135 130 131 132 128 Z" fill="#c93b2b" />
+      <path d="M143 125 C141 132 136 136 131 135" stroke="#eab928" stroke-width="0.7" fill="none" />
+      <g transform="translate(134,121)">
+        <path d="M0-2.8 L2.4 0 L0 2.8 L-2.4 0 Z" fill="#c93b2b" />
+        <circle cx="0" cy="0" r="0.9" fill="#eab928" />
+      </g>
+    </g>
+
+    <g id="arm-r-fwd">
+      <circle cx="147" cy="117" r="4.8" fill="#f4ede0" stroke="#dfd4c2" stroke-width="0.5" />
+      <path d="M123 104 C134 104 144 110 146 117 C147 122 141 129 134 128 C128 127 124 121 122 115 Z" fill="#5485b9" />
+      <path d="M144 120 C142 125 137 128 133 127" stroke="#c93b2b" stroke-width="1.5" fill="none" stroke-linecap="round" />
+      <path d="M135 113.5 L137 116 L135 118.5 L133 116 Z" fill="#c93b2b" /><circle cx="135" cy="116" r="0.7" fill="#eab928" />
+    </g>
+
+    <g id="torso">
+      <path d="M83 101 Q100 107 117 101 L120 105 Q100 112 80 105 Z" fill="#f7f2e8" stroke="#dfd5c3" stroke-width="0.5" />
+      <path d="M76 104 Q100 109 124 104 L126 144 Q100 149 74 144 Z" fill="#6295c9" />
+      <path d="M76 104 Q88 107 100 107 L100 146 Q86 146 74 144 Z" fill="#5b8ec3" />
+      <path d="M82 111 Q90 109 96 112 M105 114 Q112 112 118 115 M79 135 Q89 137 96 135" stroke="#7aa8d6" stroke-width="0.9" fill="none" stroke-linecap="round" />
+      <line x1="100" y1="107" x2="100" y2="146" stroke="#4777ab" stroke-width="0.8" />
+      <path d="M74.5 137 Q100 142 125.5 137 L126 144 Q100 149 74 144 Z" fill="#4676ab" />
+      <path d="M75.5 144 Q100 148.5 124.5 144 L123.5 148.5 Q100 152.5 76.5 148.5 Z" fill="#c89632" stroke="#9e7019" stroke-width="0.5" />
+      <g transform="translate(100,114)">
+        <path d="M0-3.8 L3.5 0 L0 3.8 L-3.5 0 Z" fill="#eab928" stroke="#b88414" stroke-width="0.4" />
+        <circle cx="0" cy="0" r="1.6" fill="#fbf7ef" />
+      </g>
+      <g transform="translate(83,139)">
+        <circle cx="0" cy="-2.1" r="1.2" fill="#fbf7ef" /><circle cx="2" cy="-0.6" r="1.2" fill="#fbf7ef" />
+        <circle cx="1.2" cy="1.7" r="1.2" fill="#fbf7ef" /><circle cx="-1.2" cy="1.7" r="1.2" fill="#fbf7ef" />
+        <circle cx="-2" cy="-0.6" r="1.2" fill="#fbf7ef" /><circle cx="0" cy="0" r="0.9" fill="#eab928" />
+      </g>
+      <g transform="translate(117,139)">
+        <path d="M0-3 L2.6 0 L0 3 L-2.6 0 Z" fill="#c93b2b" />
+        <circle cx="0" cy="0" r="1" fill="#eab928" />
+        <circle cx="0" cy="-3.6" r="0.6" fill="#fbf7ef" /><circle cx="0" cy="3.6" r="0.6" fill="#fbf7ef" />
+      </g>
+      <path d="M74.5 121.5 Q100 125 125.5 121.5 L125.8 128.5 Q100 132 74.2 128.5 Z" fill="#e8b624" stroke="#c28e14" stroke-width="0.5" />
+      <path d="M74.2 128 Q100 131.5 125.8 128 L125.5 132.5 Q100 136 74.5 132.5 Z" fill="#f7f2e8" stroke="#dcd2c0" stroke-width="0.5" />
+    </g>
+
+    <g id="obi-knot">
+      <path d="M99 127 L96 135 L98.5 135.5 L100 128 Z" fill="#d9a41a" stroke="#ad7b10" stroke-width="0.4" />
+      <path d="M101 127 L104 135 L101.5 135.5 L100 128 Z" fill="#e8b624" stroke="#ad7b10" stroke-width="0.4" />
+      <path d="M91 124 C91 121.5 96 122 100 124.5 C104 122 109 121.5 109 124 C109 127 104 128 100 126.5 C96 128 91 127 91 124 Z" fill="#ecc032" stroke="#b58212" stroke-width="0.5" />
+      <circle cx="100" cy="125" r="2.1" fill="#c93b2b" stroke="#9e2417" stroke-width="0.4" />
+      <circle cx="99.5" cy="124.5" r="0.6" fill="#eab928" />
+    </g>
+
+    <g id="head">
+      <ellipse cx="60" cy="86" rx="4.2" ry="5.2" fill="#efe5d4" stroke="#d5c7b2" stroke-width="0.5" />
+      <ellipse cx="140" cy="86" rx="4.2" ry="5.2" fill="#efe5d4" stroke="#d5c7b2" stroke-width="0.5" />
+      <path d="M64 98 C63 103 64 107 67 107 C69 107 70 104 69 100 Z" fill="#181715" />
+      <path d="M136 98 C137 103 136 107 133 107 C131 107 130 104 131 100 Z" fill="#181715" />
+      <path d="M139 72 C143 72 146 74 145 76 C144 78 141 77 138 76 Z" fill="#211f1d" />
+      <path d="M100 46 C73 46 59 61 59 82 C59 92 61 99 65 101 C75 104 125 104 135 101 C139 99 141 92 141 82 C141 61 127 46 100 46 Z" fill="#211f1d" />
+      <path d="M62 94 C74 101 126 101 138 94 C137 98 135 100 133 101 C122 104 78 104 67 101 C65 100 63 98 62 94 Z" fill="#151412" />
+      <path d="M72 56 Q100 50 128 56" stroke="#524d45" stroke-width="0.9" fill="none" stroke-linecap="round" />
+      <path d="M75 62h5m8-2h6m9 0h6m8 2h5 M68 70h5m8-1h6m9-1h5m9 1h5m8 1h5 M65 78h5m7-1h6m8 0h6m9 0h5m8 1h5 M67 86h5m8 0h5m9 0h6m8 0h5m7 0h5 M72 93h5m9 1h5m9 0h6m8-1h5" stroke="#686156" stroke-width="0.8" fill="none" stroke-linecap="round" />
+      <path d="M79 66h4m12-1h5m11 1h4 M71 74h4m13 0h5m12 0h5m11 0h4 M74 82h4m12 0h5m12 0h4m11 0h4 M78 90h4m12 0h5m11 0h4" stroke="#423e38" stroke-width="0.8" fill="none" stroke-linecap="round" />
+      <circle cx="81" cy="55" r="0.9" fill="#dca82e" />
+    </g>
+
+    <g id="topknot">
+      <ellipse cx="95" cy="41" rx="4.5" ry="3.8" fill="#1e1c1a" />
+      <ellipse cx="105" cy="41.5" rx="4.5" ry="3.6" fill="#1e1c1a" />
+      <ellipse cx="100" cy="39" rx="5.2" ry="4.2" fill="#252320" />
+      <path d="M96 38 Q100 36 104 38" stroke="#575148" stroke-width="0.7" fill="none" stroke-linecap="round" />
+      <path d="M93 45.5 Q100 47 107 45.5" stroke="#c93b2b" stroke-width="1.6" fill="none" stroke-linecap="round" />
+      <path d="M95 45.5 Q100 46.6 105 45.5" stroke="#eab928" stroke-width="0.9" fill="none" stroke-linecap="round" />
+    </g>
+  </defs>
+
   <style>
-    .f { opacity: 0; animation: show 0.6667s steps(1, end) infinite; }
-    .f1 { animation-delay: 0s; }      .f2 { animation-delay: -0.5834s; }
-    .f3 { animation-delay: -0.5s; }   .f4 { animation-delay: -0.4167s; }
-    .f5 { animation-delay: -0.3334s; } .f6 { animation-delay: -0.25s; }
-    .f7 { animation-delay: -0.1667s; } .f8 { animation-delay: -0.0833s; }
-    @keyframes show { 0% { opacity: 1; } 12.5% { opacity: 0; } 100% { opacity: 0; } }
+    svg { background: #e8dfd0; }
+    .f { opacity: 0; animation: walk 0.667s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: -0.0833s; }
+    .f3 { animation-delay: -0.1667s; }
+    .f4 { animation-delay: -0.2500s; }
+    .f5 { animation-delay: -0.3333s; }
+    .f6 { animation-delay: -0.4167s; }
+    .f7 { animation-delay: -0.5000s; }
+    .f8 { animation-delay: -0.5833s; }
+    @keyframes walk {
+      0%, 12.49% { opacity: 1; }
+      12.5%, 100% { opacity: 0; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .f { animation: none; opacity: 0; }
       .f1 { opacity: 1; }
     }
   </style>
 
-  <defs>
-    <!-- Subtle hand-made washi paper fiber & gofun chalk grain -->
-    <pattern id="washi" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M4,9 Q11,7 17,10 C12,10 8,9 4,9 Z M29,5 Q36,8 41,6 C37,8 33,7 29,5 Z M12,28 Q19,25 25,29 C20,28 15,28 12,28 Z M34,36 Q41,34 45,38 C40,37 37,36 34,36 Z M6,42 Q12,44 16,41 C13,43 9,43 6,42 Z" fill="#DFD3BE" opacity="0.55"/>
-      <path d="M21,15 Q26,13 31,16 C27,15 23,15 21,15 Z M8,20 Q13,22 17,19 C14,21 10,21 8,20 Z M38,22 Q43,20 46,23 C42,22 40,22 38,22 Z" fill="#FCF9F2" opacity="0.65"/>
-      <circle cx="15" cy="12" r="0.8" fill="#D5C6AE" opacity="0.45"/>
-      <circle cx="39" cy="14" r="0.7" fill="#FCF9F2" opacity="0.6"/>
-    </pattern>
+  <!-- Stage & Washi Paper Background -->
+  <rect x="7" y="7" width="186" height="186" rx="6" fill="#f4eee1" />
+  <path d="M79 142 Q100 140 121 142 L138 174 Q100 177 62 174 Z" fill="#eae2d2" />
+  <ellipse cx="76" cy="166" rx="2.6" ry="1.1" fill="#dcd1be" />
+  <ellipse cx="123" cy="156" rx="2.1" ry="0.9" fill="#dcd1be" />
+  <rect x="7" y="7" width="186" height="186" rx="6" fill="url(#washi)" />
 
-    <!-- Hand-dabbed folk plum blossoms -->
-    <g id="ume">
-      <path d="M-2,-4 A2.1,2.1 0 1,1 2,-4 A2.1,2.1 0 1,1 4.2,-0.2 A2.1,2.1 0 1,1 1.2,3.8 A2.1,2.1 0 1,1 -1.2,3.8 A2.1,2.1 0 1,1 -4.2,-0.2 A2.1,2.1 0 1,1 -2,-4 Z" fill="#FAF6EE"/>
-      <circle cx="0" cy="0" r="1.7" fill="#E2B23B"/>
-    </g>
-    <g id="ume-shu">
-      <path d="M-1.7,-3.5 A1.8,1.8 0 1,1 1.7,-3.5 A1.8,1.8 0 1,1 3.6,-0.2 A1.8,1.8 0 1,1 1,3.3 A1.8,1.8 0 1,1 -1,3.3 A1.8,1.8 0 1,1 -3.6,-0.2 A1.8,1.8 0 1,1 -1.7,-3.5 Z" fill="#D44434"/>
-      <circle cx="0" cy="0" r="1.4" fill="#F5D867"/>
-    </g>
-
-    <!-- Foot poses centered at (0,0) around ankle/sandal -->
-    <!-- Planted flat foot seen from behind -->
-    <g id="foot-plant">
-      <path d="M-16,8 C-17,3 -10,1 0,1 C10,1 17,3 16,8 C16,13 10,15 0,15 C-10,15 -16,13 -16,8 Z" fill="#7A5528"/>
-      <path d="M-14,6 C-14,2 -8,0 0,0 C8,0 14,2 14,6 C14,9 8,11 0,11 C-8,11 -14,9 -14,6 Z" fill="#CCA364"/>
-      <path d="M-9,-8 L-9,4 C-9,8 9,8 9,4 L9,-8 Z" fill="#F7F0E4"/>
-      <path d="M-9,1 C-5,5 5,5 9,1 L9,5 C5,8 -5,8 -9,5 Z" fill="#E6D7C3"/>
-      <path d="M-11,5 C-8,3 -5,3 -3,5 Z M11,5 C8,3 5,3 3,5 Z" fill="#D44434"/>
-    </g>
-    <!-- Forward-reaching foot (further up the path, foreshortened) -->
-    <g id="foot-fwd">
-      <path d="M-14,3 C-14,-1 -8,-3 0,-3 C8,-3 14,-1 14,3 C14,7 8,9 0,9 C-8,9 -14,7 -14,3 Z" fill="#7A5528"/>
-      <path d="M-12,2 C-12,-1 -7,-3 0,-3 C7,-3 12,-1 12,2 C12,5 7,6 0,6 C-7,6 -12,5 -12,2 Z" fill="#CCA364"/>
-      <path d="M-8,-9 L-8,1 C-8,4 8,4 8,1 L8,-9 Z" fill="#E6D7C3"/>
-    </g>
-    <!-- Lifted trailing foot: straw sandal sole angled toward the viewer! -->
-    <g id="foot-sole">
-      <path d="M-9,-10 L-8,-1 C-8,2 8,2 8,-1 L9,-10 Z" fill="#F7F0E4"/>
-      <ellipse cx="0" cy="4" rx="13.5" ry="9.5" fill="#CCA364"/>
-      <ellipse cx="0" cy="5" rx="12" ry="8" fill="#7A5528"/>
-      <path d="M-8,3 C-3,1 3,1 8,3 C3,4 -3,4 -8,3 Z M-7,7 C-2,6 2,6 7,7 C2,8 -2,8 -7,7 Z" fill="#9C713B"/>
-      <circle cx="-10" cy="1" r="2" fill="#D44434"/>
-      <circle cx="10" cy="1" r="2" fill="#D44434"/>
-    </g>
-
-    <!-- Left sleeve swings: back (toward viewer), mid, fwd (away up path) -->
-    <g id="slv-l-back">
-      <path d="M172,208 C151,213 128,227 117,242 C115,248 121,262 132,272 C139,276 148,271 154,258 L157,236 Z" fill="#79A8D6"/>
-      <path d="M120,248 C125,260 132,270 139,272 C145,272 150,266 154,257 C144,264 132,260 120,248 Z" fill="#5B89B8"/>
-      <path d="M145,246 C149,256 151,264 147,269 C144,267 143,258 145,246 Z" fill="#D44434"/>
-      <use href="#ume" transform="translate(137 242) scale(0.82)"/>
-      <circle cx="118" cy="252" r="10.5" fill="#F7F0E4"/>
-      <path d="M109,255 C113,262 122,262 127,256 C123,264 112,264 109,255 Z" fill="#E6D7C3"/>
-    </g>
-    <g id="slv-l-mid">
-      <path d="M172,208 C154,213 134,225 123,238 C120,243 125,255 134,264 C140,269 148,265 154,254 L157,235 Z" fill="#79A8D6"/>
-      <path d="M126,245 C130,255 136,263 142,265 C147,265 151,259 154,252 C145,258 136,255 126,245 Z" fill="#5B89B8"/>
-      <use href="#ume" transform="translate(141 239) scale(0.78)"/>
-      <circle cx="122" cy="247" r="9.5" fill="#F7F0E4"/>
-    </g>
-    <g id="slv-l-fwd">
-      <path d="M173,207 C157,210 140,218 130,229 C127,234 131,245 139,252 C145,256 152,253 156,244 L158,230 Z" fill="#6897C6"/>
-      <path d="M132,235 C136,244 142,251 148,252 C152,251 155,246 156,241 C148,246 140,243 132,235 Z" fill="#507DAA"/>
-      <circle cx="131" cy="235" r="8" fill="#E6D7C3"/>
-    </g>
-
-    <!-- Right sleeve swings: back (toward viewer), mid, fwd (away up path) -->
-    <g id="slv-r-back">
-      <path d="M228,208 C249,213 272,227 283,242 C285,248 279,262 268,272 C261,276 252,271 246,258 L243,236 Z" fill="#79A8D6"/>
-      <path d="M280,248 C275,260 268,270 261,272 C255,272 250,266 246,257 C256,264 268,260 280,248 Z" fill="#5B89B8"/>
-      <path d="M255,246 C251,256 249,264 253,269 C256,267 257,258 255,246 Z" fill="#D44434"/>
-      <use href="#ume-shu" transform="translate(263 243) scale(0.9)"/>
-      <circle cx="282" cy="252" r="10.5" fill="#F7F0E4"/>
-      <path d="M291,255 C287,262 278,262 273,256 C277,264 288,264 291,255 Z" fill="#E6D7C3"/>
-    </g>
-    <g id="slv-r-mid">
-      <path d="M228,208 C246,213 266,225 277,238 C280,243 275,255 266,264 C260,269 252,265 246,254 L243,235 Z" fill="#79A8D6"/>
-      <path d="M274,245 C270,255 264,263 258,265 C253,265 249,259 246,252 C255,258 264,255 274,245 Z" fill="#5B89B8"/>
-      <use href="#ume-shu" transform="translate(259 240) scale(0.85)"/>
-      <circle cx="278" cy="247" r="9.5" fill="#F7F0E4"/>
-    </g>
-    <g id="slv-r-fwd">
-      <path d="M227,207 C243,210 260,218 270,229 C273,234 269,245 261,252 C255,256 248,253 244,244 L242,230 Z" fill="#6897C6"/>
-      <path d="M268,235 C264,244 258,251 252,252 C248,251 245,246 244,241 C252,246 260,243 268,235 Z" fill="#507DAA"/>
-      <circle cx="269" cy="235" r="8" fill="#E6D7C3"/>
-    </g>
-
-    <!-- Hariko kimono back torso -->
-    <g id="torso-back">
-      <path d="M185,198 L215,198 L217,210 L183,210 Z" fill="#DFD2BE"/>
-      <!-- Golden-ochre under-hem -->
-      <path d="M156,290 C156,296 164,301 200,301 C236,301 244,296 244,290 L242,285 L158,285 Z" fill="#CC9D38"/>
-      <path d="M158,295 C172,300 228,300 242,295 C235,300 220,302 200,302 C180,302 165,300 158,295 Z" fill="#A87D24"/>
-      <!-- Main light-blue kimono back -->
-      <path d="M174,205 C161,209 152,222 151,246 L153,290 C166,295 234,295 247,290 L249,246 C248,222 239,209 226,205 Z" fill="#79A8D6"/>
-      <path d="M175,207 C185,209 215,209 225,207 C218,218 182,218 175,207 Z" fill="#96BEE4" opacity="0.55"/>
-      <path d="M152,275 C168,280 232,280 248,275 L247,290 C234,295 166,295 153,290 Z" fill="#5B89B8"/>
-      <path d="M154,288 C172,293 228,293 246,288 C232,292 168,292 154,288 Z" fill="#2E4D75"/>
-      <!-- Back gofun collar (eri) & center seam brush line -->
-      <path d="M176,203 C186,207 214,207 224,203 L220,211 C208,214 192,214 180,211 Z" fill="#FAF6EE"/>
-      <path d="M200,213 C201,226 201,236 200,244 C199,236 199,226 200,213 Z M200,268 C201,277 201,284 200,291 C199,284 199,277 200,268 Z" fill="#4B78A6"/>
-      <!-- Gold-leaf folk back kamon crest & painted plum blossoms -->
-      <circle cx="200" cy="226" r="7.5" fill="#E2B23B"/>
-      <path d="M200,221 L204.5,226 L200,231 L195.5,226 Z" fill="#FAF6EE"/>
-      <use href="#ume" transform="translate(172 279)"/>
-      <use href="#ume-shu" transform="translate(227 280)"/>
-      <rect x="215" y="272" width="2.8" height="2.8" transform="rotate(20 215 272)" fill="#E2B23B"/>
-      <!-- Gofun white obi-shita & yellow obi sash -->
-      <path d="M149,255 C166,258 234,258 251,255 L252,266 C234,270 166,270 148,266 Z" fill="#FAF6EE"/>
-      <path d="M148,263 C166,267 234,267 252,263 L252,266 C234,270 166,270 148,266 Z" fill="#DFD6C7"/>
-      <path d="M150,244 C168,247 232,247 250,244 C252,248 252,253 250,257 C232,260 168,260 150,257 C148,253 148,248 150,244 Z" fill="#E8BE2E"/>
-      <path d="M150,254 C168,257 232,257 250,254 L250,257 C232,260 168,260 150,257 Z" fill="#C5961B"/>
-    </g>
-
-    <!-- Back sash knot (musubi): lag-up (flared as body drops) & lag-down (pulled as body rises) -->
-    <g id="knot-up">
-      <path d="M196,253 C188,257 181,255 179,261 C182,266 191,264 198,257 Z" fill="#E8BE2E"/>
-      <path d="M204,253 C212,257 219,255 221,261 C218,266 209,264 202,257 Z" fill="#E8BE2E"/>
-      <path d="M189,249 C189,244 211,244 211,249 C211,256 189,256 189,249 Z" fill="#F5D867"/>
-      <path d="M191,252 C196,255 204,255 209,252 C207,256 193,256 191,252 Z" fill="#C5961B"/>
-      <circle cx="200" cy="250" r="2.6" fill="#D44434"/>
-    </g>
-    <g id="knot-down">
-      <path d="M196,254 C191,263 188,272 193,275 C197,276 199,267 199,257 Z" fill="#C5961B"/>
-      <path d="M197,254 C192,262 190,270 194,273 C197,274 199,266 199,257 Z" fill="#E8BE2E"/>
-      <path d="M203,254 C208,262 210,270 206,273 C203,274 201,266 201,257 Z" fill="#E8BE2E"/>
-      <path d="M190,250 C190,245 210,245 210,250 C210,257 190,257 190,250 Z" fill="#F5D867"/>
-      <circle cx="200" cy="251" r="2.6" fill="#D44434"/>
-    </g>
-
-    <!-- Back of hariko head & bob hair + separate lagging topknot -->
-    <g id="topknot">
-      <path d="M185,95 C179,85 185,74 195,77 C199,70 212,71 214,80 C222,78 226,86 216,94 Z" fill="#221F20"/>
-      <path d="M191,81 C196,76 205,76 210,80 C204,79 196,79 191,81 Z" fill="#3A3538"/>
-      <path d="M191,92 C196,90 206,90 212,92 C212,95 191,95 191,92 Z" fill="#E2B23B"/>
-      <circle cx="200" cy="93" r="2.2" fill="#D44434"/>
-    </g>
-    <g id="head-back">
-      <!-- Ears peeking from behind -->
-      <path d="M134,155 C121,153 116,165 120,176 C123,184 132,186 137,182 Z" fill="#F7F0E4"/>
-      <path d="M134,164 C127,164 125,172 129,177 C132,180 135,178 136,175 Z" fill="#E4D2BA"/>
-      <path d="M266,155 C279,153 284,165 280,176 C277,184 268,186 263,182 Z" fill="#F7F0E4"/>
-      <path d="M266,164 C273,164 275,172 271,177 C268,180 265,178 264,175 Z" fill="#E4D2BA"/>
-      <!-- Molded black bob back + character's right-side tuft (on viewer's right from behind) -->
-      <path d="M140,188 C146,202 168,207 200,207 C232,207 254,202 260,188 Z" fill="#141213"/>
-      <path d="M144,194 C142,202 146,207 152,205 L155,193 Z M256,194 C258,202 254,207 248,205 L245,193 Z" fill="#221F20"/>
-      <path d="M133,148 C132,115 157,92 200,92 C243,92 267,115 268,143 C276,141 281,146 276,151 C272,153 269,151 267,149 C267,168 265,183 260,191 C242,195 158,195 140,191 C135,183 133,168 133,148 Z" fill="#221F20"/>
-      <path d="M154,117 C173,104 221,103 243,116 C221,109 175,109 154,117 Z" fill="#3A3538"/>
-      <path d="M174,132 C173,154 174,174 177,189 C172,174 171,154 174,132 Z M200,128 C201,152 201,174 200,190 C199,174 199,152 200,128 Z M226,132 C229,154 228,174 223,189 C226,174 227,154 226,132 Z" fill="#161415"/>
-      <rect x="166" y="115" width="2.8" height="2.8" transform="rotate(-18 166 115)" fill="#E2B23B" opacity="0.85"/>
-    </g>
-  </defs>
-
-  <!-- Plain warm washi background with subtle earthen path strip -->
-  <rect width="400" height="400" fill="#EBE1CF"/>
-  <path d="M16,18 C16,15 19,14 23,14 L377,15 C382,15 385,17 385,22 L384,378 C384,382 381,385 376,385 L23,384 C18,384 15,381 15,376 Z" fill="#F5EEE2"/>
-  <path d="M158,284 C184,281 216,281 242,284 L276,348 C236,354 164,354 124,348 Z" fill="#EAE0CE" opacity="0.65"/>
-  <ellipse cx="152" cy="332" rx="5" ry="2.2" fill="#DBCDB6" opacity="0.7"/>
-  <ellipse cx="246" cy="312" rx="4" ry="1.8" fill="#DBCDB6" opacity="0.65"/>
-
-  <!-- Frame 1: Right Contact (R foot forward, L heel lifting; L sleeve fwd, R sleeve back) -->
+  <!-- Frame 1: Left Contact (left foot forward, right sole visible behind hem, right arm forward, left arm back) -->
   <g class="f f1">
-    <ellipse cx="201" cy="316" rx="54" ry="9.5" fill="#D8C9B0" opacity="0.7"/>
-    <use href="#foot-fwd" transform="translate(221 304)"/>
-    <use href="#foot-plant" transform="translate(178 307)"/>
-    <g transform="translate(1 0) rotate(0.8 200 250)">
-      <use href="#slv-l-fwd"/>
-      <use href="#torso-back"/>
-      <use href="#slv-r-back"/>
+    <use href="#shadow" transform="translate(100,155) scale(1,1)" />
+    <use href="#foot-planted" transform="translate(89,148) scale(0.92)" />
+    <g transform="translate(0,0)">
+      <use href="#arm-r-fwd" transform="translate(0,-1)" />
+      <use href="#torso" transform="translate(-0.8,0) rotate(-1,100,125)" />
+      <use href="#foot-sole" transform="translate(111,153) rotate(-4)" />
+      <use href="#arm-l-back" transform="translate(0,1)" />
+      <use href="#obi-knot" transform="translate(-1,-2)" />
+      <use href="#head" transform="translate(0,0) rotate(-0.8,100,85)" />
+      <use href="#topknot" transform="translate(-0.5,-2.2)" />
     </g>
-    <use href="#knot-up" transform="translate(0 -1) rotate(-3 200 250)"/>
-    <use href="#topknot" transform="translate(-1 -1.5) rotate(-5 200 94)"/>
-    <use href="#head-back" transform="translate(1 0) rotate(0.8 200 160)"/>
   </g>
 
-  <!-- Frame 2: Right Down (lowest squash; L sandal sole lifts high; knots flare up in lag) -->
+  <!-- Frame 2: Left Down (body lowest +4, knees bent, left arm max back, right arm max forward, lag catching up) -->
   <g class="f f2">
-    <ellipse cx="202" cy="317" rx="57" ry="10.5" fill="#D8C9B0" opacity="0.78"/>
-    <use href="#foot-plant" transform="translate(221 306)"/>
-    <use href="#foot-sole" transform="translate(177 302) rotate(-8)"/>
-    <g transform="translate(2 3.5) translate(200 260) scale(1.02 0.98) translate(-200 -260)">
-      <use href="#slv-l-fwd" transform="translate(0 -1)"/>
-      <use href="#torso-back"/>
-      <use href="#slv-r-back" transform="translate(0 1.5)"/>
+    <use href="#shadow" transform="translate(100,155) scale(1.08,1.06)" />
+    <use href="#foot-planted" transform="translate(89,151) scale(0.96)" />
+    <g transform="translate(0,4)">
+      <use href="#arm-r-fwd" transform="translate(1,-2) rotate(-3,130,110)" />
+      <use href="#torso" transform="translate(-1.2,0) rotate(-1.6,100,125)" />
+      <use href="#foot-sole" transform="translate(111,150) rotate(-8)" />
+      <use href="#arm-l-back" transform="translate(-1,2) rotate(3,70,110)" />
+      <use href="#obi-knot" transform="translate(-1.5,-1.5)" />
+      <use href="#head" transform="translate(0,0) rotate(-1.2,100,85)" />
+      <use href="#topknot" transform="translate(-0.8,-1.8)" />
     </g>
-    <use href="#knot-up" transform="translate(-1 1.5) rotate(-5 200 250)"/>
-    <use href="#topknot" transform="translate(-1.5 1.8) rotate(-7 200 94)"/>
-    <use href="#head-back" transform="translate(2 4) rotate(1.4 200 160)"/>
   </g>
 
-  <!-- Frame 3: Right Passing (body rises; L foot passes high showing sole; knots lag down) -->
+  <!-- Frame 3: Left Passing (feet passing, right foot lifted, body rising -1.5, topknot/obi knot at lowest dip) -->
   <g class="f f3">
-    <ellipse cx="201" cy="316" rx="50" ry="9" fill="#D8C9B0" opacity="0.68"/>
-    <use href="#foot-plant" transform="translate(219 306)"/>
-    <use href="#foot-sole" transform="translate(184 297) rotate(5) scale(0.94)"/>
-    <g transform="translate(1.2 -0.6)">
-      <use href="#slv-l-mid"/>
-      <use href="#torso-back"/>
-      <use href="#slv-r-mid"/>
+    <use href="#shadow" transform="translate(100,155) scale(0.94,0.94)" />
+    <use href="#foot-planted" transform="translate(91,151)" />
+    <g transform="translate(0,-1.5)">
+      <use href="#arm-r-fwd" transform="translate(-1,1)" />
+      <use href="#torso" transform="translate(-0.4,0) rotate(-0.5,100,125)" />
+      <use href="#foot-pass" transform="translate(108,147) rotate(6)" />
+      <use href="#arm-l-back" transform="translate(1,-1)" />
+      <use href="#obi-knot" transform="translate(-0.5,2.2)" />
+      <use href="#head" transform="translate(0,0)" />
+      <use href="#topknot" transform="translate(0,2.2)" />
     </g>
-    <use href="#knot-down" transform="translate(0.5 0.8) rotate(-2 200 250)"/>
-    <use href="#topknot" transform="translate(0 0.8) rotate(-3 200 94)"/>
-    <use href="#head-back" transform="translate(1.2 -0.8) rotate(0.6 200 160)"/>
   </g>
 
-  <!-- Frame 4: Right Up / High Point (body peaks; L foot reaches ahead; knots stream down) -->
+  <!-- Frame 4: Left Up (body highest -4, left back foot lifting heel, right foot reaching forward, shadow shrinks) -->
   <g class="f f4">
-    <ellipse cx="200" cy="316" rx="47" ry="8.5" fill="#D8C9B0" opacity="0.6"/>
-    <use href="#foot-fwd" transform="translate(180 301)"/>
-    <use href="#foot-plant" transform="translate(219 305) scale(0.97)"/>
-    <g transform="translate(0.4 -3.2)">
-      <use href="#slv-r-fwd" transform="translate(0 2)"/>
-      <use href="#torso-back"/>
-      <use href="#slv-l-mid" transform="translate(0 1)"/>
+    <use href="#shadow" transform="translate(100,155) scale(0.84,0.84)" />
+    <use href="#foot-planted" transform="translate(110,145) scale(0.88)" />
+    <g transform="translate(0,-4)">
+      <use href="#arm-l-fwd" transform="translate(-1,1)" />
+      <use href="#torso" transform="translate(0.4,0) rotate(0.6,100,125)" />
+      <use href="#foot-sole" transform="translate(90,153) scale(0.94) rotate(5)" />
+      <use href="#arm-r-back" transform="translate(-1,-1)" />
+      <use href="#obi-knot" transform="translate(0.5,1.2)" />
+      <use href="#head" transform="translate(0,0) rotate(0.5,100,85)" />
+      <use href="#topknot" transform="translate(0.4,1.2)" />
     </g>
-    <use href="#knot-down" transform="translate(0 -1.8) rotate(2 200 250)"/>
-    <use href="#topknot" transform="translate(0.5 -2.2) rotate(3 200 94)"/>
-    <use href="#head-back" transform="translate(0.4 -3.6)"/>
   </g>
 
-  <!-- Frame 5: Left Contact (L foot forward, R heel lifting; R sleeve fwd, L sleeve back) -->
+  <!-- Frame 5: Right Contact (right foot forward, left sole visible behind hem, left arm forward, right arm back) -->
   <g class="f f5">
-    <ellipse cx="199" cy="316" rx="54" ry="9.5" fill="#D8C9B0" opacity="0.7"/>
-    <use href="#foot-fwd" transform="translate(179 304)"/>
-    <use href="#foot-plant" transform="translate(222 307)"/>
-    <g transform="translate(-1 0) rotate(-0.8 200 250)">
-      <use href="#slv-r-fwd"/>
-      <use href="#torso-back"/>
-      <use href="#slv-l-back"/>
+    <use href="#shadow" transform="translate(100,155) scale(1,1)" />
+    <use href="#foot-planted" transform="translate(111,148) scale(0.92)" />
+    <g transform="translate(0,0)">
+      <use href="#arm-l-fwd" transform="translate(0,-1)" />
+      <use href="#torso" transform="translate(0.8,0) rotate(1,100,125)" />
+      <use href="#foot-sole" transform="translate(89,153) rotate(4)" />
+      <use href="#arm-r-back" transform="translate(0,1)" />
+      <use href="#obi-knot" transform="translate(1,-2)" />
+      <use href="#head" transform="translate(0,0) rotate(0.8,100,85)" />
+      <use href="#topknot" transform="translate(0.5,-2.2)" />
     </g>
-    <use href="#knot-up" transform="translate(0 -1) rotate(3 200 250)"/>
-    <use href="#topknot" transform="translate(1 -1.5) rotate(5 200 94)"/>
-    <use href="#head-back" transform="translate(-1 0) rotate(-0.8 200 160)"/>
   </g>
 
-  <!-- Frame 6: Left Down (lowest squash; R sandal sole lifts high; knots flare up in lag) -->
+  <!-- Frame 6: Right Down (body lowest +4, knees bent, right arm max back, left arm max forward, lag catching up) -->
   <g class="f f6">
-    <ellipse cx="198" cy="317" rx="57" ry="10.5" fill="#D8C9B0" opacity="0.78"/>
-    <use href="#foot-plant" transform="translate(179 306)"/>
-    <use href="#foot-sole" transform="translate(223 302) rotate(8)"/>
-    <g transform="translate(-2 3.5) translate(200 260) scale(1.02 0.98) translate(-200 -260)">
-      <use href="#slv-r-fwd" transform="translate(0 -1)"/>
-      <use href="#torso-back"/>
-      <use href="#slv-l-back" transform="translate(0 1.5)"/>
+    <use href="#shadow" transform="translate(100,155) scale(1.08,1.06)" />
+    <use href="#foot-planted" transform="translate(111,151) scale(0.96)" />
+    <g transform="translate(0,4)">
+      <use href="#arm-l-fwd" transform="translate(-1,-2) rotate(3,70,110)" />
+      <use href="#torso" transform="translate(1.2,0) rotate(1.6,100,125)" />
+      <use href="#foot-sole" transform="translate(89,150) rotate(8)" />
+      <use href="#arm-r-back" transform="translate(1,2) rotate(-3,130,110)" />
+      <use href="#obi-knot" transform="translate(1.5,-1.5)" />
+      <use href="#head" transform="translate(0,0) rotate(1.2,100,85)" />
+      <use href="#topknot" transform="translate(0.8,-1.8)" />
     </g>
-    <use href="#knot-up" transform="translate(1 1.5) rotate(5 200 250)"/>
-    <use href="#topknot" transform="translate(1.5 1.8) rotate(7 200 94)"/>
-    <use href="#head-back" transform="translate(-2 4) rotate(-1.4 200 160)"/>
   </g>
 
-  <!-- Frame 7: Left Passing (body rises; R foot passes high showing sole; knots lag down) -->
+  <!-- Frame 7: Right Passing (feet passing, left foot lifted, body rising -1.5, topknot/obi knot at lowest dip) -->
   <g class="f f7">
-    <ellipse cx="199" cy="316" rx="50" ry="9" fill="#D8C9B0" opacity="0.68"/>
-    <use href="#foot-plant" transform="translate(181 306)"/>
-    <use href="#foot-sole" transform="translate(216 297) rotate(-5) scale(0.94)"/>
-    <g transform="translate(-1.2 -0.6)">
-      <use href="#slv-r-mid"/>
-      <use href="#torso-back"/>
-      <use href="#slv-l-mid"/>
+    <use href="#shadow" transform="translate(100,155) scale(0.94,0.94)" />
+    <use href="#foot-planted" transform="translate(109,151)" />
+    <g transform="translate(0,-1.5)">
+      <use href="#arm-l-fwd" transform="translate(1,1)" />
+      <use href="#torso" transform="translate(0.4,0) rotate(0.5,100,125)" />
+      <use href="#foot-pass" transform="translate(92,147) rotate(-6)" />
+      <use href="#arm-r-back" transform="translate(-1,-1)" />
+      <use href="#obi-knot" transform="translate(0.5,2.2)" />
+      <use href="#head" transform="translate(0,0)" />
+      <use href="#topknot" transform="translate(0,2.2)" />
     </g>
-    <use href="#knot-down" transform="translate(-0.5 0.8) rotate(2 200 250)"/>
-    <use href="#topknot" transform="translate(0 0.8) rotate(3 200 94)"/>
-    <use href="#head-back" transform="translate(-1.2 -0.8) rotate(-0.6 200 160)"/>
   </g>
 
-  <!-- Frame 8: Left Up / High Point (body peaks; R foot reaches ahead; knots stream down) -->
+  <!-- Frame 8: Right Up (body highest -4, right back foot lifting heel, left foot reaching forward, shadow shrinks) -->
   <g class="f f8">
-    <ellipse cx="200" cy="316" rx="47" ry="8.5" fill="#D8C9B0" opacity="0.6"/>
-    <use href="#foot-fwd" transform="translate(220 301)"/>
-    <use href="#foot-plant" transform="translate(181 305) scale(0.97)"/>
-    <g transform="translate(-0.4 -3.2)">
-      <use href="#slv-l-fwd" transform="translate(0 2)"/>
-      <use href="#torso-back"/>
-      <use href="#slv-r-mid" transform="translate(0 1)"/>
+    <use href="#shadow" transform="translate(100,155) scale(0.84,0.84)" />
+    <use href="#foot-planted" transform="translate(90,145) scale(0.88)" />
+    <g transform="translate(0,-4)">
+      <use href="#arm-r-fwd" transform="translate(1,1)" />
+      <use href="#torso" transform="translate(-0.4,0) rotate(-0.6,100,125)" />
+      <use href="#foot-sole" transform="translate(110,153) scale(0.94) rotate(-5)" />
+      <use href="#arm-l-back" transform="translate(1,-1)" />
+      <use href="#obi-knot" transform="translate(-0.5,1.2)" />
+      <use href="#head" transform="translate(0,0) rotate(-0.5,100,85)" />
+      <use href="#topknot" transform="translate(-0.4,1.2)" />
     </g>
-    <use href="#knot-down" transform="translate(0 -1.8) rotate(-2 200 250)"/>
-    <use href="#topknot" transform="translate(-0.5 -2.2) rotate(-3 200 94)"/>
-    <use href="#head-back" transform="translate(-0.4 -3.6)"/>
   </g>
-
-  <!-- Subtle washi paper grain overlay & small caption -->
-  <rect width="400" height="400" fill="url(#washi)" pointer-events="none"/>
-  <text x="200" y="376" text-anchor="middle" font-family="serif" font-size="13" fill="#6E6256" letter-spacing="0.5">walk-back</text>
 </svg>

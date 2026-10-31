@@ -664,14 +664,60 @@
   }
 }
 
-/* Region gates (placeholder look; the art pass draws them). */
+/* Region gates (art by Gemini 4 Argon). A region that opens with a gate gets room at its top: the
+   gate stands where the trail enters (top centre), and the signboard and lessons sit below it, so
+   the gate never collides with text whatever the region's height. */
+.unit-stage:has(> .region-gate) {
+  padding-top: 108px;
+}
+
 .region-gate {
   position: absolute;
-  top: -36px;
+  top: 4px;
   left: 50%;
   z-index: 1;
-  width: 120px;
+  width: 116px;
   height: 96px;
   transform: translateX(-50%);
   pointer-events: none;
+}
+
+.region-gate-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.region-gate.is-locked {
+  opacity: 0.9;
+}
+
+/* One gentle sway on the hanging lantern / shide while the region is lit */
+.region-gate-torii .region-gate-lantern {
+  transform-origin: 68px 47px;
+}
+
+.region-gate-kido .region-gate-lantern {
+  transform-origin: 80px 35px;
+}
+
+.region-gate.is-lit .region-gate-lantern {
+  animation: region-gate-sway calc(var(--dur-celebrate, 900ms) * 4.2) ease-in-out infinite;
+}
+
+@keyframes region-gate-sway {
+  0%,
+  100% {
+    transform: rotate(-3.5deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .region-gate.is-lit .region-gate-lantern {
+    animation: none;
+  }
 }
