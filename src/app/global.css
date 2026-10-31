@@ -529,7 +529,9 @@ ruby rt {
   min-height: 54px;
   min-width: 44px;
   padding: 2px 0;
-  color: color-mix(in srgb, var(--c-hud-ink) 72%, transparent);
+  /* Opaque (mixed with the bar, not with transparent): see-through strokes darken where the icon
+     lines cross, which looked like dice. */
+  color: color-mix(in srgb, var(--c-hud-ink) 72%, var(--c-hud-bg));
   text-decoration: none;
   font-size: var(--fs-xs);
   font-weight: 800;
@@ -575,7 +577,7 @@ ruby rt {
 }
 .tab.active svg {
   animation: stat-bump var(--dur-slow) var(--spring);
-  filter: drop-shadow(0 2px 0 color-mix(in srgb, var(--c-ink) 50%, transparent));
+  filter: drop-shadow(0 2px 0 color-mix(in srgb, var(--c-hud-bg) 60%, transparent));
 }
 
 /* ---------- panels ---------- */
