@@ -45,14 +45,8 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
           <stop offset="1" stopColor={TIMBER_LIGHT} />
         </linearGradient>
         <linearGradient id="dojo-shoji-grad" x1="0" y1="0" x2="1" y2="1">
-          <stop
-            offset="0"
-            stopColor="color-mix(in srgb, var(--c-glow) 52%, var(--c-hud-ink))"
-          />
-          <stop
-            offset="1"
-            stopColor="color-mix(in srgb, var(--c-gold-soft) 72%, var(--c-panel))"
-          />
+          <stop offset="0" stopColor="color-mix(in srgb, var(--c-glow) 52%, var(--c-hud-ink))" />
+          <stop offset="1" stopColor="color-mix(in srgb, var(--c-gold-soft) 72%, var(--c-panel))" />
         </linearGradient>
         <linearGradient id="dojo-sun-grad" x1="0" y1="0" x2="0.6" y2="1">
           <stop offset="0" stopColor="var(--c-glow)" stopOpacity="0.42" />
@@ -206,14 +200,7 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
         {/* Raised lacquered kamiza dais */}
         <rect x="0" y="38.5" width="62" height="6" rx="2" fill="var(--c-hud-bg)" />
         <rect x="0" y="36.5" width="62" height="5.5" rx="2" fill="var(--c-lacquer)" />
-        <ellipse
-          cx="14"
-          cy="38.2"
-          rx="8"
-          ry="1.1"
-          fill="var(--c-hud-ink)"
-          opacity="0.38"
-        />
+        <ellipse cx="14" cy="38.2" rx="8" ry="1.1" fill="var(--c-hud-ink)" opacity="0.38" />
       </g>
 
       {/* Right wall paneling, framed calligraphy plaque & weapon rack of bokken */}
@@ -268,14 +255,7 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
                 strokeLinecap="round"
               />
               <rect x="18.5" y="-2.2" width="3.2" height="8" rx="1.4" fill="var(--c-lacquer)" />
-              <ellipse
-                cx="34"
-                cy="1.2"
-                rx="7"
-                ry="0.9"
-                fill="var(--c-hud-ink)"
-                opacity="0.42"
-              />
+              <ellipse cx="34" cy="1.2" rx="7" ry="0.9" fill="var(--c-hud-ink)" opacity="0.42" />
             </g>
           ))}
         </g>
@@ -298,13 +278,7 @@ export function DojoHallBackdrop({ className }: { className?: string }) {
           className={idx % 2 === 0 ? 'backdrop-sway' : 'backdrop-sway-alt'}
           style={{ transformOrigin: `${x}px 9px` }}
         >
-          <circle
-            cx={x}
-            cy="23"
-            r="18"
-            fill="url(#dojo-lantern-glow)"
-            className="backdrop-glow"
-          />
+          <circle cx={x} cy="23" r="18" fill="url(#dojo-lantern-glow)" className="backdrop-glow" />
           <rect x={x - 1} y="8" width="2" height="6" fill="var(--c-hud-bg)" />
           <ellipse
             cx={x}
@@ -590,13 +564,7 @@ export function MarketStreetBackdrop({ className }: { className?: string }) {
           style={{ transformOrigin: `${x}px ${y}px` }}
           transform={`translate(${x} ${y}) scale(${s})`}
         >
-          <circle
-            cx="0"
-            cy="9"
-            r="14"
-            fill="url(#market-orb-glow)"
-            className="backdrop-glow"
-          />
+          <circle cx="0" cy="9" r="14" fill="url(#market-orb-glow)" className="backdrop-glow" />
           <ellipse cx="0" cy="10.5" rx="6.5" ry="7.2" fill="var(--c-lacquer)" />
           <ellipse cx="0" cy="8.2" rx="6.5" ry="7" fill="var(--c-accent)" />
           <ellipse cx="0" cy="8.2" rx="3.2" ry="4.2" fill="var(--c-glow)" opacity="0.88" />

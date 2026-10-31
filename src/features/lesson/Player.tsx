@@ -23,7 +23,7 @@ import { fx } from '../../foundations/fx/fx';
 import { Guide, type Mood } from '../../foundations/art/Guide';
 import { AvatarActor } from '../avatar/AvatarActor';
 import type { EnemyKind } from '../../foundations/art/Enemy';
-import { BattleStage } from './BattleStage';
+import { BattleStage, type BattleRegion } from './BattleStage';
 import { FlameIcon, HeartIcon, LanternIcon } from '../../foundations/art/icons';
 import { useGame } from '../../foundations/store/gameStore';
 import { tokens } from '../../foundations/theme/theme';
@@ -58,6 +58,8 @@ export interface PlayerProps {
   battle?: boolean;
   /** Enemies met on the battle road (the lesson's story region). */
   foes?: readonly EnemyKind[];
+  /** The story region's battle backdrop (dojo hall, bamboo road, market street). */
+  region?: BattleRegion;
 }
 
 const PRAISE = ['Nice!', 'Correct!', 'Great!', 'Sharp!', 'Excellent!'];
@@ -81,6 +83,7 @@ export function Player({
   fighter,
   battle = !hideGuide && !header,
   foes,
+  region,
 }: PlayerProps) {
   const { speak } = useJa();
   const voiceMode = useGame((s) => s.save?.settings.voiceMode ?? 'alternate-lesson');
@@ -328,7 +331,13 @@ export function Player({
         )}
       </div>
       {header}
-      {battle && <BattleStage state={state} {...(foes?.length ? { foes } : {})} />}
+      {battle && (
+        <BattleStage
+          state={state}
+          {...(foes?.length ? { foes } : {})}
+          {...(region ? { region } : {})}
+        />
+      )}
 
       <div className="stage">
         {!hideGuide && (

@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
+import { isBattleRegion, type BattleRegion } from './BattleStage';
 import { foesOf } from '../../foundations/art/Enemy';
 import { useNavigate, useParams } from 'react-router';
 import {
@@ -172,6 +173,9 @@ export function LessonScreen() {
         questions={questions}
         config={config}
         foes={foesOf(regionForUnit(ref?.unitIndex ?? 0).foes)}
+        {...(isBattleRegion(regionForUnit(ref?.unitIndex ?? 0).id)
+          ? { region: regionForUnit(ref?.unitIndex ?? 0).id as BattleRegion }
+          : {})}
         lanterns={stats.inventory('chochin')}
         onUseLantern={() => commit(consumeItem(useGame.getState().save!, gctx(), 'chochin'))}
         onAnswered={(st) => {

@@ -149,6 +149,7 @@ export function ReviewsScreen({ session = false }: { session?: boolean }) {
       questions={questions}
       config={config}
       foes={foesOf(regions[0]!.foes)}
+      region="dojo"
       lanterns={stats.inventory('chochin')}
       onUseLantern={() => commit(consumeItem(useGame.getState().save!, gctx(), 'chochin'))}
       onAnswered={(st) => {
