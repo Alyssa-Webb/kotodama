@@ -9,6 +9,7 @@ import {
   CREAM,
   INK,
   type MusashiPose,
+  OBI,
   SAYA,
   SHINE,
   STEEL,
@@ -24,14 +25,14 @@ export function DaishoScabbards({ pose }: { pose: MusashiPose }): JSX.Element {
     <g className="musashi-scabbards">
       {/* 1. Clearly shorter wakizashi scabbard (lower/inner, ~14u visible past hip) */}
       <path
-        d="M71 84.5 Q82 93.5 93.5 99.5"
+        d="M73 84.8 Q83 93.5 93.5 99.5"
         stroke={INK}
         strokeWidth="6.2"
         strokeLinecap="round"
         fill="none"
       />
       <path
-        d="M71 82.2 Q82 91.2 93.5 97.2"
+        d="M73 82.5 Q83 91.2 93.5 97.2"
         stroke={SAYA}
         strokeWidth="5.4"
         strokeLinecap="round"
@@ -48,14 +49,14 @@ export function DaishoScabbards({ pose }: { pose: MusashiPose }): JSX.Element {
 
       {/* 2. Long katana scabbard (upper/outer, ~27u visible past hip, edge concave-up) */}
       <path
-        d="M72 78.5 Q88 89.5 106.5 96.5"
+        d="M74 79 Q89 89.5 106.5 96.5"
         stroke={INK}
         strokeWidth="6.8"
         strokeLinecap="round"
         fill="none"
       />
       <path
-        d="M72 76 Q88 87 106.5 94"
+        d="M74 76.5 Q89 87 106.5 94"
         stroke={SAYA}
         strokeWidth="5.8"
         strokeLinecap="round"
@@ -70,48 +71,52 @@ export function DaishoScabbards({ pose }: { pose: MusashiPose }): JSX.Element {
         opacity="0.34"
       />
 
-      {/* Golden sageo cord wrap & kurikata knot on the scabbards just below the obi */}
-      <path
-        d="M75 77.5 L80 81 M74 82.5 L78.5 85.5"
-        stroke={CORD_SHADE}
-        strokeWidth="4.6"
-        strokeLinecap="round"
-      />
-      <path
-        d="M75 76 L80 79.5 M74 81 L78.5 84"
-        stroke={CORD_GOLD}
-        strokeWidth="3.8"
-        strokeLinecap="round"
-      />
-
-      {/* Open koiguchi scabbard mouths visible on the hip when both blades are drawn */}
-      {isReady && (
+      {/* Sageo cord wrap & kurikata knot when sheathed; omitted in ready so scabbards read purely as empty black saya */}
+      {!isReady && (
         <g>
-          <ellipse
-            cx="69.5"
-            cy="74.5"
-            rx="2.6"
-            ry="3.6"
-            transform="rotate(34 69.5 74.5)"
-            fill={TSUBA_RIM}
+          <path
+            d="M75 77.5 L80 81 M74 82.5 L78.5 85.5"
+            stroke={CORD_SHADE}
+            strokeWidth="4.6"
+            strokeLinecap="round"
           />
+          <path
+            d="M75 76 L80 79.5 M74 81 L78.5 84"
+            stroke={CORD_GOLD}
+            strokeWidth="3.8"
+            strokeLinecap="round"
+          />
+        </g>
+      )}
+
+      {/* Outer obi hip strap holding the two scabbards at his left hip */}
+      <rect x="70.5" y="74.2" width="10.5" height="6.8" rx="3.2" fill={OBI} />
+
+      {/* Empty scabbard mouths (koiguchi) flush with the obi edge when blades are drawn */}
+      {isReady && (
+        <g className="musashi-scabbard-mouths">
           <ellipse
-            cx="69.5"
-            cy="74.5"
-            rx="1.4"
-            ry="2.2"
-            transform="rotate(34 69.5 74.5)"
+            cx="74.2"
+            cy="76.6"
+            rx="1.6"
+            ry="2.6"
+            transform="rotate(34 74.2 76.6)"
             fill={INK}
+            stroke={CREAM}
+            strokeWidth="0.6"
+            strokeOpacity="0.3"
           />
           <ellipse
-            cx="68.5"
-            cy="81"
-            rx="2.3"
-            ry="3.2"
-            transform="rotate(34 68.5 81)"
-            fill={TSUBA_RIM}
+            cx="73.2"
+            cy="82.6"
+            rx="1.4"
+            ry="2.3"
+            transform="rotate(34 73.2 82.6)"
+            fill={INK}
+            stroke={CREAM}
+            strokeWidth="0.6"
+            strokeOpacity="0.28"
           />
-          <ellipse cx="68.5" cy="81" rx="1.2" ry="1.9" transform="rotate(34 68.5 81)" fill={INK} />
         </g>
       )}
     </g>
@@ -240,26 +245,26 @@ export function DrawnKatana(): JSX.Element {
   );
 }
 
-/** Drawn shorter wakizashi held forward low in Musashi's left hand (Niten Ichi-ryu gedan/seigan). */
+/** Drawn shorter wakizashi held forward in Musashi's left hand (Niten Ichi-ryu seigan guard). */
 export function DrawnWakizashi(): JSX.Element {
   return (
     <g>
-      {/* Clearly shorter curved steel blade (~23u long, held forward low) */}
+      {/* Clearly shorter curved steel blade (~23u long, held forward clear of the hip scabbards) */}
       <path
-        d="M92.5 68.5 Q104.5 65.2 116.5 59.8 L115.2 63.8 Q104.5 69.2 93.2 72.5 Z"
+        d="M94.5 60.5 Q106.5 57.2 118.2 51.8 L116.8 55.8 Q106.5 61.2 95.2 64.5 Z"
         fill={STEEL_SHADE}
       />
-      <path d="M92.5 67.2 Q104.5 63.8 116.8 58.8 L115.4 62.5 Q104.5 67.8 93.2 71 Z" fill={STEEL} />
+      <path d="M94.5 59.2 Q106.5 55.8 118.5 50.8 L117.1 54.5 Q106.5 59.8 95.2 63 Z" fill={STEEL} />
       {/* Razor upper cutting edge */}
       <path
-        d="M93.5 67.4 Q104.8 64 116.2 59.2"
+        d="M95.5 59.4 Q106.8 56 117.9 51.2"
         stroke={CREAM}
         strokeWidth="1.5"
         strokeLinecap="round"
         fill="none"
       />
       {/* Traveling glint along the shorter wakizashi blade */}
-      <g transform="translate(94 68.5) rotate(-21.5)">
+      <g transform="translate(96 60.5) rotate(-21.5)">
         <g className="musashi-glint-wakizashi">
           <ellipse cx="0" cy="0" rx="4.5" ry="1.3" fill={SHINE} />
           <path
@@ -270,22 +275,22 @@ export function DrawnWakizashi(): JSX.Element {
       </g>
 
       {/* Golden habaki collar & small round guard */}
-      <path d="M90.5 70.5 L94.2 69" stroke={CORD_GOLD} strokeWidth="3.8" strokeLinecap="round" />
-      <ellipse cx="91.5" cy="71.2" rx="2.6" ry="4.8" transform="rotate(-20 91.5 71.2)" fill={INK} />
+      <path d="M92.5 62.5 L96.2 61" stroke={CORD_GOLD} strokeWidth="3.8" strokeLinecap="round" />
+      <ellipse cx="93.5" cy="63.2" rx="2.6" ry="4.8" transform="rotate(-20 93.5 63.2)" fill={INK} />
       <ellipse
-        cx="91.5"
-        cy="69.8"
+        cx="93.5"
+        cy="61.8"
         rx="2.6"
         ry="4.8"
-        transform="rotate(-20 91.5 69.8)"
+        transform="rotate(-20 93.5 61.8)"
         fill={TSUBA_RIM}
       />
 
       {/* Shorter wrapped tsuka hilt */}
-      <path d="M81.5 74.8 L90.8 71.2" stroke={INK} strokeWidth="5.6" strokeLinecap="round" />
-      <path d="M81.5 73.3 L90.8 69.7" stroke={SAYA} strokeWidth="4.8" strokeLinecap="round" />
-      <circle cx="84.2" cy="72.3" r="1.1" fill={CORD_GOLD} />
-      <circle cx="88" cy="70.8" r="1.1" fill={CORD_GOLD} />
+      <path d="M83.5 66.8 L92.8 63.2" stroke={INK} strokeWidth="5.6" strokeLinecap="round" />
+      <path d="M83.5 65.3 L92.8 61.7" stroke={SAYA} strokeWidth="4.8" strokeLinecap="round" />
+      <circle cx="86.2" cy="64.3" r="1.1" fill={CORD_GOLD} />
+      <circle cx="90" cy="62.8" r="1.1" fill={CORD_GOLD} />
     </g>
   );
 }
