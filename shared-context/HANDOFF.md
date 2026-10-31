@@ -4,6 +4,22 @@ Read `README.md` in this folder first (vision, the owner's preferences, the AI s
 
 **Model rule (owner, non-negotiable):** every design (characters, yokai, scenes, UI art) is made by **Gemini 4 Argon** (`gemini-4-argon-high`) through the `gemini-art` skill. Claude does code, logic, tests and wiring. GPT-5.6 Sol only does action-animation timing.
 
+## Owner bug list (2026-10-31, from testing the live site) — do these first
+
+Reported by the owner after the hariko Town landed. In his words, then where to look. Verify each on a phone-sized WebKit render, push each fix, and send him the live link.
+
+1. **"I thought there were major art direction changes."** Only Home (noren/ema) and the Town buildings (hariko) have been restyled so far; ADR 0009 is being applied area by area. Next art: the Path and battles in ukiyo-e, the Dojo in sumi-e. Show visible progress fast.
+2. **"The shrine and lamp and lantern in the bamboo thicket are floating."** Path, Bamboo Thicket scenery (`RegionScene` in `src/features/path/PathScreen.tsx`): props not sitting on the ground.
+3. **"The moving wood path in the dojo isn't aligned with the background, it's off."** Battle walk in the Dojo (`BattleStage.tsx`, `battle.css`, `DojoHallBackdrop` in `BattleBackdrops.tsx`): the scrolling floor doesn't line up with the hall's floor.
+4. **"Expressions of avatar not aligned with face."** `src/features/avatar/Avatar.tsx` (mood faces from the base part's `face` data in `world/avatar.json`): the mood features sit off the face.
+5. **"Koto doesn't use VoiceVox voice on homepage and doesn't have cyclable text."** Home greeting (`SpeakableJa` in `HomeScreen.tsx`): play the ずんだもん clip from `public/voice/`, and let a tap cycle through several of Koto's lines (`world/koto.json`).
+6. **"Next lesson 'continue' button on homepage is not centered."** The hanko seal in `src/features/home/parts/NorenContinue.tsx` / `noren.css`.
+7. **"Navbar icons display dice, the opacity looks bad on intersections for the icons."** Tab bar icons (`src/app/Shell.tsx`, icons in `src/foundations/art/icons.tsx`): overlapping semi-transparent strokes show darker where they cross. Draw them opaque (or as single paths) instead of stacked translucent shapes.
+8. **"The fire icon and heart icon and coin icon symbols are weird shapes on the information bar at the top. Why are they not uniform?"** Header stat pills (`Shell.tsx`, `icons.tsx`): give the three icons one size, one weight and one style.
+9. **"The voices for tetsu and akari do not swap between male and female. They don't use the proper voices."** Known bug (task 1 above): Settings samples go through `Providers.say`, which ignores the button; also check `voice.ts` uses each guide's VOICEVOX clip (Akari 冥鳴ひまり, Tetsu 青山龍星) and that the device-voice fallback picks a male voice for Tetsu.
+10. **"Get rid of the mayor stamp on his desk in the Town."** Koto-as-mayor scene in `src/features/town/` (look for a stamp/seal prop).
+11. **"All text has that weird shadow I am noticing. What the hell?"** Global text-shadow, most likely in `src/app/global.css` (search `text-shadow`). Remove it from body text; keep at most a subtle one on text over busy art.
+
 ## Task queue (owner's words, then what we know)
 
 Do them as separate tasks, each verified on a phone-sized WebKit render and pushed on its own.

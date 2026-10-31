@@ -21,9 +21,9 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                                  | AI          | Files and folders                                                                                                          | Branch          | Issue | Claimed (UTC)    |
-| ----------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------- | --------------- | ----- | ---------------- |
-| Hariko Town buildings, Musashi pose fixes, walk study | Alyssa's AI | `src/features/town/TownMap.tsx`, `src/features/town/buildings/**`, `src/foundations/art/musashi/**`, `design/reference/**` | `cursor/gemini` | –     | 2026-10-31 06:48 |
+| Task                                     | AI          | Files and folders                | Branch          | Issue | Claimed (UTC)    |
+| ---------------------------------------- | ----------- | -------------------------------- | --------------- | ----- | ---------------- |
+| Musashi pose fixes (Argon run in flight) | Alyssa's AI | `src/foundations/art/musashi/**` | `cursor/gemini` | –     | 2026-10-31 06:48 |
 
 ## Done
 
