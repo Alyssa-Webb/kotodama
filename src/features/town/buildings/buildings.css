@@ -1,0 +1,110 @@
+/* Hariko folk-toy district building animations (transform & opacity only). */
+
+.hariko-station-steam-1,
+.hariko-station-steam-2 {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.hariko-station-steam-1 {
+  animation: hariko-steam-rise calc(var(--dur-celebrate, 900ms) * 2.8) ease-in-out infinite;
+}
+
+.hariko-station-steam-2 {
+  animation: hariko-steam-rise calc(var(--dur-celebrate, 900ms) * 2.8) ease-in-out infinite;
+  animation-delay: calc(var(--dur-celebrate, 900ms) * -1.4);
+}
+
+.hariko-cafe-noren {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: hariko-noren-flutter calc(var(--dur-celebrate, 900ms) * 3.4) ease-in-out infinite alternate;
+}
+
+.hariko-shrine-rope {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: hariko-rope-sway calc(var(--dur-celebrate, 900ms) * 3.6) ease-in-out infinite alternate;
+}
+
+.hariko-shopping-awning {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: hariko-noren-flutter calc(var(--dur-celebrate, 900ms) * 3.2) ease-in-out infinite alternate;
+}
+
+.hariko-bathhouse-steam-1,
+.hariko-bathhouse-steam-2 {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.hariko-bathhouse-steam-1 {
+  animation: hariko-steam-rise calc(var(--dur-celebrate, 900ms) * 3.1) ease-in-out infinite;
+}
+
+.hariko-bathhouse-steam-2 {
+  animation: hariko-steam-rise calc(var(--dur-celebrate, 900ms) * 3.1) ease-in-out infinite;
+  animation-delay: calc(var(--dur-celebrate, 900ms) * -1.55);
+}
+
+.hariko-school-bell {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: hariko-bell-swing calc(var(--dur-celebrate, 900ms) * 3) ease-in-out infinite alternate;
+}
+
+@keyframes hariko-steam-rise {
+  0% {
+    transform: translateY(2px) scale(0.82);
+    opacity: 0;
+  }
+  45% {
+    transform: translateY(-2px) scale(1);
+    opacity: 0.78;
+  }
+  100% {
+    transform: translateY(-7px) scale(1.14);
+    opacity: 0;
+  }
+}
+
+@keyframes hariko-noren-flutter {
+  0% {
+    transform: rotate(-1.6deg) scaleY(1);
+  }
+  100% {
+    transform: rotate(1.8deg) scaleY(0.96);
+  }
+}
+
+@keyframes hariko-rope-sway {
+  0% {
+    transform: rotate(-2.2deg);
+  }
+  100% {
+    transform: rotate(2.2deg);
+  }
+}
+
+@keyframes hariko-bell-swing {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hariko-station-steam-1,
+  .hariko-station-steam-2,
+  .hariko-cafe-noren,
+  .hariko-shrine-rope,
+  .hariko-shopping-awning,
+  .hariko-bathhouse-steam-1,
+  .hariko-bathhouse-steam-2,
+  .hariko-school-bell {
+    animation: none !important;
+  }
+}
