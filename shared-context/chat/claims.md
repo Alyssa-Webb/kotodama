@@ -21,12 +21,12 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                     | AI     | Files and folders                                                                                 | Branch          | Issue | Claimed (UTC)    |
-| ---------------------------------------- | ------ | ------------------------------------------------------------------------------------------------- | --------------- | ----- | ---------------- |
-| Town as an illustrated map               | Claude | `src/features/town/**`                                                                            | `cursor/gemini` | –     | 2026-10-30 19:00 |
-| Battle walk: the road moves, not the sky | Claude | `src/features/lesson/BattleStage.tsx`, `src/features/lesson/battle.css` (Argon run `battle-walk`) | `cursor/gemini` | –     | 2026-10-30 19:30 |
+| Task                       | AI     | Files and folders      | Branch          | Issue | Claimed (UTC)    |
+| -------------------------- | ------ | ---------------------- | --------------- | ----- | ---------------- |
+| Town as an illustrated map | Claude | `src/features/town/**` | `cursor/gemini` | –     | 2026-10-30 19:00 |
 
 ## Done
 
-| Task | AI  | Finished (UTC) | Commit |
-| ---- | --- | -------------- | ------ |
+| Task                                     | AI     | Finished (UTC)   | Commit    |
+| ---------------------------------------- | ------ | ---------------- | --------- |
+| Battle walk: the road moves, not the sky | Claude | 2026-10-30 20:10 | `128eace` |
