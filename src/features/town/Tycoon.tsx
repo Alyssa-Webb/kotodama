@@ -3,88 +3,32 @@
  * learned. Shows income piling up live, lets you collect it, assign spirits to staff slots and
  * upgrade. All rules live in engine/town; this only renders and commits.
  */
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { balanceOf } from '../../engine/economy/ledger';
 import { itemJapanese, itemMeaning } from '../../engine/pack/index';
 import {
   assign,
-  buildingState,
   collect,
-  pendingYen,
-  ratePerHour,
-  resident,
   staffPower,
   upgrade,
   upgradeCost,
   type Resident,
 } from '../../engine/town';
-import { cardsOf, spiritStage, type DistrictState } from '../../engine/world';
-import type { Building } from '../../schema/town';
+import type { DistrictState } from '../../engine/world';
 import { useGame } from '../../foundations/store/gameStore';
-import { districts, spirits, townData } from '../../foundations/world';
+import { districts, townData } from '../../foundations/world';
 import { JaText, useJa } from '../../foundations/japanese/Ja';
 import { haptic } from '../../foundations/haptics/haptics';
 import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
 import { SpiritArt, STAGE_LABEL } from '../collection/CollectionScreen';
 import { useNow, useSave } from '../hooks';
+import { useBusinesses, type Business } from './useTown';
 import { TownMap, type TownMapSpot } from './TownMap';
 
 const RARITY_CLASS = { common: '', rare: 'r-rare', epic: 'r-epic', legendary: 'r-legendary' };
 const yenFmt = (n: number) => `¥${n.toLocaleString('en-US')}`;
-
-/** Every learned word as a town resident (memory stage, rarity, power), strongest first. */
-function useResidents(now: number): Map<string, Resident> {
-  const save = useSave();
-  const index = useGame((s) => s.index);
-  const scheduler = useGame((s) => s.scheduler)!;
-  // Stages change slowly: recompute once a minute, not on every one-second tick.
-  const minute = Math.floor(now / 60_000);
-  return useMemo(() => {
-    const at = minute * 60_000;
-    const ids = [...new Set(Object.keys(save.cards).map((k) => k.split('#')[0]!))];
-    const out = new Map<string, Resident>();
-    for (const id of ids) {
-      const item = index.item(id);
-      if (!item) continue;
-      const stage = spiritStage(cardsOf(save, id), at, scheduler, save.boosts.omamori[id] ?? 0);
-      out.set(id, resident(save, item, stage, townData, spirits));
-    }
-    return out;
-  }, [save, index, scheduler, minute]);
-}
-
-interface Business {
-  b: Building;
-  level: number;
-  staff: (Resident | undefined)[];
-  staffIds: (string | null)[];
-  rate: number;
-  pending: number;
-}
-
-function useBusinesses(states: DistrictState[], now: number) {
-  const save = useSave();
-  const residents = useResidents(now);
-  const open = new Set(states.filter((s) => s.restored).map((s) => s.district.id));
-  const list: Business[] = townData.buildings
-    .filter((b) => open.has(b.district))
-    .map((b) => {
-      const st = buildingState(save, b, townData);
-      const staff = st.staff.map((id) => (id ? residents.get(id) : undefined));
-      const rate = ratePerHour(b, st.level, staff, townData);
-      return {
-        b,
-        level: st.level,
-        staff,
-        staffIds: st.staff,
-        rate,
-        pending: pendingYen(rate, st.collectedAt, now, townData),
-      };
-    });
-  return { list, residents };
-}
 
 export function Tycoon({ states }: { states: DistrictState[] }) {
   const save = useSave();
