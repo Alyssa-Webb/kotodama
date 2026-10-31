@@ -1,0 +1,229 @@
+/* Miyamoto Musashi (Dojo Master) animations — 2D SVG + CSS only.
+   Class names & keyframes prefixed musashi-, transform & opacity only, paused under reduced motion. */
+
+.musashi {
+  display: inline-block;
+  overflow: visible;
+  vertical-align: middle;
+  user-select: none;
+}
+
+/* ---- Idle: calm Zen breathing, occasional blink & subtle dojo breeze ---- */
+
+.musashi-breathe {
+  transform-origin: 60px 109px;
+  animation: musashi-breathe-idle calc(var(--dur-celebrate, 900ms) * 4.2) var(--ease, ease-in-out)
+    infinite;
+}
+
+@keyframes musashi-breathe-idle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  42% {
+    transform: translateY(0.8px) scale(1.012, 0.988);
+  }
+  76% {
+    transform: translateY(-1.8px) scale(0.992, 1.012);
+  }
+}
+
+.musashi-blink {
+  transform-origin: 60px 41px;
+  animation: musashi-blink-cycle calc(var(--dur-celebrate, 900ms) * 5.4) infinite;
+}
+
+@keyframes musashi-blink-cycle {
+  0%,
+  36%,
+  40%,
+  86%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  38%,
+  88% {
+    transform: scaleY(0.08);
+  }
+}
+
+.musashi-hair-back {
+  transform-origin: 60px 26px;
+  animation: musashi-hair-breeze calc(var(--dur-celebrate, 900ms) * 5.6) ease-in-out infinite;
+}
+
+.musashi-hair-tufts {
+  transform-origin: 60px 12px;
+  animation: musashi-hair-breeze calc(var(--dur-celebrate, 900ms) * 4.6) ease-in-out infinite
+    reverse;
+}
+
+@keyframes musashi-hair-breeze {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(1.4deg) scale(1.01, 0.99);
+  }
+}
+
+.musashi-obi-tail {
+  transform-origin: 66px 79px;
+  animation: musashi-obi-sway calc(var(--dur-celebrate, 900ms) * 4.2) ease-in-out infinite;
+}
+
+@keyframes musashi-obi-sway {
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(2.2deg);
+  }
+}
+
+/* ---- Bow: respectful standing rei from the hips ---- */
+
+.musashi-pose-bow .musashi-breathe {
+  animation: none;
+}
+
+.musashi-pose-bow .musashi-upper {
+  transform-origin: 60px 85px;
+  animation:
+    musashi-bow-dip calc(var(--dur-slow, 420ms) * 1.6) var(--ease, ease-in-out) 1 both,
+    musashi-bow-hold calc(var(--dur-celebrate, 900ms) * 4.4) ease-in-out
+      calc(var(--dur-slow, 420ms) * 1.6) infinite;
+}
+
+@keyframes musashi-bow-dip {
+  0% {
+    transform: translate(-1.5px, -5.5px) rotate(-6deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes musashi-bow-hold {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(0.9px) rotate(0.9deg);
+  }
+}
+
+/* ---- Ready: Niten Ichi-ryu two-sword stance & traveling blade glints ---- */
+
+.musashi-pose-ready .musashi-breathe {
+  animation: musashi-ready-stance calc(var(--dur-celebrate, 900ms) * 2.9) var(--ease, ease-in-out)
+    infinite;
+}
+
+@keyframes musashi-ready-stance {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  50% {
+    transform: translateY(-1.4px) scale(0.994, 1.01);
+  }
+}
+
+.musashi-sword-arm-r {
+  transform-origin: 38px 58px;
+  animation: musashi-arm-poise-r calc(var(--dur-celebrate, 900ms) * 2.9) ease-in-out infinite;
+}
+
+.musashi-sword-arm-l {
+  transform-origin: 78px 64px;
+  animation: musashi-arm-poise-l calc(var(--dur-celebrate, 900ms) * 2.9) ease-in-out infinite;
+}
+
+@keyframes musashi-arm-poise-r {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-1.8deg) translateY(-0.6px);
+  }
+}
+
+@keyframes musashi-arm-poise-l {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(1.6deg) translateX(0.6px);
+  }
+}
+
+.musashi-glint-katana {
+  opacity: 0;
+  animation: musashi-katana-glint calc(var(--dur-celebrate, 900ms) * 3.2) ease-in-out infinite;
+}
+
+.musashi-glint-wakizashi {
+  opacity: 0;
+  animation: musashi-wakizashi-glint calc(var(--dur-celebrate, 900ms) * 3.2) ease-in-out infinite;
+}
+
+@keyframes musashi-katana-glint {
+  0%,
+  12% {
+    transform: translateX(0) scale(0.35);
+    opacity: 0;
+  }
+  20% {
+    transform: translateX(6px) scale(0.95);
+    opacity: 0.95;
+  }
+  38% {
+    transform: translateX(30px) scale(1.1);
+    opacity: 1;
+  }
+  46%,
+  100% {
+    transform: translateX(36px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes musashi-wakizashi-glint {
+  0%,
+  42% {
+    transform: translateX(0) scale(0.35);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(4px) scale(0.95);
+    opacity: 0.95;
+  }
+  66% {
+    transform: translateX(18px) scale(1.08);
+    opacity: 1;
+  }
+  74%,
+  100% {
+    transform: translateX(22px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ---- Reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .musashi,
+  .musashi * {
+    animation-play-state: paused !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
