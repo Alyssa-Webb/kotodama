@@ -11,6 +11,8 @@ Models are **reference only** (ADR 0009): I render each from ten angles into `de
 - **Say what you want, not what you don't.** "No text" still gave fake carved kanji; ask for "a blank, smooth stone face".
 - **Proportions first, in plain shape terms** ("super-deformed chibi, head as big as the whole body"), and the key feature as geometry ("the neck curves in a big S like a question mark"). The rokurokubi came back with a straight pole and adult proportions.
 - **Name a real object when one exists.** "Hariko maneki-neko" gave a genuine folk toy.
+- **Round 2 (2026-10-31):** the hariko Town set came out well (shrine, station, shopping street, teahouse, school), and the bamboo road was fixed by leading with "bamboo". New lessons: **similes are built literally** (the rokurokubi's "neck like a question mark" became a question mark on her head), and **shops grow fake signboard text**, so ask for "plain cloth awnings" and "blank wooden signboards".
+- **Triangle count isn't the bottleneck for us.** Every model so far sits at 80–100k, and renders at reference size can't show more detail; shape and the prompt matter far more.
 - Results worth keeping: the road diorama, dojo hall, market street and hariko maneki-neko. The "snowman" turned out to be a lovely hariko figure and is kept as a style reference.
 
 **Negative prompt for everything:**
