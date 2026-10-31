@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Koto in Edo hariko folk toy style">
+  <defs>
+    <!-- Warm handmade kozo washi background tone -->
+    <radialGradient id="washi-bg" cx="50%" cy="46%" r="62%">
+      <stop offset="0%" stop-color="#F5EDE0" />
+      <stop offset="72%" stop-color="#ECE0CC" />
+      <stop offset="100%" stop-color="#DFCFB4" />
+    </radialGradient>
+
+    <!-- Subtle mulberry fibre & chalky paper grain -->
+    <pattern id="washi-grain" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M8 14 Q16 11 23 15 M46 9 Q53 14 59 11 M18 44 Q25 40 31 46 M52 54 Q60 50 66 55 M6 62 Q13 59 18 64" fill="none" stroke="#CBB898" stroke-width="0.9" stroke-linecap="round" opacity="0.55" />
+      <path d="M29 22 Q36 18 42 23 M12 31 Q17 28 22 32 M41 37 Q48 34 53 39 M26 60 Q33 57 39 61" fill="none" stroke="#FFFDF7" stroke-width="1" stroke-linecap="round" opacity="0.65" />
+      <circle cx="15" cy="20" r="0.9" fill="#C9B594" opacity="0.45" />
+      <circle cx="57" cy="28" r="1.1" fill="#C9B594" opacity="0.4" />
+      <circle cx="35" cy="49" r="0.8" fill="#C9B594" opacity="0.45" />
+      <circle cx="63" cy="64" r="1" fill="#FFFDF7" opacity="0.55" />
+    </pattern>
+
+    <!-- Clip for papier-mache surface grain across Koto -->
+    <clipPath id="hariko-head-clip">
+      <path d="M126 196 C124 134 166 108 254 108 C342 108 384 136 382 198 C381 262 340 293 254 294 C168 295 128 260 126 196 Z" />
+    </clipPath>
+  </defs>
+
+  <!-- Plain warm washi background -->
+  <rect width="512" height="512" fill="url(#washi-bg)" />
+  <rect width="512" height="512" fill="url(#washi-grain)" />
+
+  <!-- Soft matte ground shadow under papier-mache base -->
+  <ellipse cx="256" cy="422" rx="112" ry="15" fill="#D2C0A1" opacity="0.65" />
+  <ellipse cx="256" cy="421" rx="80" ry="9" fill="#BFA986" opacity="0.5" />
+
+  <!-- Floating kotodama gold-leaf folk orbs (red bole base + faceted kinpaku foil) -->
+  <g id="word-orbs">
+    <!-- Left orb -->
+    <path d="M82 199 C91 198 99 206 98 216 C97 225 89 232 80 231 C71 230 65 223 66 213 C67 204 74 200 82 199 Z" fill="#B63A24" />
+    <path d="M81 200 C90 199 97 207 96 216 C95 224 88 230 80 229 C72 228 66 222 67 213 C68 205 74 201 81 200 Z" fill="#D5A438" />
+    <polygon points="73,205 87,203 89,216 75,218" fill="#ECCB68" />
+    <polygon points="75,206 83,205 84,212 76,213" fill="#F7E39D" />
+    <path d="M77 219 Q82 224 88 219" fill="none" stroke="#3A312A" stroke-width="1.6" stroke-linecap="round" />
+
+    <!-- Right orb -->
+    <path d="M431 160 C439 159 446 166 445 175 C444 183 437 189 429 188 C421 187 416 181 417 172 C418 164 424 161 431 160 Z" fill="#B63A24" />
+    <path d="M430 161 C438 160 444 167 443 175 C442 182 436 187 429 186 C422 185 417 180 418 172 C419 165 424 162 430 161 Z" fill="#D5A438" />
+    <polygon points="423,166 436,164 437,175 425,177" fill="#ECCB68" />
+    <polygon points="425,167 432,166 432,172 426,173" fill="#F7E39D" />
+    <path d="M426 178 Q431 182 436 178" fill="none" stroke="#3A312A" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Stubby gofun papier-mache feet -->
+  <g id="feet">
+    <path d="M182 409 C181 399 195 394 212 395 C229 396 240 402 239 412 C238 420 225 424 209 424 C193 424 183 418 182 409 Z" fill="#E5D6BC" stroke="#C6B292" stroke-width="1.5" />
+    <path d="M184 406 C184 398 196 394 212 395 C227 396 237 401 237 409 C236 416 224 419 209 419 C195 419 184 414 184 406 Z" fill="#FAF4E8" />
+    <path d="M202 412 Q203 418 202 421 M216 412 Q217 418 216 421" fill="none" stroke="#2B2520" stroke-width="2" stroke-linecap="round" />
+
+    <path d="M273 410 C272 400 285 395 302 395 C319 395 331 401 330 411 C329 420 317 424 301 424 C285 424 274 419 273 410 Z" fill="#E5D6BC" stroke="#C6B292" stroke-width="1.5" />
+    <path d="M275 407 C275 399 286 395 302 395 C317 395 328 400 328 408 C327 415 316 419 301 419 C287 419 275 414 275 407 Z" fill="#FAF4E8" />
+    <path d="M294 412 Q295 418 294 421 M308 412 Q309 418 308 421" fill="none" stroke="#2B2520" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Small chibi body in indigo under-collar & box-shaped shu-vermilion robe -->
+  <g id="robe-body">
+    <!-- Folk-dyed indigo shoulders & collar -->
+    <path d="M166 306 C166 284 184 274 254 274 C324 274 344 285 344 308 L346 378 C346 398 328 408 304 408 L206 408 C182 408 164 398 165 378 Z" fill="#284260" stroke="#1B2E44" stroke-width="1.8" />
+    <!-- Asanoha / maru white folk dots on indigo shoulders -->
+    <g fill="#F6EFE0" opacity="0.9">
+      <circle cx="177" cy="296" r="2.2" />
+      <circle cx="185" cy="291" r="2.2" />
+      <circle cx="184" cy="301" r="2.2" />
+      <circle cx="333" cy="296" r="2.2" />
+      <circle cx="325" cy="291" r="2.2" />
+      <circle cx="326" cy="301" r="2.2" />
+    </g>
+
+    <!-- Box-shaped shu-vermilion hariko robe -->
+    <path d="M172 292 C173 283 185 279 254 279 C323 279 336 284 337 294 L339 384 C339 401 325 409 303 409 L207 409 C185 409 170 400 171 383 Z" fill="#A5301D" />
+    <path d="M172 290 C173 282 186 278 254 278 C322 278 335 283 336 292 L338 377 C338 394 324 402 302 402 L208 402 C186 402 171 393 171 376 Z" fill="#C8432B" />
+    <!-- Gofun collar V-insert -->
+    <path d="M226 278 L254 304 L282 278 Z" fill="#FAF4E8" stroke="#284260" stroke-width="2" stroke-linejoin="round" />
+
+    <!-- Hand-painted ume (plum blossom) & maru folk motifs on robe sides -->
+    <g id="folk-patterns">
+      <!-- Left plum blossom -->
+      <g fill="#FAF4E8">
+        <circle cx="190" cy="364" r="3.4" />
+        <circle cx="196" cy="369" r="3.4" />
+        <circle cx="194" cy="376" r="3.4" />
+        <circle cx="186" cy="376" r="3.4" />
+        <circle cx="184" cy="369" r="3.4" />
+      </g>
+      <circle cx="190" cy="371" r="2.3" fill="#E5BE59" />
+      <!-- Right plum blossom -->
+      <g fill="#FAF4E8">
+        <circle cx="320" cy="364" r="3.4" />
+        <circle cx="326" cy="369" r="3.4" />
+        <circle cx="324" cy="376" r="3.4" />
+        <circle cx="316" cy="376" r="3.4" />
+        <circle cx="314" cy="369" r="3.4" />
+      </g>
+      <circle cx="320" cy="371" r="2.3" fill="#E5BE59" />
+      <!-- Tiny asanoha star stitches -->
+      <path d="M189 316 L189 328 M183 322 L195 322 M185 318 L193 326 M193 318 L185 326" stroke="#F6EFE0" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
+      <path d="M321 316 L321 328 M315 322 L327 322 M317 318 L325 326 M325 318 L317 326" stroke="#F6EFE0" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
+    </g>
+
+    <!-- Square gofun seal bearing hand-brushed kanji 言 -->
+    <path d="M209 300 C224 299 286 299 301 300 C305 301 306 305 306 312 L305 381 C305 388 302 391 296 391 L214 391 C208 391 205 388 205 381 L204 311 C204 304 205 301 209 300 Z" fill="none" stroke="#FAF4E8" stroke-width="5.5" stroke-linejoin="round" />
+    <g fill="#FAF4E8">
+      <!-- Stroke 1 (top bar) -->
+      <path d="M238 313 C248 311 264 311 272 313 C276 314 276 320 271 321 C261 322 247 322 238 320 C234 319 234 314 238 313 Z" />
+      <!-- Stroke 2 (wide horizon bar) -->
+      <path d="M219 328 C238 326 273 326 291 328 C295 329 295 335 290 336 C272 337 238 337 220 336 C215 335 215 329 219 328 Z" />
+      <!-- Stroke 3 -->
+      <path d="M232 342 C246 341 265 341 278 342 C282 343 282 349 277 350 C264 351 246 351 233 350 C229 349 229 343 232 342 Z" />
+      <!-- Stroke 4 -->
+      <path d="M232 355 C246 354 265 354 278 355 C282 356 282 362 277 363 C264 364 246 364 233 363 C229 362 229 356 232 355 Z" />
+      <!-- Bottom mouth box 口 -->
+      <path fill-rule="evenodd" d="M229 367 C244 366 266 366 281 367 C285 368 286 371 286 375 L285 381 C285 384 283 386 279 386 L231 386 C227 386 225 384 225 381 L224 374 C224 370 226 368 229 367 Z M234 373 L234 380 L276 380 L276 373 Z" />
+    </g>
+  </g>
+
+  <!-- Resting left gofun paw -->
+  <g id="paw-left">
+    <path d="M144 338 C142 323 155 313 172 314 C188 315 198 326 196 340 C194 353 181 360 165 359 C150 358 145 349 144 338 Z" fill="#E4D4BA" stroke="#C5B08F" stroke-width="1.6" />
+    <path d="M146 334 C145 321 157 313 172 314 C187 315 196 324 195 336 C193 348 181 354 166 353 C152 352 147 344 146 334 Z" fill="#FAF4E8" />
+    <path d="M161 344 Q161 350 159 353 M172 345 Q172 351 171 354 M182 343 Q183 349 182 352" fill="none" stroke="#241F1C" stroke-width="2.1" stroke-linecap="round" />
+  </g>
+
+  <!-- Head & hand-moulded pointed red ears -->
+  <g id="hariko-head">
+    <!-- Left pointed red-tipped ear -->
+    <path d="M136 154 C127 114 140 81 162 79 C183 77 204 102 211 138 Z" fill="#E6D7BE" stroke="#C6B292" stroke-width="1.8" />
+    <path d="M138 150 C129 112 141 81 162 79 C182 77 202 101 209 136 Z" fill="#FAF4E8" />
+    <path d="M135 117 C138 92 148 80 162 79 C176 78 190 91 198 113 Q167 123 135 117 Z" fill="#C8432B" />
+    <path d="M151 139 C147 120 153 105 163 104 C172 103 181 116 184 134 Z" fill="#E4968E" />
+
+    <!-- Right pointed red-tipped ear -->
+    <path d="M372 155 C381 115 368 82 346 80 C325 78 304 103 297 139 Z" fill="#E6D7BE" stroke="#C6B292" stroke-width="1.8" />
+    <path d="M370 151 C379 113 367 82 346 80 C326 78 306 102 299 137 Z" fill="#FAF4E8" />
+    <path d="M373 118 C370 93 360 81 346 80 C332 79 318 92 310 114 Q341 124 373 118 Z" fill="#C8432B" />
+    <path d="M357 140 C361 121 355 106 345 105 C336 104 327 117 324 135 Z" fill="#E4968E" />
+
+    <!-- Matte chalky gofun head silhouette (slightly organic hand-moulded curve) -->
+    <path d="M125 198 C123 135 166 108 254 108 C342 108 385 137 383 200 C381 264 340 295 254 296 C168 297 127 262 125 198 Z" fill="#E5D5BB" stroke="#C5B090" stroke-width="1.8" />
+    <path d="M126 193 C124 133 167 108 254 108 C341 108 383 135 382 195 C380 256 339 286 254 287 C169 288 128 254 126 193 Z" fill="#FBF6EC" />
+    <!-- Subtle papier-mache side mold seam & washi grain on head -->
+    <path d="M136 168 C132 198 138 232 154 258" fill="none" stroke="#DFCEB2" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.7" />
+    <rect x="122" y="106" width="264" height="192" fill="url(#washi-grain)" clip-path="url(#hariko-head-clip)" opacity="0.55" />
+
+    <!-- Hand-painted shu-vermilion headband & gold-leaf bead -->
+    <path d="M132 154 Q254 174 376 154" fill="none" stroke="#9D2B19" stroke-width="17" stroke-linecap="round" />
+    <path d="M132 151 Q254 171 376 151" fill="none" stroke="#C8432B" stroke-width="14.5" stroke-linecap="round" />
+    <!-- Rope twist brush ticks -->
+    <path d="M158 149 L166 160 M188 153 L196 164 M218 156 L226 167 M284 156 L292 167 M314 153 L322 164 M344 149 L352 160" stroke="#8C2313" stroke-width="2.2" stroke-linecap="round" />
+    <!-- Centre kinpaku gold-leaf bead (suzu bell) -->
+    <circle cx="254" cy="161" r="18.5" fill="#B53822" />
+    <circle cx="254" cy="160" r="17" fill="#D6A539" />
+    <polygon points="242,148 263,146 266,164 244,166" fill="#ECCB68" />
+    <polygon points="245,150 256,149 257,158 246,159" fill="#F8E5A2" />
+    <path d="M238 163 Q254 167 270 163" fill="none" stroke="#2B241F" stroke-width="2" />
+    <circle cx="254" cy="169" r="3.6" fill="#231F1C" />
+
+    <!-- Small golden flame (teardrop) on crown with gold-leaf facets -->
+    <path d="M254 62 C276 82 280 109 254 117 C228 109 232 82 254 62 Z" fill="#B53822" />
+    <path d="M254 64 C274 83 278 108 254 115 C230 108 234 83 254 64 Z" fill="#D6A539" />
+    <polygon points="245,78 261,75 265,101 244,104" fill="#ECCB68" />
+    <polygon points="247,80 256,78 258,94 247,96" fill="#F8E5A2" />
+    <path d="M254 85 C259 93 258 103 253 108" fill="none" stroke="#9C2D1B" stroke-width="1.8" stroke-linecap="round" />
+
+    <!-- Dry-brushed beni pink cheeks -->
+    <ellipse cx="160" cy="236" rx="23" ry="13.5" fill="#E69A92" opacity="0.72" />
+    <ellipse cx="160" cy="236" rx="15" ry="8.5" fill="#DD827A" opacity="0.45" />
+    <ellipse cx="346" cy="236" rx="23" ry="13.5" fill="#E69A92" opacity="0.72" />
+    <ellipse cx="346" cy="236" rx="15" ry="8.5" fill="#DD827A" opacity="0.45" />
+
+    <!-- Tapering sumi-ink eyebrows -->
+    <path d="M174 185 C184 176 204 175 217 183 C205 180 187 181 176 189 C173 190 172 187 174 185 Z" fill="#231F1C" />
+    <path d="M334 185 C324 176 304 175 291 183 C303 180 321 181 332 189 C335 190 336 187 334 185 Z" fill="#231F1C" />
+
+    <!-- Big dark hand-brushed sumi eyes with outer brush flick & warm gofun catchlights -->
+    <g id="eyes">
+      <path d="M174 213 C174 197 184 188 198 188 C212 188 221 198 221 213 C221 228 211 238 197 238 C183 238 174 228 174 213 Z" fill="#231F1C" />
+      <path d="M177 200 C171 196 166 192 163 187 C169 190 175 193 181 196 Z" fill="#231F1C" />
+      <circle cx="190" cy="204" r="7.5" fill="#FBF6EC" />
+      <circle cx="205" cy="222" r="3.6" fill="#FBF6EC" />
+
+      <path d="M287 213 C287 198 296 188 310 188 C324 188 334 197 334 213 C334 228 325 238 311 238 C297 238 287 228 287 213 Z" fill="#231F1C" />
+      <path d="M331 200 C337 196 342 192 345 187 C339 190 333 193 327 196 Z" fill="#231F1C" />
+      <circle cx="303" cy="204" r="7.5" fill="#FBF6EC" />
+      <circle cx="318" cy="222" r="3.6" fill="#FBF6EC" />
+    </g>
+
+    <!-- Tapering sumi brush whiskers (thick root to fine flick) -->
+    <g fill="#231F1C">
+      <path d="M145 219 C132 216 118 215 106 217 C118 218 131 220 144 223 C146 223 147 220 145 219 Z" />
+      <path d="M144 231 C130 231 115 232 103 236 C116 235 130 235 144 235 C146 235 146 231 144 231 Z" />
+      <path d="M146 242 C134 245 121 249 111 255 C122 251 134 248 147 246 C149 245 148 242 146 242 Z" />
+
+      <path d="M363 219 C376 216 390 215 402 217 C390 218 377 220 364 223 C362 223 361 220 363 219 Z" />
+      <path d="M364 231 C378 231 393 232 405 236 C392 235 378 235 364 235 C362 235 362 231 364 231 Z" />
+      <path d="M362 242 C374 245 387 249 397 255 C386 251 374 248 361 246 C359 245 360 242 362 242 Z" />
+    </g>
+
+    <!-- Brushed nose & happy open smile -->
+    <path d="M249 223 Q254 220 259 223 Q254 229 249 223 Z" fill="#231F1C" />
+    <path d="M231 235 C231 264 277 264 277 235 Z" fill="#94281B" />
+    <ellipse cx="254" cy="250" rx="14" ry="8.5" fill="#E6958D" />
+    <path d="M227 234 Q241 240 254 231 Q267 240 281 234" fill="none" stroke="#231F1C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Classic maneki-neko raised beckoning right paw (palm forward) -->
+  <g id="beckoning-paw">
+    <!-- Arm curving up from shoulder -->
+    <path d="M326 306 C348 302 374 282 380 246 C384 221 371 206 353 208 C336 210 328 226 330 247 C331 264 324 278 315 286 Z" fill="#E4D4BA" stroke="#C5B08F" stroke-width="1.6" />
+    <path d="M325 301 C346 297 371 278 377 244 C381 221 369 208 353 209 C338 210 330 225 332 245 C333 262 325 276 316 284 Z" fill="#FAF4E8" />
+    <!-- Painted folk wrist band -->
+    <path d="M331 272 Q351 281 369 271" fill="none" stroke="#C8432B" stroke-width="5" stroke-linecap="round" />
+    <!-- Forward-curled beckoning paw pad & sumi toe creases -->
+    <ellipse cx="355" cy="238" rx="10.5" ry="8" fill="#E5958D" />
+    <circle cx="343" cy="222" r="3.4" fill="#E5958D" />
+    <circle cx="355" cy="219" r="3.6" fill="#E5958D" />
+    <circle cx="367" cy="223" r="3.4" fill="#E5958D" />
+    <path d="M347 210 Q348 218 347 224 M361 210 Q361 218 360 224" fill="none" stroke="#231F1C" stroke-width="2.2" stroke-linecap="round" />
+  </g>
+
+  <!-- Style caption in English -->
+  <text x="256" y="482" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#4A3F33" letter-spacing="0.8">Edo Hariko Folk Toy</text>
+</svg>

@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Koto in ukiyo-e woodblock print style">
+  <defs>
+    <!-- Hand-wiped ichimonji bokashi woodblock sky gradation -->
+    <linearGradient id="bokashi-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#213F63" />
+      <stop offset="22%" stop-color="#4A6E91" />
+      <stop offset="48%" stop-color="#CBD5CF" />
+      <stop offset="76%" stop-color="#F2E6CF" />
+      <stop offset="100%" stop-color="#E9C7A3" />
+    </linearGradient>
+
+    <!-- Bokashi top wipe inside the red title cartouche -->
+    <linearGradient id="cartouche-red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8A2114" />
+      <stop offset="28%" stop-color="#C63F2A" />
+      <stop offset="100%" stop-color="#D14B34" />
+    </linearGradient>
+
+    <!-- Carved seigaiha (blue ocean wave) woodblock pattern -->
+    <pattern id="seigaiha" width="56" height="28" patternUnits="userSpaceOnUse">
+      <rect width="56" height="28" fill="#2A4B73" />
+      <g fill="#2A4B73" stroke="#F3E8D2" stroke-width="1.8">
+        <!-- Row 0 (cy=0) -->
+        <circle cx="28" cy="0" r="26" /><circle cx="28" cy="0" r="19" /><circle cx="28" cy="0" r="12" /><circle cx="28" cy="0" r="5" />
+        <!-- Row 1 (cy=14) -->
+        <circle cx="0" cy="14" r="26" /><circle cx="0" cy="14" r="19" /><circle cx="0" cy="14" r="12" /><circle cx="0" cy="14" r="5" />
+        <circle cx="56" cy="14" r="26" /><circle cx="56" cy="14" r="19" /><circle cx="56" cy="14" r="12" /><circle cx="56" cy="14" r="5" />
+        <!-- Row 2 (cy=28) -->
+        <circle cx="28" cy="28" r="26" /><circle cx="28" cy="28" r="19" /><circle cx="28" cy="28" r="12" /><circle cx="28" cy="28" r="5" />
+        <!-- Row 3 (cy=42, crests entering bottom of tile) -->
+        <circle cx="0" cy="42" r="26" /><circle cx="0" cy="42" r="19" /><circle cx="0" cy="42" r="12" /><circle cx="0" cy="42" r="5" />
+        <circle cx="56" cy="42" r="26" /><circle cx="56" cy="42" r="19" /><circle cx="56" cy="42" r="12" /><circle cx="56" cy="42" r="5" />
+      </g>
+    </pattern>
+
+    <clipPath id="print-frame">
+      <rect x="30" y="26" width="452" height="424" />
+    </clipPath>
+  </defs>
+
+  <!-- Unprinted hosho mulberry paper margin -->
+  <rect width="512" height="512" fill="#F3E8D2" />
+
+  <!-- Printed nishiki-e block area -->
+  <g clip-path="url(#print-frame)">
+    <!-- Bokashi sky block -->
+    <rect x="30" y="26" width="452" height="332" fill="url(#bokashi-sky)" />
+
+    <!-- Stylized Edo suyarigasumi horizontal cloud bands -->
+    <g fill="#F6EDE0" stroke="#25201D" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M26 118 H128 C139 118 145 124 145 130 C145 136 138 141 126 141 H96 C106 141 112 146 112 152 C112 158 104 162 92 162 H26 Z" />
+      <path d="M486 226 H386 C375 226 369 231 369 237 C369 243 376 248 388 248 H414 C404 248 398 253 398 259 C398 265 406 269 418 269 H486 Z" />
+    </g>
+
+    <!-- Seigaiha wave ground band -->
+    <rect x="30" y="352" width="452" height="98" fill="url(#seigaiha)" />
+    <line x1="30" y1="352" x2="482" y2="352" stroke="#25201D" stroke-width="2.2" />
+
+    <!-- Flat woodblock tatami/sand dais beneath Koto -->
+    <path d="M126 404 L374 404 L394 434 L106 434 Z" fill="#E6D2AC" stroke="#25201D" stroke-width="2.2" stroke-linejoin="round" />
+    <line x1="115" y1="426" x2="385" y2="426" stroke="#C53F2A" stroke-width="4" />
+
+    <!-- Vertical red ukiyo-e title cartouche (tanzaku) + round censor seal -->
+    <g id="cartouche">
+      <rect x="424" y="42" width="40" height="114" fill="url(#cartouche-red)" stroke="#25201D" stroke-width="2" />
+      <rect x="428" y="46" width="32" height="106" fill="none" stroke="#F6EDE0" stroke-width="1.2" />
+      <!-- Carved vector strokes for 言 (top) & 玉/魂 motif (bottom) inside cartouche -->
+      <g fill="none" stroke="#F7EFE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M439 58 H449 M434 65 H454 M438 72 H450 M438 78 H450" />
+        <rect x="437" y="84" width="14" height="9" />
+        <path d="M435 106 H453 M444 106 V136 M437 120 H451 M434 136 H454" />
+        <circle cx="451" cy="128" r="1.5" fill="#F7EFE0" />
+      </g>
+      <!-- Round vermilion kiwame print seal -->
+      <circle cx="444" cy="172" r="10.5" fill="#C63F2A" stroke="#25201D" stroke-width="1.5" />
+      <path d="M439 169 H449 M444 165 V179 M439 175 H449" stroke="#F6EDE0" stroke-width="1.6" stroke-linecap="round" />
+    </g>
+  </g>
+
+  <!-- Double woodblock print border -->
+  <rect x="26" y="22" width="460" height="432" fill="none" stroke="#25201D" stroke-width="2.4" />
+  <rect x="30" y="26" width="452" height="424" fill="none" stroke="#25201D" stroke-width="1.1" />
+
+  <!-- Floating kotodama ukon-gold word-orbs with carved flame wisps -->
+  <g id="ukiyoe-orbs">
+    <!-- Left orb (with subtle 1.5px paper registration sliver) -->
+    <path d="M78 190 C68 190 61 198 61 208 C61 218 69 226 79 226 C89 226 96 218 96 208 C96 201 92 195 87 192 C89 185 86 179 81 176 C82 182 81 187 78 190 Z" fill="#F7EFE0" />
+    <circle cx="79" cy="209" r="15.5" fill="#D9A63B" />
+    <path d="M68 202 A12 12 0 0 1 86 197" fill="none" stroke="#EDD074" stroke-width="4" stroke-linecap="round" />
+    <circle cx="78" cy="208" r="16" fill="none" stroke="#25201D" stroke-width="2.4" />
+    <path d="M74 192 C76 184 82 180 80 173 M85 194 C89 188 92 183 90 178" fill="none" stroke="#25201D" stroke-width="1.8" stroke-linecap="round" />
+
+    <!-- Right orb -->
+    <circle cx="408" cy="205" r="14" fill="#F7EFE0" />
+    <circle cx="409" cy="206" r="13.5" fill="#D9A63B" />
+    <path d="M400 200 A10 10 0 0 1 415 196" fill="none" stroke="#EDD074" stroke-width="3.5" stroke-linecap="round" />
+    <circle cx="408" cy="205" r="14" fill="none" stroke="#25201D" stroke-width="2.3" />
+    <path d="M405 191 C407 184 412 180 410 174" fill="none" stroke="#25201D" stroke-width="1.8" stroke-linecap="round" />
+  </g>
+
+  <!-- Stubby chibi feet in flat paper-white + buff block -->
+  <g id="feet">
+    <path d="M180 407 C180 396 193 391 208 391 C224 391 235 397 235 408 C235 417 223 421 207 421 C191 421 180 416 180 407 Z" fill="#F7EFE0" />
+    <path d="M182 411 C190 417 224 417 233 410 C232 418 221 421 207 421 C193 421 183 417 182 411 Z" fill="#E4D5BC" />
+    <path d="M180 407 C180 396 193 391 208 391 C224 391 235 397 235 408 C235 417 223 421 207 421 C191 421 180 416 180 407 Z" fill="none" stroke="#25201D" stroke-width="3.2" />
+    <path d="M199 410 V420 M214 410 V420" stroke="#25201D" stroke-width="2" stroke-linecap="round" />
+
+    <path d="M265 407 C265 396 278 391 293 391 C309 391 320 397 320 408 C320 417 308 421 292 421 C276 421 265 416 265 407 Z" fill="#F7EFE0" />
+    <path d="M267 411 C275 417 309 417 318 410 C317 418 306 421 292 421 C278 421 268 417 267 411 Z" fill="#E4D5BC" />
+    <path d="M265 407 C265 396 278 391 293 391 C309 391 320 397 320 408 C320 417 308 421 292 421 C276 421 265 416 265 407 Z" fill="none" stroke="#25201D" stroke-width="3.2" />
+    <path d="M285 410 V420 M300 410 V420" stroke="#25201D" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Small chibi body in angular woodblock kimono collar & red box robe -->
+  <g id="robe">
+    <!-- Bero-ai indigo kimono shoulders -->
+    <path d="M158 294 L178 274 H322 L342 294 L336 392 L316 404 H184 L164 392 Z" fill="#2A4B73" stroke="#25201D" stroke-width="3.4" stroke-linejoin="round" />
+    <!-- Box-shaped vermilion robe block -->
+    <path d="M168 282 H332 L335 394 L318 405 H182 L165 394 Z" fill="#C7412B" />
+    <!-- Darker woodblock overprint hem band -->
+    <path d="M166 386 H334 L335 394 L318 405 H182 L165 394 Z" fill="#9E2B1A" />
+    <!-- Crisp kimono collar V -->
+    <path d="M220 282 L250 310 L280 282 Z" fill="#F7EFE0" stroke="#25201D" stroke-width="2.6" stroke-linejoin="round" />
+    <!-- Varying-weight carved sumi keyblock contour & kimono fold creases -->
+    <path d="M168 282 H332 L335 394 L318 405 H182 L165 394 Z" fill="none" stroke="#25201D" stroke-width="3.6" stroke-linejoin="round" />
+    <path d="M168 332 L182 342 M332 332 L318 342" stroke="#25201D" stroke-width="2.2" stroke-linecap="round" />
+
+    <!-- Carved square seal with bold woodblock kanji 言 -->
+    <rect x="200" y="302" width="100" height="88" rx="6" fill="#C7412B" stroke="#F7EFE0" stroke-width="6" />
+    <rect x="197" y="299" width="106" height="94" rx="8" fill="none" stroke="#25201D" stroke-width="2.2" />
+    <g fill="#F7EFE0" stroke="#25201D" stroke-width="1.4" stroke-linejoin="round">
+      <rect x="230" y="312" width="40" height="8.5" rx="2" />
+      <rect x="212" y="326" width="76" height="9" rx="2" />
+      <rect x="224" y="340" width="52" height="8" rx="2" />
+      <rect x="224" y="353" width="52" height="8" rx="2" />
+      <path fill-rule="evenodd" d="M220 366 H280 V383 H220 Z M229 372 V377 H271 V372 Z" />
+    </g>
+  </g>
+
+  <!-- Resting left paw -->
+  <g id="paw-left">
+    <ellipse cx="164" cy="336" rx="24" ry="20" fill="#F7EFE0" />
+    <path d="M142 340 C148 351 178 352 186 340 C183 351 174 356 164 356 C152 356 144 350 142 340 Z" fill="#E4D5BC" />
+    <ellipse cx="164" cy="336" rx="24" ry="20" fill="none" stroke="#25201D" stroke-width="3.4" />
+    <path d="M156 344 V354 M167 345 V355 M177 343 V352" stroke="#25201D" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Big chibi head & short pointed red ears with carved varying-weight sumi contours -->
+  <g id="ukiyoe-head">
+    <!-- Left ear (with subtle kento paper sliver at vermilion tip) -->
+    <path d="M132 154 C124 113 136 80 158 78 C179 76 199 101 206 138 Z" fill="#F7EFE0" />
+    <path d="M133 116 C137 92 146 81 159 80 C173 79 187 92 195 113 Q164 123 133 116 Z" fill="#C7412B" />
+    <path d="M148 139 C144 120 150 105 160 104 C169 103 178 116 181 134 Z" fill="#E59C95" stroke="#25201D" stroke-width="1.6" />
+    <path d="M130 155 C121 112 134 77 158 75 C180 73 202 99 209 138 L204 139 C197 103 178 80 158 81 C138 82 127 114 135 153 Z" fill="#25201D" />
+
+    <!-- Right ear -->
+    <path d="M368 154 C376 113 364 80 342 78 C321 76 301 101 294 138 Z" fill="#F7EFE0" />
+    <path d="M366 116 C362 92 353 81 340 80 C326 79 312 92 304 113 Q335 123 366 116 Z" fill="#C7412B" />
+    <path d="M352 139 C356 120 350 105 340 104 C331 103 322 116 319 134 Z" fill="#E59C95" stroke="#25201D" stroke-width="1.6" />
+    <path d="M370 155 C379 112 366 77 342 75 C320 73 298 99 291 138 L296 139 C303 103 322 80 342 81 C362 82 373 114 365 153 Z" fill="#25201D" />
+
+    <!-- Flat cream head block + flat buff lower-jaw block -->
+    <path d="M122 196 C122 133 164 108 250 108 C336 108 378 133 378 196 C378 260 336 292 250 292 C164 292 122 260 122 196 Z" fill="#F7EFE0" />
+    <path d="M127 228 C142 268 186 280 250 280 C314 280 358 268 373 228 C366 269 328 292 250 292 C172 292 134 269 127 228 Z" fill="#E4D5BC" />
+    <!-- Varying-weight carved sumi keyblock head outline (thinner crown, thicker jaw) -->
+    <path fill-rule="evenodd" d="M120 196 C120 131 163 106 250 106 C337 106 380 131 380 196 C380 263 337 295 250 295 C163 295 120 263 120 196 Z M125 195 C125 257 166 289 250 289 C334 289 375 257 375 195 C375 135 334 109 250 109 C166 109 125 135 125 195 Z" fill="#25201D" />
+
+    <!-- Flat vermilion headband & ukon-gold suzu bead -->
+    <path d="M128 146 Q250 165 372 146 L374 160 Q250 180 126 160 Z" fill="#C7412B" stroke="#25201D" stroke-width="2.8" stroke-linejoin="round" />
+    <path d="M154 150 L164 163 M186 154 L196 167 M216 156 L225 169 M276 156 L285 169 M306 154 L316 167 M338 150 L348 163" stroke="#25201D" stroke-width="1.9" />
+    <circle cx="250" cy="161" r="17.5" fill="#D9A63B" stroke="#25201D" stroke-width="2.8" />
+    <path d="M238 155 A12 12 0 0 1 258 149" fill="none" stroke="#EDD074" stroke-width="4.5" stroke-linecap="round" />
+    <path d="M233 163 Q250 168 267 163" fill="none" stroke="#25201D" stroke-width="2" />
+    <circle cx="250" cy="170" r="3.5" fill="#25201D" />
+
+    <!-- Golden sacred hoju flame on top of head with carved inner scroll -->
+    <path d="M250 62 C273 82 277 108 250 116 C223 108 227 82 250 62 Z" fill="#D9A63B" stroke="#25201D" stroke-width="2.8" stroke-linejoin="round" />
+    <path d="M248 70 C238 84 238 100 247 109" fill="none" stroke="#EDD074" stroke-width="5" stroke-linecap="round" />
+    <path d="M250 78 C258 88 257 101 249 107 C244 103 245 94 250 89" fill="none" stroke="#25201D" stroke-width="1.9" stroke-linecap="round" />
+
+    <!-- Flat beni-pink woodblock cheeks -->
+    <ellipse cx="156" cy="236" rx="22" ry="12.5" fill="#E59C95" />
+    <ellipse cx="344" cy="236" rx="22" ry="12.5" fill="#E59C95" />
+
+    <!-- Carved Kuniyoshi-style brows, double-lid dark eyes & fine whiskers -->
+    <path d="M170 182 Q192 172 214 181 M286 181 Q308 172 330 182" fill="none" stroke="#25201D" stroke-width="3.2" stroke-linecap="round" />
+    <path d="M170 194 Q194 182 217 195 M283 195 Q306 182 330 194" fill="none" stroke="#25201D" stroke-width="1.8" stroke-linecap="round" />
+
+    <ellipse cx="194" cy="214" rx="21" ry="24" fill="#25201D" />
+    <circle cx="186" cy="205" r="7" fill="#F7EFE0" />
+    <circle cx="201" cy="223" r="3.4" fill="#F7EFE0" />
+
+    <ellipse cx="306" cy="214" rx="21" ry="24" fill="#25201D" />
+    <circle cx="298" cy="205" r="7" fill="#F7EFE0" />
+    <circle cx="313" cy="223" r="3.4" fill="#F7EFE0" />
+
+    <!-- Fine carved woodblock whiskers -->
+    <g stroke="#25201D" stroke-width="1.9" stroke-linecap="round">
+      <line x1="140" y1="221" x2="104" y2="216" />
+      <line x1="139" y1="231" x2="101" y2="232" />
+      <line x1="141" y1="241" x2="106" y2="249" />
+      <line x1="360" y1="221" x2="396" y2="216" />
+      <line x1="361" y1="231" x2="399" y2="232" />
+      <line x1="359" y1="241" x2="394" y2="249" />
+    </g>
+
+    <!-- Carved cat nose & happy open smile -->
+    <path d="M245 223 L255 223 L250 229 Z" fill="#25201D" />
+    <path d="M228 234 C228 263 272 263 272 234 Z" fill="#9E2B1A" stroke="#25201D" stroke-width="2.6" stroke-linejoin="round" />
+    <path d="M236 249 C241 242 259 242 264 249 C259 257 241 257 236 249 Z" fill="#E59C95" stroke="#25201D" stroke-width="1.5" />
+    <path d="M224 233 Q238 239 250 230 Q262 239 276 233" fill="none" stroke="#25201D" stroke-width="2.8" stroke-linecap="round" />
+  </g>
+
+  <!-- Classic maneki-neko raised beckoning right paw -->
+  <g id="beckoning-paw">
+    <path d="M322 304 C344 300 370 280 376 244 C380 219 367 206 349 208 C333 210 325 225 327 246 C328 262 320 276 312 284 Z" fill="#F7EFE0" />
+    <path d="M322 304 C344 300 368 282 375 250 C366 274 345 291 318 296 Z" fill="#E4D5BC" />
+    <path d="M322 304 C344 300 370 280 376 244 C380 219 367 206 349 208 C333 210 325 225 327 246 C328 262 320 276 312 284" fill="none" stroke="#25201D" stroke-width="3.4" stroke-linecap="round" />
+    <!-- Indigo & vermilion kimono cuff band -->
+    <path d="M326 271 Q347 281 366 270" fill="none" stroke="#2A4B73" stroke-width="6.5" stroke-linecap="round" />
+    <path d="M326 271 Q347 281 366 270" fill="none" stroke="#25201D" stroke-width="1.6" stroke-linecap="round" />
+    <!-- Flat beni paw pad & carved sumi toe creases -->
+    <ellipse cx="351" cy="238" rx="10" ry="7.5" fill="#E59C95" stroke="#25201D" stroke-width="1.5" />
+    <path d="M343 209 V224 M357 209 V224" stroke="#25201D" stroke-width="2.2" stroke-linecap="round" />
+  </g>
+
+  <!-- Style caption in English -->
+  <text x="256" y="485" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#2B2521" letter-spacing="0.8">Ukiyo-e Woodblock Print</text>
+</svg>
