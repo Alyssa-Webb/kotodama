@@ -30,19 +30,10 @@ export function Bathhouse({ lit }: { lit: boolean }) {
 
       {/* Tall cylindrical gofun-white hariko chimney with vermilion mushroom cap */}
       <g>
-        <path
-          d="M87 14 C87 12 99 12 99 14 L100 72 C100 75 86 75 86 72 Z"
-          fill={c.gofunShade}
-        />
-        <path
-          d="M87 12 C87 10 99 10 99 12 L100 69 C100 72 86 72 86 69 Z"
-          fill={c.gofun}
-        />
+        <path d="M87 14 C87 12 99 12 99 14 L100 72 C100 75 86 75 86 72 Z" fill={c.gofunShade} />
+        <path d="M87 12 C87 10 99 10 99 12 L100 69 C100 72 86 72 86 69 Z" fill={c.gofun} />
         {/* Hand-painted indigo splash & vertical row of sumi dots on chimney shaft */}
-        <path
-          d="M87.5 34 C91 32 96 33 98.5 36 C96 39 91 39 87.5 37 Z"
-          fill={c.indigo}
-        />
+        <path d="M87.5 34 C91 32 96 33 98.5 36 C96 39 91 39 87.5 37 Z" fill={c.indigo} />
         {[18, 22.5, 27, 31.5].map((cy) => (
           <circle key={cy} cx="93" cy={cy} r="1.2" fill={c.sumi} />
         ))}
@@ -119,15 +110,8 @@ export function Bathhouse({ lit }: { lit: boolean }) {
       </g>
 
       {/* Arched dark sentō doorway & warm interior glow at bottom center */}
-      <path
-        d="M39 72 V51 C39 45 67 45 67 51 V72 Z"
-        fill={c.sumi}
-      />
-      <path
-        d="M42 72 V53 C42 48 64 48 64 53 V72 Z"
-        fill={c.winFill}
-        opacity={lit ? 0.88 : 0.45}
-      />
+      <path d="M39 72 V51 C39 45 67 45 67 51 V72 Z" fill={c.sumi} />
+      <path d="M42 72 V53 C42 48 64 48 64 53 V72 Z" fill={c.winFill} opacity={lit ? 0.88 : 0.45} />
 
       {/* Scalloped two-panel vermilion & indigo noren curtain with onsen ♨ mark */}
       <g>
@@ -143,15 +127,7 @@ export function Bathhouse({ lit }: { lit: boolean }) {
         <circle cx="42" cy="47.5" r="1.2" fill={c.goldLeaf} />
         <circle cx="64" cy="47.5" r="1.2" fill={c.goldLeaf} />
         {/* Drawn onsen ♨ symbol in gofun white */}
-        <ellipse
-          cx="53"
-          cy="55"
-          rx="5.2"
-          ry="3.2"
-          fill="none"
-          stroke={c.gofun}
-          strokeWidth="1.7"
-        />
+        <ellipse cx="53" cy="55" rx="5.2" ry="3.2" fill="none" stroke={c.gofun} strokeWidth="1.7" />
         <path
           d="M49.5 52.5 Q50.3 49.5 49.5 47.5 M53 52 Q53.8 49 53 47 M56.5 52.5 Q57.3 49.5 56.5 47.5"
           fill="none"
@@ -162,14 +138,8 @@ export function Bathhouse({ lit }: { lit: boolean }) {
       </g>
 
       {/* Sweeping karahafu curved gable roof in deep indigo & gold ridge (+3 lip + base) */}
-      <path
-        d="M9 39 Q53 8 95 39 C91 42 81 41 53 35 C25 41 13 42 9 39 Z"
-        fill={c.indigoShade}
-      />
-      <path
-        d="M9 36 Q53 5 95 36 C91 39 81 38 53 32 C25 38 13 39 9 36 Z"
-        fill={c.indigo}
-      />
+      <path d="M9 39 Q53 8 95 39 C91 42 81 41 53 35 C25 41 13 42 9 39 Z" fill={c.indigoShade} />
+      <path d="M9 36 Q53 5 95 36 C91 39 81 38 53 32 C25 38 13 39 9 36 Z" fill={c.indigo} />
       {/* Gold-leaf bargeboard ornament under karahafu peak */}
       <path d="M44 29 Q53 21 62 29 Q53 27 44 29 Z" fill={c.goldLeaf} />
       <circle cx="53" cy="25.5" r="2.2" fill={c.vermilion} />

@@ -18,7 +18,8 @@
 .hariko-cafe-noren {
   transform-box: fill-box;
   transform-origin: 50% 0%;
-  animation: hariko-noren-flutter calc(var(--dur-celebrate, 900ms) * 3.4) ease-in-out infinite alternate;
+  animation: hariko-noren-flutter calc(var(--dur-celebrate, 900ms) * 3.4) ease-in-out infinite
+    alternate;
 }
 
 .hariko-shrine-rope {
@@ -30,7 +31,8 @@
 .hariko-shopping-awning {
   transform-box: fill-box;
   transform-origin: 50% 0%;
-  animation: hariko-noren-flutter calc(var(--dur-celebrate, 900ms) * 3.2) ease-in-out infinite alternate;
+  animation: hariko-noren-flutter calc(var(--dur-celebrate, 900ms) * 3.2) ease-in-out infinite
+    alternate;
 }
 
 .hariko-bathhouse-steam-1,

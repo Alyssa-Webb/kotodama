@@ -80,8 +80,20 @@ export function Cafe({ lit }: { lit: boolean }) {
           fill={c.indigo}
         />
         {/* Scattered gold & vermilion folk leaves/blossoms on noren */}
-        <PlumBlossom x={55.5} y={47.5} scale={0.85} petalFill={c.goldLeaf} centerFill={c.vermilion} />
-        <PlumBlossom x={70.5} y={47.5} scale={0.85} petalFill={c.goldLeaf} centerFill={c.vermilion} />
+        <PlumBlossom
+          x={55.5}
+          y={47.5}
+          scale={0.85}
+          petalFill={c.goldLeaf}
+          centerFill={c.vermilion}
+        />
+        <PlumBlossom
+          x={70.5}
+          y={47.5}
+          scale={0.85}
+          petalFill={c.goldLeaf}
+          centerFill={c.vermilion}
+        />
         <MaruCluster x={55.5} y={53.5} fill={c.gofun} r={1} />
         <MaruCluster x={70.5} y={53.5} fill={c.gofun} r={1} />
       </g>

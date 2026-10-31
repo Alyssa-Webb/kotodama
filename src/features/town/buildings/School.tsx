@@ -30,11 +30,7 @@ export function School({ lit }: { lit: boolean }) {
         <path d="M13 65 H47 V70 C47 72 41 73 30 73 C19 73 13 72 13 70 Z" fill={c.indigo} />
 
         {/* Painted indigo wave motif & gold flower on left wall */}
-        <path
-          d="M14 59 Q18 55 22 59 Q26 63 30 59 L30 65 L14 65 Z"
-          fill={c.indigo}
-          opacity="0.88"
-        />
+        <path d="M14 59 Q18 55 22 59 Q26 63 30 59 L30 65 L14 65 Z" fill={c.indigo} opacity="0.88" />
         <PlumBlossom x={18.5} y={50} scale={0.85} petalFill={c.goldLeaf} centerFill={c.vermilion} />
 
         {/* Left wing red-framed 4-pane window */}
@@ -52,7 +48,13 @@ export function School({ lit }: { lit: boolean }) {
           d="M9 41.5 L29 24.5 L48 41.5 C44 43.5 39 43.5 29 34.5 C19 43.5 13 43.5 9 41.5 Z"
           fill={c.vermilion}
         />
-        <path d="M21 31 L29 24 L37 31" stroke={c.indigo} strokeWidth="3.2" strokeLinecap="round" fill="none" />
+        <path
+          d="M21 31 L29 24 L37 31"
+          stroke={c.indigo}
+          strokeWidth="3.2"
+          strokeLinecap="round"
+          fill="none"
+        />
         <MaruCluster x={22} y={35.5} fill={c.gofun} r={1.1} />
         <PlumBlossom x={31} y={40} scale={0.75} petalFill={c.goldLeaf} centerFill={c.vermilion} />
       </g>
@@ -73,7 +75,13 @@ export function School({ lit }: { lit: boolean }) {
 
         {/* Upper gable fill & painted floral motif under roof peak */}
         <path d="M44 33 L65.5 14 L87 33 Z" fill={c.gofun} />
-        <PlumBlossom x={65.5} y={20.5} scale={0.9} petalFill={c.vermilion} centerFill={c.goldLeaf} />
+        <PlumBlossom
+          x={65.5}
+          y={20.5}
+          scale={0.9}
+          petalFill={c.vermilion}
+          centerFill={c.goldLeaf}
+        />
 
         {/* Second-floor red-framed 4-pane window & painted blue swag underneath */}
         <rect x="59" y="26.5" width="13" height="11.5" rx="2.5" fill={c.vermilionShade} />
@@ -160,10 +168,7 @@ export function School({ lit }: { lit: boolean }) {
         {/* Hanging golden-bronze school bell (gentle swing when lit) */}
         <g className={lit ? 'hariko-school-bell' : undefined}>
           <rect x="105.2" y="31.5" width="2" height="4.5" rx="0.9" fill={c.sumi} />
-          <path
-            d="M101.5 46 C101.5 36.5 111 36.5 111 46 L112.5 48.5 H100 Z"
-            fill={c.goldShade}
-          />
+          <path d="M101.5 46 C101.5 36.5 111 36.5 111 46 L112.5 48.5 H100 Z" fill={c.goldShade} />
           <path
             d="M101.5 44.5 C101.5 35 111 35 111 44.5 L112.5 47 H100 Z"
             fill={lit ? 'var(--c-glow)' : c.goldLeaf}

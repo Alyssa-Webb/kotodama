@@ -56,14 +56,8 @@ export function Shrine({ lit }: { lit: boolean }) {
           d="M26 36 Q60 14 94 36 C91 39 83 39 60 39 C37 39 29 39 26 36 Z"
           fill={c.vermilionShade}
         />
-        <path
-          d="M26 34 Q60 12 94 34 C91 37 83 37 60 37 C37 37 29 37 26 34 Z"
-          fill={c.vermilion}
-        />
-        <path
-          d="M24 33 Q60 9 96 33 C92 36 82 35 60 35 C38 35 28 36 24 33 Z"
-          fill={c.indigoShade}
-        />
+        <path d="M26 34 Q60 12 94 34 C91 37 83 37 60 37 C37 37 29 37 26 34 Z" fill={c.vermilion} />
+        <path d="M24 33 Q60 9 96 33 C92 36 82 35 60 35 C38 35 28 36 24 33 Z" fill={c.indigoShade} />
         <path
           d="M24 30.5 Q60 6.5 96 30.5 C92 33.5 82 32.5 60 32.5 C38 32.5 28 33.5 24 30.5 Z"
           fill={c.indigo}

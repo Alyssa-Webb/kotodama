@@ -4,7 +4,7 @@
  */
 
 export interface HarikoPalette {
-  /** Matte chalky gofun white body (--c-surface / --c-panel family) */
+  /** Matte chalky gofun white body. --c-hud-ink stays cream in both themes: a hariko toy is white in any light. */
   gofun: string;
   /** Secondary warm gofun cream */
   gofunWarm: string;
@@ -45,9 +45,9 @@ export interface HarikoPalette {
 export function harikoPalette(lit: boolean): HarikoPalette {
   if (lit) {
     return {
-      gofun: 'color-mix(in srgb, var(--c-surface) 80%, var(--c-hud-ink))',
-      gofunWarm: 'color-mix(in srgb, var(--c-panel) 84%, var(--c-hud-ink))',
-      gofunShade: 'color-mix(in srgb, var(--c-panel) 60%, var(--c-hud-bg))',
+      gofun: 'var(--c-hud-ink)',
+      gofunWarm: 'color-mix(in srgb, var(--c-hud-ink) 88%, var(--c-gold))',
+      gofunShade: 'color-mix(in srgb, var(--c-hud-ink) 66%, var(--c-hud-bg))',
       vermilion: 'var(--c-accent)',
       vermilionShade: 'color-mix(in srgb, var(--c-accent) 60%, var(--c-hud-bg))',
       indigo: 'var(--c-secondary)',
@@ -91,7 +91,9 @@ export function harikoPalette(lit: boolean): HarikoPalette {
 export function PaperLantern({ x, y, lit }: { x: number; y: number; lit: boolean }) {
   return (
     <g transform={`translate(${x} ${y})`}>
-      {lit && <circle cx="0" cy="4.5" r="10.5" fill="var(--c-glow)" className="town-lantern-glow" />}
+      {lit && (
+        <circle cx="0" cy="4.5" r="10.5" fill="var(--c-glow)" className="town-lantern-glow" />
+      )}
       <rect x="-0.8" y="-3" width="1.6" height="4" rx="0.8" fill="var(--c-hud-bg)" />
       {/* +3 shade lip */}
       <ellipse

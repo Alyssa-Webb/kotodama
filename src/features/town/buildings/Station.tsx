@@ -46,10 +46,7 @@ export function Station({ lit }: { lit: boolean }) {
       {/* Hariko toy steam locomotive on right */}
       <g>
         {/* Smokestack funnel (+3 shade lip + indigo shaft + vermilion cap) */}
-        <path
-          d="M93.5 34 C93.5 32 100.5 32 100.5 34 L101.5 47 L92.5 47 Z"
-          fill={c.indigoShade}
-        />
+        <path d="M93.5 34 C93.5 32 100.5 32 100.5 34 L101.5 47 L92.5 47 Z" fill={c.indigoShade} />
         <path d="M93.5 32 C93.5 30 100.5 30 100.5 32 L101.5 45 L92.5 45 Z" fill={c.indigo} />
         <ellipse cx="97" cy="32.5" rx="4.8" ry="2.3" fill={c.vermilionShade} />
         <ellipse cx="97" cy="31" rx="4.8" ry="2.3" fill={c.vermilion} />
