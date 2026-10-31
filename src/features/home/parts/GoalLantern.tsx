@@ -18,9 +18,7 @@ export function GoalLantern({ pct }: { pct: number }) {
           rx="12.5"
           ry="11.2"
           fill={
-            full
-              ? 'var(--c-gold)'
-              : 'color-mix(in srgb, var(--c-panel-edge) 54%, var(--c-hud-bg))'
+            full ? 'var(--c-gold)' : 'color-mix(in srgb, var(--c-panel-edge) 54%, var(--c-hud-bg))'
           }
         />
         <ellipse

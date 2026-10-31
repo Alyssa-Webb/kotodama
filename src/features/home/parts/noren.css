@@ -498,3 +498,13 @@ span.goal-lantern.goal-lantern-full .goal-lantern-fill {
     transition: none !important;
   }
 }
+
+/* Layout (Alyssa's AI): two panels, a wide one carrying the words and a narrow one framing the
+   seal, so no slit ever runs through the lesson title. */
+.noren-curtain {
+  grid-template-columns: minmax(0, 1fr) 84px;
+}
+
+.noren-panel-2 {
+  display: none;
+}
