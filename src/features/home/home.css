@@ -44,18 +44,13 @@
 
 .home-place {
   position: absolute;
-  top: var(--sp-3);
+  top: 20px;
   left: var(--sp-3);
   z-index: 2;
   margin: 0;
-  padding: 4px var(--sp-3);
-  border-radius: var(--r-pill);
-  background: color-mix(in srgb, var(--c-hud-bg) 62%, transparent);
   color: var(--c-hud-ink);
   font-size: var(--fs-xs);
   font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .home-scene .tour-btn {
@@ -146,31 +141,14 @@
 .home-continue {
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
-  padding: 10px var(--sp-3) 10px var(--sp-4);
-  border-radius: 24px;
-  background: var(--c-panel);
-  color: var(--c-ink);
+  gap: var(--sp-2);
+  color: var(--c-hud-ink);
   text-decoration: none;
-  box-shadow: 0 8px 22px -14px var(--c-shadow);
-  transition: transform var(--dur-fast) var(--ease);
-}
-
-.home-continue:active {
-  transform: scale(0.98);
 }
 
 .home-continue:focus-visible {
   outline: 3px solid var(--c-focus);
   outline-offset: 2px;
-}
-
-.home-continue-copy {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
 }
 
 .home-continue .eyebrow {
@@ -184,55 +162,6 @@
   font-size: var(--fs-lg);
   font-weight: 800;
   line-height: 1.2;
-}
-
-.home-goal {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin-top: var(--sp-1);
-}
-
-.home-goal-bar {
-  position: relative;
-  flex: 1;
-  max-width: 120px;
-  height: 6px;
-  overflow: hidden;
-  border-radius: var(--r-pill);
-  background: var(--c-surface-alt);
-}
-
-.home-goal-bar > span {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: var(--c-gold);
-  transform-origin: 0 50%;
-  transition: transform var(--dur-slow) var(--ease);
-}
-
-.home-goal-text {
-  color: var(--c-ink-muted);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.home-continue-go {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  min-height: 48px;
-  max-width: 46%;
-  padding: 0 var(--sp-4);
-  border-radius: var(--r-pill);
-  background: var(--c-accent);
-  color: var(--c-accent-ink);
-  font-weight: 800;
-  text-align: center;
-  line-height: 1.15;
-  box-shadow: 0 6px 14px -8px var(--c-accent);
 }
 
 /* ---------------- REMINDERS (only when something needs you) ---------------- */
