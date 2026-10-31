@@ -14,11 +14,11 @@ Create a new, self-contained component `src/features/town/TownMap.tsx` (with `sr
 
 ```ts
 export interface TownMapSpot {
-  id: string;        // district id: station | cafe | shrine | shopping | bathhouse | school
-  en: string;        // English name, e.g. "The Station"
+  id: string; // district id: station | cafe | shrine | shopping | bathhouse | school
+  en: string; // English name, e.g. "The Station"
   restored: boolean; // open for business
-  lit: boolean;      // lanterns lit (the player kept their streak)
-  pending: number;   // yen waiting to be collected (0 = none)
+  lit: boolean; // lanterns lit (the player kept their streak)
+  pending: number; // yen waiting to be collected (0 = none)
 }
 export function TownMap(props: { spots: TownMapSpot[]; onOpen: (id: string) => void }): JSX.Element;
 ```

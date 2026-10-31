@@ -11,6 +11,7 @@
 | `VOICEVOX.md`               | Setting up VOICEVOX and rendering the app's voices                                                                           |
 | `design/world-and-story.md` | The world: regions as story chapters, the yokai bestiary, NPCs, the journey to fluency                                       |
 | `design/town-tycoon.md`     | The town as a tycoon game: residents, stations, products, spirits with rarity                                                |
+| `design/dojo.md`            | The Dojo brief (Alyssa's area): review as mastery, Musashi, scrolls, gates, daily caps                                       |
 | `skills/gemini-art/`        | The Claude Code skill that delegates art and animation to Gemini 4 Argon through the Cursor CLI, with every brief we've sent |
 
 Install the skill by copying `shared-context/skills/gemini-art/` to `.claude/skills/gemini-art/` in your checkout (`.claude/` is git-ignored and per-machine).

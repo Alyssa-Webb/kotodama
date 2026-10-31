@@ -4,7 +4,8 @@ import { DIFFICULTIES } from '../../schema/economy';
 import type { Settings } from '../../schema/save';
 import { useGame } from '../../foundations/store/gameStore';
 import { economy } from '../../foundations/world';
-import { JaText, useJa } from '../../foundations/japanese/Ja';
+import { JaText } from '../../foundations/japanese/Ja';
+import { speak as voice } from '../../foundations/audio/voice';
 import { useSave } from '../hooks';
 
 function Seg<T extends string | number | boolean>({
@@ -39,7 +40,6 @@ export function SettingsScreen() {
   const commit = useGame((s) => s.commit);
   const gctx = useGame((s) => s.ctx);
   const [lockMsg, setLockMsg] = useState<string | null>(null);
-  const { speak } = useJa();
   const set = <K extends keyof Settings>(k: K, v: Settings[K]) =>
     commit({
       ...useGame.getState().save!,
@@ -128,18 +128,25 @@ export function SettingsScreen() {
             { v: 'duet', label: 'Duet' },
           ]}
         />
+        {/* Each sample plays its own guide, whatever the Voice setting above says. */}
         <div className="row">
           <button
             className="btn btn-small"
-            onClick={() => speak('いらっしゃいませ。', { role: 'teach' })}
+            onClick={() => void voice('いらっしゃいませ。', { guide: 'akari' })}
           >
             ▶︎ Akari
           </button>
           <button
             className="btn btn-small"
-            onClick={() => speak('いらっしゃいませ。', { role: 'quiz' })}
+            onClick={() => void voice('いらっしゃいませ。', { guide: 'tetsu' })}
           >
             ▶︎ Tetsu
+          </button>
+          <button
+            className="btn btn-small"
+            onClick={() => void voice('ありがとうございます', { guide: 'koto' })}
+          >
+            ▶︎ Koto
           </button>
         </div>
         <label className="row">
