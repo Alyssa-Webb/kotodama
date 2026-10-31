@@ -1,0 +1,26 @@
+/* Sumi-e Dojo backdrop styles: at most one gentle loop, transform & opacity only. */
+.dojo-sumie-wash-breathe {
+  will-change: opacity;
+  animation: dojo-sumie-light-breathe calc(var(--dur-celebrate, 900ms) * 5.5) ease-in-out infinite;
+}
+
+@keyframes dojo-sumie-light-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 0.96;
+  }
+}
+
+/* Pause decorative loop while a battle question is up so answering stays smooth. */
+.battle:not(.battle-walking) .dojo-sumie-wash-breathe {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dojo-sumie-wash-breathe {
+    animation: none !important;
+  }
+}
