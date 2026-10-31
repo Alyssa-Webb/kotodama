@@ -468,179 +468,203 @@ export function RokurokubiArt({ state }: { state: EnemyState }): ReactNode {
     <g className={`rokurokubi-root rokurokubi-${state}`}>
       {/* Grounded shadow on the market street */}
       <g className="enemy-shadow rokurokubi-shadow">
-        <ellipse cx="56" cy="92" rx="25" ry="5.2" fill="var(--c-shadow)" />
-        <ellipse cx="56" cy="92" rx="15" ry="2.8" fill="var(--c-shadow)" />
+        <ellipse cx="64" cy="94.5" rx="21" ry="4.2" fill="var(--c-shadow)" />
+        <ellipse cx="64" cy="94.5" rx="12.5" ry="2.3" fill="var(--c-shadow)" />
       </g>
 
       <g className="enemy-body rokurokubi-body">
         {/* Floating night-lantern spirit wisp */}
         <g className="rokurokubi-wisp">
-          <path d="M86 25 C90 30 90 36 86 38 C82 36 82 30 86 25 Z" fill={kimonoShade} />
+          <path d="M88 22 C92 27 92 33 88 35 C84 33 84 27 88 22 Z" fill={kimonoShade} />
           <path
-            d="M86 23 C89.5 28 89.5 33.5 86 35.5 C82.5 33.5 82.5 28 86 23 Z"
+            d="M88 20 C91.5 25 91.5 30.5 88 32.5 C84.5 30.5 84.5 25 88 20 Z"
             fill="var(--c-glow)"
           />
-          <circle cx="86" cy="31" r="1.8" fill={SHINE} />
+          <circle cx="88" cy="28" r="1.8" fill={SHINE} />
         </g>
 
-        {/* Tabi feet & lacquered zōri sandals on the ground line (y ≈ 88) */}
-        <rect x="46" y="82" width="10.5" height="8.5" rx="4.2" fill={INK} />
-        <rect x="46" y="80" width="10.5" height="7.5" rx="3.8" fill="var(--c-lacquer)" />
-        <rect x="47" y="78" width="8.5" height="7.5" rx="3.8" fill={CREAM} />
-        <rect x="61.5" y="82" width="10.5" height="8.5" rx="4.2" fill={INK} />
-        <rect x="61.5" y="80" width="10.5" height="7.5" rx="3.8" fill="var(--c-lacquer)" />
-        <rect x="62.5" y="78" width="8.5" height="7.5" rx="3.8" fill={CREAM} />
+        {/* Tabi feet & lacquered zōri sandals on the ground line */}
+        <rect x="53" y="86.5" width="9.5" height="7.5" rx="3.8" fill={INK} />
+        <rect x="53" y="84.5" width="9.5" height="6.8" rx="3.4" fill="var(--c-lacquer)" />
+        <rect x="54" y="83" width="7.5" height="6.5" rx="3.2" fill={CREAM} />
+        <rect x="65.5" y="86.5" width="9.5" height="7.5" rx="3.8" fill={INK} />
+        <rect x="65.5" y="84.5" width="9.5" height="6.8" rx="3.4" fill="var(--c-lacquer)" />
+        <rect x="66.5" y="83" width="7.5" height="6.5" rx="3.2" fill={CREAM} />
 
-        {/* Chibi kimono torso & draping furisode sleeves (+3 shade lip + main fill) */}
+        {/* Compact chibi kimono torso planted low (+3 shade lip + main fill) */}
         <path
-          d="M40 66 C40 56 48 51 59 51 C70 51 78 56 78 66 L75 84 Q59 89 43 84 Z"
+          d="M48 79 C48 71 54 68 64 68 C74 68 80 71 80 79 L77 89 Q64 93 51 89 Z"
           fill={kimonoShade}
         />
         <path
-          d="M40 63 C40 53 48 48 59 48 C70 48 78 53 78 63 L75 81 Q59 86 43 81 Z"
+          d="M48 76 C48 68 54 65 64 65 C74 65 80 68 80 76 L77 86 Q64 90 51 86 Z"
           fill={kimonoMain}
         />
         {/* White juban collar, golden brocade obi & obijime cord */}
-        <path d="M51 48 L59 61 L67 48 Z" fill={CREAM} />
-        <rect x="43" y="67" width="32" height="8.5" rx="3.8" fill="var(--c-gold)" />
-        <rect x="43" y="65" width="32" height="7.5" rx="3.5" fill="var(--c-glow)" />
-        <rect x="45" y="68" width="28" height="2.2" rx="1.1" fill={kimonoShade} />
+        <path d="M56 65 L64 75 L72 65 Z" fill={CREAM} />
+        <path
+          d="M55 65 L65 76 M73 65 L63 74"
+          stroke={kimonoShade}
+          strokeWidth="2.2"
+          strokeLinecap="round"
+        />
+        <rect x="50" y="76.5" width="28" height="7" rx="3.4" fill="var(--c-gold)" />
+        <rect x="50" y="74.5" width="28" height="6.2" rx="3.1" fill="var(--c-glow)" />
+        <rect x="52" y="77" width="24" height="2" rx="1" fill={kimonoShade} />
         <ellipse
-          cx="49"
-          cy="56"
-          rx="5.5"
-          ry="2"
-          transform="rotate(-16 49 56)"
+          cx="55"
+          cy="71"
+          rx="4.8"
+          ry="1.8"
+          transform="rotate(-16 55 71)"
           fill="var(--c-hud-ink)"
           opacity="0.38"
         />
-        {/* Left & right kimono sleeves with dainty chibi hands */}
-        <path d="M33 66 C33 57 38 52 46 54 L47 72 C39 74 33 71 33 66 Z" fill={kimonoShade} />
-        <path d="M33 63 C33 54 38 49 46 51 L47 69 C39 71 33 68 33 63 Z" fill={kimonoMain} />
-        <circle cx="42" cy="60.5" r="4.4" fill={skinShade} />
-        <circle cx="42" cy="59" r="4.4" fill={skin} />
-        <path d="M85 66 C85 57 80 52 72 54 L71 72 C79 74 85 71 85 66 Z" fill={kimonoShade} />
-        <path d="M85 63 C85 54 80 49 72 51 L71 69 C79 71 85 68 85 63 Z" fill={kimonoMain} />
-        <circle cx="76" cy="60.5" r="4.4" fill={skinShade} />
-        <circle cx="76" cy="59" r="4.4" fill={skin} />
+        {/* Left & right furisode sleeves with both arms tucked cleanly inside (no hands visible) */}
+        <path d="M41 78 C41 71 45 67 52 69 L53 83 C46 85 41 82 41 78 Z" fill={kimonoShade} />
+        <path d="M41 75 C41 68 45 64 52 66 L53 80 C46 82 41 79 41 75 Z" fill={kimonoMain} />
+        <path
+          d="M44 74 Q48 76 51 73"
+          stroke="var(--c-gold)"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <path d="M87 78 C87 71 83 67 76 69 L75 83 C82 85 87 82 87 78 Z" fill={kimonoShade} />
+        <path d="M87 75 C87 68 83 64 76 66 L75 80 C82 82 87 79 87 75 Z" fill={kimonoMain} />
+        <path
+          d="M84 74 Q80 76 77 73"
+          stroke="var(--c-gold)"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          fill="none"
+        />
 
-        {/* Long looping neck & head group (scales around collar 60,58 to stretch toward player) */}
+        {/* Long serpentine S-loop neck & floating head (pivots at collar 64,69) */}
         <g className="rokurokubi-neck">
-          {/* Serpentine looping neck (+3 shade lip + main skin curve + soft highlight) */}
+          {/* Two-S-loop thin neck (+3 shade lip + flat skin fill + top-left highlight) */}
           <path
-            d="M55 57 C59 73 37 78 32 61 C28 49 34 42 36 37 L45 39 C43 44 38 50 41 58 C44 67 52 65 51 54 Z"
-            fill={skinShade}
+            d="M64 71.8 C50 71.8 33 67.8 34 58.8 C35 49.8 68 55.8 67 45.8 C66 37.8 36 43.8 36 34.8"
+            stroke={skinShade}
+            strokeWidth="6.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
           />
           <path
-            d="M55 54 C59 70 37 75 32 58 C28 46 34 39 36 34 L45 36 C43 41 38 47 41 55 C44 64 52 62 51 51 Z"
-            fill={skin}
+            d="M64 69 C50 69 33 65 34 56 C35 47 68 53 67 43 C66 35 36 41 36 32"
+            stroke={skin}
+            strokeWidth="6.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
           />
           <path
-            d="M35 55 C33 48 36 42 39 38"
+            d="M49 67.6 C39 66 35 61.5 35.5 56 M42 49.5 C51 48.8 61 48 65.5 43.5"
             stroke="var(--c-hud-ink)"
-            strokeWidth="2.2"
+            strokeWidth="1.8"
             strokeLinecap="round"
             fill="none"
-            opacity="0.4"
+            opacity="0.42"
           />
 
-          {/* Oversized chibi head with Edo Shimada mage coiffure & kanzashi */}
+          {/* Floating chibi head (~1 head-height above body) with Shimada mage & kanzashi */}
           <g className="rokurokubi-head">
             {/* Back hair & arched Edo mage topknot with vermilion tegara ribbon */}
-            <ellipse cx="40" cy="11.5" rx="11" ry="6.5" fill={hairBack} />
-            <ellipse cx="40" cy="9.5" rx="11" ry="6.2" fill={hairFront} />
-            <rect x="33" y="12.5" width="14" height="3.5" rx="1.75" fill="var(--c-accent)" />
+            <ellipse cx="36" cy="10.5" rx="9.5" ry="5" fill={hairBack} />
+            <ellipse cx="36" cy="8.5" rx="9.5" ry="4.8" fill={hairFront} />
+            <rect x="30" y="11" width="12" height="3" rx="1.5" fill="var(--c-accent)" />
             <path
-              d="M15 32 C14 15 24 9 40 9 C56 9 66 15 65 32 C65 39 62 44 58 46 L22 46 C18 44 15 39 15 32 Z"
+              d="M15 27 C14 13 22 8 36 8 C50 8 58 13 57 27 C57 32 54 36 50 37.5 L22 37.5 C18 36 15 32 15 27 Z"
               fill={hairBack}
             />
 
             {/* Golden blossom kanzashi hairpin with dangling shidare drops */}
             <g className="rokurokubi-kanzashi">
               <path
-                d="M47 18 L63 8"
+                d="M42 15 L56 6.5"
                 stroke="var(--c-gold)"
-                strokeWidth="3.2"
+                strokeWidth="2.8"
                 strokeLinecap="round"
               />
               <path
-                d="M47 17 L63 7"
+                d="M42 14 L56 5.5"
                 stroke="var(--c-glow)"
-                strokeWidth="2.2"
+                strokeWidth="2"
                 strokeLinecap="round"
               />
-              <circle cx="61" cy="9.5" r="4.5" fill={kimonoShade} />
-              <circle cx="61" cy="8" r="4.5" fill="var(--c-petal)" />
-              <circle cx="61" cy="8" r="1.8" fill="var(--c-glow)" />
-              <circle cx="65" cy="14" r="2" fill="var(--c-accent)" />
-              <circle cx="65" cy="18.5" r="1.8" fill="var(--c-petal)" />
+              <circle cx="54.5" cy="8" r="3.8" fill={kimonoShade} />
+              <circle cx="54.5" cy="6.5" r="3.8" fill="var(--c-petal)" />
+              <circle cx="54.5" cy="6.5" r="1.5" fill="var(--c-glow)" />
+              <circle cx="58" cy="11.5" r="1.7" fill="var(--c-accent)" />
+              <circle cx="58" cy="15.5" r="1.5" fill="var(--c-petal)" />
             </g>
 
             {/* Ears & chibi face (+3 shade lip + main skin) */}
-            <circle cx="17.5" cy="34.5" r="5" fill={skinShade} />
-            <circle cx="17.5" cy="33" r="5" fill={skin} />
-            <circle cx="18" cy="33.5" r="2.2" fill={skinWarm} />
-            <circle cx="62.5" cy="34.5" r="5" fill={skinShade} />
-            <circle cx="62.5" cy="33" r="5" fill={skin} />
-            <circle cx="62" cy="33.5" r="2.2" fill={skinWarm} />
+            <circle cx="16.5" cy="28" r="4.2" fill={skinShade} />
+            <circle cx="16.5" cy="26.5" r="4.2" fill={skin} />
+            <circle cx="17" cy="27" r="1.9" fill={skinWarm} />
+            <circle cx="55.5" cy="28" r="4.2" fill={skinShade} />
+            <circle cx="55.5" cy="26.5" r="4.2" fill={skin} />
+            <circle cx="55" cy="27" r="1.9" fill={skinWarm} />
 
-            <rect x="18" y="16" width="44" height="33" rx="17" fill={skinShade} />
-            <rect x="18" y="13" width="44" height="33" rx="17" fill={skin} />
+            <rect x="17" y="13" width="38" height="25" rx="13.5" fill={skinShade} />
+            <rect x="17" y="10" width="38" height="25" rx="13.5" fill={skin} />
 
             {/* Swept Edo bangs & hair shine */}
             <path
-              d="M16 29 C16 14 26 9 40 9 C54 9 64 14 64 29 C61 23 55 19 49 22 C45 17 35 17 31 22 C25 19 19 23 16 29 Z"
+              d="M15.5 24 C15.5 12 23.5 8 36 8 C48.5 8 56.5 12 56.5 24 C53.5 19 48.5 16 43.5 18.5 C40 14.5 32 14.5 28.5 18.5 C23.5 16 18.5 19 15.5 24 Z"
               fill={hairFront}
             />
             <path
-              d="M25 16 C33 12 46 12 54 15.5"
+              d="M23 14 C30 10.5 42 10.5 49 13.5"
               stroke="color-mix(in srgb, var(--c-secondary) 52%, var(--c-hud-ink))"
-              strokeWidth="3"
+              strokeWidth="2.6"
               strokeLinecap="round"
               fill="none"
               opacity="0.65"
             />
             <ellipse
-              cx="29"
-              cy="22"
-              rx="7.5"
-              ry="3"
-              transform="rotate(-16 29 22)"
+              cx="26"
+              cy="18.5"
+              rx="6.5"
+              ry="2.6"
+              transform="rotate(-16 26 18.5)"
               fill="var(--c-hud-ink)"
               opacity="0.42"
             />
 
             {/* Blush, brows, eyes & mischievous smile */}
-            <ellipse cx="25.5" cy="38.5" rx="4.2" ry="2.4" fill="var(--c-petal)" opacity="0.78" />
-            <ellipse cx="54.5" cy="38.5" rx="4.2" ry="2.4" fill="var(--c-petal)" opacity="0.78" />
+            <ellipse cx="23" cy="30.5" rx="3.6" ry="2" fill="var(--c-petal)" opacity="0.78" />
+            <ellipse cx="49" cy="30.5" rx="3.6" ry="2" fill="var(--c-petal)" opacity="0.78" />
             <path
               d={
                 state === 'hit' || state === 'defeat'
-                  ? 'M26 27.5 L35 24.5 M54 27.5 L45 24.5'
-                  : 'M26 25.5 Q31 23.5 35 27 M54 25.5 Q49 23.5 45 27'
+                  ? 'M23.5 20.5 L31.5 18 M48.5 20.5 L40.5 18'
+                  : 'M23.5 19 Q28 17 31.5 20 M48.5 19 Q44 17 40.5 20'
               }
               stroke={INK}
-              strokeWidth="2.5"
+              strokeWidth="2.3"
               strokeLinecap="round"
               fill="none"
             />
             <YokaiEyes
               state={state}
-              x1={31}
-              x2={49}
-              y={33.5}
+              x1={28}
+              x2={44}
+              y={26}
               iris="var(--c-secondary)"
               pupil={INK}
               hurtStroke={INK}
             />
-            <ellipse cx="40" cy="37.5" rx="1.2" ry="0.8" fill={skinWarm} />
+            <ellipse cx="36" cy="29.5" rx="1.1" ry="0.75" fill={skinWarm} />
             {state === 'attack' ? (
-              <path d="M35 40 C35 45.5 45 45.5 45 40 Z" fill={kimonoShade} />
+              <path d="M31.5 31.2 C31.5 36 40.5 36 40.5 31.2 Z" fill={kimonoShade} />
             ) : (
               <path
-                d="M36 40.5 Q40 43.5 44 40.5"
+                d="M32.5 31.8 Q36 34.4 39.5 31.8"
                 stroke={INK}
-                strokeWidth="2.2"
+                strokeWidth="2"
                 strokeLinecap="round"
                 fill="none"
               />
@@ -652,20 +676,24 @@ export function RokurokubiArt({ state }: { state: EnemyState }): ReactNode {
       <YokaiDamageFlash
         renderSilhouette={(fill) => (
           <g className="enemy-body rokurokubi-body">
-            <rect x="46" y="78" width="10.5" height="12.5" rx="4.2" fill={fill} />
-            <rect x="61.5" y="78" width="10.5" height="12.5" rx="4.2" fill={fill} />
+            <rect x="53" y="83" width="9.5" height="11" rx="3.8" fill={fill} />
+            <rect x="65.5" y="83" width="9.5" height="11" rx="3.8" fill={fill} />
             <path
-              d="M33 66 C33 53 45 48 59 48 C73 48 85 53 85 66 L75 84 Q59 89 43 84 Z"
+              d="M41 78 C41 66 51 65 64 65 C77 65 87 66 87 78 L77 89 Q64 93 51 89 Z"
               fill={fill}
             />
             <g className="rokurokubi-neck">
               <path
-                d="M55 57 C59 73 37 78 32 61 C28 49 34 42 36 34 L45 36 C43 44 38 50 41 58 C44 67 52 65 51 51 Z"
-                fill={fill}
+                d="M64 70.4 C50 70.4 33 66.4 34 57.4 C35 48.4 68 54.4 67 44.4 C66 36.4 36 42.4 36 33.4"
+                stroke={fill}
+                strokeWidth="9"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
               />
               <g className="rokurokubi-head">
-                <ellipse cx="40" cy="10.5" rx="11" ry="7" fill={fill} />
-                <rect x="15" y="9" width="50" height="40" rx="19" fill={fill} />
+                <ellipse cx="36" cy="9.5" rx="9.5" ry="5.5" fill={fill} />
+                <rect x="15" y="8" width="42" height="30" rx="15" fill={fill} />
               </g>
             </g>
           </g>

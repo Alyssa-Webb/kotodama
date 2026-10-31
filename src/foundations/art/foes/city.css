@@ -461,28 +461,28 @@
    3. ROKUROKUBI (ろくろ首 — long-necked Edo woman yokai)
    ========================================================================== */
 .rokurokubi-body {
-  transform-origin: 58px 88px;
+  transform-origin: 64px 89px;
   will-change: transform, opacity;
 }
 .rokurokubi-shadow {
-  transform-origin: 56px 92px;
+  transform-origin: 64px 94.5px;
   will-change: transform, opacity;
 }
 .rokurokubi-neck {
-  transform-origin: 60px 58px;
+  transform-origin: 64px 69px;
   will-change: transform;
 }
 .rokurokubi-head {
-  transform-origin: 40px 34px;
+  transform-origin: 36px 32px;
   will-change: transform;
 }
 .rokurokubi-kanzashi {
-  transform-origin: 54px 14px;
+  transform-origin: 48px 11px;
   animation: rokurokubi-kanzashi-sway calc(var(--dur-celebrate, 900ms) * 1.9) ease-in-out infinite
     alternate;
 }
 .rokurokubi-wisp {
-  transform-origin: 86px 32px;
+  transform-origin: 88px 28px;
   animation: rokurokubi-wisp-float calc(var(--dur-celebrate, 900ms) * 2.2) ease-in-out infinite
     alternate;
 }
@@ -506,6 +506,9 @@
 .rokurokubi-hit .rokurokubi-neck {
   animation: rokurokubi-neck-recoil 220ms ease-out both;
 }
+.rokurokubi-hit .rokurokubi-head {
+  animation: rokurokubi-head-recoil 220ms ease-out both;
+}
 .rokurokubi-hit .enemy-damage-flash-white {
   animation: enemy-hit-flash-white 160ms steps(1, end) both;
 }
@@ -513,13 +516,16 @@
   animation: enemy-hit-flash-red 160ms steps(1, end) both;
 }
 .rokurokubi-attack .rokurokubi-neck {
-  animation: rokurokubi-neck-stretch 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: rokurokubi-neck-stretch 520ms ease-in-out both;
 }
 .rokurokubi-attack .rokurokubi-head {
-  animation: rokurokubi-head-lunge 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: rokurokubi-head-lunge 520ms ease-in-out both;
 }
 .rokurokubi-defeat .rokurokubi-neck {
-  animation: rokurokubi-neck-collapse 600ms ease-in both;
+  animation: rokurokubi-neck-collapse 600ms ease-out both;
+}
+.rokurokubi-defeat .rokurokubi-head {
+  animation: rokurokubi-head-droop 600ms ease-out both;
 }
 
 @keyframes rokurokubi-breathe {
@@ -528,7 +534,7 @@
     transform: translateY(0) scale(1.01, 0.99);
   }
   50% {
-    transform: translateY(-2.5px) scale(0.99, 1.02);
+    transform: translateY(-2px) scale(0.99, 1.02);
   }
 }
 @keyframes rokurokubi-shadow-pulse {
@@ -545,19 +551,19 @@
 @keyframes rokurokubi-neck-sway {
   0%,
   100% {
-    transform: rotate(-2deg) scale(0.98, 1.02);
+    transform: rotate(-3deg) scale(0.98, 1.02);
   }
   50% {
-    transform: rotate(3.5deg) scale(1.04, 0.98);
+    transform: rotate(4deg) scale(1.03, 0.98);
   }
 }
 @keyframes rokurokubi-head-bob {
   0%,
   100% {
-    transform: translateY(0) rotate(2deg);
+    transform: translateY(1px) rotate(2.5deg);
   }
   50% {
-    transform: translateY(-3px) rotate(-3deg);
+    transform: translateY(-2.5px) rotate(-3.5deg);
   }
 }
 @keyframes rokurokubi-kanzashi-sway {
@@ -594,40 +600,61 @@
     transform: none;
   }
   40% {
-    transform: rotate(8deg) scale(0.88, 0.94);
+    transform: translate(3px, 5px) rotate(6deg) scale(0.92, 0.88);
+  }
+}
+@keyframes rokurokubi-head-recoil {
+  0%,
+  100% {
+    transform: none;
+  }
+  40% {
+    transform: translate(2px, 2px) rotate(8deg);
   }
 }
 @keyframes rokurokubi-neck-stretch {
   0%,
   100% {
-    transform: scale(1);
+    transform: none;
   }
-  22% {
-    transform: rotate(6deg) scale(0.9, 0.94);
+  16% {
+    transform: translate(2px, 2px) rotate(6deg) scale(0.94, 0.94);
   }
-  52% {
-    /* Stretch the neck group toward the lower-left player */
-    transform: rotate(-16deg) scale(1.36, 1.18);
-  }
-  66% {
-    transform: rotate(-12deg) scale(1.26, 1.12);
+  42%,
+  58% {
+    /* Shoot the head & stretched S-loop neck toward the lower-left player */
+    transform: rotate(-56deg) scale(0.86, 1.02);
   }
 }
 @keyframes rokurokubi-head-lunge {
   0%,
   100% {
-    transform: scale(1);
+    transform: none;
   }
-  52% {
-    transform: rotate(10deg) scale(0.82, 0.92);
+  16% {
+    transform: rotate(-5deg);
+  }
+  42%,
+  58% {
+    transform: rotate(48deg) scale(1.12, 0.98) translate(5px, 1px);
   }
 }
 @keyframes rokurokubi-neck-collapse {
   0% {
-    transform: scale(1);
+    transform: none;
   }
+  45%,
   100% {
-    transform: rotate(-10deg) scale(0.82, 0.74);
+    transform: rotate(-64deg) scale(0.68, 0.78);
+  }
+}
+@keyframes rokurokubi-head-droop {
+  0% {
+    transform: none;
+  }
+  45%,
+  100% {
+    transform: rotate(78deg) scale(1.32, 1.22) translate(5px, 2px);
   }
 }
 
