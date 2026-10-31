@@ -35,7 +35,7 @@ Drafted by Claude while the collaboration rule is inactive (`../COLLABORATION.md
 
 - **Labels:** `ai:claude`, `area:town`, `area:art`, `enhancement`
 - **What changes:** the Town becomes its own illustrated map (Argon's `TownMap`). Every district is a building on the map; tapping one opens its business sheet (staff, collect, upgrade). There's a "Collect all" above the map and Food Street as one soft row that highlights when you're hurt. The old mountain backdrop and district cards are gone.
-- **Status when drafted:** in flight before the rule; the wiring was written and waiting for the map art. If it merged before the rule went live, post this as a closed issue for the record.
+- **Status:** done and live before the rule went live (2026-10-30). Post it as a closed issue for the record.
 - **Files and areas:** `src/features/town/*`.
 
 ## Parked ideas (not proposals yet; humans decide when)

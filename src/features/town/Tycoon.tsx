@@ -29,6 +29,7 @@ import { playSfx } from '../../foundations/audio/sfx';
 import { fx } from '../../foundations/fx/fx';
 import { SpiritArt, STAGE_LABEL } from '../collection/CollectionScreen';
 import { useNow, useSave } from '../hooks';
+import { TownMap, type TownMapSpot } from './TownMap';
 
 const RARITY_CLASS = { common: '', rare: 'r-rare', epic: 'r-epic', legendary: 'r-legendary' };
 const yenFmt = (n: number) => `¥${n.toLocaleString('en-US')}`;
@@ -93,9 +94,10 @@ export function Tycoon({ states }: { states: DistrictState[] }) {
   const now = useNow(1000);
   const { list, residents } = useBusinesses(states, now);
   const [picking, setPicking] = useState<{ biz: Business; slot: number } | null>(null);
+  // The district whose business sheet is open (tapped on the map).
+  const [open, setOpen] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
   const total = list.reduce((a, x) => a + x.pending, 0);
-  const locked = townData.buildings.filter((b) => !list.some((x) => x.b.district === b.district));
 
   const collectOne = (biz: Business, el: Element | null) => {
     const r = collect(useGame.getState().save!, gctx(), biz.b, biz.rate, townData);
@@ -138,10 +140,24 @@ export function Tycoon({ states }: { states: DistrictState[] }) {
     fx.text(`Level ${biz.level + 1}!`, el, 'gold');
   };
 
+  const spots: TownMapSpot[] = states.map((st) => ({
+    id: st.district.id,
+    en: st.district.en,
+    restored: st.restored,
+    lit: st.lit,
+    pending: list.find((x) => x.b.district === st.district.id)?.pending ?? 0,
+  }));
+  const openBiz = list.find((x) => x.b.district === open);
+  const openState = states.find((st) => st.district.id === open);
+
   return (
     <section className="stack tycoon" aria-label="Town businesses">
-      <div className="row spread">
-        <h2>Businesses</h2>
+      <div className="tycoon-bar">
+        <p className="small muted">
+          {list.length
+            ? 'Tap a building to staff it with your word-spirits and collect what it earns.'
+            : "Finish the Dojo on the Path to open the Station's ticket office."}
+        </p>
         <button
           className="btn btn-gold btn-small"
           disabled={total <= 0}
@@ -150,98 +166,48 @@ export function Tycoon({ states }: { states: DistrictState[] }) {
           Collect all {yenFmt(total)}
         </button>
       </div>
-      <p className="muted small">
-        Every word you learn becomes a spirit. Put spirits to work: words you remember well work
-        hardest, and a spirit whose type suits the trade gets a bonus. Income piles up for up to{' '}
-        {townData.capHours} hours.
-      </p>
-      {msg && (
-        <p className="banner" role="status">
-          {msg}
-        </p>
-      )}
-      {!list.length && (
-        <p className="card">
-          Finish the first unit on the Path to open the Station's ticket office.
-        </p>
-      )}
-      {list.map((biz) => (
-        <article key={biz.b.district} className="card biz">
-          <header className="biz-head">
-            <div>
-              <h3>
-                {biz.b.en} <span className="pill">Lv {biz.level}</span>
-              </h3>
-              <p className="small muted">
-                {districts.find((d) => d.id === biz.b.district)?.en.replace(/^The /, '')} · makes{' '}
-                {biz.b.product.en} (<JaText text={biz.b.product.ja} />)
+      <TownMap spots={spots} onOpen={setOpen} />
+      {open &&
+        createPortal(
+          <div
+            className="pay biz-sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-label={openBiz?.b.en ?? openState?.district.en ?? 'District'}
+            onClick={(e) => e.target === e.currentTarget && setOpen(null)}
+          >
+            <div className="pay-card stack">
+              {msg && (
+                <p className="banner" role="status">
+                  {msg}
+                </p>
+              )}
+              {openBiz ? (
+                <BusinessCard
+                  biz={openBiz}
+                  onCollect={collectOne}
+                  onUpgrade={doUpgrade}
+                  onPick={(slot) => setPicking({ biz: openBiz, slot })}
+                />
+              ) : (
+                <p>
+                  {openState?.district.en} is still closed.{' '}
+                  {openState?.district.restoredBy
+                    ? `It opens when you finish its part of the story (${Math.round((openState.progress ?? 0) * 100)}% done).`
+                    : 'It opens in a later chapter.'}
+                </p>
+              )}
+              <p className="tiny muted">
+                Words you remember well work hardest; a spirit whose type suits the trade gets a
+                bonus. Income piles up for up to {townData.capHours} hours.
               </p>
-            </div>
-            <div className="biz-earn">
-              <span className="biz-rate">{yenFmt(biz.rate)}/h</span>
-              <button
-                className="btn btn-gold btn-small"
-                disabled={biz.pending <= 0}
-                onClick={(e) => collectOne(biz, e.currentTarget)}
-                aria-label={`Collect ${biz.pending} yen from ${biz.b.en}`}
-              >
-                {yenFmt(biz.pending)}
+              <button className="btn" onClick={() => setOpen(null)}>
+                Close
               </button>
             </div>
-          </header>
-          <div className="biz-staff">
-            {biz.staffIds.map((id, slot) => {
-              const r = biz.staff[slot];
-              return (
-                <button
-                  key={slot}
-                  className={`biz-slot ${r ? RARITY_CLASS[r.rarity] : 'empty'}`}
-                  onClick={() => setPicking({ biz, slot })}
-                  aria-label={
-                    r
-                      ? `${biz.b.roles[slot] ?? 'Staff'}: ${itemMeaning(r.item)}. Tap to change.`
-                      : `Empty ${biz.b.roles[slot] ?? 'staff'} slot. Tap to assign a spirit.`
-                  }
-                >
-                  <span className="biz-role">{biz.b.roles[slot] ?? 'Staff'}</span>
-                  {r && id ? (
-                    <>
-                      <span className="biz-spirit">
-                        <SpiritArt stage={r.stage} hue={r.species?.hue ?? 0} />
-                      </span>
-                      <span className="biz-word">
-                        <JaText text={itemJapanese(r.item)} />
-                      </span>
-                      <span className="tiny muted">
-                        {r.rarity} · {STAGE_LABEL[r.stage]}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="biz-plus" aria-hidden="true">
-                      +
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-          <button
-            className="btn btn-small biz-upgrade"
-            disabled={biz.level >= biz.b.maxLevel}
-            onClick={(e) => doUpgrade(biz, e.currentTarget)}
-          >
-            {biz.level >= biz.b.maxLevel
-              ? 'Fully upgraded'
-              : `Upgrade to Lv ${biz.level + 1} · ${yenFmt(upgradeCost(biz.b, biz.level))}`}
-          </button>
-        </article>
-      ))}
-      {locked.length > 0 && (
-        <p className="tiny muted">
-          Still closed: {locked.map((b) => b.en).join(', ')}. More districts open as the story goes
-          on.
-        </p>
-      )}
+          </div>,
+          document.body,
+        )}
       {picking && (
         <StaffPicker
           biz={picking.biz}
@@ -274,6 +240,91 @@ export function Tycoon({ states }: { states: DistrictState[] }) {
         />
       )}
     </section>
+  );
+}
+
+/** One business in its sheet: earnings, the staff slots and the upgrade. */
+function BusinessCard({
+  biz,
+  onCollect,
+  onUpgrade,
+  onPick,
+}: {
+  biz: Business;
+  onCollect: (biz: Business, el: Element | null) => void;
+  onUpgrade: (biz: Business, el: Element | null) => void;
+  onPick: (slot: number) => void;
+}) {
+  return (
+    <article className="biz">
+      <header className="biz-head">
+        <div>
+          <h3>
+            {biz.b.en} <span className="pill">Lv {biz.level}</span>
+          </h3>
+          <p className="small muted">
+            {districts.find((d) => d.id === biz.b.district)?.en.replace(/^The /, '')} · makes{' '}
+            {biz.b.product.en} (<JaText text={biz.b.product.ja} />)
+          </p>
+        </div>
+        <div className="biz-earn">
+          <span className="biz-rate">{yenFmt(biz.rate)}/h</span>
+          <button
+            className="btn btn-gold btn-small"
+            disabled={biz.pending <= 0}
+            onClick={(e) => onCollect(biz, e.currentTarget)}
+            aria-label={`Collect ${biz.pending} yen from ${biz.b.en}`}
+          >
+            {yenFmt(biz.pending)}
+          </button>
+        </div>
+      </header>
+      <div className="biz-staff">
+        {biz.staffIds.map((id, slot) => {
+          const r = biz.staff[slot];
+          return (
+            <button
+              key={slot}
+              className={`biz-slot ${r ? RARITY_CLASS[r.rarity] : 'empty'}`}
+              onClick={() => onPick(slot)}
+              aria-label={
+                r
+                  ? `${biz.b.roles[slot] ?? 'Staff'}: ${itemMeaning(r.item)}. Tap to change.`
+                  : `Empty ${biz.b.roles[slot] ?? 'staff'} slot. Tap to assign a spirit.`
+              }
+            >
+              <span className="biz-role">{biz.b.roles[slot] ?? 'Staff'}</span>
+              {r && id ? (
+                <>
+                  <span className="biz-spirit">
+                    <SpiritArt stage={r.stage} hue={r.species?.hue ?? 0} />
+                  </span>
+                  <span className="biz-word">
+                    <JaText text={itemJapanese(r.item)} />
+                  </span>
+                  <span className="tiny muted">
+                    {r.rarity} · {STAGE_LABEL[r.stage]}
+                  </span>
+                </>
+              ) : (
+                <span className="biz-plus" aria-hidden="true">
+                  +
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+      <button
+        className="btn btn-small biz-upgrade"
+        disabled={biz.level >= biz.b.maxLevel}
+        onClick={(e) => onUpgrade(biz, e.currentTarget)}
+      >
+        {biz.level >= biz.b.maxLevel
+          ? 'Fully upgraded'
+          : `Upgrade to Lv ${biz.level + 1} · ${yenFmt(upgradeCost(biz.b, biz.level))}`}
+      </button>
+    </article>
   );
 }
 

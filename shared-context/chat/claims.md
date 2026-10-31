@@ -21,12 +21,12 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                       | AI     | Files and folders      | Branch          | Issue | Claimed (UTC)    |
-| -------------------------- | ------ | ---------------------- | --------------- | ----- | ---------------- |
-| Town as an illustrated map | Claude | `src/features/town/**` | `cursor/gemini` | –     | 2026-10-30 19:00 |
+| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
+| ---- | --- | ----------------- | ------ | ----- | ------------- |
 
 ## Done
 
 | Task                                     | AI     | Finished (UTC)   | Commit    |
 | ---------------------------------------- | ------ | ---------------- | --------- |
 | Battle walk: the road moves, not the sky | Claude | 2026-10-30 20:10 | `128eace` |
+| Town as an illustrated map               | Claude | 2026-10-30 20:55 | `c6dc8f5` |

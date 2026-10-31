@@ -293,3 +293,53 @@
   color: var(--c-success);
   flex: none;
 }
+
+/* ---------- Town page: soft, low-clutter controls ---------- */
+.tycoon-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+.tycoon-bar p {
+  margin: 0;
+}
+.tycoon-bar .btn {
+  flex: none;
+}
+.town-note {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--c-accent) 12%, transparent);
+  font-size: var(--fs-sm);
+}
+/* Food Street: one soft row, not a giant button; it warms up when you're hurt. */
+.town-food {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--c-panel) 70%, transparent);
+  color: inherit;
+  text-decoration: none;
+}
+.town-food.hurt {
+  background: color-mix(in srgb, var(--c-accent) 18%, var(--c-panel));
+}
+.town-food-icon {
+  font-size: 28px;
+}
+.town-food-text {
+  display: grid;
+  flex: 1;
+}
+.town-food-go {
+  font-size: 28px;
+  color: var(--c-ink-muted);
+}
+.biz-sheet .pay-card {
+  max-height: 86vh;
+  overflow-y: auto;
+}

@@ -97,10 +97,7 @@ function LockedLot() {
         d="M26 75 C24 50 34 31 60 31 C86 31 96 50 94 75 C82 79 38 79 26 75 Z"
         fill={tarpShade}
       />
-      <path
-        d="M26 72 C24 47 34 28 60 28 C86 28 96 47 94 72 C82 76 38 76 26 72 Z"
-        fill={tarpBase}
-      />
+      <path d="M26 72 C24 47 34 28 60 28 C86 28 96 47 94 72 C82 76 38 76 26 72 Z" fill={tarpBase} />
       <path
         d="M34 52 Q60 60 86 52"
         fill="none"
@@ -400,14 +397,7 @@ function BuildingArt({ id, lit }: { id: string; lit: boolean }) {
           {/* Indigo noren with warm onsen ♨ symbol */}
           <rect x="38" y="47" width="32" height="22" rx="4" fill={roofBlueShade} />
           <rect x="38" y="44" width="32" height="22" rx="4" fill="var(--c-secondary)" />
-          <circle
-            cx="54"
-            cy="57"
-            r="5.5"
-            fill="none"
-            stroke="var(--c-hud-ink)"
-            strokeWidth="2"
-          />
+          <circle cx="54" cy="57" r="5.5" fill="none" stroke="var(--c-hud-ink)" strokeWidth="2" />
           <path
             d="M50 54 V49 M54 53 V48 M58 54 V49"
             stroke="var(--c-hud-ink)"
@@ -607,8 +597,7 @@ export function TownMap({
       </svg>
 
       {spots.map((spot, idx) => {
-        const pos =
-          LOT_COORDS[spot.id] ?? FALLBACK_COORDS[idx % FALLBACK_COORDS.length]!;
+        const pos = LOT_COORDS[spot.id] ?? FALLBACK_COORDS[idx % FALLBACK_COORDS.length]!;
         const stateParts = [
           spot.restored ? (spot.lit ? 'open, lanterns lit' : 'open') : 'locked',
           spot.pending > 0 ? `${yenFmt(spot.pending)} ready to collect` : '',
