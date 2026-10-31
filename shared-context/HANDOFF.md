@@ -18,7 +18,7 @@ Reported by the owner after the hariko Town landed. In his words, then where to 
 8. **"The fire icon and heart icon and coin icon symbols are weird shapes on the information bar at the top. Why are they not uniform?"** Header stat pills (`Shell.tsx`, `icons.tsx`): give the three icons one size, one weight and one style.
 9. **"The voices for tetsu and akari do not swap between male and female. They don't use the proper voices."** Known bug (task 1 above): Settings samples go through `Providers.say`, which ignores the button; also check `voice.ts` uses each guide's VOICEVOX clip (Akari 冥鳴ひまり, Tetsu 青山龍星) and that the device-voice fallback picks a male voice for Tetsu.
 10. **"Get rid of the mayor stamp on his desk in the Town."** Koto-as-mayor scene in `src/features/town/` (look for a stamp/seal prop).
-11. **"All text has that weird shadow I am noticing. What the hell?"** Global text-shadow, most likely in `src/app/global.css` (search `text-shadow`). Remove it from body text; keep at most a subtle one on text over busy art.
+11. **Done (`fix(ui): drop the text shadows`).** "All text has that weird shadow I am noticing. What the hell?" Global text-shadow, most likely in `src/app/global.css` (search `text-shadow`). Remove it from body text; keep at most a subtle one on text over busy art.
 
 ## Task queue (owner's words, then what we know)
 
