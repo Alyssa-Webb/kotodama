@@ -189,10 +189,7 @@ export function Head({ pose }: { pose: MusashiPose }): JSX.Element {
                 fill={INK}
                 transform="translate(0 2.5)"
               />
-              <path
-                d="M34 32 C34 15.5 44.5 9.5 60 9.5 C75.5 9.5 86 15.5 86 32 Z"
-                fill={HAIR_MID}
-              />
+              <path d="M34 32 C34 15.5 44.5 9.5 60 9.5 C75.5 9.5 86 15.5 86 32 Z" fill={HAIR_MID} />
             </g>
           )}
 

@@ -101,8 +101,7 @@
 
 .musashi-pose-bow .musashi-hip-swords {
   transform-origin: 60px 85px;
-  animation: musashi-bow-hip-keep calc(var(--dur-slow, 420ms) * 1.8) var(--ease, ease-in-out) 1
-    both;
+  animation: musashi-bow-hip-keep calc(var(--dur-slow, 420ms) * 1.8) var(--ease, ease-in-out) 1 both;
 }
 
 .musashi-pose-bow .musashi-head-group {

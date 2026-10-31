@@ -938,6 +938,39 @@ function RegionScene({
         {/* ---------------- REGION 2: BAMBOO FOREST ROAD ---------------- */}
         {region.id === 'bamboo' && (
           <g>
+            {/* Mossy ground mounds so the roadside props stand on something (owner: they floated) */}
+            {[
+              { x: 332, y: 150, rx: 40, ry: 11 },
+              { x: 68, y: 318, rx: 54, ry: 13 },
+              { x: 332, y: 474, rx: 44, ry: 11 },
+              { x: 40, y: 252, rx: 30, ry: 8 },
+              { x: 346, y: 337, rx: 32, ry: 8 },
+            ].map((m, i) => (
+              <g key={`mound-${i}`}>
+                <ellipse
+                  cx={m.x}
+                  cy={m.y + 3}
+                  rx={m.rx}
+                  ry={m.ry}
+                  fill="color-mix(in srgb, var(--c-success) 52%, var(--c-hud-bg))"
+                />
+                <ellipse
+                  cx={m.x}
+                  cy={m.y}
+                  rx={m.rx}
+                  ry={m.ry}
+                  fill="color-mix(in srgb, var(--c-success-soft) 70%, var(--c-success))"
+                />
+                <ellipse
+                  cx={m.x - m.rx * 0.35}
+                  cy={m.y - m.ry * 0.35}
+                  rx={m.rx * 0.3}
+                  ry={m.ry * 0.28}
+                  fill="var(--c-hud-ink)"
+                  opacity="0.35"
+                />
+              </g>
+            ))}
             {/* Bamboo grove stalks left & right */}
             {[
               { x: 34, y: 120, h: 130, s: 1 },

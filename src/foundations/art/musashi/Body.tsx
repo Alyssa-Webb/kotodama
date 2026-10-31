@@ -188,14 +188,7 @@ function PoseArms({ pose }: { pose: MusashiPose }): JSX.Element {
             transform="rotate(14 50.5 97.2)"
             fill={SKIN_SHADE}
           />
-          <ellipse
-            cx="50.5"
-            cy="95"
-            rx="5"
-            ry="4.2"
-            transform="rotate(14 50.5 95)"
-            fill={SKIN}
-          />
+          <ellipse cx="50.5" cy="95" rx="5" ry="4.2" transform="rotate(14 50.5 95)" fill={SKIN} />
           <ellipse
             cx="69.5"
             cy="97.2"
@@ -204,14 +197,7 @@ function PoseArms({ pose }: { pose: MusashiPose }): JSX.Element {
             transform="rotate(-14 69.5 97.2)"
             fill={SKIN_SHADE}
           />
-          <ellipse
-            cx="69.5"
-            cy="95"
-            rx="5"
-            ry="4.2"
-            transform="rotate(-14 69.5 95)"
-            fill={SKIN}
-          />
+          <ellipse cx="69.5" cy="95" rx="5" ry="4.2" transform="rotate(-14 69.5 95)" fill={SKIN} />
         </g>
 
         {/* Sheathed hilts remain anchored at his left hip without vertical squash */}

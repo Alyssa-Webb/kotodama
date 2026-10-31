@@ -1018,109 +1018,123 @@ export function BattleStage({
       )}
 
       {/* Woodland ground & perspective dirt road with flowing stones, markings and edges */}
-      <div className="battle-road">
-        <svg viewBox="0 0 400 156" preserveAspectRatio="none" className="battle-road-svg">
-          <defs>
-            <linearGradient id="battle-grass-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0"
-                stopColor="color-mix(in srgb, var(--c-success) 52%, var(--c-mountain-near))"
-              />
-              <stop
-                offset="0.45"
-                stopColor="color-mix(in srgb, var(--c-success) 74%, var(--c-hud-bg))"
-              />
-              <stop
-                offset="1"
-                stopColor="color-mix(in srgb, var(--c-success) 60%, var(--c-hud-bg))"
-              />
-            </linearGradient>
-            <linearGradient id="battle-dirt-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0"
-                stopColor="color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-mountain-near))"
-              />
-              <stop
-                offset="0.48"
-                stopColor="color-mix(in srgb, var(--c-panel-edge) 76%, var(--c-surface-alt))"
-              />
-              <stop
-                offset="1"
-                stopColor="color-mix(in srgb, var(--c-panel-edge) 84%, var(--c-panel))"
-              />
-            </linearGradient>
-            <linearGradient id="battle-dojo-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0"
-                stopColor="color-mix(in srgb, var(--c-panel-edge) 66%, var(--c-hud-bg))"
-              />
-              <stop
-                offset="0.5"
-                stopColor="color-mix(in srgb, var(--c-panel-edge) 76%, var(--c-surface-alt))"
-              />
-              <stop
-                offset="1"
-                stopColor="color-mix(in srgb, var(--c-panel-edge) 82%, var(--c-gold-soft))"
-              />
-            </linearGradient>
-            <linearGradient id="battle-market-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0"
-                stopColor="color-mix(in srgb, var(--c-mountain-near) 66%, var(--c-hud-bg))"
-              />
-              <stop
-                offset="0.52"
-                stopColor="color-mix(in srgb, var(--c-fog) 62%, var(--c-surface-alt))"
-              />
-              <stop
-                offset="1"
-                stopColor="color-mix(in srgb, var(--c-border) 68%, var(--c-surface-alt))"
-              />
-            </linearGradient>
-            <clipPath id="battle-road-clip">
-              <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" />
-            </clipPath>
-          </defs>
+      {/* Indoors the hall's own floorboards are the floor: an outdoor road strip on top of them
+          never lined up (owner), so the Dojo has none. */}
+      {region !== 'dojo' && (
+        <div className="battle-road">
+          {/* Same mapping as the backdrop (slice, not stretch), so the floor lines up with the hall at
+            every screen shape. */}
+          <svg
+            viewBox="0 0 400 156"
+            preserveAspectRatio="xMidYMid slice"
+            className="battle-road-svg"
+          >
+            <defs>
+              <linearGradient id="battle-grass-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0"
+                  stopColor="color-mix(in srgb, var(--c-success) 52%, var(--c-mountain-near))"
+                />
+                <stop
+                  offset="0.45"
+                  stopColor="color-mix(in srgb, var(--c-success) 74%, var(--c-hud-bg))"
+                />
+                <stop
+                  offset="1"
+                  stopColor="color-mix(in srgb, var(--c-success) 60%, var(--c-hud-bg))"
+                />
+              </linearGradient>
+              <linearGradient id="battle-dirt-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0"
+                  stopColor="color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-mountain-near))"
+                />
+                <stop
+                  offset="0.48"
+                  stopColor="color-mix(in srgb, var(--c-panel-edge) 76%, var(--c-surface-alt))"
+                />
+                <stop
+                  offset="1"
+                  stopColor="color-mix(in srgb, var(--c-panel-edge) 84%, var(--c-panel))"
+                />
+              </linearGradient>
+              <linearGradient id="battle-dojo-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0"
+                  stopColor="color-mix(in srgb, var(--c-panel-edge) 66%, var(--c-hud-bg))"
+                />
+                <stop
+                  offset="0.5"
+                  stopColor="color-mix(in srgb, var(--c-panel-edge) 76%, var(--c-surface-alt))"
+                />
+                <stop
+                  offset="1"
+                  stopColor="color-mix(in srgb, var(--c-panel-edge) 82%, var(--c-gold-soft))"
+                />
+              </linearGradient>
+              <linearGradient id="battle-market-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0"
+                  stopColor="color-mix(in srgb, var(--c-mountain-near) 66%, var(--c-hud-bg))"
+                />
+                <stop
+                  offset="0.52"
+                  stopColor="color-mix(in srgb, var(--c-fog) 62%, var(--c-surface-alt))"
+                />
+                <stop
+                  offset="1"
+                  stopColor="color-mix(in srgb, var(--c-border) 68%, var(--c-surface-alt))"
+                />
+              </linearGradient>
+              <clipPath id="battle-road-clip">
+                <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" />
+              </clipPath>
+            </defs>
 
-          {region === 'bamboo' && (
-            <>
-              {/* Woodland grass hills flanking the road */}
-              <path
-                d="M 0 60 Q 110 52 238 56 Q 330 52 400 60 V 156 H 0 Z"
-                fill="url(#battle-grass-grad)"
-              />
-              {/* Subtle shaded hillside contours on the verges */}
-              <path
-                d="M 0 88 Q 74 82 162 94 L 84 134 L 0 124 Z M 272 88 Q 338 80 400 90 V 126 Q 336 116 280 118 Z"
-                fill="color-mix(in srgb, var(--c-success) 42%, var(--c-hud-bg))"
-                opacity="0.45"
-              />
-            </>
-          )}
+            {region === 'bamboo' && (
+              <>
+                {/* Woodland grass hills flanking the road */}
+                <path
+                  d="M 0 60 Q 110 52 238 56 Q 330 52 400 60 V 156 H 0 Z"
+                  fill="url(#battle-grass-grad)"
+                />
+                {/* Subtle shaded hillside contours on the verges */}
+                <path
+                  d="M 0 88 Q 74 82 162 94 L 84 134 L 0 124 Z M 272 88 Q 338 80 400 90 V 126 Q 336 116 280 118 Z"
+                  fill="color-mix(in srgb, var(--c-success) 42%, var(--c-hud-bg))"
+                  opacity="0.45"
+                />
+              </>
+            )}
 
-          {/* Outer grassy lip / court boundary / stone curb along the perspective trail */}
-          <path d="M 218.5 56 L 2 156 L 298 156 L 256.5 56 Z" fill={roadLipFill} />
-          {/* Main perspective road / floor lane / market street */}
-          <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" fill={roadMainFill} />
-          {/* Warm center ribbon */}
-          <path d="M 230.5 56 L 62 156 L 242 156 L 246 56 Z" fill={roadRibbonFill} opacity="0.55" />
-          {/* Subtle clearing ring where the enemy stands on the upper-mid path */}
-          <ellipse cx="228" cy="88" rx="34" ry="8.5" fill={roadRibbonFill} opacity="0.5" />
+            {/* Outer grassy lip / court boundary / stone curb along the perspective trail */}
+            <path d="M 218.5 56 L 2 156 L 298 156 L 256.5 56 Z" fill={roadLipFill} />
+            {/* Main perspective road / floor lane / market street */}
+            <path d="M 222.8 56 L 12.8 156 L 288.3 156 L 252.3 56 Z" fill={roadMainFill} />
+            {/* Warm center ribbon */}
+            <path
+              d="M 230.5 56 L 62 156 L 242 156 L 246 56 Z"
+              fill={roadRibbonFill}
+              opacity="0.55"
+            />
+            {/* Subtle clearing ring where the enemy stands on the upper-mid path */}
+            <ellipse cx="228" cy="88" rx="34" ry="8.5" fill={roadRibbonFill} opacity="0.5" />
 
-          {/* Perspective-flowing road surface: stones, floorboards or pavers */}
-          <g clipPath="url(#battle-road-clip)">
-            <g transform="translate(248 44)">
-              <g className="battle-road-scroll">
-                {PERSPECTIVE_LEVELS.map(({ scale, variant }) => (
-                  <g key={scale} transform={`scale(${scale})`}>
-                    <RoadPerspectiveBand variant={variant} region={region} />
-                  </g>
-                ))}
+            {/* Perspective-flowing road surface: stones, floorboards or pavers */}
+            <g clipPath="url(#battle-road-clip)">
+              <g transform="translate(248 44)">
+                <g className="battle-road-scroll">
+                  {PERSPECTIVE_LEVELS.map(({ scale, variant }) => (
+                    <g key={scale} transform={`scale(${scale})`}>
+                      <RoadPerspectiveBand variant={variant} region={region} />
+                    </g>
+                  ))}
+                </g>
               </g>
             </g>
-          </g>
-        </svg>
-      </div>
+          </svg>
+        </div>
+      )}
 
       {/* Roadside props on either side of the trail that pass by and grow as they near */}
       {region === 'bamboo' && (
