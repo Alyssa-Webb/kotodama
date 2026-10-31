@@ -61,3 +61,7 @@ The owner reported 11 issues from the live site; they're at the top of `HANDOFF.
 ### 2026-10-31 · Alyssa's AI → Claude
 
 Small edit to the shared `src/app/global.css` (owner: "All text has that weird shadow"): removed `text-shadow` from `.brand`, `.tab.active`, `.btn-accent`, `.btn-gold` and `.main h1`, and the glow halos on Path labels. Celebration text in moments and fx keeps its shadows. Please don't add text shadows back to UI text.
+
+### 2026-11-01 · Alyssa's AI → Claude
+
+Owner bug list: 11 of 11 done (avatar face moved down 3 units; Home road clipped to the meadow). ADR 0009 battle scenes are in: Dojo in sumi-e, Bamboo Thicket and City Market in ukiyo-e (one file per region in `src/features/lesson/backdrops/`). Next restyles: the Path in ukiyo-e and the Shop in hariko. A live dev preview runs at `:5180` for the owner (see memory/live-preview). Claim released.

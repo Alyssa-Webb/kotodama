@@ -221,10 +221,7 @@ export function BambooRoadBackdrop({ className }: { className?: string }) {
 
         {/* Left cedar (sugi) woodblock silhouettes */}
         <g stroke={SUMI} strokeWidth="1.15" strokeLinejoin="round">
-          <path
-            d="M18 12 L5 33 H11 L2 50 H9 L0 62 H36 L27 50 H34 L25 33 H31 Z"
-            fill={CEDAR_DARK}
-          />
+          <path d="M18 12 L5 33 H11 L2 50 H9 L0 62 H36 L27 50 H34 L25 33 H31 Z" fill={CEDAR_DARK} />
           <path
             d="M48 18 L37 36 H42 L34 51 H40 L32 62 H64 L56 51 H62 L54 36 H59 Z"
             fill={CEDAR_MID}
@@ -328,27 +325,85 @@ export function BambooRoadBackdrop({ className }: { className?: string }) {
         <g transform="translate(216 24)" stroke={SUMI} strokeLinejoin="round">
           {/* Pillars with lacquer shade & black base shoes (negane) */}
           <rect x="8" y="8" width="5" height="28" rx="1" fill="var(--c-lacquer)" stroke="none" />
-          <rect x="7.5" y="8" width="4.5" height="28" rx="1" fill="var(--c-accent)" strokeWidth="1.25" />
+          <rect
+            x="7.5"
+            y="8"
+            width="4.5"
+            height="28"
+            rx="1"
+            fill="var(--c-accent)"
+            strokeWidth="1.25"
+          />
           <rect x="31.5" y="8" width="5" height="28" rx="1" fill="var(--c-lacquer)" stroke="none" />
-          <rect x="31" y="8" width="4.5" height="28" rx="1" fill="var(--c-accent)" strokeWidth="1.25" />
+          <rect
+            x="31"
+            y="8"
+            width="4.5"
+            height="28"
+            rx="1"
+            fill="var(--c-accent)"
+            strokeWidth="1.25"
+          />
           <rect x="6.5" y="31" width="6.5" height="5.5" rx="1" fill={SUMI} strokeWidth="1" />
           <rect x="30" y="31" width="6.5" height="5.5" rx="1" fill={SUMI} strokeWidth="1" />
           {/* Lower tie beam (nuki) */}
-          <rect x="3" y="13.2" width="38" height="3.6" rx="1" fill="var(--c-lacquer)" stroke="none" />
-          <rect x="3" y="11.8" width="38" height="3.4" rx="1" fill="var(--c-accent)" strokeWidth="1.2" />
+          <rect
+            x="3"
+            y="13.2"
+            width="38"
+            height="3.6"
+            rx="1"
+            fill="var(--c-lacquer)"
+            stroke="none"
+          />
+          <rect
+            x="3"
+            y="11.8"
+            width="38"
+            height="3.4"
+            rx="1"
+            fill="var(--c-accent)"
+            strokeWidth="1.2"
+          />
           {/* Curved top lintel (kasagi) with sumi cap & +2 lacquer lip */}
-          <path d="M-2 5.2 Q22 0.2 46 5.2 L44 9.6 Q22 5.6 0 9.6 Z" fill="var(--c-lacquer)" stroke="none" />
+          <path
+            d="M-2 5.2 Q22 0.2 46 5.2 L44 9.6 Q22 5.6 0 9.6 Z"
+            fill="var(--c-lacquer)"
+            stroke="none"
+          />
           <path
             d="M-2 3.5 Q22 -1.5 46 3.5 L44 8 Q22 4 0 8 Z"
             fill="var(--c-accent)"
             strokeWidth="1.35"
           />
-          <path d="M-2.5 2.8 Q22 -2.2 46.5 2.8" fill="none" stroke={SUMI} strokeWidth="1.8" strokeLinecap="round" />
+          <path
+            d="M-2.5 2.8 Q22 -2.2 46.5 2.8"
+            fill="none"
+            stroke={SUMI}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
           {/* Golden gakuzuka tablet */}
           <rect x="19.2" y="5.8" width="5.6" height="6.8" rx="0.8" fill={SUMI} strokeWidth="1" />
-          <rect x="20.4" y="7" width="3.2" height="4.4" rx="0.4" fill="var(--c-glow)" stroke="none" />
+          <rect
+            x="20.4"
+            y="7"
+            width="3.2"
+            height="4.4"
+            rx="0.4"
+            fill="var(--c-glow)"
+            stroke="none"
+          />
           {/* Top-left woodblock highlight */}
-          <ellipse cx="11" cy="5.2" rx="4.5" ry="0.9" fill="var(--c-hud-ink)" stroke="none" opacity="0.4" />
+          <ellipse
+            cx="11"
+            cy="5.2"
+            rx="4.5"
+            ry="0.9"
+            fill="var(--c-hud-ink)"
+            stroke="none"
+            opacity="0.4"
+          />
         </g>
 
         {/* Carved stone lantern (tōrō) left of torii */}
