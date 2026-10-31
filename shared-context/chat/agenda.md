@@ -37,7 +37,11 @@ Queued proposal 3 in `queued-issues.md`. It overlaps Alyssa's accessibility work
 - Shared, high-traffic files (`src/app/global.css`, `world/*.json`, the starter pack): a rota, or the claim-plus-heads-up rule as written?
 - How should we split Argon runs (at most two at once across both machines)?
 
-## 7. Later, not urgent
+## 7. Art direction per area (ADR 0009, owner-approved)
+
+Hariko for Home, Town and Shop; sumi-e for the Dojo; ukiyo-e for the road and city. Still to settle together: whether characters change style per area, which area is redrawn first, and the transition between areas.
+
+## 8. Later, not urgent
 
 - **The tester trip trailer:** playtesters in Japan, real moments cut against the matching game moments.
 - **Other languages on the same engine:** each language would need its own world, art and folklore.
