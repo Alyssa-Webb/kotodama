@@ -194,23 +194,61 @@ export function EmaSymbolArt({ symbol }: { symbol: EmaSymbol }) {
 
     case 'capsule':
       art = (
-        <g transform="rotate(-14 16 16)">
-          <circle cx="16" cy="18.6" r="10.8" fill={WOOD_LIP} />
-          <path d="M5.2 15.8 A10.8 10.8 0 0 0 26.8 15.8 Z" fill={CREAM} />
-          <path d="M5.2 15.8 A10.8 10.8 0 0 1 26.8 15.8 Z" fill={VERMILION} />
-          <rect x="4.6" y="14.2" width="22.8" height="3.2" rx="1.6" fill={LACQUER_DARK} />
-          <circle cx="16" cy="16.5" r="3.4" fill={INK} />
-          <circle cx="16" cy="15.6" r="2.8" fill="var(--c-glow)" />
-          <ellipse
-            cx="11.6"
-            cy="9.8"
-            rx="4.2"
-            ry="1.8"
-            transform="rotate(-24 11.6 9.8)"
-            fill={CREAM}
-            opacity="0.46"
+        <>
+          <path
+            d="M6.6 18.6 C6.6 24.8 10.7 30 16 30 C21.3 30 25.4 25 25.4 19.8 Q16 21.4 6.6 18.6 Z"
+            fill="color-mix(in srgb, var(--c-petal) 52%, var(--c-hud-bg))"
           />
-        </g>
+          <path
+            d="M6.6 15.8 C6.6 22 10.7 27.2 16 27.2 C21.3 27.2 25.4 22.2 25.4 17 Q16 18.6 6.6 15.8 Z"
+            fill="color-mix(in srgb, var(--c-petal) 90%, var(--c-hud-bg))"
+          />
+          <path
+            d="M6.6 15.8 Q16 18.6 25.4 17 L25.3 18.5 Q16 20.1 6.7 17.3 Z"
+            fill="color-mix(in srgb, var(--c-petal) 58%, var(--c-hud-bg))"
+          />
+          <path
+            d="M6.6 15.8 C6.6 8.2 10.7 2.8 16 2.8 C21.3 2.8 25.4 8.5 25.4 17 Q16 18.6 6.6 15.8 Z"
+            fill={INDIGO_LIP}
+          />
+          <path
+            d="M8 15.4 C8 9 11.5 4.2 16 4.2 C20.5 4.2 24 9.2 24 16.4 Q16 17.8 8 15.4 Z"
+            fill="color-mix(in srgb, var(--c-secondary) 68%, var(--c-secondary-soft))"
+          />
+          <path
+            d="M-0.4 -3.9 Q0 -4.8 0.4 -3.9 L1.3 -1.8 L3.6 -1.6 Q4.6 -1.5 3.8 -0.8 L2.1 0.7 L2.6 2.9 Q2.8 3.9 2 3.4 L0 2.2 L-2 3.4 Q-2.8 3.9 -2.6 2.9 L-2.1 0.7 L-3.8 -0.8 Q-4.6 -1.5 -3.6 -1.6 L-1.3 -1.8 Z"
+            transform="translate(16.2 12.7) rotate(14)"
+            fill={COIN_LIP}
+          />
+          <path
+            d="M-0.4 -3.9 Q0 -4.8 0.4 -3.9 L1.3 -1.8 L3.6 -1.6 Q4.6 -1.5 3.8 -0.8 L2.1 0.7 L2.6 2.9 Q2.8 3.9 2 3.4 L0 2.2 L-2 3.4 Q-2.8 3.9 -2.6 2.9 L-2.1 0.7 L-3.8 -0.8 Q-4.6 -1.5 -3.6 -1.6 L-1.3 -1.8 Z"
+            transform="translate(16.2 11.3) rotate(14)"
+            fill="var(--c-glow)"
+          />
+          <path
+            d="M8 15.4 C8 9 11.5 4.2 16 4.2 C20.5 4.2 24 9.2 24 16.4 Q16 17.8 8 15.4 Z"
+            fill="var(--c-secondary)"
+            opacity="0.18"
+          />
+          <path
+            d="M6.2 14.5 Q16 17.1 25.8 15.7 C26.5 15.8 26.5 17.6 25.7 17.6 Q16 19.1 6.3 16.4 C5.5 16.3 5.5 14.5 6.2 14.5 Z"
+            fill="color-mix(in srgb, var(--c-secondary) 68%, var(--c-secondary-soft))"
+          />
+          <path
+            d="M6.2 14.5 Q16 17.1 25.8 15.7 C26.3 15.8 26.3 16.9 25.7 16.8 Q16 18.3 6.3 15.6 C5.7 15.5 5.7 14.5 6.2 14.5 Z"
+            fill={CREAM}
+            opacity="0.34"
+          />
+          <ellipse
+            cx="12"
+            cy="8.1"
+            rx="3.4"
+            ry="1.45"
+            transform="rotate(-30 12 8.1)"
+            fill={CREAM}
+            opacity="0.44"
+          />
+        </>
       );
       break;
 
