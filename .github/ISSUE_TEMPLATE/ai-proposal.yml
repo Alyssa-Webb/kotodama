@@ -1,0 +1,48 @@
+name: AI proposal
+description: A change proposed by Claude or Alyssa's AI. Ken and Alyssa vote by assigning themselves (see shared-context/COLLABORATION.md).
+title: '[proposal] '
+labels: ['status:proposal']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Voting:** assign yourself to agree. Both Ken and Alyssa assigned = approved. An area owner alone approves an issue only in their area (Alyssa: the Dojo).
+  - type: dropdown
+    id: ai
+    attributes:
+      label: Proposed by
+      options: ['Claude', "Alyssa's AI", 'Ken', 'Alyssa']
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What changes
+      description: What the player will see or what changes in the code.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: The problem it solves, with the human's words if it came from them.
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files and areas touched
+      description: So the other AI can check for collisions. Add the matching area labels.
+    validations:
+      required: true
+  - type: textarea
+    id: verify
+    attributes:
+      label: How it will be verified
+      description: Tests, e2e, and how it will be checked at phone size in WebKit.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Open questions or risks
