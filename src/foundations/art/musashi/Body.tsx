@@ -134,10 +134,7 @@ function PoseArms({ pose }: { pose: MusashiPose }): JSX.Element {
             fill={KIMONO_SHADE}
             transform="translate(0 3)"
           />
-          <path
-            d="M78 57 C83 59.5 87.5 64 89 69.5 C88 76 83 79.5 77 77.5 L75 65 Z"
-            fill={KIMONO}
-          />
+          <path d="M78 57 C83 59.5 87.5 64 89 69.5 C88 76 83 79.5 77 77.5 L75 65 Z" fill={KIMONO} />
           <DrawnWakizashi />
           {/* Left chibi hand gripping the forward-low wakizashi hilt */}
           <circle cx="86" cy="74.2" r="4.8" fill={SKIN_SHADE} />
@@ -157,19 +154,13 @@ function PoseArms({ pose }: { pose: MusashiPose }): JSX.Element {
           fill={KIMONO_SHADE}
           transform="translate(0 3)"
         />
-        <path
-          d="M40 56 C33 58 29.5 64 30.5 73 C31.5 78 36 80 43 79 L45 66 Z"
-          fill={KIMONO}
-        />
+        <path d="M40 56 C33 58 29.5 64 30.5 73 C31.5 78 36 80 43 79 L45 66 Z" fill={KIMONO} />
         <path
           d="M80 56 C87 58 90.5 64 89.5 73 C88.5 78 84 80 77 79 L75 66 Z"
           fill={KIMONO_SHADE}
           transform="translate(0 3)"
         />
-        <path
-          d="M80 56 C87 58 90.5 64 89.5 73 C88.5 78 84 80 77 79 L75 66 Z"
-          fill={KIMONO}
-        />
+        <path d="M80 56 C87 58 90.5 64 89.5 73 C88.5 78 84 80 77 79 L75 66 Z" fill={KIMONO} />
         <ellipse cx="42.5" cy="81.8" rx="5" ry="4" fill={SKIN_SHADE} />
         <ellipse cx="42.5" cy="79.8" rx="5" ry="3.8" fill={SKIN} />
         <ellipse cx="77.5" cy="81.8" rx="5" ry="4" fill={SKIN_SHADE} />

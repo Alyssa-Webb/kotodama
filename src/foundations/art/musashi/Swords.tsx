@@ -111,14 +111,7 @@ export function DaishoScabbards({ pose }: { pose: MusashiPose }): JSX.Element {
             transform="rotate(34 68.5 81)"
             fill={TSUBA_RIM}
           />
-          <ellipse
-            cx="68.5"
-            cy="81"
-            rx="1.2"
-            ry="1.9"
-            transform="rotate(34 68.5 81)"
-            fill={INK}
-          />
+          <ellipse cx="68.5" cy="81" rx="1.2" ry="1.9" transform="rotate(34 68.5 81)" fill={INK} />
         </g>
       )}
     </g>
@@ -256,10 +249,7 @@ export function DrawnWakizashi(): JSX.Element {
         d="M92.5 68.5 Q104.5 65.2 116.5 59.8 L115.2 63.8 Q104.5 69.2 93.2 72.5 Z"
         fill={STEEL_SHADE}
       />
-      <path
-        d="M92.5 67.2 Q104.5 63.8 116.8 58.8 L115.4 62.5 Q104.5 67.8 93.2 71 Z"
-        fill={STEEL}
-      />
+      <path d="M92.5 67.2 Q104.5 63.8 116.8 58.8 L115.4 62.5 Q104.5 67.8 93.2 71 Z" fill={STEEL} />
       {/* Razor upper cutting edge */}
       <path
         d="M93.5 67.4 Q104.8 64 116.2 59.2"
@@ -281,14 +271,7 @@ export function DrawnWakizashi(): JSX.Element {
 
       {/* Golden habaki collar & small round guard */}
       <path d="M90.5 70.5 L94.2 69" stroke={CORD_GOLD} strokeWidth="3.8" strokeLinecap="round" />
-      <ellipse
-        cx="91.5"
-        cy="71.2"
-        rx="2.6"
-        ry="4.8"
-        transform="rotate(-20 91.5 71.2)"
-        fill={INK}
-      />
+      <ellipse cx="91.5" cy="71.2" rx="2.6" ry="4.8" transform="rotate(-20 91.5 71.2)" fill={INK} />
       <ellipse
         cx="91.5"
         cy="69.8"
