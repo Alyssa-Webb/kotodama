@@ -12,6 +12,25 @@
     color-mix(in srgb, var(--c-success) 48%, var(--c-mountain-near)) 56%
   );
 }
+.battle-region-dojo {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c-panel-edge) 44%, var(--c-hud-bg)),
+    color-mix(in srgb, var(--c-panel-edge) 74%, var(--c-surface-alt)) 56%
+  );
+}
+.battle-region-market {
+  background: linear-gradient(
+    180deg,
+    var(--c-sky-top),
+    var(--c-sky-mid) 46%,
+    color-mix(in srgb, var(--c-mountain-near) 60%, var(--c-hud-bg)) 56%
+  );
+}
+.battle-region-dojo .battle-petal,
+.battle-region-market .battle-petal {
+  display: none;
+}
 
 /* Backdrop: sky, sun/moon, stars, clouds, far mountains, midground hills & distant torii stay still */
 .battle-backdrop {
