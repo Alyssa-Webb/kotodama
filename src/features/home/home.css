@@ -1,37 +1,54 @@
-/* Home screen: compact Dojo Gate & Traveler's Camp stage, filling shrine lantern goal,
-   roadside signpost for the next lesson, and 2x2 world tiles.
+/* Home screen: soft, unframed Dojo Gate & Traveler's Camp diorama, filling shrine lantern goal,
+   friendly next-lesson signpost, and light text-and-icon secondary rows.
+   No heavy outlines, no chunky 3D button slabs, no boxes inside boxes.
    Performance: animate ONLY transform and opacity, no section-scaling entrances, minimal idle loops. */
 
 .home-screen {
-  gap: var(--sp-3);
+  gap: var(--sp-4);
   /* No entrance animation that scales whole sections */
   animation: none !important;
 }
 
-/* ---------------- HERO CARD: DOJO GATE & TRAVELER'S CAMP ---------------- */
+/* ---------------- HERO: UNFRAMED DIORAMA & SOFT TODAY SUMMARY ---------------- */
 
-.card.home-hero {
+.home-screen .card.home-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
   padding: 0;
-  overflow: hidden;
-  border-radius: 30px 26px 28px 24px / 26px 30px 24px 28px;
-  border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
-  box-shadow:
-    inset 0 0 0 3px color-mix(in srgb, var(--c-panel-edge) 24%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-lacquer) 62%, var(--c-ink)),
-    0 14px 26px -12px var(--c-shadow);
+  border: 0;
+  border-radius: 28px;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
   animation: none;
 }
 
-.card.home-hero::before {
+.home-screen .card.home-hero::before {
   display: none;
 }
 
 .home-stage {
   position: relative;
-  height: 158px;
+  height: 162px;
   overflow: hidden;
-  border-bottom: 3px solid var(--c-panel-edge);
+  border: 0;
+  border-radius: 26px;
   background: var(--c-sky-bottom);
+  box-shadow: 0 8px 24px -14px var(--c-shadow);
+}
+
+/* Soft, borderless ? tour button floating in the corner of the diorama */
+.home-stage .tour-btn {
+  border: 0;
+  background: color-mix(in srgb, var(--c-panel) 90%, var(--c-surface));
+  color: var(--c-accent);
+  box-shadow: 0 4px 12px var(--c-shadow);
+}
+
+.home-stage .tour-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px var(--c-shadow);
 }
 
 .home-diorama {
@@ -50,7 +67,7 @@
   pointer-events: none;
 }
 
-/* Chibi speech bubble beside Koto (pops in gently as a small element; no continuous loop) */
+/* Soft cloud speech bubble beside Koto (no heavy outline or 3D bottom ledge) */
 .speech {
   position: absolute;
   left: 108px;
@@ -59,21 +76,15 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  max-width: 224px;
+  justify-content: center;
+  gap: 2px;
+  min-height: 44px;
+  max-width: 228px;
   padding: var(--sp-2) var(--sp-3);
-  border-radius: 20px 24px 22px 8px / 18px 22px 20px 8px;
-  background:
-    radial-gradient(
-      70% 55% at 25% 20%,
-      color-mix(in srgb, var(--c-coin-shine) 78%, transparent),
-      transparent 70%
-    ),
-    var(--c-panel);
-  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
-  box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 80%, transparent),
-    0 4px 0 color-mix(in srgb, var(--c-panel-edge) 68%, var(--c-ink));
+  border-radius: 20px 22px 20px 8px;
+  background: color-mix(in srgb, var(--c-panel) 94%, var(--c-surface));
+  border: 0;
+  box-shadow: 0 6px 18px -6px var(--c-shadow);
   transform-origin: 0% 80%;
   animation: home-small-pop var(--dur-slow) var(--spring) 120ms both;
 }
@@ -81,11 +92,11 @@
 .speech::before {
   content: '';
   position: absolute;
-  left: -9px;
+  left: -7px;
   bottom: 12px;
-  border: 8px solid transparent;
+  border: 7px solid transparent;
   border-left: 0;
-  border-right-color: color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
+  border-right-color: color-mix(in srgb, var(--c-panel) 94%, var(--c-surface));
 }
 
 .speech-ja {
@@ -96,20 +107,31 @@
   min-height: 0;
   padding: 0;
   line-height: 1.25;
+  background: none;
+  border: 0;
+  color: var(--c-ink);
+  cursor: pointer;
 }
 
-/* Compact Today summary bar below the diorama (no box-inside-box banner on h1) */
+/* Expand tap target across the whole speech cloud so tapping anywhere speaks (>= 44px) */
+.speech-ja::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+/* Soft, open Today summary surface below the diorama */
 .home-hero-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
   padding: var(--sp-3) var(--sp-4);
-  background: linear-gradient(
-    180deg,
-    var(--c-panel),
-    color-mix(in srgb, var(--c-surface-alt) 58%, var(--c-panel))
-  );
+  border-radius: 24px;
+  border: 0;
+  background: color-mix(in srgb, var(--c-panel) 72%, transparent);
+  box-shadow: none;
 }
 
 .home-today-copy {
@@ -129,7 +151,45 @@
   text-align: left;
   color: var(--c-ink);
   font-size: var(--fs-lg);
-  line-height: 1.2;
+  line-height: 1.22;
+}
+
+/* Soft, borderless status chips */
+.home-chips {
+  margin-top: 2px;
+}
+
+.home-screen .pill {
+  border: 0;
+  box-shadow: none;
+  border-radius: var(--r-pill);
+  padding: 4px var(--sp-3);
+}
+
+.home-goal-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.home-goal-bar {
+  height: 6px;
+  width: 100%;
+  max-width: 210px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--c-ink) 10%, var(--c-surface-alt));
+  overflow: hidden;
+}
+
+.home-goal-bar > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--c-accent), var(--c-glow));
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--spring);
 }
 
 /* ---------------- TODAY'S GOAL: FILLING SHRINE LANTERN ---------------- */
@@ -138,7 +198,7 @@
   flex: none;
 }
 
-.ring {
+.home-screen .ring {
   position: relative;
   width: 82px;
   height: 90px;
@@ -158,51 +218,40 @@
   pointer-events: none;
 }
 
-/* High-contrast percentage pill centered on the shrine lantern */
-.ring > div {
+/* Soft, unoutlined percentage pill centered on the shrine lantern */
+.home-screen .ring > div {
   position: relative;
   z-index: 1;
   width: auto;
   height: auto;
   min-width: 44px;
-  padding: 2px 8px;
+  padding: 2px 9px;
   border-radius: var(--r-pill);
-  background: var(--c-panel);
+  background: color-mix(in srgb, var(--c-panel) 94%, var(--c-surface));
   color: var(--c-ink);
-  border: 2px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
+  border: 0;
   font-size: var(--fs-xs);
   font-weight: 900;
   font-variant-numeric: tabular-nums;
-  line-height: 1.25;
-  box-shadow: 0 2px 0 color-mix(in srgb, var(--c-hud-bg) 75%, var(--c-ink));
+  line-height: 1.3;
+  box-shadow: 0 2px 8px var(--c-shadow);
   animation: home-small-pop var(--dur-slow) var(--spring) 160ms both;
 }
 
-/* ---------------- NEXT LESSON: ROADSIDE WOODEN SIGNPOST ---------------- */
+/* ---------------- NEXT LESSON: SOFT ROADSIDE SIGNPOST & PRIMARY ACTION ---------------- */
 
-.next-card {
+.home-screen .card.next-card {
   gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4) var(--sp-4);
-  border-radius: 26px 22px 24px 20px / 22px 26px 20px 24px;
-  border: 2.5px solid color-mix(in srgb, var(--c-panel-edge) 85%, var(--c-ink));
-  background:
-    radial-gradient(
-      68% 50% at 18% 15%,
-      color-mix(in srgb, var(--c-coin-shine) 65%, transparent),
-      transparent 70%
-    ),
-    linear-gradient(
-      165deg,
-      color-mix(in srgb, var(--c-gold-soft) 65%, var(--c-panel)),
-      var(--c-panel) 62%,
-      color-mix(in srgb, var(--c-surface-alt) 72%, var(--c-panel))
-    );
-  box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 80%, transparent),
-    inset 0 -3px 0 color-mix(in srgb, var(--c-panel-edge) 32%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-gold) 58%, var(--c-ink)),
-    0 12px 24px -12px var(--c-shadow);
+  padding: var(--sp-4);
+  border-radius: 26px;
+  border: 0;
+  background: color-mix(in srgb, var(--c-panel) 82%, var(--c-gold-soft));
+  box-shadow: 0 6px 20px -12px var(--c-shadow);
   animation: none;
+}
+
+.home-screen .card.next-card::before {
+  display: none;
 }
 
 .next-signpost-row {
@@ -242,7 +291,7 @@
 
 .next-signpost-copy h2 {
   font-size: var(--fs-lg);
-  line-height: 1.2;
+  line-height: 1.22;
 }
 
 .signpost-arrow-svg {
@@ -251,53 +300,102 @@
   height: 48px;
 }
 
-/* Tactile primary play button */
-.play-btn {
-  min-height: 54px;
+/* Smooth, friendly pill control for the primary action (no thick outline, no 3D button slab) */
+.home-screen .play-btn {
+  min-height: 52px;
+  padding: var(--sp-3) var(--sp-5);
   font-size: var(--fs-md);
-  letter-spacing: 0.03em;
+  font-weight: 800;
+  letter-spacing: 0.02em;
   border-radius: var(--r-pill);
-  box-shadow:
-    inset 0 3px 0 color-mix(in srgb, var(--c-coin-shine) 70%, transparent),
-    inset 0 -3px 0 color-mix(in srgb, var(--c-ink) 16%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-accent) 48%, var(--c-ink)),
-    0 10px 18px -6px var(--c-shadow);
+  border: 0;
+  text-shadow: none;
+  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--c-accent) 36%, var(--c-shadow));
 }
 
-/* ---------------- WORLD DESTINATION TILES (COMPACT 2x2 GRID) ---------------- */
-
-.grid-2.home-tiles {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-3);
+.home-screen .play-btn.btn-accent {
+  background: var(--c-accent);
+  color: var(--c-accent-ink);
 }
 
-/* Disable global .grid-2 > * scaling entrance on home tiles for zero lag */
-.grid-2.home-tiles > .tile-card {
-  animation: none;
+.home-screen .play-btn.btn-indigo {
+  background: var(--c-secondary);
+  color: var(--c-secondary-ink);
+  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--c-secondary) 36%, var(--c-shadow));
 }
 
-.tile-card {
-  gap: var(--sp-1);
-  padding: var(--sp-3);
-  border-radius: 22px 18px 24px 20px / 18px 22px 20px 24px;
-  align-content: start;
-}
-
-.tile-card::before {
+.home-screen .play-btn::before,
+.home-screen .play-btn::after {
   display: none;
 }
 
-.tile-head {
+.home-screen .play-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.home-screen .play-btn:active:not(:disabled) {
+  transform: scale(0.985);
+  box-shadow: 0 4px 12px -6px var(--c-shadow);
+}
+
+/* ---------------- SECONDARY ACTIONS: LIGHT TEXT-AND-ICON ROWS ---------------- */
+
+.grid-2.home-tiles {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--sp-2);
+}
+
+/* Disable global .grid-2 > * scaling entrance on home rows for zero lag */
+.grid-2.home-tiles > .tile-card,
+.home-screen .grid-2.home-tiles > .card.tile-card:nth-child(odd),
+.home-screen .grid-2.home-tiles > .card.tile-card:nth-child(even) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 56px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 20px;
+  border: 0;
+  background: color-mix(in srgb, var(--c-panel) 68%, transparent);
+  box-shadow: none;
+  animation: none;
+}
+
+.home-screen .tile-card::before {
+  display: none;
+}
+
+.home-screen .tile-card:hover,
+.home-screen .grid-2.home-tiles > .tile-card:nth-child(even):hover {
+  transform: translateY(-1px);
+}
+
+.home-screen .tile-card:active {
+  transform: scale(0.99);
 }
 
 .tile-emblem {
   flex: none;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   overflow: visible;
+}
+
+.tile-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tile-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .tile-card h2 {
@@ -305,7 +403,7 @@
   line-height: 1.22;
 }
 
-/* Town tile heading fallback when h2 is empty in markup */
+/* Town row heading fallback if h2 is empty */
 .tile-card h2:empty::before {
   content: 'City Market';
 }
@@ -315,28 +413,43 @@
   line-height: 1.35;
 }
 
-.tile-card.urgent {
-  border-color: var(--c-accent);
-  background:
-    radial-gradient(
-      75% 55% at 20% 15%,
-      color-mix(in srgb, var(--c-accent-soft) 72%, transparent),
-      transparent 70%
-    ),
-    linear-gradient(180deg, var(--c-panel), var(--c-surface-alt));
-  box-shadow:
-    inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 75%, transparent),
-    0 6px 0 color-mix(in srgb, var(--c-accent) 58%, var(--c-ink)),
-    0 10px 20px -10px var(--c-shadow);
+.tile-action {
+  flex: none;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  color: var(--c-ink-muted);
+  padding: 4px 8px;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+
+/* Soft tinted highlight when reviews are due or HP is low (no heavy border or 3D slab) */
+.home-screen .grid-2.home-tiles > .card.tile-card.urgent,
+.home-screen .grid-2.home-tiles > .card.tile-card.tile-food {
+  background: color-mix(in srgb, var(--c-accent-soft) 68%, var(--c-panel));
+  border: 0;
+  box-shadow: none;
+}
+
+.tile-card.urgent .tile-action,
+.tile-card.tile-food .tile-action {
+  background: color-mix(in srgb, var(--c-accent) 16%, var(--c-panel));
+  color: color-mix(in srgb, var(--c-accent) 78%, var(--c-ink));
 }
 
 .tile-card.urgent .tile-emblem {
   animation: home-emblem-bob calc(var(--dur-celebrate) * 1.8) ease-in-out infinite alternate;
 }
 
-@media (max-width: 330px) {
+@media (min-width: 680px) {
   .grid-2.home-tiles {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-2);
+  }
+
+  .grid-2.home-tiles > .tile-food {
+    grid-column: 1 / -1;
   }
 }
 
@@ -421,7 +534,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .speech,
-  .ring > div,
+  .home-screen .ring > div,
+  .home-goal-bar > span,
   .home-noren-sway,
   .home-flame-flicker,
   .home-ambient-1,
