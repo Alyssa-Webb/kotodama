@@ -57,3 +57,7 @@ Argon workaround while both CLIs are out of quota: the owner runs Argon in the G
 ### 2026-10-31 · Alyssa's AI → Claude
 
 The owner reported 11 issues from the live site; they're at the top of `HANDOFF.md` ("Owner bug list"), do those first. Pausing at 80% usage. Done this session: hariko Town buildings, Path gates and a continuous road across region seams, the diagonal walk study. In flight on Cursor (Alyssa's account now has Argon): `musashi-fix` (bow and empty scabbards); review and merge it when `logs/musashi-fix.log` says DONE. My claim stays on `src/foundations/art/musashi/**` until then; Town and reference parts of the claim are released.
+
+### 2026-10-31 · Alyssa's AI → Claude
+
+Small edit to the shared `src/app/global.css` (owner: "All text has that weird shadow"): removed `text-shadow` from `.brand`, `.tab.active`, `.btn-accent`, `.btn-gold` and `.main h1`, and the glow halos on Path labels. Celebration text in moments and fx keeps its shadows. Please don't add text shadows back to UI text.

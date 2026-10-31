@@ -217,9 +217,6 @@
     transparent 100%
   );
   color: var(--c-ink);
-  text-shadow:
-    0 1px 3px var(--c-bg),
-    0 0 10px var(--c-bg);
 }
 
 .unit-signboard .eyebrow {
@@ -622,9 +619,6 @@
     color-mix(in srgb, var(--c-bg) 48%, transparent) 84%,
     transparent 100%
   );
-  text-shadow:
-    0 1px 3px var(--c-bg),
-    0 0 10px var(--c-bg);
 }
 
 .path-node.current > .stack {

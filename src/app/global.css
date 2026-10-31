@@ -177,7 +177,6 @@ ruby rt {
   color: var(--c-hud-ink);
   text-decoration: none;
   margin-right: auto;
-  text-shadow: 0 2px 0 color-mix(in srgb, var(--c-ink) 55%, transparent);
   transition: transform var(--dur-fast) var(--spring);
 }
 .brand:hover {
@@ -549,7 +548,6 @@ ruby rt {
 .tab.active {
   color: var(--c-hud-ink);
   transform: translateY(-10px) scale(1.04);
-  text-shadow: 0 1px 0 color-mix(in srgb, var(--c-ink) 70%, transparent);
 }
 /* Round lacquer-and-gold badge that pops up out of the wooden dock. */
 .tab.active::before {
@@ -919,7 +917,6 @@ ruby rt {
     );
   color: var(--c-accent-ink);
   border-color: color-mix(in srgb, var(--c-accent) 55%, var(--c-ink));
-  text-shadow: 0 1px 0 color-mix(in srgb, var(--c-ink) 35%, transparent);
 }
 .btn-indigo {
   --ledge: color-mix(in srgb, var(--c-secondary) 52%, var(--c-ink));
@@ -950,7 +947,6 @@ ruby rt {
     linear-gradient(180deg, color-mix(in srgb, var(--c-gold) 78%, var(--c-glow)), var(--c-gold) 58%);
   color: var(--c-panel);
   border-color: color-mix(in srgb, var(--c-gold) 52%, var(--c-ink));
-  text-shadow: 0 1px 0 color-mix(in srgb, var(--c-ink) 40%, transparent);
 }
 .btn-accent::after,
 .btn-gold::after {
@@ -1371,7 +1367,6 @@ label.field {
   box-shadow:
     inset 0 2px 0 color-mix(in srgb, var(--c-coin-shine) 35%, transparent),
     0 5px 0 color-mix(in srgb, var(--c-lacquer) 60%, var(--c-ink));
-  text-shadow: 0 2px 0 color-mix(in srgb, var(--c-ink) 45%, transparent);
 }
 .main h1 ruby rt {
   color: color-mix(in srgb, var(--c-hud-ink) 80%, transparent);
