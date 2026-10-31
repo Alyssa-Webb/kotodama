@@ -650,14 +650,50 @@ function SignpostArrowSVG({ isBoss }: { isBoss: boolean }) {
   );
 }
 
-/** Chibi 2D emblems for the 4 world destination tiles (Dojo, Town/Market, Arcade, Spirits). */
+/** Chibi 2D emblems for the world destination rows (Dojo, Town/Market, Arcade, Spirits, Food Street). */
 function TileEmblem({
   kind,
   urgent = false,
 }: {
-  kind: 'dojo' | 'town' | 'arcade' | 'spirits';
+  kind: 'dojo' | 'town' | 'arcade' | 'spirits' | 'food';
   urgent?: boolean;
 }) {
+  if (kind === 'food') {
+    return (
+      <svg viewBox="0 0 48 48" className="tile-emblem" aria-hidden="true">
+        <ellipse cx="24" cy="43" rx="16" ry="3.8" fill="var(--c-shadow)" />
+        {/* Chibi Onigiri rice ball (+3 shade lip + fluffy rice triangle + top-left highlight) */}
+        <path
+          d="M24 11 C31 11 41 25 39 35 C38 40 32 41 24 41 C16 41 10 40 9 35 C7 25 17 11 24 11 Z"
+          transform="translate(0 3)"
+          fill="color-mix(in srgb, var(--c-panel-edge) 58%, var(--c-hud-bg))"
+        />
+        <path
+          d="M24 11 C31 11 41 25 39 35 C38 40 32 41 24 41 C16 41 10 40 9 35 C7 25 17 11 24 11 Z"
+          fill="var(--c-hud-ink)"
+        />
+        <ellipse
+          cx="19"
+          cy="19"
+          rx="5"
+          ry="2.2"
+          transform="rotate(-24 19 19)"
+          fill="var(--c-coin-shine)"
+          opacity="0.7"
+        />
+        {/* Crisp nori seaweed wrap at bottom */}
+        <rect x="16" y="29" width="16" height="12" rx="3" fill="var(--c-hud-bg)" />
+        {/* Rosy cheeks & warm healing heart badge */}
+        <ellipse cx="14" cy="28" rx="2.4" ry="1.4" fill="var(--c-petal)" opacity="0.85" />
+        <ellipse cx="34" cy="28" rx="2.4" ry="1.4" fill="var(--c-petal)" opacity="0.85" />
+        <path
+          d="M36 16 C36 16 31 12.8 31 9.5 C31 7.6 32.5 6.4 34.2 6.4 C35.2 6.4 36 7 36 7.8 C36 7 36.8 6.4 37.8 6.4 C39.5 6.4 41 7.6 41 9.5 C41 12.8 36 16 36 16 Z"
+          fill="var(--c-accent)"
+        />
+      </svg>
+    );
+  }
+
   if (kind === 'dojo') {
     return (
       <svg viewBox="0 0 48 48" className="tile-emblem" aria-hidden="true">
@@ -856,6 +892,11 @@ export function HomeScreen() {
   const goalPct = Math.min(100, Math.round((s.todayXp / s.goal) * 100));
   const away = daysAway(save, { now: s.now, timeZone: clock.timeZone() });
   const towns = districtStates(save, index, districts, away);
+  const restoredCount = towns.filter((d) => d.restored).length;
+  const spiritCount = Object.keys(save.cards).length
+    ? new Set(Object.keys(save.cards).map((k) => k.split('#')[0])).size
+    : 0;
+  const lowHp = s.hearts !== null && s.maxHearts !== null && s.hearts < s.maxHearts;
   const awake = Math.max(
     0.15,
     towns.filter((d) => d.lit).length /
@@ -911,7 +952,7 @@ export function HomeScreen() {
                   ? `Keep your ${s.streak}-day streak alive`
                   : 'Wake your first spirit'}
             </h1>
-            <div className="row" style={{ gap: 'var(--sp-2)' }}>
+            <div className="row home-chips" style={{ gap: 'var(--sp-2)' }}>
               <span className="pill pill-accent">
                 <FlameIcon size={16} lit={s.streak > 0} /> {s.streak} day streak
               </span>
@@ -924,10 +965,15 @@ export function HomeScreen() {
                 </span>
               )}
             </div>
-            <p className="muted small">
-              {s.todayXp} / {s.goal} XP
-              {s.due > 0 ? ` · ${s.due} review${s.due === 1 ? '' : 's'} due` : ''}
-            </p>
+            <div className="home-goal-summary">
+              <p className="muted small">
+                {s.todayXp} / {s.goal} XP
+                {s.due > 0 ? ` · ${s.due} review${s.due === 1 ? '' : 's'} due` : ''}
+              </p>
+              <div className="home-goal-bar" aria-hidden="true">
+                <span style={{ transform: `scaleX(${goalPct / 100})` }} />
+              </div>
+            </div>
           </div>
           <Slot slot="streak.extend" fire={save.streak.lastGoalDay} className="ring-wrap">
             <div
@@ -966,57 +1012,90 @@ export function HomeScreen() {
             {save.lessonCount ? 'Continue' : 'Start your first lesson'}
           </Link>
         ) : (
-          <Link className="btn btn-indigo btn-block" to="/packs">
+          <Link className="btn btn-indigo btn-block play-btn" to="/packs">
             Add a lesson pack
           </Link>
         )}
       </section>
 
       <div className="grid-2 home-tiles">
+        {lowHp && (
+          <Link to="/food" className="card stack card-link tile-card tile-food">
+            <TileEmblem kind="food" />
+            <div className="tile-copy">
+              <div className="tile-head">
+                <p className="eyebrow">Food Street</p>
+                <h2>
+                  HP {s.hearts} / {s.maxHearts}
+                </h2>
+              </div>
+              <p className="muted small">Order a warm meal in Japanese to heal up.</p>
+            </div>
+            <span className="tile-action" aria-hidden="true">
+              Heal ›
+            </span>
+          </Link>
+        )}
         <Link
           to={s.due ? '/dojo' : '/reviews'}
           className={`card stack card-link tile-card ${s.due ? 'urgent' : ''}`}
         >
-          <div className="tile-head">
-            <TileEmblem kind="dojo" urgent={s.due > 0} />
-            <p className="eyebrow">Dojo</p>
+          <TileEmblem kind="dojo" urgent={s.due > 0} />
+          <div className="tile-copy">
+            <div className="tile-head">
+              <p className="eyebrow">Dojo</p>
+              <h2>{s.due ? `${s.due} spirits fading` : 'No spirits fading'}</h2>
+            </div>
+            <p className="muted small">
+              {s.due
+                ? 'Clear the fog to rescue them. Until then lessons pay half yen.'
+                : 'Reviews appear here as your memory needs them.'}
+            </p>
           </div>
-          <h2>{s.due ? `${s.due} spirits fading` : 'No spirits fading'}</h2>
-          <p className="muted small">
-            {s.due
-              ? 'Clear the fog to rescue them. Until then lessons pay half yen.'
-              : 'Reviews appear here as your memory needs them.'}
-          </p>
+          <span className="tile-action" aria-hidden="true">
+            {s.due ? 'Review ›' : '›'}
+          </span>
         </Link>
         <Link to="/town" className="card stack card-link tile-card">
-          <div className="tile-head">
-            <TileEmblem kind="town" />
-            <p className="eyebrow">Town</p>
+          <TileEmblem kind="town" />
+          <div className="tile-copy">
+            <div className="tile-head">
+              <p className="eyebrow">Town</p>
+              <h2>City Market</h2>
+            </div>
+            <p className="muted small">
+              {restoredCount} of {towns.length} districts awake
+            </p>
           </div>
-          <h2></h2>
-          <p className="muted small">
-            {towns.filter((d) => d.restored).length} of {towns.length} districts awake
-          </p>
+          <span className="tile-action" aria-hidden="true">
+            {restoredCount}/{towns.length} ›
+          </span>
         </Link>
         <Link to="/modes" className="card stack card-link tile-card">
-          <div className="tile-head">
-            <TileEmblem kind="arcade" />
-            <p className="eyebrow">Arcade</p>
+          <TileEmblem kind="arcade" />
+          <div className="tile-copy">
+            <div className="tile-head">
+              <p className="eyebrow">Arcade</p>
+              <h2>Kana Rush · Listening Rush</h2>
+            </div>
+            <p className="muted small">Survive until three misses. Beat your ghost.</p>
           </div>
-          <h2>Kana Rush · Listening Rush</h2>
-          <p className="muted small">Survive until three misses. Beat your ghost.</p>
+          <span className="tile-action" aria-hidden="true">
+            ›
+          </span>
         </Link>
         <Link to="/collection" className="card stack card-link tile-card">
-          <div className="tile-head">
-            <TileEmblem kind="spirits" />
-            <p className="eyebrow">Spirits</p>
+          <TileEmblem kind="spirits" />
+          <div className="tile-copy">
+            <div className="tile-head">
+              <p className="eyebrow">Spirits</p>
+              <h2>{spiritCount ? `${spiritCount} awake` : 'None yet'}</h2>
+            </div>
+            <p className="muted small">Every word you learn wakes one.</p>
           </div>
-          <h2>
-            {Object.keys(save.cards).length
-              ? `${new Set(Object.keys(save.cards).map((k) => k.split('#')[0])).size} awake`
-              : 'None yet'}
-          </h2>
-          <p className="muted small">Every word you learn wakes one.</p>
+          <span className="tile-action" aria-hidden="true">
+            {spiritCount ? `${spiritCount} ›` : '›'}
+          </span>
         </Link>
       </div>
     </div>
