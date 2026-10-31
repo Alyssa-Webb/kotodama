@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    .f { opacity: 0; animation: show 0.6667s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }       .f2 { animation-delay: -0.5834s; }
+    .f3 { animation-delay: -0.5s; }    .f4 { animation-delay: -0.4167s; }
+    .f5 { animation-delay: -0.3334s; } .f6 { animation-delay: -0.25s; }
+    .f7 { animation-delay: -0.1667s; } .f8 { animation-delay: -0.0833s; }
+    @keyframes show { 0% { opacity: 1; } 12.5% { opacity: 0; } 100% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .f { animation: none; opacity: 0; }
+      .f1 { opacity: 1; }
+    }
+  </style>
+
+  <defs>
+    <!-- Subtle hand-made washi paper fiber & gofun chalk grain -->
+    <pattern id="washi" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M4,9 Q11,7 17,10 C12,10 8,9 4,9 Z M29,5 Q36,8 41,6 C37,8 33,7 29,5 Z M12,28 Q19,25 25,29 C20,28 15,28 12,28 Z M34,36 Q41,34 45,38 C40,37 37,36 34,36 Z M6,42 Q12,44 16,41 C13,43 9,43 6,42 Z" fill="#DFD3BE" opacity="0.55"/>
+      <path d="M21,15 Q26,13 31,16 C27,15 23,15 21,15 Z M8,20 Q13,22 17,19 C14,21 10,21 8,20 Z M38,22 Q43,20 46,23 C42,22 40,22 38,22 Z" fill="#FCF9F2" opacity="0.65"/>
+      <circle cx="15" cy="12" r="0.8" fill="#D5C6AE" opacity="0.45"/>
+      <circle cx="39" cy="14" r="0.7" fill="#FCF9F2" opacity="0.6"/>
+    </pattern>
+
+    <!-- Hand-dabbed folk plum blossoms -->
+    <g id="ume">
+      <path d="M-2,-4 A2.1,2.1 0 1,1 2,-4 A2.1,2.1 0 1,1 4.2,-0.2 A2.1,2.1 0 1,1 1.2,3.8 A2.1,2.1 0 1,1 -1.2,3.8 A2.1,2.1 0 1,1 -4.2,-0.2 A2.1,2.1 0 1,1 -2,-4 Z" fill="#FAF6EE"/>
+      <circle cx="0" cy="0" r="1.7" fill="#E2B23B"/>
+    </g>
+    <g id="ume-shu">
+      <path d="M-1.7,-3.5 A1.8,1.8 0 1,1 1.7,-3.5 A1.8,1.8 0 1,1 3.6,-0.2 A1.8,1.8 0 1,1 1,3.3 A1.8,1.8 0 1,1 -1,3.3 A1.8,1.8 0 1,1 -3.6,-0.2 A1.8,1.8 0 1,1 -1.7,-3.5 Z" fill="#D44434"/>
+      <circle cx="0" cy="0" r="1.4" fill="#F5D867"/>
+    </g>
+
+    <!-- 3/4 straw sandal foot (facing right), centered at (0,0) -->
+    <g id="foot-3q">
+      <path d="M-18,7 C-18,3 -9,1 3,1 C15,1 22,4 21,9 C20,13 11,15 -1,15 C-12,15 -18,12 -18,7 Z" fill="#7A5528"/>
+      <path d="M-16,5 C-15,1 -7,0 3,0 C13,0 19,3 19,7 C18,10 11,11 0,11 C-10,11 -16,9 -16,5 Z" fill="#CCA364"/>
+      <path d="M-11,-9 L-11,4 C-11,8 11,8 13,4 L10,-9 Z" fill="#F7F0E4"/>
+      <path d="M-11,2 C-5,6 7,6 13,2 L13,5 C7,9 -5,9 -11,5 Z" fill="#E6D7C3"/>
+      <path d="M6,1 C2,2 -2,5 -5,9 C-2,10 0,9 3,6 C6,4 9,4 12,8 C14,8 15,7 14,5 C12,2 9,1 6,1 Z" fill="#D44434"/>
+    </g>
+
+    <!-- Wooden bokken: origin (0,0) at grip center; blade extends along +X to x=112 -->
+    <g id="bokken">
+      <!-- Indigo wrapped hilt (tsuka) with gold-leaf diamonds & vermilion pommel -->
+      <path d="M-28,-3.5 L8,-4 L8,4 L-28,3.5 C-31,3 -31,-3 -28,-3.5 Z" fill="#2E4D75"/>
+      <path d="M-29,-3.5 L-25,-3.5 L-25,3.5 L-29,3.5 Z" fill="#D44434"/>
+      <path d="M-19,0 L-15,-2.4 L-11,0 L-15,2.4 Z M-7,0 L-3,-2.4 L1,0 L-3,2.4 Z" fill="#F0C651"/>
+      <!-- Lacquered sumi tsuba guard with gold-leaf rim -->
+      <ellipse cx="9" cy="0" rx="3.5" ry="10.5" fill="#261F1C"/>
+      <ellipse cx="10" cy="0" rx="2" ry="8.5" fill="#E2B23B"/>
+      <!-- Curved seasoned oak blade (sori curve upward toward -Y) -->
+      <path d="M11,-4.2 C44,-5 79,-8.5 107,-13.5 C111,-12 113,-9.5 110,-6 C83,-0.5 46,3.2 11,4 Z" fill="#CFA063"/>
+      <path d="M11,-4.2 C44,-5 79,-8.5 107,-13.5 C109,-12.5 109,-11 106,-10 C78,-5.5 44,-2.2 11,-1.5 Z" fill="#E8C48E"/>
+      <path d="M11,1.2 C46,0.5 81,-3 109,-7.5 L110,-6 C83,-0.5 46,3.2 11,4 Z" fill="#A37136"/>
+    </g>
+
+    <!-- Back (right/far) arm & sleeve reaching forward, centered at shoulder (0,0) -->
+    <g id="arm-far">
+      <path d="M-6,-8 C12,-7 31,2 40,14 C42,20 35,32 25,36 C17,38 8,30 2,17 Z" fill="#5B89B8"/>
+      <path d="M37,13 C35,21 31,29 25,35 C28,35 33,28 38,17 Z" fill="#D44434"/>
+      <circle cx="40" cy="18" r="9.5" fill="#EADBC7"/>
+    </g>
+    <!-- Near (left) arm & kimono sleeve gripping bokken, centered at shoulder (0,0) -->
+    <g id="arm-near">
+      <path d="M-10,-9 C10,-9 33,1 44,14 C47,20 39,36 27,42 C18,45 8,36 1,22 Z" fill="#79A8D6"/>
+      <path d="M4,24 C14,36 23,43 30,41 C37,38 42,27 44,18 C32,28 18,30 4,24 Z" fill="#5B89B8"/>
+      <path d="M42,15 C40,24 35,34 29,40 C32,40 38,32 43,19 Z" fill="#D44434"/>
+      <use href="#ume" transform="translate(21 18) scale(0.82)"/>
+      <circle cx="45" cy="19" r="10.2" fill="#F7F0E4"/>
+      <path d="M37,23 C41,29 50,29 54,22 C51,30 40,30 37,23 Z" fill="#E6D7C3"/>
+    </g>
+
+    <!-- 3/4 Hariko torso (facing right), centered around (196, 250) -->
+    <g id="torso-3q">
+      <path d="M182,197 L208,197 L211,211 L180,211 Z" fill="#E6D7C3"/>
+      <!-- Golden-ochre under-hem -->
+      <path d="M153,290 C154,296 164,301 199,301 C234,301 242,296 242,290 L240,285 L155,285 Z" fill="#CC9D38"/>
+      <path d="M156,295 C170,300 226,300 240,295 C233,300 218,302 199,302 C178,302 163,300 156,295 Z" fill="#A87D24"/>
+      <!-- Light-blue kimono body -->
+      <path d="M170,205 C156,210 148,224 148,247 L150,290 C165,295 231,295 244,290 L245,246 C244,223 235,210 221,205 Z" fill="#79A8D6"/>
+      <path d="M170,207 C160,212 154,222 153,236 C164,227 176,222 189,221 Z" fill="#96BEE4" opacity="0.65"/>
+      <path d="M149,275 C166,280 229,280 245,275 L244,290 C231,295 165,295 150,290 Z" fill="#5B89B8"/>
+      <path d="M151,288 C170,293 226,293 243,288 C229,292 167,292 151,288 Z" fill="#2E4D75"/>
+      <!-- 3/4 crossed white gofun collar (shifted right) -->
+      <path d="M202,265 L210,265 L211,293 L202,293 Z" fill="#FAF6EE"/>
+      <path d="M179,204 L189,203 L214,234 L206,240 Z" fill="#FAF6EE"/>
+      <path d="M222,205 L214,204 L196,246 L207,246 Z" fill="#FAF6EE"/>
+      <path d="M222,206 C216,220 210,233 205,246 C212,234 218,220 223,206 Z" fill="#2E4D75" opacity="0.65"/>
+      <!-- Folk plum & sunago gold leaf -->
+      <use href="#ume-shu" transform="translate(175 280)"/>
+      <use href="#ume" transform="translate(226 279) scale(0.9)"/>
+      <rect x="190" y="273" width="2.8" height="2.8" transform="rotate(16 190 273)" fill="#E2B23B"/>
+      <!-- Gofun obi-shita & yellow obi -->
+      <path d="M146,255 C165,258 231,258 247,254 L248,265 C231,269 164,269 146,265 Z" fill="#FAF6EE"/>
+      <path d="M147,244 C166,247 230,247 246,243 C248,247 248,252 246,256 C230,259 166,259 147,256 C145,252 145,248 147,244 Z" fill="#E8BE2E"/>
+      <path d="M147,253 C166,256 230,256 246,253 L246,256 C230,259 166,259 147,256 Z" fill="#C5961B"/>
+    </g>
+
+    <!-- Lagging sash knot at (225, 253) -->
+    <g id="knot-3q">
+      <path d="M221,256 C217,263 215,270 220,272 C224,273 226,266 226,258 Z" fill="#C5961B"/>
+      <path d="M228,256 C230,264 233,271 238,269 C241,267 238,260 232,255 Z" fill="#E8BE2E"/>
+      <path d="M219,251 C219,247 234,247 235,251 C235,256 219,256 219,251 Z" fill="#F5D867"/>
+      <circle cx="227" cy="252" r="2.1" fill="#D44434"/>
+    </g>
+
+    <!-- Separate lagging topknot -->
+    <g id="topknot-3q">
+      <path d="M179,95 C173,85 179,74 189,77 C194,70 207,71 209,80 C217,78 220,87 210,94 Z" fill="#221F20"/>
+      <path d="M185,92 C191,90 201,90 207,92 C207,95 185,95 185,92 Z" fill="#E2B23B"/>
+      <circle cx="197" cy="93" r="2.1" fill="#D44434"/>
+    </g>
+
+    <!-- 3/4 Head base (shared hair, ear, face, blush) + calm vs determined face expressions -->
+    <g id="head-3q-base">
+      <path d="M132,148 C130,178 138,199 156,204 L236,203 C251,197 258,179 256,154 Z" fill="#151314"/>
+      <path d="M148,122 C145,150 148,182 163,194 C178,204 234,203 246,191 C257,178 258,147 251,122 Z" fill="#F7F0E4"/>
+      <ellipse cx="206" cy="145" rx="31" ry="11" fill="#FCF9F2" opacity="0.75"/>
+      <path d="M153,178 C163,195 186,201 211,200 C232,199 246,193 252,178 C244,189 229,193 209,194 C186,194 164,189 153,178 Z" fill="#E6D7C3"/>
+      <ellipse cx="176" cy="181" rx="12.5" ry="8.5" fill="#E58478" opacity="0.56"/>
+      <ellipse cx="245" cy="179" rx="7.5" ry="7" fill="#E58478" opacity="0.5"/>
+      <!-- Bob hair 3/4: back fullness on left, 3-part fringe on right, cheek lock & left side tuft -->
+      <path d="M128,141 C118,138 114,144 120,149 C124,152 128,150 130,148 C129,170 133,190 144,200 L158,204 C165,206 170,201 169,191 C167,176 167,159 169,145 C178,146 188,144 194,136 C198,144 209,146 220,145 C228,145 235,142 238,135 C243,142 249,145 254,144 C255,162 253,181 248,195 C254,193 259,181 260,160 C262,120 237,92 194,92 C152,92 130,115 128,141 Z" fill="#221F20"/>
+      <!-- Near left ear peeking over hair -->
+      <path d="M145,156 C132,153 126,165 130,176 C133,184 142,186 147,181 Z" fill="#F7F0E4"/>
+      <path d="M144,163 C136,163 134,171 138,176 C141,179 144,178 145,175 Z" fill="#E4D2BA"/>
+      <path d="M150,116 C170,103 216,102 237,115 C216,108 172,108 150,116 Z" fill="#3A3538"/>
+      <rect x="160" y="116" width="2.8" height="2.8" transform="rotate(-16 160 116)" fill="#E2B23B" opacity="0.85"/>
+    </g>
+    <g id="head-calm">
+      <use href="#head-3q-base"/>
+      <path d="M179,149 C185,144 195,144 201,148 C194,148 185,148 179,149 Z M245,148 C240,144 232,144 227,148 C233,148 240,148 245,148 Z" fill="#1C1917"/>
+      <ellipse cx="191" cy="167" rx="11.2" ry="12.2" fill="#1C1917"/>
+      <path d="M180,160 C177,158 175,156 174,154 C177,154 181,156 183,159 Z" fill="#1C1917"/>
+      <circle cx="188" cy="162.5" r="3.3" fill="#FCF9F2"/>
+      <circle cx="195" cy="173" r="1.5" fill="#4C739E"/>
+      <ellipse cx="235" cy="167" rx="8.8" ry="11.6" fill="#1C1917"/>
+      <circle cx="233" cy="162.5" r="2.8" fill="#FCF9F2"/>
+      <path d="M210,183 C214,188 222,188 225,183 C223,190 212,190 210,183 Z" fill="#1C1917"/>
+    </g>
+    <g id="head-fierce">
+      <use href="#head-3q-base"/>
+      <path d="M178,147 C186,146 196,149 203,153 C195,152 185,150 178,147 Z M247,147 C241,146 233,149 227,153 C234,152 241,150 247,147 Z" fill="#1C1917"/>
+      <path d="M180,165 C181,158 201,159 202,167 C202,175 197,179 191,179 C184,179 180,174 180,165 Z" fill="#1C1917"/>
+      <circle cx="189" cy="164" r="3.1" fill="#FCF9F2"/>
+      <path d="M227,165 C228,158 243,159 243,167 C243,174 239,178 235,178 C230,178 227,174 227,165 Z" fill="#1C1917"/>
+      <circle cx="234" cy="164" r="2.6" fill="#FCF9F2"/>
+      <ellipse cx="218" cy="185" rx="4.5" ry="3.2" fill="#A92F22"/>
+    </g>
+  </defs>
+
+  <!-- Plain warm washi background -->
+  <rect width="400" height="400" fill="#EBE1CF"/>
+  <path d="M16,18 C16,15 19,14 23,14 L377,15 C382,15 385,17 385,22 L384,378 C384,382 381,385 376,385 L23,384 C18,384 15,381 15,376 Z" fill="#F5EEE2"/>
+
+  <!-- Frame 1: Anticipation 1 (leaning back, bokken raised past shoulder) -->
+  <g class="f f1">
+    <ellipse cx="172" cy="317" rx="58" ry="9.5" fill="#D8C9B0" opacity="0.7"/>
+    <use href="#foot-3q" transform="translate(142 306)"/>
+    <use href="#foot-3q" transform="translate(194 307) rotate(-6)"/>
+    <g transform="translate(-22 -1) translate(196 260) rotate(-6) scale(0.98 1.03) translate(-196 -260)">
+      <use href="#arm-far" transform="translate(187 207) rotate(-60)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="rotate(5 225 253)"/>
+      <use href="#bokken" transform="translate(222 178) rotate(-76)"/>
+      <use href="#arm-near" transform="translate(174 214) rotate(-46)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(-28 -2) rotate(5 195 94)"/>
+    <use href="#head-calm" transform="translate(-26 -2) rotate(-5 196 160)"/>
+  </g>
+  <!-- Frame 2: Anticipation 2 (deep coiled lean-back, bokken cocked high overhead) -->
+  <g class="f f2">
+    <ellipse cx="164" cy="318" rx="60" ry="10" fill="#D8C9B0" opacity="0.76"/>
+    <use href="#foot-3q" transform="translate(134 307)"/>
+    <use href="#foot-3q" transform="translate(188 303) rotate(-16)"/>
+    <g transform="translate(-30 4) translate(196 265) rotate(-12) scale(1.03 0.97) translate(-196 -265)">
+      <use href="#arm-far" transform="translate(188 198) rotate(-78)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="rotate(11 225 253)"/>
+      <use href="#bokken" transform="translate(212 162) rotate(-124)"/>
+      <use href="#arm-near" transform="translate(179 201) rotate(-52)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(-40 4) rotate(-10 195 94)"/>
+    <use href="#head-fierce" transform="translate(-34 3) rotate(-10 196 160)"/>
+  </g>
+  <!-- Frame 3: Swing Smear 1 (explosive forward lunge, broad overhead brush-arc blur) -->
+  <g class="f f3">
+    <ellipse cx="190" cy="317" rx="66" ry="9.5" fill="#D8C9B0" opacity="0.72"/>
+    <use href="#foot-3q" transform="translate(136 305) rotate(18)"/>
+    <use href="#foot-3q" transform="translate(216 306)"/>
+    <path d="M104,64 C188,24 298,58 346,180 C316,188 278,198 242,208 C222,126 168,78 118,86 Z" fill="#CFA063" opacity="0.86"/>
+    <path d="M124,54 C206,22 306,62 349,181 C328,186 302,193 278,199 C252,110 192,60 132,68 Z" fill="#FAF6EE" opacity="0.85"/>
+    <path d="M158,45 C232,28 314,74 350,181 L324,187 C292,102 224,52 164,56 Z" fill="#F0C651" opacity="0.85"/>
+    <path d="M196,44 C260,44 322,90 351,182 L341,184 C312,104 256,58 196,44 Z" fill="#D44434" opacity="0.75"/>
+    <g transform="translate(-6 -2) translate(196 260) rotate(9) scale(1.05 0.96) translate(-196 -260)">
+      <use href="#arm-far" transform="translate(198 206) rotate(-34)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="translate(-4 0) rotate(-18 225 253)"/>
+      <use href="#bokken" transform="translate(242 198) rotate(-18)"/>
+      <use href="#arm-near" transform="translate(178 212) rotate(-32)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(-10 -6) rotate(-18 195 94)"/>
+    <use href="#head-fierce" transform="translate(-2 -3) rotate(7 196 160)"/>
+  </g>
+  <!-- Frame 4: Swing Smear 2 (fast downward slash blur cutting into the strike zone) -->
+  <g class="f f4">
+    <ellipse cx="198" cy="318" rx="70" ry="10.5" fill="#D8C9B0" opacity="0.78"/>
+    <use href="#foot-3q" transform="translate(138 306) rotate(22)"/>
+    <use href="#foot-3q" transform="translate(226 308)"/>
+    <path d="M268,128 C332,162 364,224 348,286 L252,250 C276,216 282,172 256,144 Z" fill="#CFA063" opacity="0.84"/>
+    <path d="M288,140 C342,174 366,230 350,287 L304,269 C322,226 314,180 278,152 Z" fill="#FAF6EE" opacity="0.86"/>
+    <path d="M312,158 C350,192 366,238 351,288 L336,282 C348,238 338,196 304,166 Z" fill="#1C1917" opacity="0.72"/>
+    <rect x="336" y="172" width="4" height="4" transform="rotate(28 336 172)" fill="#F0C651"/>
+    <rect x="352" y="214" width="3.5" height="3.5" transform="rotate(-15 352 214)" fill="#E2B23B"/>
+    <g transform="translate(4 6) translate(196 265) rotate(14) scale(1.04 0.96) translate(-196 -265)">
+      <use href="#arm-far" transform="translate(198 208) rotate(-4)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="translate(-3 1) rotate(-14 225 253)"/>
+      <use href="#bokken" transform="translate(242 224) rotate(14)"/>
+      <use href="#arm-near" transform="translate(177 212) rotate(-13)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(4 2) rotate(-12 195 94)"/>
+    <use href="#head-fierce" transform="translate(8 5) rotate(11 196 160)"/>
+  </g>
+  <!-- Frame 5: Impact! (heavy low squash, extended bokken, crisp hariko spark burst) -->
+  <g class="f f5">
+    <ellipse cx="202" cy="319" rx="74" ry="11.5" fill="#D8C9B0" opacity="0.85"/>
+    <use href="#foot-3q" transform="translate(140 307) rotate(24)"/>
+    <use href="#foot-3q" transform="translate(230 309)"/>
+    <g transform="translate(8 11) translate(196 270) rotate(15) scale(1.06 0.93) translate(-196 -270)">
+      <use href="#arm-far" transform="translate(197 211)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="translate(3 -1) rotate(16 225 253)"/>
+      <use href="#bokken" transform="translate(240 230) rotate(12)"/>
+      <use href="#arm-near" transform="translate(175 214) rotate(-8)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(18 10) rotate(14 195 94)"/>
+    <use href="#head-fierce" transform="translate(13 11) rotate(13 196 160)"/>
+    <path d="M352,292 L378,276 L360,296 Z M354,297 L384,300 L358,303 Z M348,300 L364,322 L343,304 Z M342,288 L354,264 L348,290 Z" fill="#D44434"/>
+    <path d="M354,294 L374,287 L357,298 Z M350,300 L371,313 L347,303 Z" fill="#F5D867"/>
+    <path d="M352,290 L366,270 L356,292 Z" fill="#1C1917"/>
+  </g>
+  <!-- Frame 6: Follow-through (blade dips lower in overshoot; hair, sleeves & knot whip forward) -->
+  <g class="f f6">
+    <ellipse cx="200" cy="319" rx="71" ry="11" fill="#D8C9B0" opacity="0.8"/>
+    <use href="#foot-3q" transform="translate(141 307) rotate(18)"/>
+    <use href="#foot-3q" transform="translate(227 309)"/>
+    <g transform="translate(6 9) translate(196 268) rotate(12) scale(1.03 0.97) translate(-196 -268)">
+      <use href="#arm-far" transform="translate(197 213) rotate(6)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="translate(5 -2) rotate(24 225 253)"/>
+      <use href="#bokken" transform="translate(238 236) rotate(20)"/>
+      <use href="#arm-near" transform="translate(175 215) rotate(-5)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(17 9) rotate(20 195 94)"/>
+    <use href="#head-fierce" transform="translate(10 9) rotate(10 196 160)"/>
+    <circle cx="364" cy="306" r="3" fill="#E2B23B" opacity="0.65"/>
+    <circle cx="373" cy="294" r="2" fill="#D44434" opacity="0.55"/>
+  </g>
+  <!-- Frame 7: Recovery 1 (drawing weight back, lifting bokken toward center) -->
+  <g class="f f7">
+    <ellipse cx="188" cy="318" rx="63" ry="10" fill="#D8C9B0" opacity="0.74"/>
+    <use href="#foot-3q" transform="translate(145 307) rotate(8)"/>
+    <use href="#foot-3q" transform="translate(212 308)"/>
+    <g transform="translate(-5 3) rotate(5 196 265)">
+      <use href="#arm-far" transform="translate(191 210) rotate(-3)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="rotate(-6 225 253)"/>
+      <use href="#bokken" transform="translate(234 226) rotate(-8)"/>
+      <use href="#arm-near" transform="translate(171 213) rotate(-5)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(-6 2) rotate(-5 195 94)"/>
+    <use href="#head-calm" transform="translate(-4 3) rotate(4 196 160)"/>
+  </g>
+  <!-- Frame 8: Recovery 2 / Settled 3/4 Chudan Guard (ready to coil back into f1) -->
+  <g class="f f8">
+    <ellipse cx="180" cy="317" rx="58" ry="9.5" fill="#D8C9B0" opacity="0.7"/>
+    <use href="#foot-3q" transform="translate(147 306)"/>
+    <use href="#foot-3q" transform="translate(202 308)"/>
+    <g transform="translate(-14 0)">
+      <use href="#arm-far" transform="translate(185 208) rotate(-10)"/>
+      <use href="#torso-3q"/>
+      <use href="#knot-3q" transform="rotate(2 225 253)"/>
+      <use href="#bokken" transform="translate(230 218) rotate(-26)"/>
+      <use href="#arm-near" transform="translate(169 212) rotate(-6)"/>
+    </g>
+    <use href="#topknot-3q" transform="translate(-14 0) rotate(2 195 94)"/>
+    <use href="#head-calm" transform="translate(-14 0)"/>
+  </g>
+
+  <!-- Subtle washi paper grain overlay & small caption -->
+  <rect width="400" height="400" fill="url(#washi)" pointer-events="none"/>
+  <text x="200" y="376" text-anchor="middle" font-family="serif" font-size="13" fill="#6E6256" letter-spacing="0.5">strike</text>
+</svg>

@@ -1,0 +1,3 @@
+# Edo Hariko Folk Toy (張り子)
+
+Molded papier-mâché volumes coated in matte gofun white, sumi brush strokes, vermilion, indigo, and gold leaf move at 12 fps with a tactile, weighted bounce—combining solid toy-like squash-and-stretch in the core with delayed overlap in the kimono sleeves, topknot, and yellow sash knot. Each standalone SVG reuses painted parts from `<defs>` and swaps hand-drawn poses—including two-frame blinks, lifted straw-sandal soles, and dry-brush pigment smears on fast swings—through stepped CSS `opacity` keyframes that fall back cleanly to frame 1 under `prefers-reduced-motion`.

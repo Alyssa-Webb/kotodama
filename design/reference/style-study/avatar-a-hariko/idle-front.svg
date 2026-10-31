@@ -1,0 +1,285 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <style>
+    .f { opacity: 0; animation: show 0.5s steps(1, end) infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: -0.4167s; }
+    .f3 { animation-delay: -0.3333s; }
+    .f4 { animation-delay: -0.25s; }
+    .f5 { animation-delay: -0.1667s; }
+    .f6 { animation-delay: -0.0833s; }
+    @keyframes show {
+      0% { opacity: 1; }
+      16.6667% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .f { animation: none; opacity: 0; }
+      .f1 { opacity: 1; }
+    }
+  </style>
+
+  <defs>
+    <!-- Subtle hand-made washi paper fiber & gofun chalk grain -->
+    <pattern id="washi" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M4,9 Q11,7 17,10 C12,10 8,9 4,9 Z M29,5 Q36,8 41,6 C37,8 33,7 29,5 Z M12,28 Q19,25 25,29 C20,28 15,28 12,28 Z M34,36 Q41,34 45,38 C40,37 37,36 34,36 Z M6,42 Q12,44 16,41 C13,43 9,43 6,42 Z" fill="#DFD3BE" opacity="0.55"/>
+      <path d="M21,15 Q26,13 31,16 C27,15 23,15 21,15 Z M8,20 Q13,22 17,19 C14,21 10,21 8,20 Z M38,22 Q43,20 46,23 C42,22 40,22 38,22 Z" fill="#FCF9F2" opacity="0.65"/>
+      <circle cx="15" cy="12" r="0.8" fill="#D5C6AE" opacity="0.45"/>
+      <circle cx="39" cy="14" r="0.7" fill="#FCF9F2" opacity="0.6"/>
+      <circle cx="27" cy="39" r="0.9" fill="#D5C6AE" opacity="0.4"/>
+      <circle cx="9" cy="34" r="0.7" fill="#FCF9F2" opacity="0.55"/>
+    </pattern>
+
+    <!-- Painted plum blossom (ume) folk motif -->
+    <g id="ume">
+      <circle cx="0" cy="-4.2" r="2.2" fill="#FAF6EE"/>
+      <circle cx="4" cy="-1.3" r="2.2" fill="#FAF6EE"/>
+      <circle cx="2.5" cy="3.4" r="2.2" fill="#FAF6EE"/>
+      <circle cx="-2.5" cy="3.4" r="2.2" fill="#FAF6EE"/>
+      <circle cx="-4" cy="-1.3" r="2.2" fill="#FAF6EE"/>
+      <circle cx="0" cy="0" r="1.8" fill="#E2B23B"/>
+    </g>
+    <g id="ume-shu">
+      <circle cx="0" cy="-3.6" r="1.9" fill="#D44434"/>
+      <circle cx="3.4" cy="-1.1" r="1.9" fill="#D44434"/>
+      <circle cx="2.1" cy="2.9" r="1.9" fill="#D44434"/>
+      <circle cx="-2.1" cy="2.9" r="1.9" fill="#D44434"/>
+      <circle cx="-3.4" cy="-1.1" r="1.9" fill="#D44434"/>
+      <circle cx="0" cy="0" r="1.5" fill="#F5D867"/>
+    </g>
+
+    <!-- Grounded feet & straw sandals (waraji/zori with vermilion hanao) -->
+    <g id="feet-base">
+      <ellipse cx="200" cy="316" rx="58" ry="10" fill="#DED1BC" opacity="0.7"/>
+      <!-- Left foot (viewer's left) -->
+      <path d="M161,311 C160,306 168,304 178,304 C189,304 196,306 195,312 C195,317 188,319 178,319 C167,319 161,316 161,311 Z" fill="#7A5528"/>
+      <path d="M163,309 C163,305 170,303 178,303 C187,303 193,305 193,309 C193,313 187,315 178,315 C169,315 163,313 163,309 Z" fill="#CCA364"/>
+      <path d="M168,298 L168,307 C168,311 188,311 188,307 L188,298 Z" fill="#F7F0E4"/>
+      <path d="M168,305 C172,308 184,308 188,305 L188,308 C184,311 172,311 168,308 Z" fill="#E6D7C3"/>
+      <path d="M178,304 C174,305 169,308 166,311 C168,312 170,312 172,310 C175,308 177,307 178,307 C179,307 181,308 184,310 C186,312 188,312 190,311 C187,308 182,305 178,304 Z" fill="#D44434"/>
+      <!-- Right foot (viewer's right) -->
+      <path d="M205,311 C204,306 211,304 222,304 C232,304 240,306 239,312 C239,317 232,319 222,319 C211,319 205,316 205,311 Z" fill="#7A5528"/>
+      <path d="M207,309 C207,305 213,303 222,303 C230,303 237,305 237,309 C237,313 231,315 222,315 C213,315 207,313 207,309 Z" fill="#CCA364"/>
+      <path d="M212,298 L212,307 C212,311 232,311 232,307 L232,298 Z" fill="#F7F0E4"/>
+      <path d="M212,305 C216,308 228,308 232,305 L232,308 C228,311 216,311 212,308 Z" fill="#E6D7C3"/>
+      <path d="M222,304 C218,305 213,308 210,311 C212,312 214,312 216,310 C219,308 221,307 222,307 C223,307 225,308 228,310 C230,312 232,312 234,311 C231,308 226,305 222,304 Z" fill="#D44434"/>
+    </g>
+
+    <!-- Hariko torso: light-blue kimono, crossed gofun collar, folk patterns, yellow obi -->
+    <g id="torso">
+      <!-- Neck -->
+      <path d="M187,198 L213,198 L215,212 L185,212 Z" fill="#E6D7C3"/>
+      <!-- Golden-ochre under-hem -->
+      <path d="M156,291 C156,297 162,302 200,302 C238,302 244,297 244,291 L242,286 L158,286 Z" fill="#CC9D38"/>
+      <path d="M158,296 C170,301 230,301 242,296 C236,301 222,303 200,303 C178,303 164,301 158,296 Z" fill="#A87D24"/>
+      <!-- Main kimono body (irregular molded silhouette) -->
+      <path d="M174,205 C161,209 152,222 151,246 L153,291 C166,296 234,296 247,291 L249,246 C248,222 239,209 226,205 Z" fill="#79A8D6"/>
+      <!-- Upper chalky highlight & lower indigo shade -->
+      <path d="M175,207 C165,211 158,220 156,235 C166,227 177,223 188,222 Z" fill="#96BEE4" opacity="0.65"/>
+      <path d="M152,276 C168,281 232,281 248,276 L247,291 C234,296 166,296 153,291 Z" fill="#5B89B8"/>
+      <path d="M154,289 C172,294 228,294 246,289 C232,293 168,293 154,289 Z" fill="#2E4D75"/>
+      <!-- White collar continuation below obi (matches kimono-front reference) -->
+      <path d="M183,265 L192,265 L194,294 L184,293 Z" fill="#FAF6EE"/>
+      <!-- Crossed white gofun collar (right-over-left y-shape) -->
+      <path d="M178,204 L189,203 L205,233 L196,239 Z" fill="#E5DDD0"/>
+      <path d="M180,204 L189,203 L203,231 L196,236 Z" fill="#FAF6EE"/>
+      <path d="M221,204 L211,203 L183,246 L195,247 Z" fill="#FAF6EE"/>
+      <path d="M222,205 L219,204 L192,246 L196,246 Z" fill="#DFD6C7"/>
+      <!-- Sumi brush lapel crease -->
+      <path d="M224,207 C215,221 205,234 196,246 C203,235 213,221 221,206 Z" fill="#2E4D75" opacity="0.7"/>
+      <!-- Folk patterns on kimono -->
+      <use href="#ume" x="225" y="280"/>
+      <use href="#ume-shu" x="169" y="279"/>
+      <circle cx="171" cy="227" r="2" fill="#FAF6EE"/>
+      <circle cx="166" cy="231" r="1.6" fill="#FAF6EE"/>
+      <circle cx="174" cy="233" r="1.5" fill="#E2B23B"/>
+      <rect x="212" y="272" width="3" height="3" transform="rotate(18 212 272)" fill="#E2B23B"/>
+      <rect x="233" y="226" width="2.8" height="2.8" transform="rotate(-14 233 226)" fill="#E2B23B"/>
+      <!-- Gofun white lower obi band (obi-shita) -->
+      <path d="M149,255 C166,258 234,258 251,255 L252,266 C234,270 166,270 148,266 Z" fill="#FAF6EE"/>
+      <path d="M148,263 C166,267 234,267 252,263 L252,266 C234,270 166,270 148,266 Z" fill="#DFD6C7"/>
+      <!-- Yellow sash (obi) -->
+      <path d="M150,244 C168,247 232,247 250,244 C252,248 252,253 250,257 C232,260 168,260 150,257 C148,253 148,248 150,244 Z" fill="#E8BE2E"/>
+      <path d="M152,246 C172,248 215,248 238,246 C215,249 172,249 152,246 Z" fill="#F5D867"/>
+      <path d="M150,254 C168,257 232,257 250,254 L250,257 C232,260 168,260 150,257 Z" fill="#C5961B"/>
+    </g>
+
+    <!-- Left & right kimono sleeves + round gofun hands -->
+    <g id="sleeve-l">
+      <path d="M171,208 C153,213 131,225 119,237 C116,242 121,254 130,266 C136,272 145,269 152,258 L156,236 Z" fill="#79A8D6"/>
+      <path d="M122,244 C126,254 132,266 139,268 C145,269 150,263 153,255 C144,261 134,258 122,244 Z" fill="#5B89B8"/>
+      <path d="M120,238 C122,246 127,256 133,265 C130,265 126,257 120,242 Z" fill="#D44434"/>
+      <use href="#ume" transform="translate(141 238) scale(0.85)"/>
+      <path d="M119,239 C110,241 105,249 108,257 C111,264 121,265 127,258 C131,252 127,241 119,239 Z" fill="#F7F0E4"/>
+      <path d="M108,254 C112,261 121,262 126,256 C123,263 112,264 108,254 Z" fill="#E6D7C3"/>
+    </g>
+    <g id="sleeve-r">
+      <path d="M229,208 C247,213 269,225 281,237 C284,242 279,254 270,266 C264,272 255,269 248,258 L244,236 Z" fill="#79A8D6"/>
+      <path d="M278,244 C274,254 268,266 261,268 C255,269 250,263 247,255 C256,261 266,258 278,244 Z" fill="#5B89B8"/>
+      <path d="M280,238 C278,246 273,256 267,265 C270,265 274,257 280,242 Z" fill="#D44434"/>
+      <use href="#ume-shu" x="259" y="240"/>
+      <path d="M281,239 C290,241 295,249 292,257 C289,264 279,265 273,258 C269,252 273,241 281,239 Z" fill="#F7F0E4"/>
+      <path d="M292,254 C288,261 279,262 274,256 C277,263 288,264 292,254 Z" fill="#E6D7C3"/>
+    </g>
+
+    <!-- Small yellow obi knot (musubi) -->
+    <g id="obi-knot">
+      <path d="M214,257 C210,263 208,269 213,271 C217,272 220,266 220,259 Z" fill="#C5961B"/>
+      <path d="M215,256 C212,262 210,267 214,269 C217,270 219,264 219,258 Z" fill="#E8BE2E"/>
+      <path d="M222,257 C223,264 225,271 230,270 C234,269 232,262 227,256 Z" fill="#E8BE2E"/>
+      <path d="M213,251 C213,248 227,248 228,252 C228,256 213,257 213,251 Z" fill="#F5D867"/>
+      <circle cx="220.5" cy="253" r="2.2" fill="#E2B23B"/>
+    </g>
+
+    <!-- Topknot tied with gold-leaf & vermilion cord -->
+    <g id="topknot">
+      <path d="M185,95 C179,85 185,74 195,77 C199,70 212,71 214,80 C222,78 226,86 216,94 Z" fill="#221F20"/>
+      <path d="M191,81 C196,76 205,76 210,80 C204,79 196,79 191,81 Z" fill="#3A3538"/>
+      <path d="M191,92 C196,90 206,90 212,92 C212,95 191,95 191,92 Z" fill="#E2B23B"/>
+      <circle cx="201" cy="93" r="2.1" fill="#D44434"/>
+    </g>
+
+    <!-- Hariko head base (bob hair, gofun face, blush, smile — eyes swapped per blink state) -->
+    <g id="head-base">
+      <!-- Back bob silhouette -->
+      <path d="M132,152 C130,180 137,201 154,206 L246,206 C263,201 270,180 268,152 Z" fill="#151314"/>
+      <!-- Ears -->
+      <path d="M134,155 C121,153 116,165 120,176 C123,184 132,186 137,182 Z" fill="#F7F0E4"/>
+      <path d="M133,162 C125,162 123,171 127,177 C130,180 134,179 135,176 Z" fill="#E4D2BA"/>
+      <path d="M266,155 C279,153 284,165 280,176 C277,184 268,186 263,182 Z" fill="#F7F0E4"/>
+      <path d="M267,162 C275,162 277,171 273,177 C270,180 266,179 265,176 Z" fill="#E4D2BA"/>
+      <!-- Molded papier-mache gofun face -->
+      <path d="M141,122 C137,148 139,181 153,194 C166,205 234,205 247,194 C261,181 263,148 259,122 Z" fill="#F7F0E4"/>
+      <!-- Chalky forehead sheen & warm chin shade -->
+      <ellipse cx="196" cy="146" rx="36" ry="12" fill="#FCF9F2" opacity="0.75"/>
+      <path d="M143,176 C151,196 174,202 200,202 C226,202 249,196 257,176 C249,190 227,195 200,195 C173,195 151,190 143,176 Z" fill="#E6D7C3"/>
+      <!-- Pink mineral blush -->
+      <ellipse cx="156" cy="181" rx="13" ry="8.5" fill="#E58478" opacity="0.55"/>
+      <ellipse cx="244" cy="181" rx="13" ry="8.5" fill="#E58478" opacity="0.55"/>
+      <!-- Hand-brushed sumi eyebrows -->
+      <path d="M158,148 C164,143 174,143 180,147 C174,147 165,147 158,148 Z" fill="#1C1917"/>
+      <path d="M242,148 C236,143 226,143 220,147 C226,147 235,147 242,148 Z" fill="#1C1917"/>
+      <!-- Gentle tapered sumi smile -->
+      <path d="M191,183 C195,188 205,188 209,183 C206,191 194,191 191,183 Z" fill="#1C1917"/>
+      <!-- Black bob dome, 3-part short fringe & side locks + signature left tuft -->
+      <path d="M132,143 C123,141 119,146 124,151 C128,153 132,151 134,149 C133,169 136,192 145,205 C150,208 156,205 155,196 C153,181 152,162 153,146 C161,146 170,144 176,136 C179,144 190,146 200,146 C210,146 220,144 224,136 C230,144 239,146 247,146 C248,162 247,181 245,196 C244,205 250,208 255,205 C264,192 267,169 266,147 C269,115 243,92 200,92 C157,92 133,115 132,143 Z" fill="#221F20"/>
+      <!-- Dry-brush sumi crown highlight & subtle hair splits -->
+      <path d="M154,116 C171,103 219,102 241,115 C220,108 175,108 154,116 Z" fill="#3A3538"/>
+      <path d="M176,120 C176,127 176,132 176,137 C178,131 178,125 176,120 Z M224,120 C222,125 222,131 224,137 C224,132 224,127 224,120 Z" fill="#151314"/>
+      <rect x="234" y="114" width="2.8" height="2.8" transform="rotate(22 234 114)" fill="#E2B23B" opacity="0.85"/>
+    </g>
+
+    <!-- Eye states: open, half-blink, closed -->
+    <g id="eyes-open">
+      <path d="M159,167 C159,159 165,154 172,155 C179,155 184,161 183,169 C183,176 177,180 170,180 C163,180 159,174 159,167 Z" fill="#1C1917"/>
+      <path d="M160,161 C156,159 154,157 153,155 C156,155 160,157 163,159 Z" fill="#1C1917"/>
+      <circle cx="167.5" cy="163" r="3.4" fill="#FCF9F2"/>
+      <circle cx="175" cy="173" r="1.6" fill="#4C739E"/>
+      <path d="M217,169 C216,161 221,155 228,155 C235,154 241,159 241,167 C241,174 237,180 230,180 C223,180 217,176 217,169 Z" fill="#1C1917"/>
+      <path d="M240,161 C244,159 246,157 247,155 C244,155 240,157 237,159 Z" fill="#1C1917"/>
+      <circle cx="225.5" cy="163" r="3.4" fill="#FCF9F2"/>
+      <circle cx="233" cy="173" r="1.6" fill="#4C739E"/>
+    </g>
+    <g id="eyes-half">
+      <path d="M160,169 C161,164 181,164 182,169 C182,176 177,180 171,180 C164,180 160,176 160,169 Z" fill="#1C1917"/>
+      <path d="M155,166 C163,162 176,162 184,167 C176,166 164,166 155,166 Z" fill="#1C1917"/>
+      <circle cx="168" cy="170" r="2.2" fill="#FCF9F2"/>
+      <path d="M218,169 C219,164 239,164 240,169 C240,176 236,180 229,180 C223,180 218,176 218,169 Z" fill="#1C1917"/>
+      <path d="M245,166 C237,162 224,162 216,167 C224,166 236,166 245,166 Z" fill="#1C1917"/>
+      <circle cx="226" cy="170" r="2.2" fill="#FCF9F2"/>
+    </g>
+    <g id="eyes-closed">
+      <path d="M156,169 C163,175 176,175 183,169 C176,172 164,172 156,169 Z" fill="#1C1917"/>
+      <path d="M156,169 C154,168 152,166 152,165 C154,166 157,167 159,169 Z" fill="#1C1917"/>
+      <path d="M217,169 C224,175 237,175 244,169 C236,172 224,172 217,169 Z" fill="#1C1917"/>
+      <path d="M244,169 C246,168 248,166 248,165 C246,166 243,167 241,169 Z" fill="#1C1917"/>
+    </g>
+  </defs>
+
+  <!-- Plain warm washi background with hand-molded paper card mat -->
+  <rect width="400" height="400" fill="#EBE1CF"/>
+  <path d="M16,18 C16,15 19,14 23,14 L377,15 C382,15 385,17 385,22 L384,378 C384,382 381,385 376,385 L23,384 C18,384 15,381 15,376 Z" fill="#F5EEE2"/>
+
+  <!-- Frame 1: Calm rest, eyes open -->
+  <g class="f f1">
+    <use href="#feet-base"/>
+    <use href="#sleeve-l"/>
+    <use href="#sleeve-r"/>
+    <use href="#torso"/>
+    <use href="#obi-knot"/>
+    <use href="#topknot"/>
+    <use href="#head-base"/>
+    <use href="#eyes-open"/>
+  </g>
+
+  <!-- Frame 2: Inhale begins (body rises, sleeves & tassels lag slightly down) -->
+  <g class="f f2">
+    <use href="#feet-base"/>
+    <use href="#sleeve-l" transform="translate(-0.5 -0.4) rotate(-0.8 170 212)"/>
+    <use href="#sleeve-r" transform="translate(0.5 -0.4) rotate(0.8 230 212)"/>
+    <use href="#torso" transform="translate(0 -1.8)"/>
+    <use href="#obi-knot" transform="translate(0 -1.1) rotate(1.5 220 252)"/>
+    <use href="#topknot" transform="translate(0 -2.0) rotate(-1.5 200 94)"/>
+    <g transform="translate(0 -2.2)">
+      <use href="#head-base"/>
+      <use href="#eyes-open"/>
+    </g>
+  </g>
+
+  <!-- Frame 3: Breath peak, sleeves lifting, blink starts (half-closed) -->
+  <g class="f f3">
+    <use href="#feet-base"/>
+    <use href="#sleeve-l" transform="translate(-1.6 -2.4) rotate(1.6 170 212)"/>
+    <use href="#sleeve-r" transform="translate(1.6 -2.4) rotate(-1.6 230 212)"/>
+    <use href="#torso" transform="translate(0 -3.2)"/>
+    <use href="#obi-knot" transform="translate(0 -2.6) rotate(-1.2 220 252)"/>
+    <use href="#topknot" transform="translate(0 -3.6) rotate(-2.2 200 94)"/>
+    <g transform="translate(0 -3.8)">
+      <use href="#head-base"/>
+      <use href="#eyes-half"/>
+    </g>
+  </g>
+
+  <!-- Frame 4: Exhale begins, sleeves & topknot float a beat higher, eyes closed -->
+  <g class="f f4">
+    <use href="#feet-base"/>
+    <use href="#sleeve-l" transform="translate(-2.0 -3.1) rotate(2.4 170 212)"/>
+    <use href="#sleeve-r" transform="translate(2.0 -3.1) rotate(-2.4 230 212)"/>
+    <use href="#torso" transform="translate(0 -1.8)"/>
+    <use href="#obi-knot" transform="translate(0 -2.5) rotate(-2.2 220 252)"/>
+    <use href="#topknot" transform="translate(0 -2.6) rotate(1.6 200 94)"/>
+    <g transform="translate(0 -2.0)">
+      <use href="#head-base"/>
+      <use href="#eyes-closed"/>
+    </g>
+  </g>
+
+  <!-- Frame 5: Body settles near base, sleeves still mid-drop, eyes open again -->
+  <g class="f f5">
+    <use href="#feet-base"/>
+    <use href="#sleeve-l" transform="translate(-1.0 -1.7) rotate(1.3 170 212)"/>
+    <use href="#sleeve-r" transform="translate(1.0 -1.7) rotate(-1.3 230 212)"/>
+    <use href="#torso" transform="translate(0 -0.4)"/>
+    <use href="#obi-knot" transform="translate(0 -1.3) rotate(-1.0 220 252)"/>
+    <use href="#topknot" transform="translate(0 -0.8) rotate(1.2 200 94)"/>
+    <g transform="translate(0 -0.5)">
+      <use href="#head-base"/>
+      <use href="#eyes-open"/>
+    </g>
+  </g>
+
+  <!-- Frame 6: Body at rest, sleeves & obi knot finish soft settle -->
+  <g class="f f6">
+    <use href="#feet-base"/>
+    <use href="#sleeve-l" transform="translate(0.3 0.4) rotate(-0.9 170 212)"/>
+    <use href="#sleeve-r" transform="translate(-0.3 0.4) rotate(0.9 230 212)"/>
+    <use href="#torso"/>
+    <use href="#obi-knot" transform="translate(0 0.4) rotate(1.2 220 252)"/>
+    <use href="#topknot" transform="translate(0 0.2) rotate(-0.5 200 94)"/>
+    <use href="#head-base"/>
+    <use href="#eyes-open"/>
+  </g>
+
+  <!-- Subtle washi paper grain overlay & small caption -->
+  <rect width="400" height="400" fill="url(#washi)" pointer-events="none"/>
+  <text x="200" y="376" text-anchor="middle" font-family="serif" font-size="13" fill="#6E6256" letter-spacing="0.5">idle-front</text>
+</svg>
