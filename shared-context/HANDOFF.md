@@ -1,17 +1,17 @@
-# Handoff: open tasks for the next AI (2026-10-30)
+# Handoff: open tasks for the next AI (updated 2026-11-01)
 
 Read `README.md` in this folder first (vision, the owner's preferences, the AI split, how to run the Gemini skill). This file is the **task queue** the owner set at the end of the last session, plus the state of the work in flight and the traps we hit. The owner is Ken (GitHub KenLinz). He tests on an iPhone (Safari and Chrome, both WebKit) through the live site, and wants a push to `main` (which deploys https://alyssa-webb.github.io/kotodama/) after every working milestone.
 
 **Model rule (owner, non-negotiable):** every design (characters, yokai, scenes, UI art) is made by **Gemini 4 Argon** (`gemini-4-argon-high`) through the `gemini-art` skill. Claude does code, logic, tests and wiring. GPT-5.6 Sol only does action-animation timing.
 
-## Owner bug list (2026-10-31, from testing the live site) — do these first
+## Owner bug list (2026-10-31, from testing the live site): all 11 done and live
 
 Reported by the owner after the hariko Town landed. In his words, then where to look. Verify each on a phone-sized WebKit render, push each fix, and send him the live link.
 
-1. **"I thought there were major art direction changes."** Only Home (noren/ema) and the Town buildings (hariko) have been restyled so far; ADR 0009 is being applied area by area. Next art: the Path and battles in ukiyo-e, the Dojo in sumi-e. Show visible progress fast.
+1. **Partly done (battle backdrops: Dojo sumi-e, Market and Bamboo road ukiyo-e). Next: the Path screen in ukiyo-e, the Shop in hariko.** "I thought there were major art direction changes." Only Home (noren/ema) and the Town buildings (hariko) have been restyled so far; ADR 0009 is being applied area by area. Next art: the Path and battles in ukiyo-e, the Dojo in sumi-e. Show visible progress fast.
 2. **Done (mossy ground mounds).** "The shrine and lamp and lantern in the bamboo thicket are floating."** Path, Bamboo Thicket scenery (`RegionScene` in `src/features/path/PathScreen.tsx`): props not sitting on the ground.
 3. **Done (no road strip indoors; road maps like the backdrop).** "The moving wood path in the dojo isn't aligned with the background, it's off."** Battle walk in the Dojo (`BattleStage.tsx`, `battle.css`, `DojoHallBackdrop` in `BattleBackdrops.tsx`): the scrolling floor doesn't line up with the hall's floor.
-4. **Open: asked the owner for a screenshot.** In a render every mood sits on the face; focus/worried brows tuck under the bangs and cheer sparkles overlap the hair. "Expressions of avatar not aligned with face."** `src/features/avatar/Avatar.tsx` (mood faces from the base part's `face` data in `world/avatar.json`): the mood features sit off the face.
+4. **Done (base-traveler face elements moved down 3 to match eyeY 42 / mouthY 51).** In a render every mood sits on the face; focus/worried brows tuck under the bangs and cheer sparkles overlap the hair. "Expressions of avatar not aligned with face."** `src/features/avatar/Avatar.tsx` (mood faces from the base part's `face` data in `world/avatar.json`): the mood features sit off the face.
 5. **Done (time greeting + tap to cycle, his VOICEVOX clips, tested).** "Koto doesn't use VoiceVox voice on homepage and doesn't have cyclable text."** Home greeting (`SpeakableJa` in `HomeScreen.tsx`): play the ずんだもん clip from `public/voice/`, and let a tap cycle through several of Koto's lines (`world/koto.json`).
 6. **Done (seal centred in its panel).** "Next lesson 'continue' button on homepage is not centered."** The hanko seal in `src/features/home/parts/NorenContinue.tsx` / `noren.css`.
 7. **Done (opaque tab colour).** "Navbar icons display dice, the opacity looks bad on intersections for the icons."** Tab bar icons (`src/app/Shell.tsx`, icons in `src/foundations/art/icons.tsx`): overlapping semi-transparent strokes show darker where they cross. Draw them opaque (or as single paths) instead of stacked translucent shapes.
@@ -22,7 +22,11 @@ Reported by the owner after the hariko Town landed. In his words, then where to 
 
 **Musashi:** both poses fixed (forward bow, empty scabbards).
 
-**EdgeXpert overnight 3D:** `tools/server3d/` (`deploy.sh`, then `fetch.sh` in the morning) runs Hunyuan3D 2 on the owner's dad's server over NetBird. It was not started: the server peer (edgexpert-26d0, 100.114.218.255) was offline on 2026-10-31.
+**EdgeXpert 3D test (owner asked: "test this tool, see how to best use it, and determine its viability"):** `tools/server3d/` runs Hunyuan3D 2 (shape only) on the owner's dad's server (edgexpert-26d0, NetBird 100.114.218.255, `ssh admin1@…`, key auth) in the `nvcr.io/nvidia/pytorch:25.09-py3` container, working dir `~/kotodama3d`. Only use that folder; vLLM/Qwen on the box is his dad's, never stop it, and stopping server processes needs the owner's OK.
+
+- **Result of `iterate.sh` (finished 2026-11-01 01:48 UTC, 72 tries, ~75 s each, no errors):** best front-silhouette match to the art (IoU, 1.0 = perfect) avatar 0.95, Koto 0.90, Musashi 0.90, all found in round 0. Five rounds of mutating steps/cfg/octree never beat them, and octree 448 was consistently worse (~0.6). The 8-frame hariko strike gave one model per frame, IoU 0.70 to 0.88 (likely jittery as stop-motion).
+- **Early verdict:** good for fast, free 3D reference shapes from Argon's drawings ("make ~10 seeds, keep the best", not "polish 1000 times"). Not finished game art: untextured (the texture step failed to build `custom_rasterizer` on ARM) and no rigging.
+- **Still to do (stopped at the owner's 70% usage cap):** scp `~/kotodama3d/out/iter/*.glb`, `out/anim/*.glb`, `out/scores.csv`, `iterate-log.txt` into `design/reference/server3d/` (`.glb` is git-ignored), render them with the render-fit script (Playwright + three.js, 10 views), chart best IoU per round from `scores.csv`, make a turntable of `avatar-best-r0.glb` and a stop-motion of the strike frames, then give the owner the verdict with links.
 
 ## Task queue (owner's words, then what we know)
 
