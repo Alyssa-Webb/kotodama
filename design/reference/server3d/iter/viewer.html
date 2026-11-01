@@ -1,119 +1,261 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Server 3D test results</title>
-<style>
-  :root { --bg:#1d1a22; --ink:#f3ead8; --muted:#b7ab96; --gold:#e3b862; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 system-ui, sans-serif; }
-  main { max-width:720px; margin:0 auto; padding:16px; }
-  h1 { font-size:20px; margin:0 0 4px; } p { color:var(--muted); margin:4px 0 12px; }
-  .tabs { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; }
-  .tabs button { background:#2c2733; color:var(--ink); border:0; border-radius:999px; padding:8px 14px; font:inherit; }
-  .tabs button[aria-pressed=true] { background:var(--gold); color:#1d1a22; font-weight:700; }
-  #view { width:100%; aspect-ratio:1/1; border-radius:16px; background:radial-gradient(#3a3343,#17141b); touch-action:none; }
-  table { width:100%; border-collapse:collapse; margin-top:8px; font-size:14px; }
-  td, th { padding:4px 6px; text-align:left; } th { color:var(--muted); font-weight:600; }
-  .bar { height:8px; background:var(--gold); border-radius:4px; }
-  #status { color:var(--muted); font-size:13px; min-height:1.4em; }
-</style>
-</head>
-<body>
-<main>
-  <h1>Server 3D test: Hunyuan3D on the EdgeXpert</h1>
-  <p>Shapes made overnight from Argon's drawings, untextured (white clay). Drag to turn, pinch to zoom. "Strike" plays the 8 hariko attack frames as stop-motion.</p>
-  <div class="tabs" id="tabs"></div>
-  <div id="view"></div>
-  <div id="status"></div>
-  <h2 style="font-size:16px;margin:16px 0 0">Best silhouette match per round (IoU, 1.0 = perfect)</h2>
-  <table id="scores"><tr><th>Round</th><th>Avatar</th><th>Koto</th><th>Musashi</th></tr></table>
-</main>
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-} }
-</script>
-<script type="module">
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Server 3D test results</title>
+    <style>
+      :root {
+        --bg: #1d1a22;
+        --ink: #f3ead8;
+        --muted: #b7ab96;
+        --gold: #e3b862;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          15px/1.45 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      p {
+        color: var(--muted);
+        margin: 4px 0 12px;
+      }
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 10px 0;
+      }
+      .tabs button {
+        background: #2c2733;
+        color: var(--ink);
+        border: 0;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font: inherit;
+      }
+      .tabs button[aria-pressed='true'] {
+        background: var(--gold);
+        color: #1d1a22;
+        font-weight: 700;
+      }
+      #view {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 16px;
+        background: radial-gradient(#3a3343, #17141b);
+        touch-action: none;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+      td,
+      th {
+        padding: 4px 6px;
+        text-align: left;
+      }
+      th {
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .bar {
+        height: 8px;
+        background: var(--gold);
+        border-radius: 4px;
+      }
+      #status {
+        color: var(--muted);
+        font-size: 13px;
+        min-height: 1.4em;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Server 3D test: Hunyuan3D on the EdgeXpert</h1>
+      <p>
+        Shapes made overnight from Argon's drawings, untextured (white clay). Drag to turn, pinch to
+        zoom. "Strike" plays the 8 hariko attack frames as stop-motion.
+      </p>
+      <div class="tabs" id="tabs"></div>
+      <div id="view"></div>
+      <div id="status"></div>
+      <h2 style="font-size: 16px; margin: 16px 0 0">
+        Best silhouette match per round (IoU, 1.0 = perfect)
+      </h2>
+      <table id="scores">
+        <tr>
+          <th>Round</th>
+          <th>Avatar</th>
+          <th>Koto</th>
+          <th>Musashi</th>
+        </tr>
+      </table>
+    </main>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const best = {
-  avatar: [0.952, 0.9367, 0.9379, 0.9496, 0.9439, 0.9313],
-  koto: [0.8967, 0.8761, 0.8962, 0.8829, 0.8728, 0.8844],
-  musashi: [0.8973, 0.8261, 0.7915, 0.7969, 0.8927, 0.8282],
-};
-const table = document.getElementById('scores');
-for (let r = 0; r < 6; r++) {
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${r}</td>` + ['avatar', 'koto', 'musashi'].map((k) =>
-    `<td>${best[k][r].toFixed(3)}<div class="bar" style="width:${Math.max(0, (best[k][r] - 0.75) * 400)}%"></div></td>`).join('');
-  table.appendChild(tr);
-}
+      const best = {
+        avatar: [0.952, 0.9367, 0.9379, 0.9496, 0.9439, 0.9313],
+        koto: [0.8967, 0.8761, 0.8962, 0.8829, 0.8728, 0.8844],
+        musashi: [0.8973, 0.8261, 0.7915, 0.7969, 0.8927, 0.8282],
+      };
+      const table = document.getElementById('scores');
+      for (let r = 0; r < 6; r++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML =
+          `<td>${r}</td>` +
+          ['avatar', 'koto', 'musashi']
+            .map(
+              (k) =>
+                `<td>${best[k][r].toFixed(3)}<div class="bar" style="width:${Math.max(0, (best[k][r] - 0.75) * 400)}%"></div></td>`,
+            )
+            .join('');
+        table.appendChild(tr);
+      }
 
-const el = document.getElementById('view');
-const status = document.getElementById('status');
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(2, devicePixelRatio));
-el.appendChild(renderer.domElement);
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
-camera.position.set(0, 0.3, 3.6);
-scene.add(new THREE.HemisphereLight(0xfff4e0, 0x403848, 1.4));
-const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(2, 3, 2); scene.add(key);
-const rim = new THREE.DirectionalLight(0xe3b862, 1.2); rim.position.set(-2, 1, -2); scene.add(rim);
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; controls.autoRotate = true; controls.autoRotateSpeed = 2.2;
-const clay = new THREE.MeshStandardMaterial({ color: 0xf1e6d6, roughness: 0.7 });
-const loader = new GLTFLoader();
-const cache = new Map();
-function load(url) {
-  if (!cache.has(url)) cache.set(url, new Promise((res, rej) => loader.load(url, (g) => {
-    const root = g.scene;
-    // Hunyuan3D exports bare meshes without normals, so lighting would render them black.
-    root.traverse((o) => { if (o.isMesh) { o.geometry.computeVertexNormals(); o.material = clay; } });
-    const box = new THREE.Box3().setFromObject(root);
-    const size = box.getSize(new THREE.Vector3()).length();
-    root.position.sub(box.getCenter(new THREE.Vector3()));
-    root.scale.setScalar(2 / size);
-    const pivot = new THREE.Group(); pivot.add(root);
-    res(pivot);
-  }, undefined, rej)));
-  return cache.get(url);
-}
-let current = null, frames = null, frame = 0, last = 0;
-async function show(kind) {
-  for (const b of document.querySelectorAll('#tabs button')) b.setAttribute('aria-pressed', String(b.dataset.k === kind));
-  if (current) scene.remove(current);
-  frames = null; current = null;
-  status.textContent = 'Loading…';
-  try {
-    if (kind === 'strike') {
-      frames = await Promise.all([1,2,3,4,5,6,7,8].map((i) => load(`anim/strike-f${i}.glb`)));
-      frame = 0; current = frames[0]; scene.add(current);
-      controls.autoRotate = false;
-      status.textContent = 'Stop-motion of the 8 strike frames (IoU 0.70–0.88), 8 fps.';
-    } else {
-      current = await load(`${kind}-best-r0.glb`); scene.add(current);
+      const el = document.getElementById('view');
+      const status = document.getElementById('status');
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(2, devicePixelRatio));
+      el.appendChild(renderer.domElement);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
+      camera.position.set(0, 0.3, 3.6);
+      scene.add(new THREE.HemisphereLight(0xfff4e0, 0x403848, 1.4));
+      const key = new THREE.DirectionalLight(0xffffff, 2.2);
+      key.position.set(2, 3, 2);
+      scene.add(key);
+      const rim = new THREE.DirectionalLight(0xe3b862, 1.2);
+      rim.position.set(-2, 1, -2);
+      scene.add(rim);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
       controls.autoRotate = true;
-      status.textContent = `Best ${kind} shape: IoU ${best[kind][0].toFixed(3)}.`;
-    }
-  } catch (e) { status.textContent = 'Could not load the model files (they are local, not in git).'; }
-}
-const tabs = document.getElementById('tabs');
-for (const [k, label] of [['avatar','Avatar'],['koto','Koto'],['musashi','Musashi'],['strike','Strike (stop-motion)']]) {
-  const b = document.createElement('button'); b.textContent = label; b.dataset.k = k;
-  b.onclick = () => show(k); tabs.appendChild(b);
-}
-function resize() { const w = el.clientWidth; renderer.setSize(w, w); camera.aspect = 1; camera.updateProjectionMatrix(); }
-addEventListener('resize', resize); resize();
-renderer.setAnimationLoop((t) => {
-  if (frames && t - last > 125) { last = t; scene.remove(current); frame = (frame + 1) % frames.length; current = frames[frame]; scene.add(current); }
-  controls.update(); renderer.render(scene, camera);
-});
-show('avatar');
-</script>
-</body>
+      controls.autoRotateSpeed = 2.2;
+      const clay = new THREE.MeshStandardMaterial({ color: 0xf1e6d6, roughness: 0.7 });
+      const loader = new GLTFLoader();
+      const cache = new Map();
+      function load(url) {
+        if (!cache.has(url))
+          cache.set(
+            url,
+            new Promise((res, rej) =>
+              loader.load(
+                url,
+                (g) => {
+                  const root = g.scene;
+                  // Hunyuan3D exports bare meshes without normals, so lighting would render them black.
+                  root.traverse((o) => {
+                    if (o.isMesh) {
+                      o.geometry.computeVertexNormals();
+                      o.material = clay;
+                    }
+                  });
+                  const box = new THREE.Box3().setFromObject(root);
+                  const size = box.getSize(new THREE.Vector3()).length();
+                  root.position.sub(box.getCenter(new THREE.Vector3()));
+                  root.scale.setScalar(2 / size);
+                  const pivot = new THREE.Group();
+                  pivot.add(root);
+                  res(pivot);
+                },
+                undefined,
+                rej,
+              ),
+            ),
+          );
+        return cache.get(url);
+      }
+      let current = null,
+        frames = null,
+        frame = 0,
+        last = 0;
+      async function show(kind) {
+        for (const b of document.querySelectorAll('#tabs button'))
+          b.setAttribute('aria-pressed', String(b.dataset.k === kind));
+        if (current) scene.remove(current);
+        frames = null;
+        current = null;
+        status.textContent = 'Loading…';
+        try {
+          if (kind === 'strike') {
+            frames = await Promise.all(
+              [1, 2, 3, 4, 5, 6, 7, 8].map((i) => load(`anim/strike-f${i}.glb`)),
+            );
+            frame = 0;
+            current = frames[0];
+            scene.add(current);
+            controls.autoRotate = false;
+            status.textContent = 'Stop-motion of the 8 strike frames (IoU 0.70–0.88), 8 fps.';
+          } else {
+            current = await load(`${kind}-best-r0.glb`);
+            scene.add(current);
+            controls.autoRotate = true;
+            status.textContent = `Best ${kind} shape: IoU ${best[kind][0].toFixed(3)}.`;
+          }
+        } catch (e) {
+          status.textContent = 'Could not load the model files (they are local, not in git).';
+        }
+      }
+      const tabs = document.getElementById('tabs');
+      for (const [k, label] of [
+        ['avatar', 'Avatar'],
+        ['koto', 'Koto'],
+        ['musashi', 'Musashi'],
+        ['strike', 'Strike (stop-motion)'],
+      ]) {
+        const b = document.createElement('button');
+        b.textContent = label;
+        b.dataset.k = k;
+        b.onclick = () => show(k);
+        tabs.appendChild(b);
+      }
+      function resize() {
+        const w = el.clientWidth;
+        renderer.setSize(w, w);
+        camera.aspect = 1;
+        camera.updateProjectionMatrix();
+      }
+      addEventListener('resize', resize);
+      resize();
+      renderer.setAnimationLoop((t) => {
+        if (frames && t - last > 125) {
+          last = t;
+          scene.remove(current);
+          frame = (frame + 1) % frames.length;
+          current = frames[frame];
+          scene.add(current);
+        }
+        controls.update();
+        renderer.render(scene, camera);
+      });
+      show('avatar');
+    </script>
+  </body>
 </html>
