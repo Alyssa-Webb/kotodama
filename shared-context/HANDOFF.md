@@ -26,7 +26,7 @@ Reported by the owner after the hariko Town landed. In his words, then where to 
 
 - **Result of `iterate.sh` (finished 2026-11-01 01:48 UTC, 72 tries, ~75 s each, no errors):** best front-silhouette match to the art (IoU, 1.0 = perfect) avatar 0.95, Koto 0.90, Musashi 0.90, all found in round 0. Five rounds of mutating steps/cfg/octree never beat them, and octree 448 was consistently worse (~0.6). The 8-frame hariko strike gave one model per frame, IoU 0.70 to 0.88 (likely jittery as stop-motion).
 - **Early verdict:** good for fast, free 3D reference shapes from Argon's drawings ("make ~10 seeds, keep the best", not "polish 1000 times"). Not finished game art: untextured (the texture step failed to build `custom_rasterizer` on ARM) and no rigging.
-- **Still to do (stopped at the owner's 70% usage cap):** scp `~/kotodama3d/out/iter/*.glb`, `out/anim/*.glb`, `out/scores.csv`, `iterate-log.txt` into `design/reference/server3d/` (`.glb` is git-ignored), render them with the render-fit script (Playwright + three.js, 10 views), chart best IoU per round from `scores.csv`, make a turntable of `avatar-best-r0.glb` and a stop-motion of the strike frames, then give the owner the verdict with links.
+- **Fetched and viewable (2026-11-01):** the best model per character and the 8 strike frames are in `design/reference/server3d/iter/` (`.glb` git-ignored), with `scores.csv` and `viewer.html` (a three.js turntable, stop-motion and per-round IoU table). Serve it with `python -m http.server 5181 --bind 0.0.0.0 --directory design/reference/server3d/iter` (Vite can't serve it: it rewrites the import map) and open `/viewer.html`. The meshes come without normals; the viewer computes them.
 
 ## Task queue (owner's words, then what we know)
 
