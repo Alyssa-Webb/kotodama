@@ -23,3 +23,6 @@ argon-outbox/
 # Overnight 3D models from the server (reference only)
 design/reference/server3d/*.glb
 tools/server3d/inputs/
+
+# Contact sheets from npm run art:sheet
+art-sheets/

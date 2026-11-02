@@ -28,6 +28,8 @@ export default tseslint.config(
   {
     ignores: [
       'dist',
+      'dist-*',
+      'argon-outbox',
       'dev-dist',
       'node_modules',
       'coverage',

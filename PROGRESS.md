@@ -36,3 +36,5 @@ Read this first every session (and after any context compaction), together with 
 - Live at https://alyssa-webb.github.io/kotodama/ (repo Alyssa-Webb/kotodama, KenLinz invited with write access).
 - Trace exercises are self-graded (no stroke-order data bundled yet).
 - Real-iPhone checks (silent switch, home-screen install, airplane mode) not done: needs the owner's device.
+
+- Art review tools (2026-11-02): `npm run art:gate`, `npm run art:sheet` and the verdict ledger in `design/library/`. Tested on real art and on a deliberately broken component.

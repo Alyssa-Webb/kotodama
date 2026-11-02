@@ -19,7 +19,9 @@
     "voice:build": "tsx tools/voice-build.ts",
     "voice:audition": "tsx tools/voice-audition.ts",
     "check": "npm run typecheck && npm run lint && npm test && npm run content:lint && npm run build && npm run e2e",
-    "voice:app": "tsx tools/voice-app.ts"
+    "voice:app": "tsx tools/voice-app.ts",
+    "art:gate": "tsx tools/art/gate-cli.ts",
+    "art:sheet": "tsx tools/art/sheet.ts"
   },
   "dependencies": {
     "dexie": "^4.4.7",

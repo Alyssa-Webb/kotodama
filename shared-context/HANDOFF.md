@@ -6,6 +6,8 @@ Read `README.md` in this folder first (vision, the owner's preferences, the AI s
 
 **No toy aesthetic (Ken, 2026-11-02):** hariko is out of the game and its replacement is undecided (`docs/adr/0010-no-toy-aesthetic.md`). Don't start hariko art or run `argon-outbox/kotodama-hariko-walk.zip`.
 
+**Art review tools (2026-11-02):** after any Argon run, use `npm run art:gate -- <name>` and `npm run art:sheet`, and fill in briefs' References from `design/library/ledger.json`. Add Ken's and Alyssa's reactions to the ledger as they happen. Details are in `design/library/README.md`.
+
 ## New owner notes (2026-11-01): read `IDEAS.md`
 
 Ken's latest notes are assessed in `IDEAS.md`, with decisions needed and a suggested order. Nothing there is approved yet. Ken has answered the five decisions (see the top of IDEAS.md): the app first, with content, lessons and the Path last; modern and past-day towns; the server may test designs; Koto's desk replaces titles except on full-screen pages; characters change style per area for now. **Don't run `argon-outbox/kotodama-path-scenes.zip`:** Path art is on hold until the Path has a tile-and-props system (IDEAS 1.1).

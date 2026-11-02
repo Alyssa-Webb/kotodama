@@ -84,7 +84,7 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 | Modern town             | Excluding old roofs gives a generic city; asking for Japan gives an American suburb                                 | **Unsolved:** modern and Japanese never came together                                              |
 | Rice ladle in woodblock | Convincing print style, but boats, spoons and people, with no character and fake seals                              | Worse than round 1                                                                                 |
 
-**Tuning lessons:** exclusions fix the subject but can remove the character. Colour words in a prompt spread across the image. Fake writing survives exclusions in print styles. Getting subject, style and character together isn't reliable by wording alone. Untried: a weaker style reference (0.3 to 0.4), a reference that isn't a building, or a different model; FLUX needs Ken to accept its terms and sign in himself.
+**Tuning lessons:** exclusions fix the subject but can remove the character. Colour words in a prompt spread across the image. Fake writing survives exclusions in print styles. Getting subject, style and character together isn't reliable by wording alone. Untried: a weaker style reference (0.3 to 0.4), a reference that isn't a building, or a different model; FLUX needs Ken to accept its terms and sign in personally.
 
 **Chibi turnarounds (2026-11-02), the most promising use so far:** `tools/server3d/art/turnaround.py` locks one chibi body with the edges of the server's clay renders, then paints a look over it from 10 angles. Sheets are in `design/reference/server-art/chibi/`. The toy-style sheets there are test records only (ADR 0010).
 

@@ -10,6 +10,13 @@ Chibi and cute, the direction you set earlier: big heads, small bodies, round ch
 
 <what to draw or animate, where it appears, timings, references to existing components>
 
+## References
+
+Read these first. Match the approved ones; stay away from the rejected ones. Verdicts come from `design/library/ledger.json`.
+
+- Approved: <paths, and what to take from each>
+- Rejected: <paths or descriptions, and why>
+
 ## Files you may change
 
 <exact list; anything else is off-limits>

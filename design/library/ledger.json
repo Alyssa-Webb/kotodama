@@ -1,0 +1,73 @@
+{
+  "entries": [
+    {
+      "id": "chibi-direction",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-10-30",
+      "quote": "It chose a fantastic art direction by making them chibi and cute.",
+      "why": "Argon's chibi characters, as a direction. Ken hasn't named a specific piece as the best example yet.",
+      "files": ["shared-context/skills/gemini-art/SKILL.md"]
+    },
+    {
+      "id": "style-study-ukiyoe-sumie",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-10-31",
+      "why": "Koto as a woodblock print and as an ink painting. Ken liked all three directions in the study; the third, hariko, has since been rejected.",
+      "source": "docs/adr/0009-art-direction-per-area.md",
+      "files": [
+        "design/reference/style-study/koto-b-ukiyoe.svg",
+        "design/reference/style-study/koto-c-sumie.svg"
+      ]
+    },
+    {
+      "id": "toy-aesthetic",
+      "verdict": "rejected",
+      "by": "Ken",
+      "date": "2026-11-02",
+      "quote": "I hate the toy aesthetic completely. The red and white and blue designs are fugly.",
+      "why": "All hariko and painted toy art, in the game and in tests. Asked if that included the game's plan, Ken said \"Yes. I hate all of it.\"",
+      "source": "docs/adr/0010-no-toy-aesthetic.md",
+      "files": [
+        "src/features/town/buildings/hariko.tsx",
+        "design/reference/style-study/koto-a-hariko.svg",
+        "design/reference/server-art/round3/sheet-r3-modern-hariko.jpg",
+        "design/reference/server-art/chibi/sheet-r4-chibi-hariko.jpg"
+      ]
+    },
+    {
+      "id": "plain-home",
+      "verdict": "rejected",
+      "by": "Ken",
+      "date": "2026-10-31",
+      "quote": "It looks like any regular plain old Home Screen. I dislike it because of how simple it is, it's the first thing our users see. It should be stylized. Creative. It should take risks.",
+      "why": "A safe, tidied-up Home. Ken loved the content, disliked the format, and asked for a redesign rather than an edit."
+    },
+    {
+      "id": "home-scene-and-scroll",
+      "verdict": "rejected",
+      "by": "Ken",
+      "date": "2026-10-31",
+      "why": "Argon's two Home concepts: the scene as the UI, and the emaki scroll. The reasons weren't recorded.",
+      "source": "shared-context/chat/room.md",
+      "branches": ["art/home-scene", "art/home-emaki"]
+    },
+    {
+      "id": "flashy-attack-fx",
+      "verdict": "rejected",
+      "by": "Ken",
+      "date": "2026-10-30",
+      "quote": "the animations GPT made are much too flashy, I just need a thin white slice effect and damage effect and hurt anim and KO anim and special KO effect.",
+      "why": "Busy battle effects. Ken wants restraint: a thin slice and clear reactions."
+    },
+    {
+      "id": "sloppy-bushes-and-bounce-walk",
+      "verdict": "rejected",
+      "by": "Ken",
+      "date": "2026-10-30",
+      "quote": "The bushes look a bit rough visually. Like sloppy circles. Same for the walking animation at the beginning, he just bounces.",
+      "why": "Blobby shapes built from circles, and walking that's only a bounce."
+    }
+  ]
+}

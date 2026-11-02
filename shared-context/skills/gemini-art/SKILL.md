@@ -17,7 +17,7 @@ Gemini's chibi direction is the house style (ADR 0008 follow-up): big heads, sma
 ## Steps
 
 1. **Commit first.** Gemini works on a fresh git worktree cut from a branch, so whatever it should build on must be committed.
-2. **Write the brief** at `.claude/skills/gemini-art/briefs/<name>.md`. Start from `brief-template.md` in this folder: keep its Rules section verbatim and fill in the task. List the exact files Gemini may touch, and keep them disjoint from the files Claude is editing at the same time.
+2. **Write the brief** at `.claude/skills/gemini-art/briefs/<name>.md`. Start from `brief-template.md` in this folder: keep its Rules section verbatim and fill in the task. List the exact files Gemini may touch, and keep them disjoint from the files Claude is editing at the same time. Fill in its References section from `design/library/ledger.json`.
 3. **Run it in the background:**
 
    ```bash
@@ -26,9 +26,10 @@ Gemini's chibi direction is the house style (ADR 0008 follow-up): big heads, sma
 
    The script creates `.claude/worktrees/<name>` on a new branch `art/<name>` from `<base-branch>`, links `node_modules`, runs `agent -p --force --trust --model gemini-4-argon-high` in that worktree with the brief, then commits Gemini's changes on `art/<name>`. The log goes to `.claude/skills/gemini-art/logs/<name>.log`. Use the Bash tool's `run_in_background` and wait for the completion notification; never poll.
 
-4. **Review** with `git diff <base-branch>..art/<name> --stat`, then read the diff. Reject or fix anything outside the brief's file list, any logic or schema change, hard-coded colors (theme CSS variables only), or animation of anything but `transform` and `opacity`.
-5. **Verify on the art branch's worktree:** `npx tsc -p tsconfig.json`, `npx eslint src e2e tools`, `npm test` (the CRLF `tools/authoring.test.ts` failure is known on Windows), and a phone-size look in the browser.
-6. **Merge** `art/<name>` into the working branch, then run `bash .claude/skills/gemini-art/cleanup.sh <name>`. Never `rm -rf` a worktree folder directly: its `node_modules` is a junction to the main checkout's.
+4. **Gate, then render.** Run `npm run art:gate -- <name>` and read every flag (for a Gemini chat zip, commit it to a branch and add `--head <branch>`). Then run `npm run art:sheet` on what changed and look at `art-sheets/<name>.png`. Send Ken the sheet instead of asking him to find the art. See `design/library/README.md`.
+5. **Review** with `git diff <base-branch>..art/<name> --stat`, then read the diff. Reject or fix anything outside the brief's file list, any logic or schema change, hard-coded colors (theme CSS variables only), or animation of anything but `transform` and `opacity`.
+6. **Verify on the art branch's worktree:** `npx tsc -p tsconfig.json`, `npx eslint src e2e tools`, `npm test` (the CRLF `tools/authoring.test.ts` failure is known on Windows), and a phone-size look in the browser.
+7. **Merge** `art/<name>` into the working branch, then run `bash .claude/skills/gemini-art/cleanup.sh <name>`. Never `rm -rf` a worktree folder directly: its `node_modules` is a junction to the main checkout's.
 
 ## Notes
 

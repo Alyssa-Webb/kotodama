@@ -21,14 +21,14 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                            | AI     | Files and folders                                                                                                                                                                                                               | Branch | Issue | Claimed (UTC)    |
-| ----------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ---------------- |
-| Art review tools: library, render harness, gate | Claude | `tools/art/**`, `design/library/**`, `src/schema/library.ts`, `shared-context/skills/gemini-art/SKILL.md`, `shared-context/skills/gemini-art/brief-template.md`, `package.json` (scripts only), `.gitignore`, `.prettierignore` | main   |       | 2026-11-02 07:30 |
+| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
+| ---- | --- | ----------------- | ------ | ----- | ------------- |
 
 ## Done
 
 | Task                                                    | AI          | Finished (UTC)   | Commit      |
 | ------------------------------------------------------- | ----------- | ---------------- | ----------- |
+| Art review tools: library, render harness, gate         | Claude      | 2026-11-02 07:50 | (this push) |
 | Battle walk: the road moves, not the sky                | Claude      | 2026-10-30 20:10 | `128eace`   |
 | Town as an illustrated map                              | Claude      | 2026-10-30 20:55 | `c6dc8f5`   |
 | Home: softer, kinder, more useful controls              | Claude      | 2026-10-31 03:45 | `a7154ad`   |
