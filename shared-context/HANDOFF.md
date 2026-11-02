@@ -8,7 +8,7 @@ Read `README.md` in this folder first (vision, the owner's preferences, the AI s
 
 **Art review tools (2026-11-02):** after any Argon run, use `npm run art:gate -- <name>` and `npm run art:sheet`, and fill in briefs' References from `design/library/ledger.json`. Add Ken's and Alyssa's reactions to the ledger as they happen. Details are in `design/library/README.md`.
 
-Frame rate is fine on Ken's iPhone (Ken, 2026-11-02: "Trust my observation and judgement"), so don't ask Ken for more readings. The `?fps` meter stays available. The goal is an app testable on iPhone with live updates, also usable on Android. Recommended, not yet approved: wrap the web app with Capacitor. The low-poly station is on the local branch `art/town-station-lowpoly` on Ken's PC, not merged; its Station claim is still held.
+Frame rate is fine on Ken's iPhone (Ken, 2026-11-02: "Trust my observation and judgement"), so don't ask Ken for more readings. The `?fps` meter stays available. The goal is an app testable on iPhone with live updates, also usable on Android. Ken approved wrapping the web app with Capacitor (2026-11-02). Start after the weekly usage reset on 11/5. The first iPhone build needs a Mac and an Apple developer account; Ken and Alyssa still have to settle whose name is on it, and this changes the "free forever, no paid services" rule on purpose. The low-poly station is live, the only low-poly building among five toy ones until the rest are drawn. Ken wants Town animation (trains, lumber) and zoom and scroll: IDEAS decision 10.
 
 ## New owner notes (2026-11-01): read `IDEAS.md`
 

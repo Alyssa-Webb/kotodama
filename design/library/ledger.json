@@ -27,8 +27,9 @@
       "by": "Ken",
       "date": "2026-11-02",
       "quote": "That is fucking awesome.",
-      "why": "Argon low-poly station, seen enlarged in light and dark. The model for the other Town buildings once it is checked at real size. On branch art/town-station-lowpoly.",
-      "branches": ["art/town-station-lowpoly"]
+      "why": "Argon low-poly station, seen enlarged in light and dark. The model for the other Town buildings.",
+      "branches": [],
+      "files": ["src/features/town/buildings/Station.tsx"]
     },
     {
       "id": "musashi",

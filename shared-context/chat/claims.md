@@ -21,14 +21,14 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task                                        | AI     | Files and folders                                                                                        | Branch                   | Issue | Claimed (UTC)    |
-| ------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- | ------------------------ | ----- | ---------------- |
-| Town station: low-poly test (one Argon run) | Claude | `src/features/town/buildings/Station.tsx`, `src/features/town/buildings/BuildingArt.tsx`, `tools/art/**` | art/town-station-lowpoly |       | 2026-11-02 08:35 |
+| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
+| ---- | --- | ----------------- | ------ | ----- | ------------- |
 
 ## Done
 
 | Task                                                    | AI          | Finished (UTC)   | Commit      |
 | ------------------------------------------------------- | ----------- | ---------------- | ----------- |
+| Town station: low-poly test                             | Claude      | 2026-11-02       | (this push) |
 | Frame-rate meter (`?fps`)                               | Claude      | 2026-11-02 09:30 | (this push) |
 | Art review tools: library, render harness, gate         | Claude      | 2026-11-02 07:50 | (this push) |
 | Battle walk: the road moves, not the sky                | Claude      | 2026-10-30 20:10 | `128eace`   |
