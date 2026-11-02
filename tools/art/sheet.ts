@@ -2,6 +2,7 @@
  * Renders art with no manual screenshots: one contact sheet with phone and desktop, light and dark, plus a frame strip of its animations.
  *
  * One component:  npm run art:sheet -- --name station --module src/features/town/buildings/Station.tsx --export Station --prop lit=true --css src/features/town/buildings/buildings.css
+ * Add --width 117 to show art at its real size in CSS pixels. Small art then appears at phone-screen sharpness.
  * A whole screen: npm run art:sheet -- --name town --route town
  *
  * Writes art-sheets/<name>.png and <name>.json. Exits 1 if art leaves its viewBox or an animation isn't composited.
@@ -29,6 +30,7 @@ const { values: opts } = parseArgs({
     prop: { type: 'string', multiple: true },
     css: { type: 'string', multiple: true },
     route: { type: 'string' },
+    width: { type: 'string' },
   },
 });
 if (!opts.name || (!opts.module && !opts.route)) {
@@ -44,6 +46,7 @@ function urlFor(theme: string): string {
   if (opts.route) return `${base}#/${opts.route === 'home' ? '' : opts.route}`;
   const params = new URLSearchParams({ module: `/kotodama/${opts.module}`, theme });
   if (opts.export) params.set('export', opts.export);
+  if (opts.width) params.set('width', opts.width);
   for (const prop of opts.prop ?? []) params.append('prop', prop);
   for (const css of opts.css ?? []) params.append('css', `/kotodama/${css}`);
   return `${base}tools/art/harness.html?${params}`;
@@ -193,7 +196,7 @@ function sheetHtml(shots: Shot[], issues: string[]): string {
     body { margin: 0; padding: 24px; background: #77757a; color: #fff; font: 16px system-ui; width: 1500px; }
     h1 { margin: 0 0 8px; font-size: 24px; } h2 { margin: 20px 0 8px; font-size: 16px; }
     .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
-    figure { margin: 0; } img { display: block; width: 280px; height: auto; }
+    figure { margin: 0; } img { display: block; max-width: 280px; height: auto; }
     figcaption { padding-top: 4px; font-size: 13px; }
     .issues { margin: 0; padding-left: 20px; } .ok { margin: 0; }
   </style><h1>${name}</h1>${notes}${sections}`;

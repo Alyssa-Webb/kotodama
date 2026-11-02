@@ -15,6 +15,8 @@ declare global {
 async function mount(): Promise<void> {
   const params = new URLSearchParams(location.search);
   installTheme();
+  const width = params.get('width');
+  if (width) document.getElementById('art-root')!.style.width = `${width}px`;
   document.documentElement.setAttribute('data-theme', params.get('theme') ?? 'light');
   for (const css of params.getAll('css')) await import(/* @vite-ignore */ css);
   const loaded = (await import(/* @vite-ignore */ params.get('module') ?? '')) as Record<
