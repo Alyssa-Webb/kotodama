@@ -34,7 +34,8 @@ export function BuildingArt({ id, lit }: { id: string; lit: boolean }) {
 
   return (
     <svg viewBox="0 0 120 96" className="town-spot-art" aria-hidden="true">
-      <ellipse cx="60" cy="81" rx="48" ry="11" fill="var(--c-shadow)" />
+      {/* The low-poly station draws its own shadow to match its island. */}
+      {id !== 'station' && <ellipse cx="60" cy="81" rx="48" ry="11" fill="var(--c-shadow)" />}
       {renderBuilding()}
     </svg>
   );
