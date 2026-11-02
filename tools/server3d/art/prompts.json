@@ -1,0 +1,12 @@
+{
+  "steps": 30,
+  "size": 1024,
+  "seeds": 8,
+  "prompts": {
+    "yokai-lantern-moss": "original character design, a small mischievous yokai born from a moss-covered stone lantern in a bamboo forest, one glowing eye in the lantern window, tiny legs, cute, full body, Japanese hariko papier-mache folk toy style, matte chalky paint, hand-painted sumi ink details, vermilion and indigo accents, plain cream background",
+    "yokai-rice-ladle": "original character design, a cheerful tsukumogami yokai that is an old wooden rice paddle come to life, arms and a big toothy grin, wearing a tiny apron, full body, cute, ukiyo-e woodblock print style, flat colours, bold outlines, bokashi gradient, plain washi paper background",
+    "yokai-rain-frog": "original character design, a gentle rain spirit shaped like a fat frog wearing a straw raincoat and carrying a tiny paper umbrella, full body, cute, Japanese sumi-e ink wash painting style, soft brush strokes, a little vermilion accent, plain rice paper background",
+    "island-modern": "isometric miniature diorama of a small modern Japanese town on a floating island surrounded by water, a tiny train station with a train, onsen with steam, shopping arcade, cafe, school, shrine torii, streets connecting clearly separate buildings, cute handmade toy model look, soft lighting, plain background, no text",
+    "island-edo": "isometric miniature diorama of an Edo period Japanese castle town on an island surrounded by turquoise moats, stone rampart walls, a white castle keep, clusters of dark tiled roofs and orange-roofed wooden houses, teahouse, timber yard, market street, handmade scale model look, soft lighting, plain background, no text"
+  }
+}

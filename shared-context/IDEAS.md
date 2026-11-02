@@ -59,9 +59,21 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 
 **What copying is still good for (narrowly):** turnarounds. A 3D shape of an existing character gives Argon consistent back and side views and walk poses, which is what the avatar work (2.1, 2.3) keeps struggling with.
 
-**What it would take to create:** Hunyuan3D can't invent, so the server would need an image or text-to-3D model to make new concepts. Whether one runs on this ARM machine alongside his dad's vLLM is unverified, and nothing should be installed without asking.
+**What it takes to create:** Hunyuan3D can't invent, so the server now has a second, separate container for making new designs from text (below). Only one should run at a time; how much memory an art model and vLLM need together is unmeasured.
 
-**One-night test (approved in principle by Decision 3; installing anything on the server still needs a go-ahead):** prompts for 3 characters that don't exist yet (say, a new Bamboo Thicket yokai), about 20 results each, rated blind by Ken and Alyssa against Argon's take on the same prompts. Success = several results they'd really build on. If it fails, stop and use the server only for turnarounds. Also useful and lower risk: its Qwen model could draft lesson content or Town guide entries overnight for checking, if his dad's OK with that.
+**Creation test, first round (2026-11-01):** the `kotodama-art` container (`tools/server3d/art/`) ran Stable Diffusion XL on the server: 5 briefs for things that don't exist yet, 8 images each, about 11 s per image, no errors. It only touched `~/kotodama3d`; the Artemis container wasn't touched. Contact sheets are in `design/reference/server-art/`, full images on the server in `~/kotodama3d/art/out/`.
+
+| Brief                    | Style asked | Result                                                                                                               | Verdict |
+| ------------------------ | ----------- | -------------------------------------------------------------------------------------------------------------------- | ------- |
+| Rain frog yokai          | Sumi-e      | Coherent, on brief, varied, new designs                                                                              | **Hit** |
+| Rice ladle yokai         | Ukiyo-e     | Lots of character, but modern cartoon stickers rather than woodblock; the grin repeats; the ladles are often paddles | Partial |
+| Past-day island town     | Diorama     | Good island layouts with moats and stone walls; generic and busy                                                     | Partial |
+| Moss stone lantern yokai | Hariko      | Attractive kimono cats: wrong subject, wrong style                                                                   | Miss    |
+| Modern island town       | Diorama     | Strong island shapes, but the buildings are old-style tiled roofs, so not modern                                     | Miss    |
+
+**What it shows:** it can invent, so it isn't limited to copying. It's fast and free per image, but only follows a brief part of the time, and some images have fake kanji and seals. The images are raster concept art, while the game's art is themed inline SVG, so none of this can go straight in. Today's fair use is cheap idea generation: many options to choose from, with the winner redrawn by Argon.
+
+**Not yet proven:** the planned test is blind ratings by Ken and Alyssa against Argon's take on the same briefs, and that hasn't happened. Check the SDXL licence terms before anything based on it ships.
 
 ## Suggested order
 
@@ -69,7 +81,7 @@ Updated for Ken's decisions: the app comes first; content, lessons and the Path 
 
 1. **Quick fixes, no new art:** blush (2.2), spacing and headline (2.6), floating houses (2.5), opt-in vocabulary (3.2), review Dojo stops walking (2.7, with Alyssa).
 2. **The app shell:** fluid pages (1.3), frame rate (1.4), Koto's desk and transitions (1.2).
-3. **Server creation test** (section 4), so its result can feed the art below.
+3. **Server creation test** (section 4): first round done; blind rating against Argon is left, once Argon is back or through the Gemini chat.
 4. **Game systems:** mastery levels and "Which icon?" (3.1), Shop speaking (3.3), Town resources and the second town (3.5), test-out (3.4), Dojo work (Alyssa).
 5. **Character art:** one character in each area's style first, then the avatar (2.1), walk cycles (2.3) and spirits (2.4).
 6. **Last:** the Path system (1.1), then full lessons and kana content.
