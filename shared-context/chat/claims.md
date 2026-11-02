@@ -21,8 +21,9 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
-| ---- | --- | ----------------- | ------ | ----- | ------------- |
+| Task                                            | AI     | Files and folders                                                                                                                                                                                                               | Branch | Issue | Claimed (UTC)    |
+| ----------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- | ---------------- |
+| Art review tools: library, render harness, gate | Claude | `tools/art/**`, `design/library/**`, `src/schema/library.ts`, `shared-context/skills/gemini-art/SKILL.md`, `shared-context/skills/gemini-art/brief-template.md`, `package.json` (scripts only), `.gitignore`, `.prettierignore` | main   |       | 2026-11-02 07:30 |
 
 ## Done
 
