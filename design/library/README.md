@@ -13,6 +13,10 @@ What Ken and Alyssa actually think of our art, so briefs can point at real examp
 
 Fill in the "References" section of the brief template with one or two approved entries that fit the task, plus any rejected entries it could drift towards. Argon reads those files directly. For a Gemini chat zip, put copies of them in the zip.
 
+## Upgrade briefs
+
+Ken's idea: besides drawing new art, a brief can ask Argon to "add complexity to the current design". Keep the existing art's shapes and identity, name exactly what to deepen (such as eyes, hair texture or an animation), and use Musashi as the detail target. Check the result with `npm run art:sheet`, whose frame strip shows animation problems.
+
 ## Adding a verdict
 
 When Ken or Alyssa reacts to art, add an entry in the same session. Run `npm test` to check it.

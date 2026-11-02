@@ -22,6 +22,28 @@
       ]
     },
     {
+      "id": "musashi",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-11-02",
+      "quote": "I like Musashi's complexity. His hair is in-depth and textured, his outfit stylized with many attributes, it's awesome.",
+      "why": "The level of designed detail Ken wants on a character: textured hair and a stylized outfit with many attributes.",
+      "files": [
+        "src/foundations/art/musashi/Musashi.tsx",
+        "src/foundations/art/musashi/Head.tsx",
+        "src/foundations/art/musashi/Body.tsx"
+      ]
+    },
+    {
+      "id": "low-poly-town-look",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-11-02",
+      "quote": "I think the polymetric designs from Kingdoms and castles are good. The highlight of it is its simplicity yet complexity in design.",
+      "why": "The look chosen for the Town: faceted, isometric low-poly shapes drawn in 2D. The server concept sheet is a direction, not art to ship.",
+      "files": ["design/reference/server-art/explore/sheet-tiny-blocks.jpg"]
+    },
+    {
       "id": "light-mode-palette",
       "verdict": "approved",
       "by": "Ken",
@@ -45,7 +67,7 @@
       "by": "Ken",
       "date": "2026-11-02",
       "quote": "I like the art of the monster sprites.",
-      "why": "The foe art. The best current example of game art Ken likes.",
+      "why": "The foe art, with limits. Ken later called them \"the best designed\", but said details \"like the eyes being too simplistic and the animations being a bit wonky hold it back\". Not a reference to copy; only a starting point to \"add complexity to the current design\". Ken wrote \"spirits\" there, assumed to mean these sprites; not yet confirmed.",
       "files": [
         "src/foundations/art/foes/DojoFoes.tsx",
         "src/foundations/art/foes/ForestYokai.tsx",
