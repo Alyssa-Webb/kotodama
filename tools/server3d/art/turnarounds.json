@@ -1,0 +1,51 @@
+{
+  "steps": 30,
+  "size": 1024,
+  "seed": 7,
+  "control": 0.7,
+  "blankStyle": "hariko-toy-front.png",
+  "negative": "multiple characters, extra limbs, text, letters, kanji, seal stamp, watermark, blurry, background scenery",
+  "views": {
+    "front": "front view",
+    "front-right": "three-quarter view",
+    "right": "side view",
+    "back-right": "three-quarter back view",
+    "back": "back view, seen from behind",
+    "back-left": "three-quarter back view",
+    "left": "side view",
+    "front-left": "three-quarter view",
+    "raised-front": "front view, both arms raised",
+    "raised-back": "back view, seen from behind, both arms raised"
+  },
+  "looks": {
+    "t-hariko-kimono": {
+      "prompt": "chibi child, painted papier-mache folk toy, red kimono, indigo sash, black hair in a small topknot, matte chalky paint, plain cream background",
+      "style": "hariko-toy-front.png",
+      "styleScale": 0.35
+    },
+    "t-hoodie": {
+      "prompt": "chibi child, soft vinyl toy, blue hoodie, grey shorts, white sneakers, black hair in a small topknot, plain cream background"
+    },
+    "t-ukiyoe": {
+      "prompt": "chibi child, ukiyo-e woodblock print, indigo kimono with wave pattern, black hair in a small topknot, flat colour, bold outlines, plain washi paper background"
+    },
+    "t-sumie": {
+      "prompt": "chibi child, sumi-e ink wash painting, grey robe, black hair in a small topknot, soft brush strokes, plain rice paper background"
+    },
+    "c-hariko-kimono": {
+      "prompt": "chibi child, painted papier-mache folk toy, red kimono, indigo sash, black hair in a small topknot, matte chalky paint, plain cream background",
+      "style": "out/t-hariko-kimono-front-right.png",
+      "styleScale": 0.6
+    },
+    "c-hoodie": {
+      "prompt": "chibi child, soft vinyl toy, blue hoodie, grey shorts, white sneakers, black hair in a small topknot, plain cream background",
+      "style": "out/t-hoodie-back-left.png",
+      "styleScale": 0.6
+    },
+    "c-sumie": {
+      "prompt": "chibi child, sumi-e ink wash painting, grey robe, black hair in a small topknot, soft brush strokes, plain rice paper background",
+      "style": "out/t-sumie-front-right.png",
+      "styleScale": 0.6
+    }
+  }
+}

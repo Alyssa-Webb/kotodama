@@ -18,18 +18,19 @@ pipe = StableDiffusionXLPipeline.from_pretrained(
 NEGATIVE = "text, letters, kanji, seal stamp, watermark, signature, blurry, deformed, photo of a real person"
 print("== loaded", time.ctime(), flush=True)
 adapter_loaded = False
-for slug, entry in cfg["prompts"].items():
+# Once the style adapter is loaded every call needs an image, so briefs with a style run last.
+for slug, entry in sorted(cfg["prompts"].items(), key=lambda kv: isinstance(kv[1], dict) and "style" in kv[1]):
     # An entry is a prompt, or {prompt, negative} when a brief needs to rule things out.
     prompt = entry if isinstance(entry, str) else entry["prompt"]
     negative = NEGATIVE if isinstance(entry, str) else entry["negative"]
     style = None if isinstance(entry, str) else entry.get("style")
     extra = {}
-    # Keeps a look from one of our own images. Once loaded, every call needs an image, so briefs with a style go last.
+    # Keeps a look from one of our own images.
     if style:
         if not adapter_loaded:
             pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models", weight_name="ip-adapter_sdxl.bin")
-            pipe.set_ip_adapter_scale(0.6)
             adapter_loaded = True
+        pipe.set_ip_adapter_scale(entry.get("styleScale", 0.6))
         extra["ip_adapter_image"] = Image.open(f"/w/art/{style}").convert("RGB")
     thumbs = []
     for seed in range(cfg["seeds"]):

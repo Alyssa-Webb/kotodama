@@ -86,6 +86,13 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 
 **Tuning lessons:** exclusions fix the subject but can remove the character. Colour words in a prompt spread across the image. Fake writing survives exclusions in print styles. Getting subject, style and character together isn't reliable by wording alone. Untried: a weaker style reference (0.3 to 0.4), a reference that isn't a building, or a different model; FLUX needs Ken to accept its terms and sign in himself.
 
+**Chibi turnarounds (2026-11-02), the most promising use so far:** `tools/server3d/art/turnaround.py` locks one chibi body with the edges of the server's clay renders, then paints a look over it from 10 angles. Sheets are in `design/reference/server-art/chibi/`. The toy-style sheets there are test records only (ADR 0010).
+
+- **Works:** body shape and camera hold in every style, and the back views are real: hair, hoods and buns with no face. Using a character's own best view as its reference (`c-` sheets) largely stopped hair and clothes changing colour between angles. Clothes can be swapped on one body.
+- **Doesn't yet:** front faces are weak, some details come and go, sumi-e sheets gain fake seals, the raised-arm views don't read as raised, and side views look flat because the 3D shape is relief-like. All of it is raster.
+- **New chibi designs:** `sheet-r4-chibi-text` (flat illustration) is charming and clean, though generic, and proportions slip in some images.
+- **Proposed use:** back views and turnaround references for Argon or an SVG redraw, which 2.1 and 2.3 need, plus cheap style exploration for the art that replaces hariko. Argon's output from these references hasn't been tested.
+
 **Not yet proven:** the planned test is blind ratings by Ken and Alyssa against Argon's take on the same briefs, and that hasn't happened. Check the SDXL licence terms before anything based on it ships.
 
 ## Suggested order

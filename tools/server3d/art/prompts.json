@@ -44,6 +44,16 @@
       "prompt": "a single cute stone garden lantern yokai with small feet and one round eye, moss on its roof, painted papier-mache folk toy, plain cream background",
       "negative": "cat, fox, animal ears, human, kimono, house, building, door, text, letters, kanji, seal stamp, watermark, blurry, multiple objects",
       "style": "hariko-toy-front.png"
+    },
+    "r4-chibi-text": {
+      "prompt": "cute chibi character design, full body, big head, small body, a young street food vendor in an apron with a paper lantern, clean simple shapes, soft colours, plain cream background",
+      "negative": "realistic, multiple characters, text, letters, kanji, seal stamp, watermark, blurry"
+    },
+    "r4-chibi-hariko": {
+      "prompt": "cute chibi character, full body, big head, small body, a young street food vendor in an apron, painted papier-mache folk toy, matte chalky paint, plain cream background",
+      "negative": "house, building, door, realistic, multiple characters, text, letters, kanji, seal stamp, watermark, blurry",
+      "style": "hariko-toy-front.png",
+      "styleScale": 0.35
     }
   }
 }
