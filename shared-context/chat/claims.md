@@ -21,8 +21,9 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 ## Active
 
-| Task | AI  | Files and folders | Branch | Issue | Claimed (UTC) |
-| ---- | --- | ----------------- | ------ | ----- | ------------- |
+| Task                                        | AI     | Files and folders                         | Branch                   | Issue | Claimed (UTC)    |
+| ------------------------------------------- | ------ | ----------------------------------------- | ------------------------ | ----- | ---------------- |
+| Town station: low-poly test (one Argon run) | Claude | `src/features/town/buildings/Station.tsx` | art/town-station-lowpoly |       | 2026-11-02 08:35 |
 
 ## Done
 
