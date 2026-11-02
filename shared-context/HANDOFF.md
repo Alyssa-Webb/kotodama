@@ -2,11 +2,11 @@
 
 Read `README.md` in this folder first (vision, the owner's preferences, the AI split, how to run the Gemini skill). This file is the **task queue** the owner set at the end of the last session, plus the state of the work in flight and the traps we hit. The owner is Ken (GitHub KenLinz). He tests on an iPhone (Safari and Chrome, both WebKit) through the live site, and wants a push to `main` (which deploys https://alyssa-webb.github.io/kotodama/) after every working milestone.
 
-**Model rule (owner, non-negotiable):** every design (characters, yokai, scenes, UI art) is made by **Gemini 4 Argon** (`gemini-4-argon-high`) through the `gemini-art` skill. Claude does code, logic, tests and wiring. GPT-5.6 Sol only does action-animation timing.
+**Model rule (owner):** Ken's reason is that Argon was judged the best designer, so testing whether the AI server can do better is allowed (IDEAS.md, Decision 3). Otherwise, every design (characters, yokai, scenes, UI art) is made by **Gemini 4 Argon** (`gemini-4-argon-high`) through the `gemini-art` skill. Claude does code, logic, tests and wiring. GPT-5.6 Sol only does action-animation timing.
 
 ## New owner notes (2026-11-01): read `IDEAS.md`
 
-Ken's latest notes are assessed in `IDEAS.md`, with decisions needed and a suggested order. Nothing there is approved yet. **Don't run `argon-outbox/kotodama-path-scenes.zip`:** Path art is on hold until the Path has a tile-and-props system (IDEAS 1.1).
+Ken's latest notes are assessed in `IDEAS.md`, with decisions needed and a suggested order. Nothing there is approved yet. Ken has answered the five decisions (see the top of IDEAS.md): the app first, with content, lessons and the Path last; modern and past-day towns; the server may test designs; Koto's desk replaces titles except on full-screen pages; characters change style per area for now. **Don't run `argon-outbox/kotodama-path-scenes.zip`:** Path art is on hold until the Path has a tile-and-props system (IDEAS 1.1).
 
 ## Owner bug list (2026-10-31, from testing the live site): all 11 done and live
 
