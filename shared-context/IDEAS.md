@@ -16,7 +16,7 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 6. **No toy aesthetic (2026-11-02).** Ken: "I hate the toy aesthetic completely... I hate all of it." Hariko is out of Home, Town, Shop, gachapon and characters, and its replacement is undecided (`docs/adr/0010-no-toy-aesthetic.md`). Don't start the Shop's hariko restyle.
 7. **What Ken likes (2026-11-02).** References: Nine Sols, Kingdoms and Castles, Lil Guardsman, Ori and the Will of the Wisps, Night in the Woods. In the game: the light mode palette, the combat style direction and the monster sprites. See `design/library/ledger.json`.
 8. **The Town is low-poly isometric (2026-11-02),** drawn as flat 2D SVG, tested on one building first. **Character detail target: Musashi.** That costs about 3 times the shapes of a Town building, so Decision 5 (characters change style per area) needs a second look.
-9. **Upgrade briefs (2026-11-02).** Ken on what is assumed to be the monster sprites: the best designed, but the eyes are too simplistic and the animations a bit wonky. Don't copy them as a reference; use them only to "add complexity to the current design". See `design/library/README.md`.
+9. **Upgrade briefs (2026-11-02).** Ken on the monster sprites: the best designed, but the eyes are too simplistic and the animations a bit wonky. Don't copy them as a reference; use them only to "add complexity to the current design". See `design/library/README.md`.
 
 ## Owner notes, 2026-11-01
 

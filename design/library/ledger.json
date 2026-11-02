@@ -67,7 +67,7 @@
       "by": "Ken",
       "date": "2026-11-02",
       "quote": "I like the art of the monster sprites.",
-      "why": "The foe art, with limits. Ken later called them \"the best designed\", but said details \"like the eyes being too simplistic and the animations being a bit wonky hold it back\". Not a reference to copy; only a starting point to \"add complexity to the current design\". Ken wrote \"spirits\" there, assumed to mean these sprites; not yet confirmed.",
+      "why": "The foe art, with limits. Ken later called them \"the best designed\", but said details \"like the eyes being too simplistic and the animations being a bit wonky hold it back\". Not a reference to copy; only a starting point to \"add complexity to the current design\".",
       "files": [
         "src/foundations/art/foes/DojoFoes.tsx",
         "src/foundations/art/foes/ForestYokai.tsx",
