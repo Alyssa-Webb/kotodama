@@ -15,9 +15,22 @@ pipe = StableDiffusionXLPipeline.from_pretrained(
     variant="fp16",
     use_safetensors=True,
 ).to("cuda")
-NEGATIVE = "text, letters, watermark, signature, blurry, deformed, photo of a real person"
+NEGATIVE = "text, letters, kanji, seal stamp, watermark, signature, blurry, deformed, photo of a real person"
 print("== loaded", time.ctime(), flush=True)
-for slug, prompt in cfg["prompts"].items():
+adapter_loaded = False
+for slug, entry in cfg["prompts"].items():
+    # An entry is a prompt, or {prompt, negative} when a brief needs to rule things out.
+    prompt = entry if isinstance(entry, str) else entry["prompt"]
+    negative = NEGATIVE if isinstance(entry, str) else entry["negative"]
+    style = None if isinstance(entry, str) else entry.get("style")
+    extra = {}
+    # Keeps a look from one of our own images. Once loaded, every call needs an image, so briefs with a style go last.
+    if style:
+        if not adapter_loaded:
+            pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models", weight_name="ip-adapter_sdxl.bin")
+            pipe.set_ip_adapter_scale(0.6)
+            adapter_loaded = True
+        extra["ip_adapter_image"] = Image.open(f"/w/art/{style}").convert("RGB")
     thumbs = []
     for seed in range(cfg["seeds"]):
         path = f"{out}/{slug}-s{seed}.png"
@@ -29,7 +42,8 @@ for slug, prompt in cfg["prompts"].items():
                 prompt,
                 num_inference_steps=cfg["steps"],
                 guidance_scale=6.5,
-                negative_prompt=NEGATIVE,
+                negative_prompt=negative,
+                **extra,
                 height=cfg["size"],
                 width=cfg["size"],
                 generator=torch.Generator("cpu").manual_seed(seed),

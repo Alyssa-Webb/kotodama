@@ -73,6 +73,18 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 
 **What it shows:** it can invent, so it isn't limited to copying. It's fast and free per image, but only follows a brief part of the time, and some images have fake kanji and seals. The images are raster concept art, while the game's art is themed inline SVG, so none of this can go straight in. Today's fair use is cheap idea generation: many options to choose from, with the winner redrawn by Argon.
 
+**Tuning, rounds 2 and 3 (2026-11-01):** 10 more briefs, 80 images, in `design/reference/server-art/round2/` and `round3/`. Round 2 rewrote the failed prompts with per-brief exclusions; round 3 added a style reference from our own art (IP-Adapter, `hariko-toy-front.png` at 0.6).
+
+| Goal                    | Best result                                                                                                         | Verdict                                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Hold a style            | Style reference: nearly every image looks like our hariko toys, clean and separate on a plain background            | **Solved**, but at 0.6 it also copies the reference's subject, so a lantern becomes a little house |
+| Moss lantern subject    | `r2-lantern-object`: real lantern creatures with charm, though the look is creepy felt and clay                     | Much better                                                                                        |
+| Clickable island layout | `r2-edo-landmarks`: one image is a clean island with separate buildings; the roofs pick up the teal from the prompt | Better, but looks more like generic fantasy than Edo                                               |
+| Modern town             | Excluding old roofs gives a generic city; asking for Japan gives an American suburb                                 | **Unsolved:** modern and Japanese never came together                                              |
+| Rice ladle in woodblock | Convincing print style, but boats, spoons and people, with no character and fake seals                              | Worse than round 1                                                                                 |
+
+**Tuning lessons:** exclusions fix the subject but can remove the character. Colour words in a prompt spread across the image. Fake writing survives exclusions in print styles. Getting subject, style and character together isn't reliable by wording alone. Untried: a weaker style reference (0.3 to 0.4), a reference that isn't a building, or a different model; FLUX needs Ken to accept its terms and sign in himself.
+
 **Not yet proven:** the planned test is blind ratings by Ken and Alyssa against Argon's take on the same briefs, and that hasn't happened. Check the SDXL licence terms before anything based on it ships.
 
 ## Suggested order

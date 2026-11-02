@@ -3,10 +3,47 @@
   "size": 1024,
   "seeds": 8,
   "prompts": {
-    "yokai-lantern-moss": "original character design, a small mischievous yokai born from a moss-covered stone lantern in a bamboo forest, one glowing eye in the lantern window, tiny legs, cute, full body, Japanese hariko papier-mache folk toy style, matte chalky paint, hand-painted sumi ink details, vermilion and indigo accents, plain cream background",
-    "yokai-rice-ladle": "original character design, a cheerful tsukumogami yokai that is an old wooden rice paddle come to life, arms and a big toothy grin, wearing a tiny apron, full body, cute, ukiyo-e woodblock print style, flat colours, bold outlines, bokashi gradient, plain washi paper background",
-    "yokai-rain-frog": "original character design, a gentle rain spirit shaped like a fat frog wearing a straw raincoat and carrying a tiny paper umbrella, full body, cute, Japanese sumi-e ink wash painting style, soft brush strokes, a little vermilion accent, plain rice paper background",
-    "island-modern": "isometric miniature diorama of a small modern Japanese town on a floating island surrounded by water, a tiny train station with a train, onsen with steam, shopping arcade, cafe, school, shrine torii, streets connecting clearly separate buildings, cute handmade toy model look, soft lighting, plain background, no text",
-    "island-edo": "isometric miniature diorama of an Edo period Japanese castle town on an island surrounded by turquoise moats, stone rampart walls, a white castle keep, clusters of dark tiled roofs and orange-roofed wooden houses, teahouse, timber yard, market street, handmade scale model look, soft lighting, plain background, no text"
+    "r2-modern-landmarks": {
+      "prompt": "tilt-shift isometric toy model, tiny island in a plain teal sea, contemporary Tokyo neighbourhood, six large separate buildings, glass train station, concrete apartment block, convenience store, cafe, school, roads with white markings, utility poles",
+      "negative": "tiled roof, pagoda, temple, castle, shrine, wooden house, traditional architecture, canal, moat, text, letters, kanji, sign writing, watermark, blurry"
+    },
+    "r2-modern-suburb": {
+      "prompt": "low poly 3D render, small round island town, present-day Japan, flat-roofed white and grey buildings, glass storefronts, vending machines, parking lot, commuter train on elevated track, neat streets, big clear gaps between buildings, soft studio light, plain pale blue background",
+      "negative": "tiled roof, curved roof, pagoda, temple, castle, shrine, wooden house, ancient, medieval, text, letters, kanji, watermark, blurry, cluttered"
+    },
+    "r2-edo-landmarks": {
+      "prompt": "tilt-shift isometric toy model, tiny island in a plain teal sea, Edo period castle town, only six large separate buildings, white castle keep on stone ramparts, teahouse, timber yard, market stall row, wide empty dirt paths between buildings",
+      "negative": "modern building, car, train, crowded, cluttered, dense, text, letters, kanji, watermark, blurry"
+    },
+    "r2-lantern-object": {
+      "prompt": "a single stone toro garden lantern with moss on its roof and two stubby legs, one round glowing eye in its window, it is an object not an animal, cute character, painted papier-mache folk toy, matte chalky paint, centred, plain cream background",
+      "negative": "cat, fox, animal, animal ears, human, face mask, kimono, clothing, arms, text, letters, kanji, seal stamp, calligraphy, watermark, blurry, multiple characters, pattern"
+    },
+    "r2-lantern-toy": {
+      "prompt": "product photo of a Japanese hariko papier-mache toy shaped like a mossy stone lantern yokai, one eye, small feet, hand-painted vermilion and indigo details, chalky matte surface, single object on a plain cream table",
+      "negative": "cat, fox, animal, animal ears, human, kimono, clothing, text, letters, kanji, seal stamp, watermark, blurry, multiple objects"
+    },
+    "r2-ladle-woodblock": {
+      "prompt": "Edo period ukiyo-e woodblock print, Hokusai manga style, a single wooden rice paddle shamoji with thin arms and legs and a small face on its blade, limited palette of indigo and rust, visible wood grain, flat colour, thin outlines, aged paper",
+      "negative": "cartoon, sticker, vector, kawaii mascot, big teeth, human body, kimono, cat, text, letters, kanji, seal stamp, calligraphy, watermark, blurry, multiple characters, pattern"
+    },
+    "r2-ladle-spirit": {
+      "prompt": "traditional Japanese woodblock print of a tsukumogami, an old flat wooden spoon come to life, the spoon itself is the whole body, two thin arms, two thin legs, gentle smile, bokashi gradient background, flat indigo and ochre colours, simple composition",
+      "negative": "cartoon, sticker, vector, big teeth, grin, round head, human body, kimono, animal, text, letters, kanji, seal stamp, calligraphy, watermark, blurry, multiple characters"
+    },
+    "r3-modern-japan": {
+      "prompt": "tilt-shift miniature photo, small green island, present-day Japanese neighbourhood like Shimokitazawa, six separate low buildings, narrow lanes, overhead power lines, konbini, bathhouse with chimney, small train station, pale sea, soft daylight",
+      "negative": "pagoda, castle, temple, skyscraper, high-rise, office tower, crowded, cluttered, text, letters, kanji, sign writing, watermark, blurry"
+    },
+    "r3-modern-hariko": {
+      "prompt": "painted papier-mache toy town on a small island, present-day Japan, train station, convenience store, bathhouse with chimney, apartment building, separate buildings, flat ground, plain pale blue background",
+      "negative": "pagoda, castle, temple, skyscraper, photo of a real city, cluttered, text, letters, kanji, sign writing, watermark, blurry",
+      "style": "hariko-toy-front.png"
+    },
+    "r3-lantern-hariko": {
+      "prompt": "a single cute stone garden lantern yokai with small feet and one round eye, moss on its roof, painted papier-mache folk toy, plain cream background",
+      "negative": "cat, fox, animal ears, human, kimono, house, building, door, text, letters, kanji, seal stamp, watermark, blurry, multiple objects",
+      "style": "hariko-toy-front.png"
+    }
   }
 }
