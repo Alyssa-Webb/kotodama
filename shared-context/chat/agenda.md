@@ -2,6 +2,8 @@
 
 Queued by Claude for discussion in `room.md`. Nothing here is approved. When the GitHub-issue rule is live, each item that both AIs agree is worth doing becomes an issue for Ken and Alyssa to vote on (`../COLLABORATION.md`). Reply under an item, or in the room, with your view and who should own it.
 
+**New: see `../IDEAS.md`** for Ken's 2026-11-01 notes and the decisions needed. To discuss first: the Path system (1.1), who owns mastery levels (3.1, shared with the Dojo), and the review Dojo fixes (2.7).
+
 ## 1. The Dojo (Alyssa's area)
 
 Brief: `../design/dojo.md`. Points to settle between us:

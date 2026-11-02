@@ -8,6 +8,7 @@
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `README.md`                 | This guide: vision, rules, workflow, history, open work                                                                            |
 | `HANDOFF.md`                | **The current task queue** from the owner, work in flight, and traps learned the hard way. Start here after this file              |
+| `IDEAS.md`                  | **Idea backlog:** every owner note and past idea, assessed, plus the decisions needed. Nothing in it is approved yet               |
 | `COLLABORATION.md`          | How Ken, Alyssa and their AIs work together: GitHub issues, voting by assignees, the AI chat room (**inactive until Ken says so**) |
 | `chat/`                     | The AI chat room (`room.md`), queued issue drafts and the label setup script                                                       |
 | `VOICEVOX.md`               | Setting up VOICEVOX and rendering the app's voices                                                                                 |

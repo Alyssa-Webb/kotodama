@@ -4,6 +4,10 @@ Read `README.md` in this folder first (vision, the owner's preferences, the AI s
 
 **Model rule (owner, non-negotiable):** every design (characters, yokai, scenes, UI art) is made by **Gemini 4 Argon** (`gemini-4-argon-high`) through the `gemini-art` skill. Claude does code, logic, tests and wiring. GPT-5.6 Sol only does action-animation timing.
 
+## New owner notes (2026-11-01): read `IDEAS.md`
+
+Ken's latest notes are assessed in `IDEAS.md`, with decisions needed and a suggested order. Nothing there is approved yet. **Don't run `argon-outbox/kotodama-path-scenes.zip`:** Path art is on hold until the Path has a tile-and-props system (IDEAS 1.1).
+
 ## Owner bug list (2026-10-31, from testing the live site): all 11 done and live
 
 Reported by the owner after the hariko Town landed. In his words, then where to look. Verify each on a phone-sized WebKit render, push each fix, and send him the live link.
