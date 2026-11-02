@@ -14,6 +14,7 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 4. **Koto's desk replaces the page titles on desk pages.** "The desk" means the whole framed stage of Koto's UI (as mayor in the Town, with his mustache in the Shop). Its current size is good. It **doesn't appear on the full-screen Path,** which is like the Dojo: the design is the screen. The Town map's treatment follows the same logic where it's full screen.
 5. **Characters change art style per area, for now** (tentative: "Sure, why not for now?"). This multiplies art: each character and outfit would need up to three styles, so prove it on one character before committing (2.1).
 6. **No toy aesthetic (2026-11-02).** Ken: "I hate the toy aesthetic completely... I hate all of it." Hariko is out of Home, Town, Shop, gachapon and characters, and its replacement is undecided (`docs/adr/0010-no-toy-aesthetic.md`). Don't start the Shop's hariko restyle.
+7. **What Ken likes (2026-11-02).** References: Nine Sols, Kingdoms and Castles, Lil Guardsman, Ori and the Will of the Wisps, Night in the Woods. In the game: the light mode palette, the combat style direction and the monster sprites. See `design/library/ledger.json`.
 
 ## Owner notes, 2026-11-01
 
@@ -92,6 +93,18 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 - **Doesn't yet:** front faces are weak, some details come and go, sumi-e sheets gain fake seals, the raised-arm views don't read as raised, and side views look flat because the 3D shape is relief-like. All of it is raster.
 - **New chibi designs:** `sheet-r4-chibi-text` (flat illustration) is charming and clean, though generic, and proportions slip in some images.
 - **Proposed use:** back views and turnaround references for Argon or an SVG redraw, which 2.1 and 2.3 need, plus cheap style exploration for the art that replaces hariko. Argon's output from these references hasn't been tested.
+
+**Style comparison to replace hariko (2026-11-02):** `tools/server3d/art/explore.py` drew the same 4 subjects in 5 looks, described in our own words from Ken's references (80 images). Sheets are in `design/reference/server-art/explore/`. Claude's read, not a verdict; Ken chooses.
+
+| Look           | Island town                                             | Station                | Chibi vendor    | Fit for simple SVG              |
+| -------------- | ------------------------------------------------------- | ---------------------- | --------------- | ------------------------------- |
+| `tiny-blocks`  | Best: clear separate buildings, one real island cluster | Clean, but rural       | Failed          | Good: flat facets               |
+| `flat-shapes`  | Busy                                                    | Best: clean and simple | Not chibi       | Best                            |
+| `painted-glow` | Attractive                                              | Attractive, dark       | Only real chibi | Poor: relies on glow and detail |
+| `ink-myth`     | Busy                                                    | Too ornate             | Not chibi       | Fair                            |
+| `comic-ink`    | Busiest                                                 | Busy                   | Bearded adults  | Poor                            |
+
+**Limits:** all 5 failed the onigiri icon, vendors came with full market scenes despite "plain background", color words took over each sheet, and buildings mostly weren't modern. So this tests world looks, not characters. The monster sprites Ken likes are the better anchor for characters.
 
 **Not yet proven:** the planned test is blind ratings by Ken and Alyssa against Argon's take on the same briefs, and that hasn't happened. Check the SDXL licence terms before anything based on it ships.
 

@@ -1,0 +1,19 @@
+{
+  "steps": 30,
+  "size": 1024,
+  "seeds": 4,
+  "negative": "toy, figurine, clay, plastic, vinyl, papier-mache, doll, photo, realistic, text, letters, kanji, seal stamp, signature, watermark, blurry, deformed",
+  "styles": {
+    "ink-myth": "hand-drawn 2D game art, clean confident ink linework, flat cel shading, muted teal and rust, East Asian myth mood",
+    "painted-glow": "painterly 2D game art, soft luminous light, glowing highlights, atmospheric depth, deep blue shadows and warm gold",
+    "flat-shapes": "flat 2D illustration, simple bold geometric shapes, no outlines, soft muted autumn colours, quiet small-town mood",
+    "tiny-blocks": "simple low poly isometric game art, clean chunky faceted shapes, soft sunlight, gentle greens, tiny and charming",
+    "comic-ink": "hand-drawn cartoon game art, thick slightly wobbly ink outlines, exaggerated shapes, warm comic colours, storybook humour"
+  },
+  "subjects": {
+    "station": "a small present-day Japanese train station building, one building, plain background",
+    "town": "a small island town seen from above, present-day Japan, six separate buildings, roads, sea around it",
+    "vendor": "a cute chibi street food vendor, big head, small body, apron, full body, plain background",
+    "onigiri": "a single onigiri rice ball with a strip of nori, game item icon, plain background"
+  }
+}

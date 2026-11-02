@@ -22,6 +22,45 @@
       ]
     },
     {
+      "id": "light-mode-palette",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-11-02",
+      "quote": "I like the light mode palette and how it blends.",
+      "why": "The light theme colors. Keep them; dark mode wasn't mentioned.",
+      "files": ["design/tokens.json"]
+    },
+    {
+      "id": "combat-style",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-11-02",
+      "quote": "I like the combat style direction.",
+      "why": "The direction of the battle screens.",
+      "files": ["src/features/lesson/BattleStage.tsx", "src/features/lesson/BattleBackdrops.tsx"]
+    },
+    {
+      "id": "monster-sprites",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-11-02",
+      "quote": "I like the art of the monster sprites.",
+      "why": "The foe art. The best current example of game art Ken likes.",
+      "files": [
+        "src/foundations/art/foes/DojoFoes.tsx",
+        "src/foundations/art/foes/ForestYokai.tsx",
+        "src/foundations/art/foes/CityYokai.tsx"
+      ]
+    },
+    {
+      "id": "outside-references",
+      "verdict": "approved",
+      "by": "Ken",
+      "date": "2026-11-02",
+      "quote": "Nine Sols, kingdoms and castles, Lil guardsman, ori and the will of the wisps, night in the woods for art.",
+      "why": "Games whose look Ken loves, summed up as \"the type of chibi and kind of simplistic style I'm looking for.\" They guide the replacement for hariko; learn from them, and never copy their characters or art."
+    },
+    {
       "id": "toy-aesthetic",
       "verdict": "rejected",
       "by": "Ken",
