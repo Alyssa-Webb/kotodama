@@ -30,6 +30,7 @@ export default tseslint.config(
       'dist',
       'dist-*',
       'argon-outbox',
+      '.claude',
       'dev-dist',
       'node_modules',
       'coverage',

@@ -23,13 +23,13 @@ Ken's and Alyssa's main worry is the two AIs coding at the same time. This board
 
 | Task                                        | AI     | Files and folders                                                                                        | Branch                   | Issue | Claimed (UTC)    |
 | ------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- | ------------------------ | ----- | ---------------- |
-| Frame-rate meter (`?fps`)                   | Claude | `src/foundations/perf/**`, `src/main.tsx`, `e2e/fps-meter.spec.ts`                                       | main                     |       | 2026-11-02 09:10 |
 | Town station: low-poly test (one Argon run) | Claude | `src/features/town/buildings/Station.tsx`, `src/features/town/buildings/BuildingArt.tsx`, `tools/art/**` | art/town-station-lowpoly |       | 2026-11-02 08:35 |
 
 ## Done
 
 | Task                                                    | AI          | Finished (UTC)   | Commit      |
 | ------------------------------------------------------- | ----------- | ---------------- | ----------- |
+| Frame-rate meter (`?fps`)                               | Claude      | 2026-11-02 09:30 | (this push) |
 | Art review tools: library, render harness, gate         | Claude      | 2026-11-02 07:50 | (this push) |
 | Battle walk: the road moves, not the sky                | Claude      | 2026-10-30 20:10 | `128eace`   |
 | Town as an illustrated map                              | Claude      | 2026-10-30 20:55 | `c6dc8f5`   |
