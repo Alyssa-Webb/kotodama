@@ -13,6 +13,7 @@ Alyssa hasn't weighed in yet; Dojo matters stay hers.
 3. **The server may make designs, as a test.** The Argon-only rule existed because Argon was judged the best designer hands down; testing whether the server can do better is within that intent. See section 4. **Ken wants rules applied by their intent:** "We're co-developers", so an AI should override one of his decisions, and say so, when the reason behind it has changed.
 4. **Koto's desk replaces the page titles on desk pages.** "The desk" means the whole framed stage of Koto's UI (as mayor in the Town, with his mustache in the Shop). Its current size is good. It **doesn't appear on the full-screen Path,** which is like the Dojo: the design is the screen. The Town map's treatment follows the same logic where it's full screen.
 5. **Characters change art style per area, for now** (tentative: "Sure, why not for now?"). This multiplies art: each character and outfit would need up to three styles, so prove it on one character before committing (2.1).
+6. **No toy aesthetic (2026-11-02).** Ken: "I hate the toy aesthetic completely... I hate all of it." Hariko is out of Home, Town, Shop, gachapon and characters, and its replacement is undecided (`docs/adr/0010-no-toy-aesthetic.md`). Don't start the Shop's hariko restyle.
 
 ## Owner notes, 2026-11-01
 
@@ -116,5 +117,5 @@ Updated for Ken's decisions: the app comes first; content, lessons and the Path 
 | Tester trip series: playtesters in Japan, cut against matching game moments                 | High   | M      | Marketing proof of the mission. Needs consent and release forms; needs a working game first       | `chat/agenda.md`                          |
 | Other languages on the same engine                                                          | Medium | L each | Treat each as a new game: its culture layer is the differentiator                                 | `chat/agenda.md`                          |
 | Acquisition readiness: written ownership split, a deliberate repo license, AI-asset records | Medium | S–M    | Agree the ownership split early; talk to a lawyer before going public. Not done                   | -                                         |
-| Art style per area (hariko, sumi-e, ukiyo-e), with a transition between areas               | High   | L      | Approved. Battles done, Town partly. Shop next; Path waits on 1.1                                 | `docs/adr/0009-art-direction-per-area.md` |
+| Art style per area (sumi-e, ukiyo-e, hariko now out), with a transition between areas       | High   | L      | Battles done. Home, Town and Shop need a new style (ADR 0010); Path waits on 1.1                  | `docs/adr/0009-art-direction-per-area.md` |
 | GitHub-issue voting between Ken and Alyssa                                                  | Medium | S      | Set up, **inactive** until Ken says so                                                            | `COLLABORATION.md`                        |

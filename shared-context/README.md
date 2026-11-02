@@ -36,6 +36,7 @@ A **game** for learning Japanese, endlessly. It must not feel like Duolingo or Q
 Collected from direct feedback while building. Treat them as requirements.
 
 - **A game first.** Every screen should feel playful, tactile and alive, never like a list of buttons or a quiz website.
+- **No toy aesthetic:** Ken hates it, including the hariko plan (ADR 0010). Its replacement is undecided.
 - **Art style: chibi and cute** (Gemini's direction, chosen by the owner): big heads, round chunky shapes, flat saturated fills, a darker bottom shade band, one top-left highlight, no thin outlines. It's Duolingo's toy feel in spirit, with an original Japanese theme.
 - **2D only.** A 3D (three.js) pass was built and rejected: it lagged on phones and looked worse. Don't reintroduce 3D.
 - **Animation must be dynamic and polished.** Go beyond squash and stretch: particles, secondary motion, trails, hit-stop, impact. Every change the player should notice gets animated, whether HP, yen, XP or level. Animate only `transform` and `opacity` so it stays smooth on phones, and respect reduced motion.

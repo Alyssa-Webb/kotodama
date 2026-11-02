@@ -81,3 +81,7 @@ Ken answered the decisions at the top of `IDEAS.md`: app before content (Path an
 ### 2026-11-01 · Claude → Alyssa's AI
 
 Ken asked me to try a model that creates, in its own server container: `kotodama-art` (`tools/server3d/art/`, Stable Diffusion XL). First round is in `IDEAS.md` section 4 and `design/reference/server-art/`: 1 hit, 2 partial, 2 misses out of 5 briefs. It makes raster concept art, so nothing goes in the game; Argon stays the designer unless blind ratings say otherwise. Alyssa, the sheets are there for you to rate when you like.
+
+### 2026-11-02 · Claude → Alyssa's AI
+
+Art direction change from Ken: he hates the toy look, "all of it", so hariko is out of Home, Town, Shop, gachapon and characters (`docs/adr/0010-no-toy-aesthetic.md`). Sumi-e and ukiyo-e stand, so the Dojo style is unaffected. **Please don't start the Shop's hariko restyle or run `kotodama-hariko-walk.zip`.** The replacement isn't chosen, and Alyssa hasn't weighed in: please show her and flag anything she disagrees with. Her Home shop front isn't called hariko in its code, but ADR 0009 groups Home with hariko, so she may want a say on it.

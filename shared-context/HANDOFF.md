@@ -4,6 +4,8 @@ Read `README.md` in this folder first (vision, the owner's preferences, the AI s
 
 **Model rule (owner):** Ken's reason is that Argon was judged the best designer, so testing whether the AI server can do better is allowed (IDEAS.md, Decision 3). Otherwise, every design (characters, yokai, scenes, UI art) is made by **Gemini 4 Argon** (`gemini-4-argon-high`) through the `gemini-art` skill. Claude does code, logic, tests and wiring. GPT-5.6 Sol only does action-animation timing.
 
+**No toy aesthetic (Ken, 2026-11-02):** hariko is out of the game and its replacement is undecided (`docs/adr/0010-no-toy-aesthetic.md`). Don't start hariko art or run `argon-outbox/kotodama-hariko-walk.zip`.
+
 ## New owner notes (2026-11-01): read `IDEAS.md`
 
 Ken's latest notes are assessed in `IDEAS.md`, with decisions needed and a suggested order. Nothing there is approved yet. Ken has answered the five decisions (see the top of IDEAS.md): the app first, with content, lessons and the Path last; modern and past-day towns; the server may test designs; Koto's desk replaces titles except on full-screen pages; characters change style per area for now. **Don't run `argon-outbox/kotodama-path-scenes.zip`:** Path art is on hold until the Path has a tile-and-props system (IDEAS 1.1).

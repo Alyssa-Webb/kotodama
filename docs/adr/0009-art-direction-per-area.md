@@ -1,5 +1,7 @@
 # 0009 — A traditional Japanese art style per area
 
+> Partly replaced by ADR 0010: hariko is out. Sumi-e and ukiyo-e stand.
+
 - Context: the owner found the chibi house style too generic ("we need our own style a bit more, maybe a more traditional Japanese style"). A Koto style study by Gemini 4 Argon (`design/reference/style-study/`) drew him as an Edo hariko folk toy, an ukiyo-e woodblock print and a sumi-e ink painting. The owner liked all three and chose to give each area its own style, so the change of art tells the player where they are.
 - Decision: each area takes the style that suits it.
   - **Home, Town, Shop and gachapon: hariko folk toy (張り子).** The cozy home base of shops and prizes; hariko are the toys sold there, and Koto is a maneki-neko.
